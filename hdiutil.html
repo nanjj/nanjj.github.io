@@ -3,7 +3,7 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2017-10-23 Mon 18:56 -->
+<!-- 2017-10-24 Tue 00:04 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>How to Manipulate Disk Images Under Mac</title>
@@ -12,16 +12,19 @@
 <link rel="stylesheet" type="text/css" href="css/org.css" />
 </head>
 <body>
-<div id="content">
+<div id="org-div-home-and-up">
+ <a accesskey="h" href="index.html"> UP </a> | 
+ <a accesskey="H" href="index.html"> HOME </a>
+</div><div id="content">
 <h1 class="title">How to Manipulate Disk Images Under Mac</h1>
 <div id="table-of-contents">
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents">
 <ul>
-<li><a href="#orgcbe5939">Create Disk Image</a></li>
-<li><a href="#org45b1b43">Attach Disk Image</a></li>
-<li><a href="#org0206b05">Detach Disk Image</a></li>
-<li><a href="#org142aaab">Resize Disk Image If needed</a></li>
+<li><a href="#org58e3b97">Create Disk Image</a></li>
+<li><a href="#orgc3588b1">Attach Disk Image</a></li>
+<li><a href="#org495ecbc">Detach Disk Image</a></li>
+<li><a href="#org3d60a71">Resize Disk Image If needed</a></li>
 </ul>
 </div>
 </div>
@@ -37,9 +40,9 @@ Say we want to create disk image at <code>/usr/local</code>, and attach it to
 <code>/usr/local/src</code>. All operations are executed under <code>/usr/local</code>.
 </p>
 
-<div id="outline-container-orgcbe5939" class="outline-2">
-<h2 id="orgcbe5939">Create Disk Image</h2>
-<div class="outline-text-2" id="text-orgcbe5939">
+<div id="outline-container-org58e3b97" class="outline-2">
+<h2 id="org58e3b97">Create Disk Image</h2>
+<div class="outline-text-2" id="text-org58e3b97">
 <div class="org-src-container">
 <pre class="src src-sh">$ hdiutil create -size 10G src -type SPARSE -fs <span style="color: #bdb76b;">'Case-sensitive Journaled HFS+'</span> -volname src
 created: /usr/local/src.sparseimage
@@ -48,9 +51,9 @@ created: /usr/local/src.sparseimage
 </div>
 </div>
 
-<div id="outline-container-org45b1b43" class="outline-2">
-<h2 id="org45b1b43">Attach Disk Image</h2>
-<div class="outline-text-2" id="text-org45b1b43">
+<div id="outline-container-orgc3588b1" class="outline-2">
+<h2 id="orgc3588b1">Attach Disk Image</h2>
+<div class="outline-text-2" id="text-orgc3588b1">
 <div class="org-src-container">
 <pre class="src src-sh">$ mkdir src
 $ hdiutil attach -mountpoint src src.sparseimage <span style="color: #00cd66;">#</span><span style="color: #00cd66;">=&gt;</span>
@@ -62,9 +65,9 @@ $ hdiutil attach -mountpoint src src.sparseimage <span style="color: #00cd66;">#
 </div>
 </div>
 
-<div id="outline-container-org0206b05" class="outline-2">
-<h2 id="org0206b05">Detach Disk Image</h2>
-<div class="outline-text-2" id="text-org0206b05">
+<div id="outline-container-org495ecbc" class="outline-2">
+<h2 id="org495ecbc">Detach Disk Image</h2>
+<div class="outline-text-2" id="text-org495ecbc">
 <div class="org-src-container">
 <pre class="src src-sh">$ hdiutil detach src <span style="color: #00cd66;">#</span><span style="color: #00cd66;">=&gt;</span>
 <span style="color: #bdb76b;">"disk4"</span> unmounted.
@@ -74,9 +77,9 @@ $ hdiutil attach -mountpoint src src.sparseimage <span style="color: #00cd66;">#
 </div>
 </div>
 
-<div id="outline-container-org142aaab" class="outline-2">
-<h2 id="org142aaab">Resize Disk Image If needed</h2>
-<div class="outline-text-2" id="text-org142aaab">
+<div id="outline-container-org3d60a71" class="outline-2">
+<h2 id="org3d60a71">Resize Disk Image If needed</h2>
+<div class="outline-text-2" id="text-org3d60a71">
 <p>
 If <code>20G</code> is not enough you can resize the image:
 </p>
@@ -87,11 +90,6 @@ If <code>20G</code> is not enough you can resize the image:
 </div>
 </div>
 </div>
-</div>
-<div id="postamble" class="status">
-<p class="author">Author: Nan Jun Jie</p>
-<p class="date">Created: 2017-10-23 Mon 18:56</p>
-<p class="validation"><a href="http://validator.w3.org/check?uri=referer">Validate</a></p>
 </div>
 </body>
 </html>

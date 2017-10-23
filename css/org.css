@@ -73,19 +73,10 @@ a:visited {
     text-decoration: none;
 }
 
-div#content div#org-div-home-and-up {
-    background: #369;
-    color: #fff;
-}
-
-div#org-div-home-and-up a:link,
-div#org-div-home-and-up a:visited {
-    color: #fff;
-    background: #369;
-}
-
-div#org-div-home-and-up a:hover {
-    color: #900;
+div#org-div-home-and-up {
+    text-align: right;
+    font-size: 85%;
+    white-space: nowrap; 
 }
 
 div.title {
@@ -805,8 +796,10 @@ td, th {
 }
 .org-variable-pitch {
 }
+
 .org-vertical-border {
 }
+
 .org-warning {
     /* font-lock-warning-face */
     color: #ff0000;
