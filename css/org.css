@@ -1,5 +1,4 @@
 @import url(fonts.css?family=Open+Sans);
-
 body {
     padding: 0;
     background: #eee none repeat scroll 0 0;
@@ -7,32 +6,33 @@ body {
     margin: 0px auto;
     padding: 1em;
     color: #000;
-    font-family: "Open Sans", "Bitstream Vera Sans", "Verdana", sans-serif;
+    font-family: "Droid Serif", "Open Sans", Cambria, Georgia, "DejaVu Serif", serif;
+    /* font-family: "Open Sans", "Bitstream Vera Sans", "Verdana", sans-serif; */
     line-height: 1.4em;
     font-size: 90%;
 }
 
 code {
-    color: #00f;
+    color: #666;
     padding: 1px 1px 1px 1px;
     border: 1px solid #ddd;
     background: #eee;
-    font-size: 115%;
+    /* font-size: 115%; */
     border-radius: 2px;
     line-height: 1em;
-    font-family: monospace;
+    font-family: Droid Sans Mono;
 }
 
 pre {
     border: 1pt solid #AEBDCC;
-    background: #eee;
+    background: #333;
+    color: #eee;
     padding: 5pt;
     overflow: auto;
     border-radius: 4px;
     box-shadow: 3px 3px 3px #eee;
-    line-height: 1em;
-    font-family: monospace;
-    font-size: 115%;
+    line-height: 1.3em;
+    font-family: Droid Sans Mono;
 }
 
 div#content {
@@ -61,11 +61,9 @@ a:hover {
     color: #900;
 }
 
-/*
 a:visited {
     color: #939;
 }
-*/
 
 #table-of-contents {
     margin: 1em 0;
@@ -90,8 +88,7 @@ div.title {
 }
 
 h1 {
-    background: #369 none repeat scroll 0 0;*/
-    font-family: "Cardo", "Palatino Linotype", "Book Antiqua", Palatino, serif;
+    background: #369 none repeat scroll 0 0;
     color: #fff;
     font-size: 230%;
     font-weight: bold;
@@ -102,29 +99,25 @@ h1 {
 
 h2 {
     font-size: 200%;
-    font-family: "Cardo", "Palatino Linotype", "Book Antiqua", Palatino, serif;
     border-bottom: 1px solid #ccc;
     padding: .2em;
 }
 
 h3 {
     font-size: 170%;
-    font-family: "Cardo", "Palatino Linotype", "Book Antiqua", Palatino, serif;
     border-bottom: 1px solid #eee;
     padding: .2em;
 }
 
 h4 {
     font-size: 140%;
-    font-family: "Cardo", "Palatino Linotype", "Book Antiqua", Palatino, serif;
     border-bottom: 1px solid #eee;
     padding: .2em;
 }
 
-/* h1, h2, h3, h4, h5, h6 {
+h1, h2, h3, h4, h5, h6 {
     text-transform: capitalize;
 }
-*/
 
 tt {
     color: #00f;
@@ -137,6 +130,7 @@ tt {
 .verbatim pre {
     margin: 0;
 }
+
 .verbatim-caption {
     border: 1px solid #ccc;
     border-bottom: 0;
@@ -190,6 +184,7 @@ span.underline {
     background: #ff0;
     font-weight: bold;
 }
+
 .ra {
     text-align: right;
 }
@@ -202,6 +197,7 @@ span.underline {
     margin: 2em -2em 2em 2em;
     padding: 1em;
 }
+
 .sidebar a {
     border: none;
 }
@@ -223,7 +219,7 @@ span.underline {
 
 .title { text-align: center; }
 .todo  {
-    font-family: monospace;
+    font-family: Droid Sans Mono;
     color: red;
 }
 .done { color: green; }
@@ -804,4 +800,23 @@ td, th {
     /* font-lock-warning-face */
     color: #ff0000;
     font-weight: bold;
+}
+
+.move { 
+    float: left;
+    font-weight: 800;
+    font-size: 1.3em;
+    color: #ccc;
+    letter-spacing: 1.4pt;
+    background-color: white;
+    box-shadow: 0px 0px 0px white;
+}
+
+.move a {
+    color: #ccc;
+}
+
+.move a:hover {
+    color: grey;
+    text-decoration: none;
 }

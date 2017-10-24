@@ -1,0 +1,60 @@
+#+TITLE: Publish Github Pages via Org Mode
+#+LINK: Google http://www.google.com/search?q=%s
+#+LINK: Hugo https://gohugo.io/
+#+LINK: Jekyll https://jekyllrb.com/
+
+Now switched from [[Jekyll][Jekyll]], [[Hugo][Hugo]] to Emacs Org Publish.
+
+* Customization
+
+  First we need to customize variable =org-publish-project-alist=:
+  
+  #+BEGIN_SRC lisp
+    ("blog"
+     :base-directory "."
+     :publishing-directory "."
+     :base-extension "org"
+     :recursive t
+     :publishing-function org-html-publish-to-html
+     :headline-levels 4
+     :auto-preamble t
+     :section-numbers nil
+     :makeindex nil
+     :html-head-include-scripts nil
+     :html-head-include-default-style nil
+     :auto-sitemap t
+     :sitemap-filename "index.org"
+     :sitemap-title "Thatched Cottage"
+     :sitemap-sort-files anti-chronologically
+     :sitemap-format-entry org-publish-sitemap-time-entry
+     :html-postamble nil)
+  #+END_SRC
+
+  My =sitemap-format-entry=, add timestamp before the sitemap entry:
+
+  #+BEGIN_SRC lisp
+    (defun org-publish-sitemap-time-entry (entry style project)
+      (format "%s %s"
+              (format-time-string
+               "[%Y-%m-%d %a %H:%s]"
+               (org-publish-find-date entry project))
+              (org-publish-sitemap-default-entry entry style project)))
+  #+END_SRC
+
+  Set =org-html-head= to(=customize-variable org-html-head=) to use my
+  =org.css=:
+  #+BEGIN_SRC html
+  <link rel="stylesheet" type="text/css" href="css/org.css" />
+  #+END_SRC
+
+* Get Css and Fonts
+
+  I must put the fonts local because most people living here can not
+  access google fonts service directly.  Get the css and fonts from
+  Below:
+  
+  1. [[./css/org.css][org.css]],
+  2. [[./css/fonts.css][fonts.css]],
+  3. [[./css/DroidSans.ttf][DroidSans.ttf]],
+  4. [[./css/DroidSansMono.ttf][DroidSansMono.ttf]],
+  5. [[./css/DroidSerif.ttf][DroidSerif.ttf]].

@@ -1,6 +1,18 @@
 @font-face {
-  font-family: 'Open Sans';
+  font-family: 'Droid Sans';
   font-style: normal;
   font-weight: 400;
-  src: local('Open Sans Regular'), local('OpenSans-Regular'), url(opensans.ttf) format('truetype');
+  src: local('Droid Sans Regular'), local('DroidSans-Regular'), url(DroidSans.ttf) format('truetype');
+}
+@font-face {
+  font-family: 'Droid Sans Mono';
+  font-style: normal;
+  font-weight: 400;
+  src: local('Droid Sans Mono Regular'), local('DroidSansMono-Regular'), url(DroidSansMono.ttf) format('truetype');
+}
+@font-face {
+  font-family: 'Droid Serif';
+  font-style: normal;
+  font-weight: 400;
+  src: local('Droid Serif Regular'), local('DroidSerif-Regular'), url(DroidSerif.ttf) format('truetype');
 }
