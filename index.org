@@ -1,4 +1,4 @@
 #+TITLE: Thatched Cottage
 
+- [2017-10-24 Tue 13:15] [[file:hdiutil.org][How to Manipulate Disk Images Under Mac]]
 - [2017-10-24 Tue 13:15] [[file:org-publish.org][Publish Github Pages via Org Mode]]
-- [2017-10-23 Mon 16:15] [[file:hdiutil.org][How to Manipulate Disk Images Under Mac]]

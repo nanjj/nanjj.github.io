@@ -3,7 +3,7 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2017-10-24 Tue 13:26 -->
+<!-- 2017-10-24 Tue 13:39 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>How to Manipulate Disk Images Under Mac</title>
@@ -30,9 +30,9 @@
 </div>
 <p>
 By default, file system under Mac is case insensitive. It may cause
-trouble when you work with some case sensitive projects like Linux
-Kernel. To solve the problem, you can create a disk image with case
-sensitive file system, and attach to use.
+trouble when you work with some projects like Linux Kernel. To solve
+the problem, you can create a disk image with case sensitive file
+system, and attach to a mount point to use.
 </p>
 
 <p>
@@ -45,9 +45,13 @@ Say we want to create disk image at <code>/usr/local</code>, and attach it to
 <div class="outline-text-2" id="text-org951e9b0">
 <div class="org-src-container">
 <pre class="src src-sh">$ hdiutil create -size 10G src -type SPARSE -fs <span style="color: #bdb76b;">'Case-sensitive Journaled HFS+'</span> -volname src
-created: /usr/local/src.sparseimage
 </pre>
 </div>
+
+<p>
+Image <code>src.sparseimage</code> will be created, with case sensitive
+journaled file system and the size limit 20G.
+</p>
 </div>
 </div>
 
