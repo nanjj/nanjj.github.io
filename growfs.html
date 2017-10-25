@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+<!-- 2017-10-27 Fri 00:17 -->
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Disk Resize Under FreeBSD</title>
+<meta name="generator" content="Org mode" />
+<meta name="author" content="Nan Jun Jie" />
+<link rel="stylesheet" type="text/css" href="css/org.css" />
+</head>
+<body>
+<div id="org-div-home-and-up">
+ <a accesskey="h" href="index.html"> UP </a> | 
+ <a accesskey="H" href="index.html"> HOME </a>
+</div><div id="content">
+<h1 class="title">Disk Resize Under FreeBSD</h1>
+<div id="table-of-contents">
+<h2>Table of Contents</h2>
+<div id="text-table-of-contents">
+<ul>
+<li><a href="#orgae1bf80">List Disks</a></li>
+<li><a href="#org97f7c19">Show and Recover if Needed</a></li>
+<li><a href="#orgc146c39">Resize Partition</a></li>
+<li><a href="#org538c0c3">Grow Filesystem</a></li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-orgae1bf80" class="outline-2">
+<h2 id="orgae1bf80">List Disks</h2>
+<div class="outline-text-2" id="text-orgae1bf80">
+<p>
+First to list the geoms:  
+</p>
+<pre class="example">
+gpart list #=&gt;
+Geom name: vtbd0
+modified: false
+state: CORRUPT
+...
+</pre>
+</div>
+</div>
+
+<div id="outline-container-org97f7c19" class="outline-2">
+<h2 id="org97f7c19">Show and Recover if Needed</h2>
+<div class="outline-text-2" id="text-org97f7c19">
+<p>
+Show the Geom: 
+</p>
+<pre class="example">
+gpart show vtbd0
+=&gt;       3  44040315  vtbd0  GPT  (40G) [CORRUPT]
+         3       118      1  freebsd-boot  (59K)
+       121   2097152      2  freebsd-swap  (1.0G)
+   2097273  41943040      3  freebsd-ufs  (20G)
+  44040313         5         - free -  (2.5K)
+</pre>
+
+<p>
+If the <code>state</code> shows <code>CORRUPT</code>, we need to recover it:  
+</p>
+<pre class="example">
+gpart recover vtbd0
+vtbd0 recovered
+</pre>
+
+<p>
+Show again and the <code>CORRUPT</code> mark disappeared:  
+</p>
+<pre class="example">
+gpart show vtbd0
+=&gt;       3  83886069  vtbd0  GPT  (40G)
+       3       118      1  freebsd-boot  (59K)
+     121   2097152      2  freebsd-swap  (1.0G)
+ 2097273  41943040      3  freebsd-ufs  (20G)
+44040313  39845759         - free -  (19G)
+</pre>
+
+<p>
+Apparently the partition 3 should be resized.
+</p>
+</div>
+</div>
+
+<div id="outline-container-orgc146c39" class="outline-2">
+<h2 id="orgc146c39">Resize Partition</h2>
+<div class="outline-text-2" id="text-orgc146c39">
+<p>
+Run resize on partition 3:
+</p>
+<pre class="example">
+gpart resize -i 3 -a 4k vtbd0
+vtbd0p3 resized
+gpart show vtbd0
+=&gt;       3  83886069  vtbd0  GPT  (40G)
+         3       118      1  freebsd-boot  (59K)
+       121   2097152      2  freebsd-swap  (1.0G)
+   2097273  81788799      3  freebsd-ufs  (39G)
+</pre>
+</div>
+</div>
+
+<div id="outline-container-org538c0c3" class="outline-2">
+<h2 id="org538c0c3">Grow Filesystem</h2>
+<div class="outline-text-2" id="text-org538c0c3">
+<p>
+According <a href="https://www.freebsd.org/doc/handbook/disks-growing.html">FreeBSD Doc</a>, <code>growfs</code> should be run as below:
+</p>
+<pre class="example">
+growfs /dev/vtbd0p3
+</pre>
+
+<p>
+But it doesn't work with below error reported:
+</p>
+<pre class="example">
+growfs: /dev/vtbd0p3: Operation not permitted  
+</pre>
+
+<p>
+A workaround is to run <code>service growfs onestart</code>:
+</p>
+<pre class="example">
+service growfs onestart
+Growing root partition to fill device
+vtbd0 recovering is not needed
+vtbd0p3 resized
+super-block backups (for fsck_ffs -b #) at:
+ 42314112, 43596352, 44878592, 46160832, 47443072, 48725312, 50007552, 51289792, 52572032, 53854272, 55136512,
+ 56418752, 57700992, 58983232, 60265472, 61547712, 62829952, 64112192, 65394432, 66676672, 67958912, 69241152,
+ 70523392, 71805632, 73087872, 74370112, 75652352, 76934592, 78216832, 79499072, 80781312
+</pre>
+
+<p>
+After that I run <code>shutdown -r now</code>, the VM hang at:
+</p>
+<pre class="example">
+run_interrupt_driven_hooks: still waiting after 60 seconds for xpt_config
+run_interrupt_driven_hooks: still waiting after 120 seconds for xpt_config
+</pre>
+
+<p>
+After restarted it's OK to boot to login.
+</p>
+
+<p>
+Looks FreeBSD image is not polished well for cloud using.
+</p>
+</div>
+</div>
+</div>
+</body>
+</html>
