@@ -58,3 +58,26 @@ Now switched from [[Jekyll][Jekyll]], [[Hugo][Hugo]] to Emacs Org Publish.
   3. [[./css/DroidSans.ttf][DroidSans.ttf]],
   4. [[./css/DroidSansMono.ttf][DroidSansMono.ttf]],
   5. [[./css/DroidSerif.ttf][DroidSerif.ttf]].
+* The Project
+  #+BEGIN_EXAMPLE
+    .
+    ├── .git
+    ├── .nojekyll
+    ├── README.md
+    ├── css
+    │   ├── DroidSans.ttf
+    │   ├── DroidSansMono.ttf
+    │   ├── DroidSerif.ttf
+    │   ├── fonts.css
+    │   └── org.css
+    ├── dummynet.html
+    ├── dummynet.org
+    ├── growfs.html
+    ├── growfs.org
+    ├── hdiutil.html
+    ├── hdiutil.org
+    ├── index.html
+    ├── index.org
+    ├── org-publish.html
+    └── org-publish.org
+  #+END_EXAMPLE
