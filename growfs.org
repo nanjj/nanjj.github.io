@@ -4,7 +4,8 @@
 
   First to list the geoms:  
   #+BEGIN_EXAMPLE
-    gpart list #=>
+    gpart list
+    =>
     Geom name: vtbd0
     modified: false
     state: CORRUPT
@@ -83,6 +84,6 @@
   run_interrupt_driven_hooks: still waiting after 120 seconds for xpt_config
   #+END_EXAMPLE
 
-  After restarted it's OK to boot to login.
+  After force restarted it's bootable again.
 
   Looks FreeBSD image is not polished well for cloud using.

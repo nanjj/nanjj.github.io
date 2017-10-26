@@ -3,7 +3,7 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2017-10-27 Fri 00:17 -->
+<!-- 2017-10-27 Fri 00:21 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Disk Resize Under FreeBSD</title>
@@ -36,7 +36,8 @@
 First to list the geoms:  
 </p>
 <pre class="example">
-gpart list #=&gt;
+gpart list
+=&gt;
 Geom name: vtbd0
 modified: false
 state: CORRUPT
@@ -144,7 +145,7 @@ run_interrupt_driven_hooks: still waiting after 120 seconds for xpt_config
 </pre>
 
 <p>
-After restarted it's OK to boot to login.
+After force restarted it's bootable again.
 </p>
 
 <p>
