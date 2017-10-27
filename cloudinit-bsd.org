@@ -1,0 +1,104 @@
+#+TITLE: CloudInit Setup on FreeBSD Image
+
+In this guide we will talk about CloudInit Setup on FreeBSD, not
+=bsd-cloudinit=. It's because =bsd-cloudinit= is based on
+=cloudbaseinit=, which has no support on =ConfigDrive=, while our
+OpenStack cloud supports only =ConfigDrive=. So for freebsd image we
+need to enable =CloudInit=. Here is simple guide:
+
+* Preparation
+
+  We need packages =qemu-utils=, =wget=:
+  #+BEGIN_EXAMPLE
+    pkg install qemu-utils wget
+  #+END_EXAMPLE
+
+  And download freebsd base image:
+  #+BEGIN_EXAMPLE
+    base=FreeBSD-11.1-RELEASE-amd64
+    wget https://download.freebsd.org/ftp/releases/VM-IMAGES/11.1-RELEASE/amd64/Latest/${base}.qcow2.xz
+  #+END_EXAMPLE
+
+  Unzip and convert to raw:
+  #+BEGIN_EXAMPLE
+    unxz ${base}.qcow2.xz
+    qemu-img convert -p -f qcow2 -O raw ${base}.qcow2 ${base}.raw
+  #+END_EXAMPLE
+
+* Mount Image and chroot
+
+  Attach to device:
+  #+BEGIN_EXAMPLE
+    mdconfig -a -t vnode -u 0 -f ${base}.raw
+  #+END_EXAMPLE
+
+  Mount last partition:
+  #+BEGIN_EXAMPLE
+  mount /dev/md0p3
+  mount -t devfs devfs /mnt/dev
+  cp /etc/resolv.conf /mnt/etc
+  chroot /mnt
+  #+END_EXAMPLE
+
+* Install cloud-init  
+
+  Install =cloud-init=:
+
+  #+BEGIN_EXAMPLE
+    pkg install py27-cloud-init  
+  #+END_EXAMPLE
+
+  Enable services:
+  #+BEGIN_EXAMPLE
+    cat >> /etc/rc.conf << EOF
+    cloudinit_enable="YES"
+    sshd_enable="YES"
+    EOF
+  #+END_EXAMPLE
+
+  Cloudinit call =blkid= to select config drive. But =blkid= doesn't
+  work for FreeBSD filesytem. Now work around =blkid= as below:
+  #+BEGIN_EXAMPLE
+    cat > /usr/bin/blkid << EOF
+    #!/bin/sh
+    [ -e /dev/iso9660/config-2 ] || exit 1
+    echo /dev/iso9660/config-2
+    EOF
+    chmod a+x /usr/bin/blkid
+  #+END_EXAMPLE
+
+  Mount for cd9660 on FreeBSD does not support =-o sync=. Patch
+  cloudinit =mount=:
+  #+BEGIN_EXAMPLE
+    cd /usr/local/lib/python2.7/site-packages/cloudinit
+    patch -p1 << EOF
+    --- a/util.py   2017-10-27 07:14:55.968737000 +0000
+    +++ b/util.py   2017-10-27 07:15:03.481245000 +0000
+    @@ -1364,6 +1364,7 @@
+             if mtypes is None:
+                 mtypes = ["auto"]
+         elif platsys.endswith("bsd"):
+    +        sync = False
+             if mtypes is None:
+                 mtypes = ['ufs', 'cd9660', 'vfat']
+             for index, mtype in enumerate(mtypes):
+    EOF  
+  #+END_EXAMPLE
+
+  Cleanup and exit:
+  #+BEGIN_EXAMPLE
+    set history = 0
+    exit
+  #+END_EXAMPLE
+
+* Umount image and convert back
+  #+BEGIN_EXAMPLE
+    umount /mnt/dev
+    rm /mnt/etc/resolv.conf
+    umount /mnt
+    mdconfig -d -u 0
+    qemu-img convert -p -f raw -O qcow2 ${base}.raw ${base}.qcow2
+  #+END_EXAMPLE
+
+
+

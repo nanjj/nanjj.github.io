@@ -1,5 +1,6 @@
 #+TITLE: Thatched Cottage
 
+- [2017-10-27 Fri 16:15] [[file:cloudinit-bsd.org][CloudInit Setup on FreeBSD Image]]
 - [2017-10-27 Fri 00:15] [[file:org-publish.org][Publish Github Pages via Org Mode]]
 - [2017-10-27 Fri 00:15] [[file:growfs.org][Disk Resize Under FreeBSD]]
 - [2017-10-27 Fri 00:15] [[file:dummynet.org][Dummynet on Mac]]
