@@ -1,4 +1,5 @@
 #+TITLE: Publish Github Pages via Org Mode
+#+DATE: <2017-10-24 Fri 12:30>
 #+LINK: Google http://www.google.com/search?q=%s
 #+LINK: Hugo https://gohugo.io/
 #+LINK: Jekyll https://jekyllrb.com/
