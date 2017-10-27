@@ -3,7 +3,7 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2017-10-27 Fri 16:24 -->
+<!-- 2017-10-27 Fri 16:30 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>CloudInit Setup on FreeBSD Image</title>
@@ -21,10 +21,10 @@
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents">
 <ul>
-<li><a href="#orga200b33">Preparation</a></li>
-<li><a href="#orgf512ec9">Mount Image and chroot</a></li>
-<li><a href="#org4bf0e8e">Install cloud-init</a></li>
-<li><a href="#org3cdd444">Umount image and convert back</a></li>
+<li><a href="#org0a0ab38">Download Image And Convert</a></li>
+<li><a href="#org13af81a">Mount Image And Chroot</a></li>
+<li><a href="#orgb110827">Install Cloud-init</a></li>
+<li><a href="#org2d7319c">Umount Image And Convert Back</a></li>
 </ul>
 </div>
 </div>
@@ -36,9 +36,9 @@ OpenStack cloud supports only <code>ConfigDrive</code>. So for freebsd image we
 need to enable <code>CloudInit</code>. Here is simple guide:
 </p>
 
-<div id="outline-container-orga200b33" class="outline-2">
-<h2 id="orga200b33">Preparation</h2>
-<div class="outline-text-2" id="text-orga200b33">
+<div id="outline-container-org0a0ab38" class="outline-2">
+<h2 id="org0a0ab38">Download Image And Convert</h2>
+<div class="outline-text-2" id="text-org0a0ab38">
 <p>
 We need packages <code>qemu-utils</code>, <code>wget</code>:
 </p>
@@ -64,9 +64,9 @@ qemu-img convert -p -f qcow2 -O raw ${base}.qcow2 ${base}.raw
 </div>
 </div>
 
-<div id="outline-container-orgf512ec9" class="outline-2">
-<h2 id="orgf512ec9">Mount Image and chroot</h2>
-<div class="outline-text-2" id="text-orgf512ec9">
+<div id="outline-container-org13af81a" class="outline-2">
+<h2 id="org13af81a">Mount Image And Chroot</h2>
+<div class="outline-text-2" id="text-org13af81a">
 <p>
 Attach to device:
 </p>
@@ -78,7 +78,7 @@ mdconfig -a -t vnode -u 0 -f ${base}.raw
 Mount last partition:
 </p>
 <pre class="example">
-mount /dev/md0p3
+mount /dev/md0p3 /mnt
 mount -t devfs devfs /mnt/dev
 cp /etc/resolv.conf /mnt/etc
 chroot /mnt
@@ -86,9 +86,9 @@ chroot /mnt
 </div>
 </div>
 
-<div id="outline-container-org4bf0e8e" class="outline-2">
-<h2 id="org4bf0e8e">Install cloud-init</h2>
-<div class="outline-text-2" id="text-org4bf0e8e">
+<div id="outline-container-orgb110827" class="outline-2">
+<h2 id="orgb110827">Install Cloud-init</h2>
+<div class="outline-text-2" id="text-orgb110827">
 <p>
 Install <code>cloud-init</code>:
 </p>
@@ -150,9 +150,9 @@ exit
 </div>
 </div>
 
-<div id="outline-container-org3cdd444" class="outline-2">
-<h2 id="org3cdd444">Umount image and convert back</h2>
-<div class="outline-text-2" id="text-org3cdd444">
+<div id="outline-container-org2d7319c" class="outline-2">
+<h2 id="org2d7319c">Umount Image And Convert Back</h2>
+<div class="outline-text-2" id="text-org2d7319c">
 <pre class="example">
 umount /mnt/dev
 rm /mnt/etc/resolv.conf

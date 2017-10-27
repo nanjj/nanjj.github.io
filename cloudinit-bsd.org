@@ -6,7 +6,7 @@ In this guide we will talk about CloudInit Setup on FreeBSD, not
 OpenStack cloud supports only =ConfigDrive=. So for freebsd image we
 need to enable =CloudInit=. Here is simple guide:
 
-* Preparation
+* Download Image And Convert
 
   We need packages =qemu-utils=, =wget=:
   #+BEGIN_EXAMPLE
@@ -25,7 +25,7 @@ need to enable =CloudInit=. Here is simple guide:
     qemu-img convert -p -f qcow2 -O raw ${base}.qcow2 ${base}.raw
   #+END_EXAMPLE
 
-* Mount Image and chroot
+* Mount Image And Chroot
 
   Attach to device:
   #+BEGIN_EXAMPLE
@@ -34,13 +34,13 @@ need to enable =CloudInit=. Here is simple guide:
 
   Mount last partition:
   #+BEGIN_EXAMPLE
-  mount /dev/md0p3
+  mount /dev/md0p3 /mnt
   mount -t devfs devfs /mnt/dev
   cp /etc/resolv.conf /mnt/etc
   chroot /mnt
   #+END_EXAMPLE
 
-* Install cloud-init  
+* Install Cloud-init  
 
   Install =cloud-init=:
 
@@ -91,7 +91,7 @@ need to enable =CloudInit=. Here is simple guide:
     exit
   #+END_EXAMPLE
 
-* Umount image and convert back
+* Umount Image And Convert Back
   #+BEGIN_EXAMPLE
     umount /mnt/dev
     rm /mnt/etc/resolv.conf
