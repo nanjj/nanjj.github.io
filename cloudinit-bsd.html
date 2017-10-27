@@ -3,7 +3,7 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2017-10-27 Fri 16:30 -->
+<!-- 2017-10-27 Fri 22:30 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>CloudInit Setup on FreeBSD Image</title>
@@ -25,6 +25,7 @@
 <li><a href="#org13af81a">Mount Image And Chroot</a></li>
 <li><a href="#orgb110827">Install Cloud-init</a></li>
 <li><a href="#org2d7319c">Umount Image And Convert Back</a></li>
+<li><a href="#org320a79b">Boot Instance</a></li>
 </ul>
 </div>
 </div>
@@ -160,6 +161,16 @@ umount /mnt
 mdconfig -d -u 0
 qemu-img convert -p -f raw -O qcow2 ${base}.raw ${base}.qcow2
 </pre>
+</div>
+</div>
+
+<div id="outline-container-org320a79b" class="outline-2">
+<h2 id="org320a79b">Boot Instance</h2>
+<div class="outline-text-2" id="text-org320a79b">
+<p>
+Once you boot an instance, you can access it via ssh, please notice
+the default user is <code>beastie</code>.
+</p>
 </div>
 </div>
 </div>
