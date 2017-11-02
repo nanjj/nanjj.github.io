@@ -1,4 +1,4 @@
-@import url(fonts.css?family=Open+Sans);
+@import url(fonts.css);
 body {
     padding: 0;
     background: #eee none repeat scroll 0 0;
@@ -13,26 +13,37 @@ body {
 }
 
 code {
-    color: #666;
-    padding: 1px 1px 1px 1px;
-    border: 1px solid #ddd;
-    background: #eee;
-    /* font-size: 115%; */
+    color: #3E3E3E;
+    padding: 1px;
+    border: 1pt dashed #AEBDCC;
+    background-color:#EFEFEF;
     border-radius: 2px;
     line-height: 1em;
     font-family: Droid Sans Mono;
+    font-size: 90%;
+}
+
+pre.example {
+    background-color:#EFEFEF;
+    color: #3E3E3E;
+}
+
+pre.src {
+    background-color:#5A5A5A;
+    color: #EFEFEF;
 }
 
 pre {
-    border: 1pt solid #AEBDCC;
-    background: #333;
-    color: #eee;
+    border: 1pt dashed #AEBDCC;
     padding: 5pt;
     overflow: auto;
+    white-space:pre-wrap;
+    word-wrap:break-word;
     border-radius: 4px;
     box-shadow: 3px 3px 3px #eee;
     line-height: 1.3em;
     font-family: Droid Sans Mono;
+    font-size: 85%;
 }
 
 div#content {
