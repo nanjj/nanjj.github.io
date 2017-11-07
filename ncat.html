@@ -3,7 +3,7 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2017-11-04 Sat 00:53 -->
+<!-- 2017-11-07 Tue 23:07 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Ncat Tips</title>
@@ -22,7 +22,14 @@
 <div id="text-table-of-contents">
 <ul>
 <li><a href="#orgc56f254">Transfer Files</a></li>
-<li><a href="#org92f01a1">Proxy The World</a></li>
+<li><a href="#org92f01a1">Proxy The World</a>
+<ul>
+<li><a href="#org49d9639">As A Http Proxy Server</a></li>
+<li><a href="#org9b6dd2a">Proxy Over Ssh</a></li>
+<li><a href="#org1db9238">Proxy Ssh</a></li>
+<li><a href="#orgd7aa9fb">Proxy Ansible</a></li>
+</ul>
+</li>
 </ul>
 </div>
 </div>
@@ -89,7 +96,15 @@ done
 <h2 id="org92f01a1">Proxy The World</h2>
 <div class="outline-text-2" id="text-org92f01a1">
 <p>
-Ncat can act as a http proxy server:
+Ncat can act as a http proxy server, which 
+</p>
+</div>
+
+<div id="outline-container-org49d9639" class="outline-3">
+<h3 id="org49d9639">As A Http Proxy Server</h3>
+<div class="outline-text-3" id="text-org49d9639">
+<p>
+Run:
 </p>
 
 <pre class="example">
@@ -104,7 +119,12 @@ Test it(on the machine running ncat):
 export https_proxy=http://127.0.0.1:8888
 curl https://www.google.com
 </pre>
+</div>
+</div>
 
+<div id="outline-container-org9b6dd2a" class="outline-3">
+<h3 id="org9b6dd2a">Proxy Over Ssh</h3>
+<div class="outline-text-3" id="text-org9b6dd2a">
 <p>
 Let's say you are living in China, right behind the GFW. You have
 Ncat in http proxy mode on a machine outside. Now you can jump over
@@ -129,7 +149,12 @@ Http request will go through your local port 8888, encrypted and
 jump over the wall, go to your target machine local port 8888, via
 ncat to access the world. It's safe, simple, stable and fast.
 </p>
+</div>
+</div>
 
+<div id="outline-container-org1db9238" class="outline-3">
+<h3 id="org1db9238">Proxy Ssh</h3>
+<div class="outline-text-3" id="text-org1db9238">
 <p>
 Ncat http proxy mode support <code>CONNECT</code> method also. So it can be
 used as a ssh proxy:
@@ -148,6 +173,23 @@ machines.
 </p>
 
 <p>
+You can put it to your <code>~/.ssh/config</code>:
+</p>
+
+<p>
+```
+Host: host
+Hostname: host
+ProxyCommand: ncat &#x2013;proxy 127.0.0.1:8888 %h %p
+```
+</p>
+</div>
+</div>
+
+<div id="outline-container-orgd7aa9fb" class="outline-3">
+<h3 id="orgd7aa9fb">Proxy Ansible</h3>
+<div class="outline-text-3" id="text-orgd7aa9fb">
+<p>
 You can run ansible with below configuration in your inventory:
 </p>
 
@@ -155,6 +197,7 @@ You can run ansible with below configuration in your inventory:
 [all:vars]
 ansible_ssh_common_args='-o ProxyCommand="ncat --proxy 127.0.0.1:8888 %h %p"'
 </pre>
+</div>
 </div>
 </div>
 </div>

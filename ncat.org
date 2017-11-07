@@ -49,7 +49,11 @@ Here some tips from me.
 
 * Proxy The World
 
-  Ncat can act as a http proxy server:
+  Ncat can act as a http proxy server, which 
+  
+** As A Http Proxy Server
+   
+   Run:
 
   #+BEGIN_EXAMPLE
     ncat -l -p 8888 --proxy-type http --allow 127.0.0.1
@@ -61,6 +65,8 @@ Here some tips from me.
     export https_proxy=http://127.0.0.1:8888
     curl https://www.google.com
   #+END_EXAMPLE
+
+** Proxy Over Ssh
 
   Let's say you are living in China, right behind the GFW. You have
   Ncat in http proxy mode on a machine outside. Now you can jump over
@@ -81,6 +87,8 @@ Here some tips from me.
   jump over the wall, go to your target machine local port 8888, via
   ncat to access the world. It's safe, simple, stable and fast.
 
+** Proxy Ssh
+
   Ncat http proxy mode support =CONNECT= method also. So it can be
   used as a ssh proxy:
 
@@ -93,6 +101,16 @@ Here some tips from me.
   running behind the jumpbox. In this way, you can keep your ssh keys
   in your local, no need to copy anywhere in order to access your
   machines.
+
+  You can put it to your =~/.ssh/config=:
+
+  ```
+  Host: host
+  Hostname: host
+  ProxyCommand: ncat --proxy 127.0.0.1:8888 %h %p
+  ```
+
+** Proxy Ansible
 
   You can run ansible with below configuration in your inventory:
 
