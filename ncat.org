@@ -7,6 +7,8 @@
 redirecting, and encrypting data across a network. It is along with
 [[nmap][nmap]], but not so famous.
 
+* Install
+
 To install ncat just install nmap, Ubuntu:
 #+BEGIN_EXAMPLE
   apt-get install nmap
@@ -22,6 +24,8 @@ Here some tips from me.
 
 * Transfer Files
 
+** Single File
+  
   Transfer single file:
   
   #+BEGIN_EXAMPLE
@@ -31,6 +35,8 @@ Here some tips from me.
     ncat <machine A ip> 80 --recv-only > file
   #+END_EXAMPLE
 
+** Multiple Files  
+  
   Transfer multiple files:
 
   #+BEGIN_EXAMPLE
@@ -104,11 +110,11 @@ Here some tips from me.
 
   You can put it to your =~/.ssh/config=:
 
-  ```
-  Host: host
-  Hostname: host
-  ProxyCommand: ncat --proxy 127.0.0.1:8888 %h %p
-  ```
+  #+BEGIN_EXAMPLE
+    Host: host
+    Hostname: host
+    ProxyCommand: ncat --proxy 127.0.0.1:8888 %h %p
+  #+END_EXAMPLE
 
 ** Proxy Ansible
 

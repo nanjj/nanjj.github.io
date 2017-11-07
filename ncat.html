@@ -3,7 +3,7 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2017-11-07 Tue 23:07 -->
+<!-- 2017-11-07 Tue 23:13 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Ncat Tips</title>
@@ -21,7 +21,13 @@
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents">
 <ul>
-<li><a href="#orgc56f254">Transfer Files</a></li>
+<li><a href="#org4f4775f">Install</a></li>
+<li><a href="#orgc56f254">Transfer Files</a>
+<ul>
+<li><a href="#orgd8c6efe">Single File</a></li>
+<li><a href="#org2105426">Multiple Files</a></li>
+</ul>
+</li>
 <li><a href="#org92f01a1">Proxy The World</a>
 <ul>
 <li><a href="#org49d9639">As A Http Proxy Server</a></li>
@@ -39,6 +45,9 @@ redirecting, and encrypting data across a network. It is along with
 <a href="https://nmap.org/">nmap</a>, but not so famous.
 </p>
 
+<div id="outline-container-org4f4775f" class="outline-2">
+<h2 id="org4f4775f">Install</h2>
+<div class="outline-text-2" id="text-org4f4775f">
 <p>
 To install ncat just install nmap, Ubuntu:
 </p>
@@ -57,10 +66,16 @@ brew install nmap
 <p>
 Here some tips from me.
 </p>
+</div>
+</div>
 
 <div id="outline-container-orgc56f254" class="outline-2">
 <h2 id="orgc56f254">Transfer Files</h2>
 <div class="outline-text-2" id="text-orgc56f254">
+</div>
+<div id="outline-container-orgd8c6efe" class="outline-3">
+<h3 id="orgd8c6efe">Single File</h3>
+<div class="outline-text-3" id="text-orgd8c6efe">
 <p>
 Transfer single file:
 </p>
@@ -71,7 +86,12 @@ ncat -p 80 -l --send-only &lt; file
 # on machine B
 ncat &lt;machine A ip&gt; 80 --recv-only &gt; file
 </pre>
+</div>
+</div>
 
+<div id="outline-container-org2105426" class="outline-3">
+<h3 id="org2105426">Multiple Files</h3>
+<div class="outline-text-3" id="text-org2105426">
 <p>
 Transfer multiple files:
 </p>
@@ -89,6 +109,7 @@ while true; do
     ncat &lt;machine A ip&gt; 80 --recv-only &gt; $file
 done
 </pre>
+</div>
 </div>
 </div>
 
@@ -176,13 +197,11 @@ machines.
 You can put it to your <code>~/.ssh/config</code>:
 </p>
 
-<p>
-```
+<pre class="example">
 Host: host
 Hostname: host
-ProxyCommand: ncat &#x2013;proxy 127.0.0.1:8888 %h %p
-```
-</p>
+ProxyCommand: ncat --proxy 127.0.0.1:8888 %h %p
+</pre>
 </div>
 </div>
 
