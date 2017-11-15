@@ -1,8 +1,147 @@
-#+TITLE: Netmap Learning Plan
+#+TITLE: Netmap Learning
 #+Date: <2017-11-07 Tue>
 #+LINK: pcap  http://yuba.stanford.edu/~casado/pcap/section1.html
-#+LINK: stack receiving https://blog.packagecloud.io/eng/2016/06/22/monitoring-tuning-linux-networking-stack-receiving-data/
+#+LINK: stack-receiving https://blog.packagecloud.io/eng/2016/06/22/monitoring-tuning-linux-networking-stack-receiving-data/
 #+LINK: warpcore https://github.com/NTAP/warpcore
 #+LINK: netstack https://github.com/google/netstack
+#+LINK: netmap-page http://info.iet.unipi.it/~luigi/netmap
+#+LINK: netmap-github https://github.com/luigirizzo/netmap
+#+LINK: netmap-tutorial https://github.com/vmaffione/netmap-tutorial
+#+LINK: netmap-framework http://queue.acm.org/detail.cfm?id=2103536
+#+LINK: rizzo https://www.usenix.org/conference/atc12/technical-sessions/presentation/rizzo
+#+LINK: atc12-final186.pdf https://www.usenix.org/system/files/conference/atc12/atc12-final186.pdf
+#+LINK: netmapinetd https://github.com/nanjj/netmapinetd
+
+[[netmap-page:][Netmap]] is a framework for very fast packet I/O from userspace.
+
+* Netmap and Vale
+
+** Netmap Port
+
+   Vale can be used to create netmap port:
+   #+BEGIN_EXAMPLE
+     vale-ctl -n a
+   #+END_EXAMPLE
+
+   
+   Netmap ports are link devices, which can be managed by =ip= command:
+   #+BEGIN_EXAMPLE
+     ip addr add 10.1.1.3/24 dev a
+     ip link set dev a state up
+     ip link show a
+   #+END_EXAMPLE
+
+   Please notice now port =a= is attached on host stack:
+   #+BEGIN_EXAMPLE
+     11: a: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1500 qdisc noqueue state UP mode DEFAULT group default qlen 1
+       link/ether 56:df:5a:5a:01:94 brd ff:ff:ff:ff:ff:ff
+   #+END_EXAMPLE
+
+** Ping in Kernel
+  
+   You can ping it:
+
+   #+BEGIN_EXAMPLE
+     ping 10.1.1.3
+     #=>
+   #+END_EXAMPLE
+  
+   The ping icmp echo was replied by the kernel - the host stack:
+   #+BEGIN_EXAMPLE
+     PING 10.1.1.3 (10.1.1.3) 56(84) bytes of data.
+     64 bytes from 10.1.1.3: icmp_seq=1 ttl=64 time=0.042 ms
+   #+END_EXAMPLE
+
+** Arp ping in Kernel
+
+   Now let's check the =arp= ping.
+
+   For some reason =arping= can not get response from device in same
+   =netns=(net name space). Now now let's create another =netns=
+   netns1:
+   #+BEGIN_EXAMPLE
+     ip netns add netns1
+     ip netns exec netns1 ip link set lo up
+   #+END_EXAMPLE
+
+   Create veth pair and move one peer to =netns1=:
+   #+BEGIN_EXAMPLE
+     ip link add name veth0 type veth peer name veth1
+     ip addr add 10.1.1.1/24 dev veth0
+     ip link set veth0 up
+     ip netns exec netns1 ip address add 10.1.1.2/24 dev veth1
+     ip netns exec netns1 ip link set veth1 up
+   #+END_EXAMPLE
+
+   Now run =arping= from =netns1=:
+
+   #+BEGIN_EXAMPLE
+     ip netns exec netns1 arping 10.1.1.3
+   #+END_EXAMPLE
+
+   The arp request was replied by the kernel, or the host stack:
+
+   #+BEGIN_EXAMPLE
+     ARPING 10.1.1.3
+     42 bytes from 36:58:23:6f:f9:66 (10.1.1.3): index=0 time=2.776 msec
+   #+END_EXAMPLE
+  
+** Detach from Host Stack
+
+   Now =ip link list= output:
+   #+BEGIN_EXAMPLE
+     1: lo: <LOOPBACK,UP,LOWER_UP> mtu 65536 ..
+         link/loopback 00:00:00:00:00:00 brd 00:00:00:00:00:00
+     2: eth0: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1500 qdisc pfifo_fast state UP..
+         link/ether fa:16:3e:92:a2:af brd ff:ff:ff:ff:ff:ff
+     3: eth1: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1500 qdisc pfifo_fast state UP..
+         link/ether fa:16:3e:31:a1:df brd ff:ff:ff:ff:ff:ff
+     11: a: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1500 qdisc noqueue state UP..
+         link/ether 56:df:5a:5a:01:94 brd ff:ff:ff:ff:ff:ff
+     20: veth0@if19: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1500 qdisc netmap_generic..
+         link/ether 36:58:23:6f:f9:66 brd ff:ff:ff:ff:ff:ff link-netnsid 0
+   #+END_EXAMPLE
+
+   Now we put port  =veth0= and =a= into =vale0=:
+
+   #+BEGIN_EXAMPLE
+   vale-ctl -a vale0:veth0
+   vale-ctl -a vale0:a
+   #+END_EXAMPLE
+   
+   Now use =pkt-get= to receive packets from vale port =a=:
+   #+BEGIN_EXAMPLE
+   pkt-gen -i vale:a -f rx -X
+   #+END_EXAMPLE
+
+   Ping from =netns1=:
+   #+BEGIN_EXAMPLE
+   ip netns exec netns1 arping 10.1.1.3
+   #+END_EXAMPLE
+
+   Now we can see arping got no response and =vale0:a= and received
+   arp request as below:
+   #+BEGIN_EXAMPLE
+   ring 0x7fdd7696f000 cur   106 [buf    108 flags 0x0100 len    42]
+    0: ff ff ff ff ff ff aa 00 f0 d4 50 5b 08 06 00 01 ..........P[....
+   16: 08 00 06 04 00 01 aa 00 f0 d4 50 5b 0a 01 01 02 ..........P[....
+   32: 00 00 00 00 00 00 0a 01 01 03
+   #+END_EXAMPLE
+
+   The arp requests can be handled in userspace. [[netmapinetd][Netmapinetd]] is for
+   this:
+   #+BEGIN_EXAMPLE
+   ./netmapinetd -i vale0:a -a 10.1.1.3 -m 56:df:5a:5a:01:94
+   #+END_EXAMPLE
+
+** Netmap Pipe
+
+   Netmap pipes are very fast as they said:
+   #+BEGIN_EXAMPLE
+   pkt-gen -i 'netmap:p{1' -f tx # Transmit master
+   pkt-gen -i 'netmap:p}1' -f rx # Receive slave
+   #+END_EXAMPLE
+
+   
 
 

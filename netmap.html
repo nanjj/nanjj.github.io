@@ -3,10 +3,10 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2017-11-07 Tue 23:13 -->
+<!-- 2017-11-15 Wed 15:46 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Netmap Learning Plan</title>
+<title>Netmap Learning</title>
 <meta name="generator" content="Org mode" />
 <meta name="author" content="Nan Jun Jie" />
 <link rel="stylesheet" type="text/css" href="css/org.css" />
@@ -16,8 +16,206 @@
  <a accesskey="h" href="index.html"> UP </a> | 
  <a accesskey="H" href="index.html"> HOME </a>
 </div><div id="content">
-<h1 class="title">Netmap Learning Plan</h1>
+<h1 class="title">Netmap Learning</h1>
+<div id="table-of-contents">
+<h2>Table of Contents</h2>
+<div id="text-table-of-contents">
+<ul>
+<li><a href="#org159e6bd">Netmap and Vale</a>
+<ul>
+<li><a href="#orgc2aea6a">Netmap Port</a></li>
+<li><a href="#orgd3e7803">Ping in Kernel</a></li>
+<li><a href="#orgc529092">Arp ping in Kernel</a></li>
+<li><a href="#org09759be">Detach from Host Stack</a></li>
+<li><a href="#org8b92abd">Netmap Pipe</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+<p>
+<a href="http://info.iet.unipi.it/~luigi/netmap">Netmap</a> is a framework for very fast packet I/O from userspace.
+</p>
 
+<div id="outline-container-org159e6bd" class="outline-2">
+<h2 id="org159e6bd">Netmap and Vale</h2>
+<div class="outline-text-2" id="text-org159e6bd">
+</div>
+<div id="outline-container-orgc2aea6a" class="outline-3">
+<h3 id="orgc2aea6a">Netmap Port</h3>
+<div class="outline-text-3" id="text-orgc2aea6a">
+<p>
+Vale can be used to create netmap port:
+</p>
+<pre class="example">
+vale-ctl -n a
+</pre>
+
+
+<p>
+Netmap ports are link devices, which can be managed by <code>ip</code> command:
+</p>
+<pre class="example">
+ip addr add 10.1.1.3/24 dev a
+ip link set dev a state up
+ip link show a
+</pre>
+
+<p>
+Please notice now port <code>a</code> is attached on host stack:
+</p>
+<pre class="example">
+11: a: &lt;BROADCAST,MULTICAST,UP,LOWER_UP&gt; mtu 1500 qdisc noqueue state UP mode DEFAULT group default qlen 1
+  link/ether 56:df:5a:5a:01:94 brd ff:ff:ff:ff:ff:ff
+</pre>
+</div>
+</div>
+
+<div id="outline-container-orgd3e7803" class="outline-3">
+<h3 id="orgd3e7803">Ping in Kernel</h3>
+<div class="outline-text-3" id="text-orgd3e7803">
+<p>
+You can ping it:
+</p>
+
+<pre class="example">
+ping 10.1.1.3
+#=&gt;
+</pre>
+
+<p>
+The ping icmp echo was replied by the kernel - the host stack:
+</p>
+<pre class="example">
+PING 10.1.1.3 (10.1.1.3) 56(84) bytes of data.
+64 bytes from 10.1.1.3: icmp_seq=1 ttl=64 time=0.042 ms
+</pre>
+</div>
+</div>
+
+<div id="outline-container-orgc529092" class="outline-3">
+<h3 id="orgc529092">Arp ping in Kernel</h3>
+<div class="outline-text-3" id="text-orgc529092">
+<p>
+Now let's check the <code>arp</code> ping.
+</p>
+
+<p>
+For some reason <code>arping</code> can not get response from device in same
+<code>netns=(net name space). Now now let's create another =netns</code>
+netns1:
+</p>
+<pre class="example">
+ip netns add netns1
+ip netns exec netns1 ip link set lo up
+</pre>
+
+<p>
+Create veth pair and move one peer to <code>netns1</code>:
+</p>
+<pre class="example">
+ip link add name veth0 type veth peer name veth1
+ip addr add 10.1.1.1/24 dev veth0
+ip link set veth0 up
+ip netns exec netns1 ip address add 10.1.1.2/24 dev veth1
+ip netns exec netns1 ip link set veth1 up
+</pre>
+
+<p>
+Now run <code>arping</code> from <code>netns1</code>:
+</p>
+
+<pre class="example">
+ip netns exec netns1 arping 10.1.1.3
+</pre>
+
+<p>
+The arp request was replied by the kernel, or the host stack:
+</p>
+
+<pre class="example">
+ARPING 10.1.1.3
+42 bytes from 36:58:23:6f:f9:66 (10.1.1.3): index=0 time=2.776 msec
+</pre>
+</div>
+</div>
+
+<div id="outline-container-org09759be" class="outline-3">
+<h3 id="org09759be">Detach from Host Stack</h3>
+<div class="outline-text-3" id="text-org09759be">
+<p>
+Now <code>ip link list</code> output:
+</p>
+<pre class="example">
+1: lo: &lt;LOOPBACK,UP,LOWER_UP&gt; mtu 65536 ..
+    link/loopback 00:00:00:00:00:00 brd 00:00:00:00:00:00
+2: eth0: &lt;BROADCAST,MULTICAST,UP,LOWER_UP&gt; mtu 1500 qdisc pfifo_fast state UP..
+    link/ether fa:16:3e:92:a2:af brd ff:ff:ff:ff:ff:ff
+3: eth1: &lt;BROADCAST,MULTICAST,UP,LOWER_UP&gt; mtu 1500 qdisc pfifo_fast state UP..
+    link/ether fa:16:3e:31:a1:df brd ff:ff:ff:ff:ff:ff
+11: a: &lt;BROADCAST,MULTICAST,UP,LOWER_UP&gt; mtu 1500 qdisc noqueue state UP..
+    link/ether 56:df:5a:5a:01:94 brd ff:ff:ff:ff:ff:ff
+20: veth0@if19: &lt;BROADCAST,MULTICAST,UP,LOWER_UP&gt; mtu 1500 qdisc netmap_generic..
+    link/ether 36:58:23:6f:f9:66 brd ff:ff:ff:ff:ff:ff link-netnsid 0
+</pre>
+
+<p>
+Now we put port  <code>veth0</code> and <code>a</code> into <code>vale0</code>:
+</p>
+
+<pre class="example">
+vale-ctl -a vale0:veth0
+vale-ctl -a vale0:a
+</pre>
+
+<p>
+Now use <code>pkt-get</code> to receive packets from vale port <code>a</code>:
+</p>
+<pre class="example">
+pkt-gen -i vale:a -f rx -X
+</pre>
+
+<p>
+Ping from <code>netns1</code>:
+</p>
+<pre class="example">
+ip netns exec netns1 arping 10.1.1.3
+</pre>
+
+<p>
+Now we can see arping got no response and <code>vale0:a</code> and received
+arp request as below:
+</p>
+<pre class="example">
+ring 0x7fdd7696f000 cur   106 [buf    108 flags 0x0100 len    42]
+ 0: ff ff ff ff ff ff aa 00 f0 d4 50 5b 08 06 00 01 ..........P[....
+16: 08 00 06 04 00 01 aa 00 f0 d4 50 5b 0a 01 01 02 ..........P[....
+32: 00 00 00 00 00 00 0a 01 01 03
+</pre>
+
+<p>
+The arp requests can be handled in userspace. <a href="https://github.com/nanjj/netmapinetd">Netmapinetd</a> is for
+this:
+</p>
+<pre class="example">
+./netmapinetd -i vale0:a -a 10.1.1.3 -m 56:df:5a:5a:01:94
+</pre>
+</div>
+</div>
+
+<div id="outline-container-org8b92abd" class="outline-3">
+<h3 id="org8b92abd">Netmap Pipe</h3>
+<div class="outline-text-3" id="text-org8b92abd">
+<p>
+Netmap pipes are very fast as they said:
+</p>
+<pre class="example">
+pkt-gen -i 'netmap:p{1' -f tx # Transmit master
+pkt-gen -i 'netmap:p}1' -f rx # Receive slave
+</pre>
+</div>
+</div>
+</div>
 </div>
 </body>
 </html>
