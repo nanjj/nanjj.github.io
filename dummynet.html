@@ -3,7 +3,7 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2017-10-27 Fri 17:16 -->
+<!-- 2017-11-20 Mon 21:49 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Dummynet Usage on Mac</title>
@@ -21,7 +21,7 @@
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents">
 <ul>
-<li><a href="#org2db635d">Configure Bandwidth</a></li>
+<li><a href="#orga03d085">Configure Bandwidth</a></li>
 </ul>
 </div>
 </div>
@@ -29,16 +29,16 @@
 Here some <code>dummynet</code> usages on Mac
 </p>
 
-<div id="outline-container-org2db635d" class="outline-2">
-<h2 id="org2db635d">Configure Bandwidth</h2>
-<div class="outline-text-2" id="text-org2db635d">
+<div id="outline-container-orga03d085" class="outline-2">
+<h2 id="orga03d085">Configure Bandwidth</h2>
+<div class="outline-text-2" id="text-orga03d085">
 <ol class="org-ol">
 <li><p>
 Create pipe with bandwidth, redirect packets to the pipe
 </p>
 <div class="org-src-container">
 <pre class="src src-sh">sudo dnctl pipe 1 config bw 1Kbit/s
-<span style="color: #b0c4de;">echo</span> <span style="color: #bdb76b;">"dummynet out proto tcp from any to wordpress.org pipe 1"</span> |sudo pfctl -f -
+<span class="org-builtin">echo</span> <span class="org-string">"dummynet out proto tcp from any to wordpress.org pipe 1"</span> |sudo pfctl -f -
 </pre>
 </div></li>
 <li><p>
@@ -51,7 +51,7 @@ sudo pfctl -e
 do download and watch the speed
 </p>
 <div class="org-src-container">
-<pre class="src src-sh">wget -O /dev/null wordpress.org/latest.zip <span style="color: #00cd66;">#</span><span style="color: #00cd66;">=&gt;</span>
+<pre class="src src-sh">wget -O /dev/null wordpress.org/latest.zip <span class="org-comment-delimiter">#</span><span class="org-comment">=&gt;</span>
 ... 3.02KB/s ...
 </pre>
 </div></li>
@@ -59,7 +59,7 @@ do download and watch the speed
 Adjust the bandwitch on fly and watch the speed
 </p>
 <div class="org-src-container">
-<pre class="src src-sh">sudo dnctl pipe 1 config bw 10Kbit/s <span style="color: #00cd66;">#</span><span style="color: #00cd66;">=&gt;</span>
+<pre class="src src-sh">sudo dnctl pipe 1 config bw 10Kbit/s <span class="org-comment-delimiter">#</span><span class="org-comment">=&gt;</span>
 ... 61.0KB/s ...
 </pre>
 </div></li>

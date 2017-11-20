@@ -3,7 +3,7 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2017-10-27 Fri 00:26 -->
+<!-- 2017-11-20 Mon 21:49 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Disk Resize Under FreeBSD</title>
@@ -21,17 +21,17 @@
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents">
 <ul>
-<li><a href="#orgae1bf80">List Disks</a></li>
-<li><a href="#org97f7c19">Show and Recover if Needed</a></li>
-<li><a href="#orgc146c39">Resize Partition</a></li>
-<li><a href="#org538c0c3">Grow Filesystem</a></li>
+<li><a href="#orgcc94ac6">List Disks</a></li>
+<li><a href="#orgd31d13c">Show and Recover if Needed</a></li>
+<li><a href="#org3851659">Resize Partition</a></li>
+<li><a href="#org38a49f5">Grow Filesystem</a></li>
 </ul>
 </div>
 </div>
 
-<div id="outline-container-orgae1bf80" class="outline-2">
-<h2 id="orgae1bf80">List Disks</h2>
-<div class="outline-text-2" id="text-orgae1bf80">
+<div id="outline-container-orgcc94ac6" class="outline-2">
+<h2 id="orgcc94ac6">List Disks</h2>
+<div class="outline-text-2" id="text-orgcc94ac6">
 <p>
 First to list the geoms:  
 </p>
@@ -46,9 +46,9 @@ state: CORRUPT
 </div>
 </div>
 
-<div id="outline-container-org97f7c19" class="outline-2">
-<h2 id="org97f7c19">Show and Recover if Needed</h2>
-<div class="outline-text-2" id="text-org97f7c19">
+<div id="outline-container-orgd31d13c" class="outline-2">
+<h2 id="orgd31d13c">Show and Recover if Needed</h2>
+<div class="outline-text-2" id="text-orgd31d13c">
 <p>
 Show the Geom: 
 </p>
@@ -87,9 +87,9 @@ Apparently the partition 3 should be resized.
 </div>
 </div>
 
-<div id="outline-container-orgc146c39" class="outline-2">
-<h2 id="orgc146c39">Resize Partition</h2>
-<div class="outline-text-2" id="text-orgc146c39">
+<div id="outline-container-org3851659" class="outline-2">
+<h2 id="org3851659">Resize Partition</h2>
+<div class="outline-text-2" id="text-org3851659">
 <p>
 Run resize on partition 3:
 </p>
@@ -105,9 +105,9 @@ gpart show vtbd0
 </div>
 </div>
 
-<div id="outline-container-org538c0c3" class="outline-2">
-<h2 id="org538c0c3">Grow Filesystem</h2>
-<div class="outline-text-2" id="text-org538c0c3">
+<div id="outline-container-org38a49f5" class="outline-2">
+<h2 id="org38a49f5">Grow Filesystem</h2>
+<div class="outline-text-2" id="text-org38a49f5">
 <p>
 According <a href="https://www.freebsd.org/doc/handbook/disks-growing.html">FreeBSD Doc</a>, <code>growfs</code> should be run as below:
 </p>

@@ -1,9 +1,9 @@
 #+TITLE: Thatched Cottage
 
 - [2017-11-07 Tue] [[file:ncat.org][Ncat Tips]]
-- [2017-11-07 Tue] [[file:netmap.org][Netmap Learning Plan]]
+- [2017-11-07 Tue] [[file:netmap.org][Netmap Learning]]
 - [2017-10-27 Fri] [[file:growfs.org][Disk Resize Under FreeBSD]]
 - [2017-10-27 Fri] [[file:cloudinit-bsd.org][CloudInit Setup on FreeBSD Image]]
-- [2017-10-26 Thu] [[file:dummynet.org][Dummynet on Mac]]
+- [2017-10-26 Thu] [[file:dummynet.org][Dummynet Usage on Mac]]
 - [2017-10-24 Tue] [[file:hdiutil.org][How to Manipulate Disk Images Under Mac]]
 - [2017-10-24 Tue] [[file:org-publish.org][Publish Github Pages via Org Mode]]

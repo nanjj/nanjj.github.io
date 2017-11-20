@@ -3,7 +3,7 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2017-11-07 Tue 23:13 -->
+<!-- 2017-11-20 Mon 21:49 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Ncat Tips</title>
@@ -21,19 +21,19 @@
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents">
 <ul>
-<li><a href="#org4f4775f">Install</a></li>
-<li><a href="#orgc56f254">Transfer Files</a>
+<li><a href="#orga43f9f9">Install</a></li>
+<li><a href="#org54463a8">Transfer Files</a>
 <ul>
-<li><a href="#orgd8c6efe">Single File</a></li>
-<li><a href="#org2105426">Multiple Files</a></li>
+<li><a href="#org584b016">Single File</a></li>
+<li><a href="#org88064b5">Multiple Files</a></li>
 </ul>
 </li>
-<li><a href="#org92f01a1">Proxy The World</a>
+<li><a href="#orgcc009ff">Proxy The World</a>
 <ul>
-<li><a href="#org49d9639">As A Http Proxy Server</a></li>
-<li><a href="#org9b6dd2a">Proxy Over Ssh</a></li>
-<li><a href="#org1db9238">Proxy Ssh</a></li>
-<li><a href="#orgd7aa9fb">Proxy Ansible</a></li>
+<li><a href="#orgfae0072">As A Http Proxy Server</a></li>
+<li><a href="#org4ef72ef">Proxy Over Ssh</a></li>
+<li><a href="#org678a5aa">Proxy Ssh</a></li>
+<li><a href="#org7d67006">Proxy Ansible</a></li>
 </ul>
 </li>
 </ul>
@@ -45,9 +45,9 @@ redirecting, and encrypting data across a network. It is along with
 <a href="https://nmap.org/">nmap</a>, but not so famous.
 </p>
 
-<div id="outline-container-org4f4775f" class="outline-2">
-<h2 id="org4f4775f">Install</h2>
-<div class="outline-text-2" id="text-org4f4775f">
+<div id="outline-container-orga43f9f9" class="outline-2">
+<h2 id="orga43f9f9">Install</h2>
+<div class="outline-text-2" id="text-orga43f9f9">
 <p>
 To install ncat just install nmap, Ubuntu:
 </p>
@@ -69,13 +69,13 @@ Here some tips from me.
 </div>
 </div>
 
-<div id="outline-container-orgc56f254" class="outline-2">
-<h2 id="orgc56f254">Transfer Files</h2>
-<div class="outline-text-2" id="text-orgc56f254">
+<div id="outline-container-org54463a8" class="outline-2">
+<h2 id="org54463a8">Transfer Files</h2>
+<div class="outline-text-2" id="text-org54463a8">
 </div>
-<div id="outline-container-orgd8c6efe" class="outline-3">
-<h3 id="orgd8c6efe">Single File</h3>
-<div class="outline-text-3" id="text-orgd8c6efe">
+<div id="outline-container-org584b016" class="outline-3">
+<h3 id="org584b016">Single File</h3>
+<div class="outline-text-3" id="text-org584b016">
 <p>
 Transfer single file:
 </p>
@@ -89,9 +89,9 @@ ncat &lt;machine A ip&gt; 80 --recv-only &gt; file
 </div>
 </div>
 
-<div id="outline-container-org2105426" class="outline-3">
-<h3 id="org2105426">Multiple Files</h3>
-<div class="outline-text-3" id="text-org2105426">
+<div id="outline-container-org88064b5" class="outline-3">
+<h3 id="org88064b5">Multiple Files</h3>
+<div class="outline-text-3" id="text-org88064b5">
 <p>
 Transfer multiple files:
 </p>
@@ -113,17 +113,17 @@ done
 </div>
 </div>
 
-<div id="outline-container-org92f01a1" class="outline-2">
-<h2 id="org92f01a1">Proxy The World</h2>
-<div class="outline-text-2" id="text-org92f01a1">
+<div id="outline-container-orgcc009ff" class="outline-2">
+<h2 id="orgcc009ff">Proxy The World</h2>
+<div class="outline-text-2" id="text-orgcc009ff">
 <p>
 Ncat can act as a http proxy server, which 
 </p>
 </div>
 
-<div id="outline-container-org49d9639" class="outline-3">
-<h3 id="org49d9639">As A Http Proxy Server</h3>
-<div class="outline-text-3" id="text-org49d9639">
+<div id="outline-container-orgfae0072" class="outline-3">
+<h3 id="orgfae0072">As A Http Proxy Server</h3>
+<div class="outline-text-3" id="text-orgfae0072">
 <p>
 Run:
 </p>
@@ -143,9 +143,9 @@ curl https://www.google.com
 </div>
 </div>
 
-<div id="outline-container-org9b6dd2a" class="outline-3">
-<h3 id="org9b6dd2a">Proxy Over Ssh</h3>
-<div class="outline-text-3" id="text-org9b6dd2a">
+<div id="outline-container-org4ef72ef" class="outline-3">
+<h3 id="org4ef72ef">Proxy Over Ssh</h3>
+<div class="outline-text-3" id="text-org4ef72ef">
 <p>
 Let's say you are living in China, right behind the GFW. You have
 Ncat in http proxy mode on a machine outside. Now you can jump over
@@ -173,9 +173,9 @@ ncat to access the world. It's safe, simple, stable and fast.
 </div>
 </div>
 
-<div id="outline-container-org1db9238" class="outline-3">
-<h3 id="org1db9238">Proxy Ssh</h3>
-<div class="outline-text-3" id="text-org1db9238">
+<div id="outline-container-org678a5aa" class="outline-3">
+<h3 id="org678a5aa">Proxy Ssh</h3>
+<div class="outline-text-3" id="text-org678a5aa">
 <p>
 Ncat http proxy mode support <code>CONNECT</code> method also. So it can be
 used as a ssh proxy:
@@ -205,9 +205,9 @@ ProxyCommand: ncat --proxy 127.0.0.1:8888 %h %p
 </div>
 </div>
 
-<div id="outline-container-orgd7aa9fb" class="outline-3">
-<h3 id="orgd7aa9fb">Proxy Ansible</h3>
-<div class="outline-text-3" id="text-orgd7aa9fb">
+<div id="outline-container-org7d67006" class="outline-3">
+<h3 id="org7d67006">Proxy Ansible</h3>
+<div class="outline-text-3" id="text-org7d67006">
 <p>
 You can run ansible with below configuration in your inventory:
 </p>

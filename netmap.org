@@ -52,13 +52,12 @@
      64 bytes from 10.1.1.3: icmp_seq=1 ttl=64 time=0.042 ms
    #+END_EXAMPLE
 
-** Arp ping in Kernel
+** Arp Ping
 
    Now let's check the =arp= ping.
 
-   For some reason =arping= can not get response from device in same
-   =netns=(net name space). Now now let's create another =netns=
-   netns1:
+   =arping= can not get response from device in same =netns=. Create
+   =netns= netns1:
    #+BEGIN_EXAMPLE
      ip netns add netns1
      ip netns exec netns1 ip link set lo up
@@ -73,7 +72,7 @@
      ip netns exec netns1 ip link set veth1 up
    #+END_EXAMPLE
 
-   Now run =arping= from =netns1=:
+   Run =arping= from =netns1=:
 
    #+BEGIN_EXAMPLE
      ip netns exec netns1 arping 10.1.1.3
@@ -86,8 +85,6 @@
      42 bytes from 36:58:23:6f:f9:66 (10.1.1.3): index=0 time=2.776 msec
    #+END_EXAMPLE
   
-** Detach from Host Stack
-
    Now =ip link list= output:
    #+BEGIN_EXAMPLE
      1: lo: <LOOPBACK,UP,LOWER_UP> mtu 65536 ..
@@ -102,14 +99,14 @@
          link/ether 36:58:23:6f:f9:66 brd ff:ff:ff:ff:ff:ff link-netnsid 0
    #+END_EXAMPLE
 
-   Now we put port  =veth0= and =a= into =vale0=:
+   Put =veth0= and =a= into =vale0=:
 
    #+BEGIN_EXAMPLE
    vale-ctl -a vale0:veth0
    vale-ctl -a vale0:a
    #+END_EXAMPLE
    
-   Now use =pkt-get= to receive packets from vale port =a=:
+   Use =pkt-gen= to receive packets from vale port =a=:
    #+BEGIN_EXAMPLE
    pkt-gen -i vale:a -f rx -X
    #+END_EXAMPLE
@@ -142,6 +139,8 @@
    pkt-gen -i 'netmap:p}1' -f rx # Receive slave
    #+END_EXAMPLE
 
-   
-
-
+   Or vale:
+   #+BEGIN_EXAMPLE
+   pkt-gen -i 'vale0:p{1' -f tx # Transmit master
+   pkt-gen -i 'vale0:p}1' -f rx # Receive slave
+   #+END_EXAMPLE
