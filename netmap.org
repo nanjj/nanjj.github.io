@@ -14,6 +14,63 @@
 
 [[netmap-page:][Netmap]] is a framework for very fast packet I/O from userspace.
 
+* Build Linux Kernel
+  
+  Kernel building takes too long time. We can use below methods
+  together to speed up the process:
+
+  1. Enable =tmpfs= to build in memory,
+  2. Enable =ccache= to avoid unnecessary recompile,
+  3. Enable =distcc= to build on multiple machines.
+  
+** Mount tmpfs
+
+   #+BEGIN_SRC sh
+   mkdir src .ccache
+   mount -t tmpfs -o size=30G,mode=0755 tmpfs src
+   mount -t tmpfs -o size=10G,mode=0755 tmpfs .ccache
+   #+END_SRC
+  Speed up kernel building via =ccache= and =distcc=:
+
+** Enable ccache  
+  #+BEGIN_SRC sh
+    apt-get install ccache
+  #+END_SRC
+
+** Enable distcc
+   #+BEGIN_SRC sh
+   apt-get install distcc
+   echo 10.113.111.160 10.113.111.187 >> /etc/distcc/hosts
+   #+END_SRC
+
+   On =10.113.111.160= and  =10.113.111.187=:
+
+   #+BEGIN_SRC sh
+     apt-get install distcc
+     cat > /etc/default/distcc <<EOF
+     STARTDISTCC="true"
+     ALLOWEDNETS="10.113.111.152"    # master build ip
+     LISTENER="10.113.111.187"       # local ip
+     EOF
+     systemctl restart distcc
+   #+END_SRC
+** Build
+
+   Build ubuntu kernel =Ubuntu-4.4.0-102.125= as below:
+   #+BEGIN_SRC sh
+     cd src
+     git clone git://kernel.ubuntu.com/ubuntu/ubuntu-xenial
+     cd ubuntu-xenial
+     git checkout Ubuntu-4.4.0-102.125
+     sed 's/CONFIG_VIRTIO_NET=y/CONFIG_VIRTIO_NET=m/g'
+     export PATH=/usr/lib/ccache:$PATH
+     export CCACHE_PREFIX="distcc"
+     fakeroot debian/rules clean
+     fakeroot debian/rules binary
+   #+END_SRC
+
+   It takes around 9 minutes on my machine.
+   
 * Netmap and Vale
 
 ** Netmap Port

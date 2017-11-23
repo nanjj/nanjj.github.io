@@ -3,7 +3,7 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2017-11-20 Mon 21:49 -->
+<!-- 2017-11-23 Thu 12:10 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Netmap Learning</title>
@@ -21,6 +21,14 @@
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents">
 <ul>
+<li><a href="#orgb54a91b">Build Linux Kernel</a>
+<ul>
+<li><a href="#org3e66378">Mount tmpfs</a></li>
+<li><a href="#orgdf9ef91">Enable ccache</a></li>
+<li><a href="#orgdc947f7">Enable distcc</a></li>
+<li><a href="#orgc13a966">Build</a></li>
+</ul>
+</li>
 <li><a href="#org10f0927">Netmap and Vale</a>
 <ul>
 <li><a href="#org254af94">Netmap Port</a></li>
@@ -35,6 +43,97 @@
 <p>
 <a href="http://info.iet.unipi.it/~luigi/netmap">Netmap</a> is a framework for very fast packet I/O from userspace.
 </p>
+
+<div id="outline-container-orgb54a91b" class="outline-2">
+<h2 id="orgb54a91b">Build Linux Kernel</h2>
+<div class="outline-text-2" id="text-orgb54a91b">
+<p>
+Kernel building takes too long time. We can use below methods
+together to speed up the process:
+</p>
+
+<ol class="org-ol">
+<li>Enable <code>tmpfs</code> to build in memory,</li>
+<li>Enable <code>ccache</code> to avoid unnecessary recompile,</li>
+<li>Enable <code>distcc</code> to build on multiple machines.</li>
+</ol>
+</div>
+
+<div id="outline-container-org3e66378" class="outline-3">
+<h3 id="org3e66378">Mount tmpfs</h3>
+<div class="outline-text-3" id="text-org3e66378">
+<div class="org-src-container">
+<pre class="src src-sh">mkdir src .ccache
+mount -t tmpfs -o <span class="org-variable-name">size</span>=30G,<span class="org-variable-name">mode</span>=0755 tmpfs src
+mount -t tmpfs -o <span class="org-variable-name">size</span>=10G,<span class="org-variable-name">mode</span>=0755 tmpfs .ccache
+</pre>
+</div>
+<p>
+Speed up kernel building via <code>ccache</code> and <code>distcc</code>:
+</p>
+</div>
+</div>
+
+<div id="outline-container-orgdf9ef91" class="outline-3">
+<h3 id="orgdf9ef91">Enable ccache</h3>
+<div class="outline-text-3" id="text-orgdf9ef91">
+<div class="org-src-container">
+<pre class="src src-sh">apt-get install ccache
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orgdc947f7" class="outline-3">
+<h3 id="orgdc947f7">Enable distcc</h3>
+<div class="outline-text-3" id="text-orgdc947f7">
+<div class="org-src-container">
+<pre class="src src-sh">apt-get install distcc
+<span class="org-builtin">echo</span> 10.113.111.160 10.113.111.187 &gt;&gt; /etc/distcc/hosts
+</pre>
+</div>
+
+<p>
+On <code>10.113.111.160</code> and  <code>10.113.111.187</code>:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-sh">apt-get install distcc
+cat &gt; /etc/default/distcc &lt;&lt;EOF
+<span class="org-sh-heredoc">STARTDISTCC="true"</span>
+<span class="org-sh-heredoc">ALLOWEDNETS="10.113.111.152"    # master build ip</span>
+<span class="org-sh-heredoc">LISTENER="10.113.111.187"       # local ip</span>
+<span class="org-sh-heredoc">EOF</span>
+systemctl restart distcc
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-orgc13a966" class="outline-3">
+<h3 id="orgc13a966">Build</h3>
+<div class="outline-text-3" id="text-orgc13a966">
+<p>
+Build ubuntu kernel <code>Ubuntu-4.4.0-102.125</code> as below:
+</p>
+<div class="org-src-container">
+<pre class="src src-sh"><span class="org-builtin">cd</span> src
+git clone git://kernel.ubuntu.com/ubuntu/ubuntu-xenial
+<span class="org-builtin">cd</span> ubuntu-xenial
+git checkout Ubuntu-4.4.0-102.125
+sed <span class="org-string">'s/CONFIG_VIRTIO_NET=y/CONFIG_VIRTIO_NET=m/g'</span>
+<span class="org-builtin">export</span> <span class="org-variable-name">PATH</span>=/usr/lib/ccache:$<span class="org-variable-name">PATH</span>
+<span class="org-builtin">export</span> <span class="org-variable-name">CCACHE_PREFIX</span>=<span class="org-string">"distcc"</span>
+fakeroot debian/rules clean
+fakeroot debian/rules binary
+</pre>
+</div>
+
+<p>
+It takes around 9 minutes on my machine.
+</p>
+</div>
+</div>
+</div>
 
 <div id="outline-container-org10f0927" class="outline-2">
 <h2 id="org10f0927">Netmap and Vale</h2>
