@@ -1,0 +1,9 @@
+* Qemu
+  
+  1. which nic models qemu supports?
+     #+BEGIN_SRC sh
+       qemu-system-x86_64 -net nic,model=?
+       #=>
+       qemu: Supported NIC models: ne2k_pci,i82551,i82557b,i82559er,rtl8139,e1000,pcnet,virtio
+     #+END_SRC
+  2. Quit qemu `C-A C`.

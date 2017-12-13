@@ -1,0 +1,247 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+<!-- 2017-12-14 Thu 00:04 -->
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Running Arista vEOS in OpenStack</title>
+<meta name="generator" content="Org mode" />
+<meta name="author" content="Nan Jun Jie" />
+<link rel="stylesheet" type="text/css" href="css/org.css" />
+</head>
+<body>
+<div id="org-div-home-and-up">
+ <a accesskey="h" href="index.html"> UP </a> | 
+ <a accesskey="H" href="index.html"> HOME </a>
+</div><div id="content">
+<h1 class="title">Running Arista vEOS in OpenStack</h1>
+<div id="table-of-contents">
+<h2>Table of Contents</h2>
+<div id="text-table-of-contents">
+<ul>
+<li><a href="#orgd1741f7">Setup vEOS Image</a></li>
+<li><a href="#org242b7d6">Boot vEOS VM</a></li>
+<li><a href="#org7d5756f">Basic Setup</a></li>
+<li><a href="#orgaa6b818">Integrated with Netbox</a></li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-orgd1741f7" class="outline-2">
+<h2 id="orgd1741f7">Setup vEOS Image</h2>
+<div class="outline-text-2" id="text-orgd1741f7">
+<p>
+Download below files:
+</p>
+<ol class="org-ol">
+<li><code>Aboot-veos-8.0.0.iso</code>,</li>
+<li><code>vEOS-lab-4.20.1F.vmdk</code></li>
+</ol>
+<p>
+from: <a href="https://www.arista.com/en/support/software-download">https://www.arista.com/en/support/software-download</a>
+</p>
+
+<p>
+Upload to OpenStack Glance:
+</p>
+<div class="org-src-container">
+<pre class="src src-sh">openstack image create Aboot-veos-8.0.0.iso <span class="org-sh-escaped-newline">\</span>
+          --container-format bare <span class="org-sh-escaped-newline">\</span>
+          --disk-format iso <span class="org-sh-escaped-newline">\</span>
+          --file Aboot-veos-8.0.0.iso
+openstack image create vEOS-lab-4.20.1F.vmdk <span class="org-sh-escaped-newline">\</span>
+          --container-format bare <span class="org-sh-escaped-newline">\</span>
+          --disk-format vmdk <span class="org-sh-escaped-newline">\</span>
+          --file vEOS-lab-4.20.1F.vmdk
+</pre>
+</div>
+
+<p>
+List images:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-sh">openstack image list
+<span class="org-comment-delimiter">#</span><span class="org-comment">=&gt;</span>
+| name                  | id                                   | <span class="org-builtin">type</span>       |
+|-----------------------|--------------------------------------|------------|
+| Aboot-veos-8.0.0.iso  | 43c78dee-e055-4592-9b81-d66f6a33584d | iso image  |
+| vEOS-lab-4.20.1F.vmdk | ba02703d-6d2b-40a8-bdb7-bf41163d78f7 | vmdk image |
+</pre>
+</div>
+
+<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+
+
+<colgroup>
+<col  class="org-left" />
+
+<col  class="org-left" />
+
+<col  class="org-left" />
+</colgroup>
+<thead>
+<tr>
+<th scope="col" class="org-left">ID</th>
+<th scope="col" class="org-left">Name</th>
+<th scope="col" class="org-left">Status</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="org-left">ba02703d-6d2b-40a8-bdb7-bf41163d78f7</td>
+<td class="org-left">vEOS-lab-4.20.1F.vmdk</td>
+<td class="org-left">active</td>
+</tr>
+
+<tr>
+<td class="org-left">43c78dee-e055-4592-9b81-d66f6a33584d</td>
+<td class="org-left">Aboot-veos-8.0.0.iso</td>
+<td class="org-left">active</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+
+
+<div id="outline-container-org242b7d6" class="outline-2">
+<h2 id="org242b7d6">Boot vEOS VM</h2>
+<div class="outline-text-2" id="text-org242b7d6">
+<p>
+Before boot VM, make sure:
+</p>
+<ol class="org-ol">
+<li>OpenStack volume service - cinder is running,</li>
+<li>Disable OpenStack security groups,</li>
+<li>Disable ebtables on hypervisor</li>
+</ol>
+
+<p>
+Boot VM:
+</p>
+<div class="org-src-container">
+<pre class="src src-sh">nova boot --flavor m1.medium <span class="org-sh-escaped-newline">\</span>
+    --image Aboot-veos-8.0.0.iso <span class="org-sh-escaped-newline">\</span>
+    --nic net-id=64304c68-646f-4a2b-8a7a-e8f557c4b94a <span class="org-sh-escaped-newline">\</span>
+    --nic net-id=15bfca37-119e-475e-ad0e-fc2e377cac32 <span class="org-sh-escaped-newline">\</span>
+    --nic net-id=7c072643-2170-4a46-9dc2-e04f5f427f72 <span class="org-sh-escaped-newline">\</span>
+    --block-device <span class="org-sh-escaped-newline">\</span>
+    <span class="org-variable-name">id</span>=ba02703d-6d2b-40a8-bdb7-bf41163d78f7,<span class="org-variable-name">source</span>=image,<span class="org-variable-name">bus</span>=ide,<span class="org-variable-name">dest</span>=volume,<span class="org-variable-name">size</span>=4,<span class="org-variable-name">shutdown</span>=remove <span class="org-sh-escaped-newline">\</span>
+    veosvm1  
+</pre>
+</div>
+
+<p>
+Please notice:
+</p>
+
+<ol class="org-ol">
+<li>The first network is for vEOS management port, the left are for
+vEOS switch ports,</li>
+<li>The id(ba02703d-6d2b-40a8-bdb7-bf41163d78f7) in block device
+option is the image id of glance image vEOS-lab-4.20.1F.vmdk,</li>
+<li>Make sure bus is set to ide</li>
+</ol>
+</div>
+</div>
+
+<div id="outline-container-org7d5756f" class="outline-2">
+<h2 id="org7d5756f">Basic Setup</h2>
+<div class="outline-text-2" id="text-org7d5756f">
+<p>
+Get vm's novnc console:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-sh">nova get-vnc-console veosvm1 novnc  
+</pre>
+</div>
+
+<p>
+Go to the novnc console to configure network:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-sh">login: admin <span class="org-comment-delimiter"># </span><span class="org-comment">default username admin, no password</span>
+&gt; enable
+<span class="org-comment-delimiter"># </span><span class="org-comment">configure terminal</span>
+<span class="org-comment-delimiter"># </span><span class="org-comment">interface management 1</span>
+<span class="org-comment-delimiter"># </span><span class="org-comment">ip address 192.168.0.15 255.255.0.0</span>
+<span class="org-comment-delimiter"># </span><span class="org-comment">ip route 0.0.0.0 0.0.0.0 192.168.0.1</span>
+<span class="org-comment-delimiter"># </span><span class="org-comment">hostname veosvm1</span>
+<span class="org-comment-delimiter"># </span><span class="org-comment">username admin secret 0 admin</span>
+<span class="org-comment-delimiter"># </span><span class="org-comment">end</span>
+<span class="org-comment-delimiter"># </span><span class="org-comment">copy running-config startup-config</span>
+</pre>
+</div>
+
+<p>
+Now you can use ssh <code>ssh admin@192.168.0.15</code> to login.
+</p>
+</div>
+</div>
+
+<div id="outline-container-orgaa6b818" class="outline-2">
+<h2 id="orgaa6b818">Integrated with Netbox</h2>
+<div class="outline-text-2" id="text-orgaa6b818">
+<p>
+Enable management api:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-sh">ssh admin@192.168.0.15 <span class="org-comment-delimiter"># </span><span class="org-comment">password admin</span>
+&gt; enable
+<span class="org-comment-delimiter"># </span><span class="org-comment">config terminal</span>
+<span class="org-comment-delimiter"># </span><span class="org-comment">management api http-commands</span>
+<span class="org-comment-delimiter"># </span><span class="org-comment">no shutdown</span>
+<span class="org-comment-delimiter"># </span><span class="org-comment">no protocol http</span>
+<span class="org-comment-delimiter"># </span><span class="org-comment">protocol https</span>
+<span class="org-comment-delimiter"># </span><span class="org-comment">end</span>
+<span class="org-comment-delimiter"># </span><span class="org-comment">show management api http-commands #=&gt;</span>
+Enabled:            Yes
+HTTPS server:       running, set to use port 443
+HTTP server:        shutdown, set to use port 80
+Local HTTP server:  shutdown, no authentication, set to use port 8080
+Unix Socket server: shutdown, no authentication
+VRFs:               default
+Hits:               75
+Last hit:           36 seconds ago
+Bytes<span class="org-keyword"> in</span>:           11714
+Bytes out:          178064
+Requests:           60
+Commands:           147
+Duration:           5.294 seconds
+SSL Profile:        none
+FIPS Mode:          No
+QoS DSCP:           0
+Log Level:          none
+CSP Frame Ancestor: None
+TLS Protocols:      1.0 1.1 1.2
+   User        Requests       Bytes<span class="org-keyword"> in</span>       Bytes out    Last hit
+----------- -------------- -------------- --------------- --------------
+   admin       60             11714          178064       36 seconds ago
+
+URLs
+--------------------------------------
+Management1 : https://192.168.0.15:443
+<span class="org-comment-delimiter"># </span><span class="org-comment">copy running-config startup-config</span>
+</pre>
+</div>
+
+<p>
+So that netbox can talk to vEOS via napalm:
+</p>
+
+
+<div class="figure">
+<p><img src="napalm.png" alt="napalm.png" />
+</p>
+</div>
+</div>
+</div>
+</div>
+</body>
+</html>
