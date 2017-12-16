@@ -185,6 +185,72 @@ Now you can use ssh =ssh admin@192.168.0.15= to login.
    #+RESULTS:
   [[file:arista.png]]
 
+** Create Topology   
+
+   #+BEGIN_SRC yaml
+     ---
+     - name: "Create network vlan10, vlan20, vlan30"
+       hosts: localhost
+       tasks:
+         - name: "ensure networks created."
+           os_network:
+              name: "{{ item }}"
+              state: present
+           with_items:
+             - vlan10
+             - vlan20
+             - vlan30
+         - name: "ensure vlan subnets created"
+           os_subnet:
+             name: "vlan{{ item }}-subnet"
+             state: "present"
+             network_name: "vlan{{ item }}"
+             cidr: "172.16.{{ item }}.0/24"
+             enable_dhcp: True
+           with_items:
+             - "10"
+             - "20"
+             - "30"
+     - name: "Create arista vms"
+       hosts: localhost
+       tasks:
+        - name: "ensure arista-0 created"
+          shell: |
+            nova show arista-0 &> /dev/null && exit 0
+            nova boot --flavor m1.small \
+              --image Aboot-veos-8.0.0.iso \
+              --nic net-name=netops \
+              --nic net-name=vlan10,v4-fixed-ip=172.16.10.1 \
+              --nic net-name=vlan30,v4-fixed-ip=172.16.30.3 \
+              --block-device \
+              id=ba02703d-6d2b-40a8-bdb7-bf41163d78f7,source=image,bus=ide,dest=volume,size=4,shutdown=remove \
+              arista-0
+        - name: "ensure arista-1 created"
+          shell: |
+            nova show arista-1 &> /dev/null && exit 0
+            nova boot --flavor m1.small \
+              --image Aboot-veos-8.0.0.iso \
+              --nic net-name=netops \
+              --nic net-name=vlan20,v4-fixed-ip=172.16.20.1 \
+              --nic net-name=vlan30,v4-fixed-ip=172.16.30.4 \
+              --block-device \
+              id=ba02703d-6d2b-40a8-bdb7-bf41163d78f7,source=image,bus=ide,dest=volume,size=4,shutdown=remove \
+              arista-1
+     - name: "Create vm"
+       hosts: localhost
+       roles:
+         - role: vm
+           group: vlan10vm
+           network: vlan10
+     - name: "Create vm"
+       hosts: localhost
+       roles:
+         - role: vm
+           group: vlan20vm
+           network: vlan20
+
+   #+END_SRC
+   
 ** Configure Arista 0
 
    #+BEGIN_SRC sh

@@ -3,7 +3,7 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2017-12-16 Sat 23:13 -->
+<!-- 2017-12-16 Sat 23:21 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Running Arista vEOS in OpenStack</title>
@@ -45,6 +45,7 @@
 <li><a href="#org9dc94ed">A Clasic Configuration</a>
 <ul>
 <li><a href="#orgf72fa6b">Topology</a></li>
+<li><a href="#org68519cf">Create Topology</a></li>
 <li><a href="#org3ff5211">Configure Arista 0</a></li>
 <li><a href="#org063c9a7">Configure Arista 1</a></li>
 <li><a href="#org1dd2cbd">Test</a></li>
@@ -282,6 +283,76 @@ So that netbox can talk to vEOS via napalm:
 <div class="figure">
 <p><img src="arista.png" alt="arista.png" />
 </p>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org68519cf" class="outline-3">
+<h3 id="org68519cf">Create Topology</h3>
+<div class="outline-text-3" id="text-org68519cf">
+<div class="org-src-container">
+<pre class="src src-yaml"><span class="org-comment">---</span>
+- <span class="org-variable-name">name</span>: <span class="org-string">"Create network vlan10, vlan20, vlan30"</span>
+  <span class="org-variable-name">hosts</span>: localhost
+  <span class="org-variable-name">tasks</span>:
+    - <span class="org-variable-name">name</span>: <span class="org-string">"ensure networks created."</span>
+      <span class="org-variable-name">os_network</span>:
+         <span class="org-variable-name">name</span>: <span class="org-string">"{{ item }}"</span>
+         <span class="org-variable-name">state</span>: present
+      <span class="org-variable-name">with_items</span>:
+        - vlan10
+        - vlan20
+        - vlan30
+    - <span class="org-variable-name">name</span>: <span class="org-string">"ensure vlan subnets created"</span>
+      <span class="org-variable-name">os_subnet</span>:
+        <span class="org-variable-name">name</span>: <span class="org-string">"vlan{{ item }}-subnet"</span>
+        <span class="org-variable-name">state</span>: <span class="org-string">"present"</span>
+        <span class="org-variable-name">network_name</span>: <span class="org-string">"vlan{{ item }}"</span>
+        <span class="org-variable-name">cidr</span>: <span class="org-string">"172.16.{{ item }}.0/24"</span>
+        <span class="org-variable-name">enable_dhcp</span>: <span class="org-constant">True</span>
+      <span class="org-variable-name">with_items</span>:
+        - <span class="org-string">"10"</span>
+        - <span class="org-string">"20"</span>
+        - <span class="org-string">"30"</span>
+- <span class="org-variable-name">name</span>: <span class="org-string">"Create arista vms"</span>
+  <span class="org-variable-name">hosts</span>: localhost
+  <span class="org-variable-name">tasks</span>:
+   - <span class="org-variable-name">name</span>: <span class="org-string">"ensure arista-0 created"</span>
+     <span class="org-variable-name">shell</span>: |
+       <span class="org-string">nova show arista-0 &amp;&gt; /dev/null &amp;&amp; exit 0</span>
+<span class="org-string">       nova boot --flavor m1.small \</span>
+<span class="org-string">         --image Aboot-veos-8.0.0.iso \</span>
+<span class="org-string">         --nic net-name=netops \</span>
+<span class="org-string">         --nic net-name=vlan10,v4-fixed-ip=172.16.10.1 \</span>
+<span class="org-string">         --nic net-name=vlan30,v4-fixed-ip=172.16.30.3 \</span>
+<span class="org-string">         --block-device \</span>
+<span class="org-string">         id=ba02703d-6d2b-40a8-bdb7-bf41163d78f7,source=image,bus=ide,dest=volume,size=4,shutdown=remove \</span>
+<span class="org-string">         arista-0</span>
+   - <span class="org-variable-name">name</span>: <span class="org-string">"ensure arista-1 created"</span>
+     <span class="org-variable-name">shell</span>: |
+       <span class="org-string">nova show arista-1 &amp;&gt; /dev/null &amp;&amp; exit 0</span>
+<span class="org-string">       nova boot --flavor m1.small \</span>
+<span class="org-string">         --image Aboot-veos-8.0.0.iso \</span>
+<span class="org-string">         --nic net-name=netops \</span>
+<span class="org-string">         --nic net-name=vlan20,v4-fixed-ip=172.16.20.1 \</span>
+<span class="org-string">         --nic net-name=vlan30,v4-fixed-ip=172.16.30.4 \</span>
+<span class="org-string">         --block-device \</span>
+<span class="org-string">         id=ba02703d-6d2b-40a8-bdb7-bf41163d78f7,source=image,bus=ide,dest=volume,size=4,shutdown=remove \</span>
+<span class="org-string">         arista-1</span>
+- <span class="org-variable-name">name</span>: <span class="org-string">"Create vm"</span>
+  <span class="org-variable-name">hosts</span>: localhost
+  <span class="org-variable-name">roles</span>:
+    - <span class="org-variable-name">role</span>: vm
+      <span class="org-variable-name">group</span>: vlan10vm
+      <span class="org-variable-name">network</span>: vlan10
+- <span class="org-variable-name">name</span>: <span class="org-string">"Create vm"</span>
+  <span class="org-variable-name">hosts</span>: localhost
+  <span class="org-variable-name">roles</span>:
+    - <span class="org-variable-name">role</span>: vm
+      <span class="org-variable-name">group</span>: vlan20vm
+      <span class="org-variable-name">network</span>: vlan20
+
+</pre>
 </div>
 </div>
 </div>
