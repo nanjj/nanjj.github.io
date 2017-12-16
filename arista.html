@@ -3,7 +3,7 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2017-12-16 Sat 23:21 -->
+<!-- 2017-12-16 Sat 23:24 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Running Arista vEOS in OpenStack</title>
@@ -263,10 +263,16 @@ Management1 : https://192.168.0.15:443
 So that netbox can talk to vEOS via napalm:
 </p>
 
-
-<div class="figure">
-<p><img src="napalm.png" alt="napalm.png" />
-</p>
+<div class="org-src-container">
+<pre class="src src-ditaa">+--------------------+             +---------------------+
+|      netbox        |             |   arista veos       |
++--------+-----------+             +------------+--------+
+|        |           |             |            |        |
+|        |  napalm   |             | management |        |
+|        |   (eos)   +-----=------&gt;|   (https)  |        |
+|        |           |             |            |        |
++--------+-----------+             +------------+--------+
+</pre>
 </div>
 </div>
 </div>
@@ -279,10 +285,26 @@ So that netbox can talk to vEOS via napalm:
 <div id="outline-container-orgf72fa6b" class="outline-3">
 <h3 id="orgf72fa6b">Topology</h3>
 <div class="outline-text-3" id="text-orgf72fa6b">
-
-<div class="figure">
-<p><img src="arista.png" alt="arista.png" />
-</p>
+<div class="org-src-container">
+<pre class="src src-ditaa">+-----------------+                  +-----------------+
+|   arista 0  et2 +------vlan30------+ et2 arista 1    |
++-----------------+ 172.16.30.0/24   +-----------------+
+|                 |                  |                 |
+| 172.16.10.1/24  |                  | 172.16.20.1/24  |
+|      et1        |                  |      et1        |
++-------+---------+                  +-------+---------+
+        |                                    |
+        |                                    |
+      vlan10                               vlan20
+        |                                    |
++-------+---------+                  +-------+---------+
+|      eth0       |                  |      eth0       |
+| 172.16.10.6/24  |                  |  172.16.20.7/24 |
+|                 |                  |                 |
++-----------------+                  +-----------------+
+|      vm 0       |                  |      vm 1       |
++-----------------+                  +-----------------+
+</pre>
 </div>
 </div>
 </div>

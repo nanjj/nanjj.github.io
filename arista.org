@@ -143,7 +143,7 @@ Now you can use ssh =ssh admin@192.168.0.15= to login.
 
    So that netbox can talk to vEOS via napalm:
   
-   #+BEGIN_SRC ditaa :file napalm.png :cmdline -E :exports results
+   #+BEGIN_SRC ditaa :file napalm.png :cmdline -E :exports code
      +--------------------+             +---------------------+
      |      netbox        |             |   arista veos       |
      +--------+-----------+             +------------+--------+
@@ -161,7 +161,7 @@ Now you can use ssh =ssh admin@192.168.0.15= to login.
 
 ** Topology
   
-   #+BEGIN_SRC ditaa :file arista.png :cmdline -E
+   #+BEGIN_SRC ditaa :file arista.png :cmdline -E :exports code
      +-----------------+                  +-----------------+
      |   arista 0  et2 +------vlan30------+ et2 arista 1    |
      +-----------------+ 172.16.30.0/24   +-----------------+
