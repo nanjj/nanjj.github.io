@@ -3,7 +3,7 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2017-12-14 Thu 00:04 -->
+<!-- 2017-12-16 Sat 23:13 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Running Arista vEOS in OpenStack</title>
@@ -21,28 +21,64 @@
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents">
 <ul>
-<li><a href="#orgd1741f7">Setup vEOS Image</a></li>
-<li><a href="#org242b7d6">Boot vEOS VM</a></li>
-<li><a href="#org7d5756f">Basic Setup</a></li>
-<li><a href="#orgaa6b818">Integrated with Netbox</a></li>
+<li><a href="#org17800ad">vEOS Image</a>
+<ul>
+<li><a href="#org6f756d4">Download</a></li>
+<li><a href="#orgbdf8b79">Upload</a></li>
+<li><a href="#orgc37c070">List images</a></li>
+</ul>
+</li>
+<li><a href="#org242b7d6">Boot vEOS VM</a>
+<ul>
+<li><a href="#org74581cc">Prerequisite</a></li>
+<li><a href="#orgf679a05">Boot VM</a></li>
+<li><a href="#org726c2bc">Notices</a></li>
+</ul>
+</li>
+<li><a href="#org1525c9c">Enable SSH</a></li>
+<li><a href="#orgf320c1b">Netbox Integration</a>
+<ul>
+<li><a href="#org8e2739c">Enable Management Api</a></li>
+<li><a href="#org15bc84e">Napalm</a></li>
+</ul>
+</li>
+<li><a href="#org9dc94ed">A Clasic Configuration</a>
+<ul>
+<li><a href="#orgf72fa6b">Topology</a></li>
+<li><a href="#org3ff5211">Configure Arista 0</a></li>
+<li><a href="#org063c9a7">Configure Arista 1</a></li>
+<li><a href="#org1dd2cbd">Test</a></li>
+</ul>
+</li>
 </ul>
 </div>
 </div>
 
-<div id="outline-container-orgd1741f7" class="outline-2">
-<h2 id="orgd1741f7">Setup vEOS Image</h2>
-<div class="outline-text-2" id="text-orgd1741f7">
+<div id="outline-container-org17800ad" class="outline-2">
+<h2 id="org17800ad">vEOS Image</h2>
+<div class="outline-text-2" id="text-org17800ad">
+</div>
+<div id="outline-container-org6f756d4" class="outline-3">
+<h3 id="org6f756d4">Download</h3>
+<div class="outline-text-3" id="text-org6f756d4">
 <p>
 Download below files:
 </p>
+
 <ol class="org-ol">
 <li><code>Aboot-veos-8.0.0.iso</code>,</li>
 <li><code>vEOS-lab-4.20.1F.vmdk</code></li>
 </ol>
+
 <p>
 from: <a href="https://www.arista.com/en/support/software-download">https://www.arista.com/en/support/software-download</a>
 </p>
+</div>
+</div>
 
+<div id="outline-container-orgbdf8b79" class="outline-3">
+<h3 id="orgbdf8b79">Upload</h3>
+<div class="outline-text-3" id="text-orgbdf8b79">
 <p>
 Upload to OpenStack Glance:
 </p>
@@ -57,11 +93,12 @@ openstack image create vEOS-lab-4.20.1F.vmdk <span class="org-sh-escaped-newline
           --file vEOS-lab-4.20.1F.vmdk
 </pre>
 </div>
+</div>
+</div>
 
-<p>
-List images:
-</p>
-
+<div id="outline-container-orgc37c070" class="outline-3">
+<h3 id="orgc37c070">List images</h3>
+<div class="outline-text-3" id="text-orgc37c070">
 <div class="org-src-container">
 <pre class="src src-sh">openstack image list
 <span class="org-comment-delimiter">#</span><span class="org-comment">=&gt;</span>
@@ -71,45 +108,17 @@ List images:
 | vEOS-lab-4.20.1F.vmdk | ba02703d-6d2b-40a8-bdb7-bf41163d78f7 | vmdk image |
 </pre>
 </div>
-
-<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
-
-
-<colgroup>
-<col  class="org-left" />
-
-<col  class="org-left" />
-
-<col  class="org-left" />
-</colgroup>
-<thead>
-<tr>
-<th scope="col" class="org-left">ID</th>
-<th scope="col" class="org-left">Name</th>
-<th scope="col" class="org-left">Status</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td class="org-left">ba02703d-6d2b-40a8-bdb7-bf41163d78f7</td>
-<td class="org-left">vEOS-lab-4.20.1F.vmdk</td>
-<td class="org-left">active</td>
-</tr>
-
-<tr>
-<td class="org-left">43c78dee-e055-4592-9b81-d66f6a33584d</td>
-<td class="org-left">Aboot-veos-8.0.0.iso</td>
-<td class="org-left">active</td>
-</tr>
-</tbody>
-</table>
 </div>
 </div>
-
+</div>
 
 <div id="outline-container-org242b7d6" class="outline-2">
 <h2 id="org242b7d6">Boot vEOS VM</h2>
 <div class="outline-text-2" id="text-org242b7d6">
+</div>
+<div id="outline-container-org74581cc" class="outline-3">
+<h3 id="org74581cc">Prerequisite</h3>
+<div class="outline-text-3" id="text-org74581cc">
 <p>
 Before boot VM, make sure:
 </p>
@@ -120,8 +129,19 @@ Before boot VM, make sure:
 </ol>
 
 <p>
-Boot VM:
+A workaround to disable ebtables:
 </p>
+
+<div class="org-src-container">
+<pre class="src src-sh">ansible -m cron -a <span class="org-string">'job="/sbin/ebtables -F" name="flush ebtables"'</span> all
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orgf679a05" class="outline-3">
+<h3 id="orgf679a05">Boot VM</h3>
+<div class="outline-text-3" id="text-orgf679a05">
 <div class="org-src-container">
 <pre class="src src-sh">nova boot --flavor m1.medium <span class="org-sh-escaped-newline">\</span>
     --image Aboot-veos-8.0.0.iso <span class="org-sh-escaped-newline">\</span>
@@ -133,11 +153,12 @@ Boot VM:
     veosvm1  
 </pre>
 </div>
+</div>
+</div>
 
-<p>
-Please notice:
-</p>
-
+<div id="outline-container-org726c2bc" class="outline-3">
+<h3 id="org726c2bc">Notices</h3>
+<div class="outline-text-3" id="text-org726c2bc">
 <ol class="org-ol">
 <li>The first network is for vEOS management port, the left are for
 vEOS switch ports,</li>
@@ -147,10 +168,11 @@ option is the image id of glance image vEOS-lab-4.20.1F.vmdk,</li>
 </ol>
 </div>
 </div>
+</div>
 
-<div id="outline-container-org7d5756f" class="outline-2">
-<h2 id="org7d5756f">Basic Setup</h2>
-<div class="outline-text-2" id="text-org7d5756f">
+<div id="outline-container-org1525c9c" class="outline-2">
+<h2 id="org1525c9c">Enable SSH</h2>
+<div class="outline-text-2" id="text-org1525c9c">
 <p>
 Get vm's novnc console:
 </p>
@@ -184,13 +206,13 @@ Now you can use ssh <code>ssh admin@192.168.0.15</code> to login.
 </div>
 </div>
 
-<div id="outline-container-orgaa6b818" class="outline-2">
-<h2 id="orgaa6b818">Integrated with Netbox</h2>
-<div class="outline-text-2" id="text-orgaa6b818">
-<p>
-Enable management api:
-</p>
-
+<div id="outline-container-orgf320c1b" class="outline-2">
+<h2 id="orgf320c1b">Netbox Integration</h2>
+<div class="outline-text-2" id="text-orgf320c1b">
+</div>
+<div id="outline-container-org8e2739c" class="outline-3">
+<h3 id="org8e2739c">Enable Management Api</h3>
+<div class="outline-text-3" id="text-org8e2739c">
 <div class="org-src-container">
 <pre class="src src-sh">ssh admin@192.168.0.15 <span class="org-comment-delimiter"># </span><span class="org-comment">password admin</span>
 &gt; enable
@@ -230,7 +252,12 @@ Management1 : https://192.168.0.15:443
 <span class="org-comment-delimiter"># </span><span class="org-comment">copy running-config startup-config</span>
 </pre>
 </div>
+</div>
+</div>
 
+<div id="outline-container-org15bc84e" class="outline-3">
+<h3 id="org15bc84e">Napalm</h3>
+<div class="outline-text-3" id="text-org15bc84e">
 <p>
 So that netbox can talk to vEOS via napalm:
 </p>
@@ -238,6 +265,112 @@ So that netbox can talk to vEOS via napalm:
 
 <div class="figure">
 <p><img src="napalm.png" alt="napalm.png" />
+</p>
+</div>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org9dc94ed" class="outline-2">
+<h2 id="org9dc94ed">A Clasic Configuration</h2>
+<div class="outline-text-2" id="text-org9dc94ed">
+</div>
+<div id="outline-container-orgf72fa6b" class="outline-3">
+<h3 id="orgf72fa6b">Topology</h3>
+<div class="outline-text-3" id="text-orgf72fa6b">
+
+<div class="figure">
+<p><img src="arista.png" alt="arista.png" />
+</p>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org3ff5211" class="outline-3">
+<h3 id="org3ff5211">Configure Arista 0</h3>
+<div class="outline-text-3" id="text-org3ff5211">
+<div class="org-src-container">
+<pre class="src src-sh"><span class="org-builtin">enable</span>
+config terminal
+
+interface management 1
+ip address 192.168.0.14.16
+
+vlan 10
+vlan 30
+
+interface ethernet 1
+switchport mode access
+switchport access vlan 10
+no shutdown
+
+interface ethernet 2
+switchport mode trunk
+switchport trunk allowed vlan 30
+no shutdown
+
+interface vlan10
+ip address 172.16.10.1/24
+
+interface vlan30
+ip address 172.16.30.3/24
+
+ip routing
+router ospf 10
+network 172.16.10.0/24 area 0
+network 172.16.30.0/24 area 0
+
+end  
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org063c9a7" class="outline-3">
+<h3 id="org063c9a7">Configure Arista 1</h3>
+<div class="outline-text-3" id="text-org063c9a7">
+<div class="org-src-container">
+<pre class="src src-sh">interface management 1
+ip address 192.168.0.26/16
+no shutdown
+
+vlan 20
+vlan 30
+
+interface ethernet 1
+switchport mode access
+switchport access vlan 20
+no shutdown
+
+interface ethernet 2
+switchport mode trunk
+switchport trunk allowed vlan 30
+no shutdown
+
+interface vlan 20
+ip address 172.16.20.1/24
+no shutdown
+
+interface vlan 30
+ip address 172.16.30.4/24
+no shutdown
+
+ip routing
+router ospf 10
+network 172.16.20.0/24 area 0
+network 172.16.30.0/24 area 0
+
+end
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org1dd2cbd" class="outline-3">
+<h3 id="org1dd2cbd">Test</h3>
+<div class="outline-text-3" id="text-org1dd2cbd">
+<p>
+login vm-0 and ping vm-1.
 </p>
 </div>
 </div>

@@ -1,14 +1,19 @@
 #+TITLE: Running Arista vEOS in OpenStack
 #+DATE: <2017-12-06 Wed>
 
-* Setup vEOS Image
+* vEOS Image
 
+** Download  
   Download below files:
+
   1. =Aboot-veos-8.0.0.iso=,
   2. =vEOS-lab-4.20.1F.vmdk=
+
   from: [[https://www.arista.com/en/support/software-download]]
 
-  Upload to OpenStack Glance:
+** Upload
+
+   Upload to OpenStack Glance:
   #+BEGIN_SRC sh
     openstack image create Aboot-veos-8.0.0.iso \
               --container-format bare \
@@ -20,7 +25,7 @@
               --file vEOS-lab-4.20.1F.vmdk
   #+END_SRC
 
-  List images:
+** List images
 
   #+BEGIN_SRC sh
         openstack image list
@@ -31,40 +36,42 @@
         | vEOS-lab-4.20.1F.vmdk | ba02703d-6d2b-40a8-bdb7-bf41163d78f7 | vmdk image |
   #+END_SRC
 
-  | ID                                   | Name                  | Status |
-  |--------------------------------------+-----------------------+--------|
-  | ba02703d-6d2b-40a8-bdb7-bf41163d78f7 | vEOS-lab-4.20.1F.vmdk | active |
-  | 43c78dee-e055-4592-9b81-d66f6a33584d | Aboot-veos-8.0.0.iso  | active |
-
-
 * Boot vEOS VM
 
-  Before boot VM, make sure:
-  1. OpenStack volume service - cinder is running,
-  2. Disable OpenStack security groups,
-  3. Disable ebtables on hypervisor
+** Prerequisite
 
-  Boot VM:
-  #+BEGIN_SRC sh
-    nova boot --flavor m1.medium \
-        --image Aboot-veos-8.0.0.iso \
-        --nic net-id=64304c68-646f-4a2b-8a7a-e8f557c4b94a \
-        --nic net-id=15bfca37-119e-475e-ad0e-fc2e377cac32 \
-        --nic net-id=7c072643-2170-4a46-9dc2-e04f5f427f72 \
-        --block-device \
-        id=ba02703d-6d2b-40a8-bdb7-bf41163d78f7,source=image,bus=ide,dest=volume,size=4,shutdown=remove \
-        veosvm1  
-  #+END_SRC
+   Before boot VM, make sure:
+   1. OpenStack volume service - cinder is running,
+   2. Disable OpenStack security groups,
+   3. Disable ebtables on hypervisor
 
-  Please notice:
+   A workaround to disable ebtables:
 
-  1. The first network is for vEOS management port, the left are for
-     vEOS switch ports,
-  2. The id(ba02703d-6d2b-40a8-bdb7-bf41163d78f7) in block device
-     option is the image id of glance image vEOS-lab-4.20.1F.vmdk,
-  3. Make sure bus is set to ide
+   #+BEGIN_SRC sh
+     ansible -m cron -a 'job="/sbin/ebtables -F" name="flush ebtables"' all
+   #+END_SRC
 
-* Basic Setup
+** Boot VM
+   #+BEGIN_SRC sh
+     nova boot --flavor m1.medium \
+         --image Aboot-veos-8.0.0.iso \
+         --nic net-id=64304c68-646f-4a2b-8a7a-e8f557c4b94a \
+         --nic net-id=15bfca37-119e-475e-ad0e-fc2e377cac32 \
+         --nic net-id=7c072643-2170-4a46-9dc2-e04f5f427f72 \
+         --block-device \
+         id=ba02703d-6d2b-40a8-bdb7-bf41163d78f7,source=image,bus=ide,dest=volume,size=4,shutdown=remove \
+         veosvm1  
+   #+END_SRC
+
+** Notices
+
+   1. The first network is for vEOS management port, the left are for
+      vEOS switch ports,
+   2. The id(ba02703d-6d2b-40a8-bdb7-bf41163d78f7) in block device
+      option is the image id of glance image vEOS-lab-4.20.1F.vmdk,
+   3. Make sure bus is set to ide
+
+* Enable SSH
 
   Get vm's novnc console:
 
@@ -89,61 +96,167 @@
 
 Now you can use ssh =ssh admin@192.168.0.15= to login.
 
-* Integrated with Netbox
+* Netbox Integration
 
-  Enable management api:
+** Enable Management Api
 
-  #+BEGIN_SRC sh
-    ssh admin@192.168.0.15 # password admin
-    > enable
-    # config terminal
-    # management api http-commands
-    # no shutdown
-    # no protocol http
-    # protocol https
-    # end
-    # show management api http-commands #=>
-    Enabled:            Yes
-    HTTPS server:       running, set to use port 443
-    HTTP server:        shutdown, set to use port 80
-    Local HTTP server:  shutdown, no authentication, set to use port 8080
-    Unix Socket server: shutdown, no authentication
-    VRFs:               default
-    Hits:               75
-    Last hit:           36 seconds ago
-    Bytes in:           11714
-    Bytes out:          178064
-    Requests:           60
-    Commands:           147
-    Duration:           5.294 seconds
-    SSL Profile:        none
-    FIPS Mode:          No
-    QoS DSCP:           0
-    Log Level:          none
-    CSP Frame Ancestor: None
-    TLS Protocols:      1.0 1.1 1.2
-       User        Requests       Bytes in       Bytes out    Last hit
-    ----------- -------------- -------------- --------------- --------------
-       admin       60             11714          178064       36 seconds ago
+   #+BEGIN_SRC sh
+     ssh admin@192.168.0.15 # password admin
+     > enable
+     # config terminal
+     # management api http-commands
+     # no shutdown
+     # no protocol http
+     # protocol https
+     # end
+     # show management api http-commands #=>
+     Enabled:            Yes
+     HTTPS server:       running, set to use port 443
+     HTTP server:        shutdown, set to use port 80
+     Local HTTP server:  shutdown, no authentication, set to use port 8080
+     Unix Socket server: shutdown, no authentication
+     VRFs:               default
+     Hits:               75
+     Last hit:           36 seconds ago
+     Bytes in:           11714
+     Bytes out:          178064
+     Requests:           60
+     Commands:           147
+     Duration:           5.294 seconds
+     SSL Profile:        none
+     FIPS Mode:          No
+     QoS DSCP:           0
+     Log Level:          none
+     CSP Frame Ancestor: None
+     TLS Protocols:      1.0 1.1 1.2
+        User        Requests       Bytes in       Bytes out    Last hit
+     ----------- -------------- -------------- --------------- --------------
+        admin       60             11714          178064       36 seconds ago
 
-    URLs
-    --------------------------------------
-    Management1 : https://192.168.0.15:443
-    # copy running-config startup-config
-  #+END_SRC
+     URLs
+     --------------------------------------
+     Management1 : https://192.168.0.15:443
+     # copy running-config startup-config
+   #+END_SRC
 
-  So that netbox can talk to vEOS via napalm:
+** Napalm
+
+   So that netbox can talk to vEOS via napalm:
   
-  #+BEGIN_SRC ditaa :file napalm.png :cmdline -E :exports results
-    +--------------------+             +---------------------+
-    |      netbox        |             |   arista veos       |
-    +--------+-----------+             +------------+--------+
-    |        |           |             |            |        |
-    |        |  napalm   |             | management |        |
-    |        |   (eos)   +-----=------>|   (https)  |        |
-    |        |           |             |            |        |
-    +--------+-----------+             +------------+--------+
-  #+END_SRC
+   #+BEGIN_SRC ditaa :file napalm.png :cmdline -E :exports results
+     +--------------------+             +---------------------+
+     |      netbox        |             |   arista veos       |
+     +--------+-----------+             +------------+--------+
+     |        |           |             |            |        |
+     |        |  napalm   |             | management |        |
+     |        |   (eos)   +-----=------>|   (https)  |        |
+     |        |           |             |            |        |
+     +--------+-----------+             +------------+--------+
+   #+END_SRC
 
-  #+RESULTS:
-  [[file:napalm.png]]
+   #+RESULTS:
+   [[file:napalm.png]]
+
+* A Clasic Configuration
+
+** Topology
+  
+   #+BEGIN_SRC ditaa :file arista.png :cmdline -E
+     +-----------------+                  +-----------------+
+     |   arista 0  et2 +------vlan30------+ et2 arista 1    |
+     +-----------------+ 172.16.30.0/24   +-----------------+
+     |                 |                  |                 |
+     | 172.16.10.1/24  |                  | 172.16.20.1/24  |
+     |      et1        |                  |      et1        |
+     +-------+---------+                  +-------+---------+
+             |                                    |
+             |                                    |
+           vlan10                               vlan20
+             |                                    |
+     +-------+---------+                  +-------+---------+
+     |      eth0       |                  |      eth0       |
+     | 172.16.10.6/24  |                  |  172.16.20.7/24 |
+     |                 |                  |                 |
+     +-----------------+                  +-----------------+
+     |      vm 0       |                  |      vm 1       |
+     +-----------------+                  +-----------------+
+   #+END_SRC
+
+   #+RESULTS:
+  [[file:arista.png]]
+
+** Configure Arista 0
+
+   #+BEGIN_SRC sh
+     enable
+     config terminal
+
+     interface management 1
+     ip address 192.168.0.14.16
+
+     vlan 10
+     vlan 30
+
+     interface ethernet 1
+     switchport mode access
+     switchport access vlan 10
+     no shutdown
+
+     interface ethernet 2
+     switchport mode trunk
+     switchport trunk allowed vlan 30
+     no shutdown
+
+     interface vlan10
+     ip address 172.16.10.1/24
+
+     interface vlan30
+     ip address 172.16.30.3/24
+
+     ip routing
+     router ospf 10
+     network 172.16.10.0/24 area 0
+     network 172.16.30.0/24 area 0
+
+     end  
+   #+END_SRC
+  
+** Configure Arista 1
+
+   #+BEGIN_SRC sh
+     interface management 1
+     ip address 192.168.0.26/16
+     no shutdown
+
+     vlan 20
+     vlan 30
+
+     interface ethernet 1
+     switchport mode access
+     switchport access vlan 20
+     no shutdown
+
+     interface ethernet 2
+     switchport mode trunk
+     switchport trunk allowed vlan 30
+     no shutdown
+
+     interface vlan 20
+     ip address 172.16.20.1/24
+     no shutdown
+
+     interface vlan 30
+     ip address 172.16.30.4/24
+     no shutdown
+
+     ip routing
+     router ospf 10
+     network 172.16.20.0/24 area 0
+     network 172.16.30.0/24 area 0
+
+     end
+   #+END_SRC
+
+** Test
+   
+   login vm-0 and ping vm-1.
