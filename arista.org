@@ -326,3 +326,6 @@ Now you can use ssh =ssh admin@192.168.0.15= to login.
 ** Test
    
    login vm-0 and ping vm-1.
+* Tips
+
+  1. [[https://eos.arista.com/forum/qeustions-about-some-features-in-veos-that-may-or-may-not-work/][vEOS does not support NAT]]
