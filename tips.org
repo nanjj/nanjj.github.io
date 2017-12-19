@@ -1,3 +1,9 @@
+#+TITLE: Some Tips
+#+DATE: <2017-11-11 Mon>
+#+LINK: ncat https://nmap.org/ncat/
+#+LINK: ncat guide https://nmap.org/ncat/guide/index.html
+#+LINK: nmap https://nmap.org/
+
 * Qemu
   
   1. which nic models qemu supports?
@@ -7,3 +13,127 @@
        qemu: Supported NIC models: ne2k_pci,i82551,i82557b,i82559er,rtl8139,e1000,pcnet,virtio
      #+END_SRC
   2. Quit qemu `C-A C`.
+
+* Ncat
+  [[ncat][Ncat]] is a general-purpose command-line tool for reading, writing,
+  redirecting, and encrypting data across a network. It is along with
+  [[nmap][nmap]], but not so famous.
+
+** Install
+
+ To install ncat just install nmap, Ubuntu:
+ #+BEGIN_EXAMPLE
+   apt-get install nmap
+ #+END_EXAMPLE
+
+ Mac:
+
+ #+BEGIN_EXAMPLE
+   brew install nmap
+ #+END_EXAMPLE
+
+ Here some tips from me.
+
+** Transfer Files
+
+*** Single File
+  
+   Transfer single file:
+  
+   #+BEGIN_EXAMPLE
+     # on machine A
+     ncat -p 80 -l --send-only < file
+     # on machine B
+     ncat <machine A ip> 80 --recv-only > file
+   #+END_EXAMPLE
+
+*** Multiple Files  
+  
+   Transfer multiple files:
+
+   #+BEGIN_EXAMPLE
+     # on machine A
+     for file in *.deb; do
+         echo $file | ncat -p 80 -l --send-only
+         ncat -p 80 -l --send-only < $file
+     done
+     # on machine B
+     while true; do
+         file=$(ncat <machine A ip> 80 --recv-only) || break
+         echo $file
+         ncat <machine A ip> 80 --recv-only > $file
+     done
+   #+END_EXAMPLE
+
+** Proxy The World
+
+   Ncat can act as a http proxy server, which 
+  
+*** As A Http Proxy Server
+   
+    Run:
+
+   #+BEGIN_EXAMPLE
+     ncat -l -p 8888 --proxy-type http --allow 127.0.0.1
+   #+END_EXAMPLE
+
+   Test it(on the machine running ncat):
+
+   #+BEGIN_EXAMPLE
+     export https_proxy=http://127.0.0.1:8888
+     curl https://www.google.com
+   #+END_EXAMPLE
+
+*** Proxy Over Ssh
+
+   Let's say you are living in China, right behind the GFW. You have
+   Ncat in http proxy mode on a machine outside. Now you can jump over
+   the wall via ssh:
+
+   #+BEGIN_EXAMPLE
+     ssh -L 127.0.0.1:8888:127.0.0.1:8888 <your machine outside the wall>
+   #+END_EXAMPLE
+
+   Test it again(on the machine running =ssh -L=):
+
+   #+BEGIN_EXAMPLE
+     export http_proxy=http://127.0.0.1:8888
+     curl http://www.google.com
+   #+END_EXAMPLE
+
+   Http request will go through your local port 8888, encrypted and
+   jump over the wall, go to your target machine local port 8888, via
+   ncat to access the world. It's safe, simple, stable and fast.
+
+*** Proxy Ssh
+
+   Ncat http proxy mode support =CONNECT= method also. So it can be
+   used as a ssh proxy:
+
+   #+BEGIN_EXAMPLE
+     ssh -o "ProxyCommand=ncat --proxy 127.0.0.1:8888 %h %p" user@host
+   #+END_EXAMPLE
+
+   Ssh traffic will go to your local port 8888, ssh will forward it to
+   your jumpbox, which ncat is running there, to visit all the machines
+   running behind the jumpbox. In this way, you can keep your ssh keys
+   in your local, no need to copy anywhere in order to access your
+   machines.
+
+   You can put it to your =~/.ssh/config=:
+
+   #+BEGIN_EXAMPLE
+     Host: host
+     Hostname: host
+     ProxyCommand: ncat --proxy 127.0.0.1:8888 %h %p
+   #+END_EXAMPLE
+
+*** Proxy Ansible
+
+   You can run ansible with below configuration in your inventory:
+
+   #+BEGIN_EXAMPLE
+     [all:vars]
+     ansible_ssh_common_args='-o ProxyCommand="ncat --proxy 127.0.0.1:8888 %h %p"'
+   #+END_EXAMPLE
+
