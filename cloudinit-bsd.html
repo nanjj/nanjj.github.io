@@ -3,7 +3,7 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2017-11-20 Mon 21:49 -->
+<!-- 2017-12-22 Fri 13:38 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>CloudInit Setup on FreeBSD Image</title>
@@ -21,11 +21,11 @@
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents">
 <ul>
-<li><a href="#org8fd61dc">Download Image And Convert</a></li>
-<li><a href="#org8334b9b">Mount Image And Chroot</a></li>
-<li><a href="#orgeb23796">Install Cloud-init</a></li>
-<li><a href="#orgb7d4b0d">Umount Image And Convert Back</a></li>
-<li><a href="#orgee0c3e6">Boot Instance</a></li>
+<li><a href="#orgde796c9">Download Image And Convert</a></li>
+<li><a href="#org96ab0a1">Mount Image And Chroot</a></li>
+<li><a href="#org7a0fd4a">Install Cloud-init</a></li>
+<li><a href="#orgfdf983c">Umount Image And Convert Back</a></li>
+<li><a href="#org2048395">Boot Instance</a></li>
 </ul>
 </div>
 </div>
@@ -37,9 +37,9 @@ OpenStack cloud supports only <code>ConfigDrive</code>. So for freebsd image we
 need to enable <code>CloudInit</code>. Here is simple guide:
 </p>
 
-<div id="outline-container-org8fd61dc" class="outline-2">
-<h2 id="org8fd61dc">Download Image And Convert</h2>
-<div class="outline-text-2" id="text-org8fd61dc">
+<div id="outline-container-orgde796c9" class="outline-2">
+<h2 id="orgde796c9">Download Image And Convert</h2>
+<div class="outline-text-2" id="text-orgde796c9">
 <p>
 We need packages <code>qemu-utils</code>, <code>wget</code>:
 </p>
@@ -65,9 +65,9 @@ qemu-img convert -p -f qcow2 -O raw ${base}.qcow2 ${base}.raw
 </div>
 </div>
 
-<div id="outline-container-org8334b9b" class="outline-2">
-<h2 id="org8334b9b">Mount Image And Chroot</h2>
-<div class="outline-text-2" id="text-org8334b9b">
+<div id="outline-container-org96ab0a1" class="outline-2">
+<h2 id="org96ab0a1">Mount Image And Chroot</h2>
+<div class="outline-text-2" id="text-org96ab0a1">
 <p>
 Attach to device:
 </p>
@@ -87,9 +87,9 @@ chroot /mnt
 </div>
 </div>
 
-<div id="outline-container-orgeb23796" class="outline-2">
-<h2 id="orgeb23796">Install Cloud-init</h2>
-<div class="outline-text-2" id="text-orgeb23796">
+<div id="outline-container-org7a0fd4a" class="outline-2">
+<h2 id="org7a0fd4a">Install Cloud-init</h2>
+<div class="outline-text-2" id="text-org7a0fd4a">
 <p>
 Install <code>cloud-init</code>:
 </p>
@@ -151,9 +151,9 @@ exit
 </div>
 </div>
 
-<div id="outline-container-orgb7d4b0d" class="outline-2">
-<h2 id="orgb7d4b0d">Umount Image And Convert Back</h2>
-<div class="outline-text-2" id="text-orgb7d4b0d">
+<div id="outline-container-orgfdf983c" class="outline-2">
+<h2 id="orgfdf983c">Umount Image And Convert Back</h2>
+<div class="outline-text-2" id="text-orgfdf983c">
 <pre class="example">
 umount /mnt/dev
 rm /mnt/etc/resolv.conf
@@ -164,9 +164,9 @@ qemu-img convert -p -f raw -O qcow2 ${base}.raw ${base}.qcow2
 </div>
 </div>
 
-<div id="outline-container-orgee0c3e6" class="outline-2">
-<h2 id="orgee0c3e6">Boot Instance</h2>
-<div class="outline-text-2" id="text-orgee0c3e6">
+<div id="outline-container-org2048395" class="outline-2">
+<h2 id="org2048395">Boot Instance</h2>
+<div class="outline-text-2" id="text-org2048395">
 <p>
 Once you boot an instance, you can access it via ssh, please notice
 the default user is <code>beastie</code>.

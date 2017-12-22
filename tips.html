@@ -3,7 +3,7 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2017-12-19 Tue 15:55 -->
+<!-- 2017-12-22 Fri 13:38 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Some Tips</title>
@@ -21,51 +21,71 @@
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents">
 <ul>
-<li><a href="#orgfa69e5d">Qemu</a></li>
-<li><a href="#org96a1fed">Ncat</a>
+<li><a href="#org3dbe3e4">Ssh</a>
 <ul>
-<li><a href="#orga752ff4">Install</a></li>
-<li><a href="#orgc0baa92">Transfer Files</a>
-<ul>
-<li><a href="#orgd65cc69">Single File</a></li>
-<li><a href="#orgca7a996">Multiple Files</a></li>
+<li><a href="#orgf78dd43">Using SSH Multiplexing</a></li>
 </ul>
 </li>
-<li><a href="#orgaa38b00">Proxy The World</a>
+<li><a href="#orgb17daf4">QEMU</a>
 <ul>
-<li><a href="#orgcda8b93">As A Http Proxy Server</a></li>
-<li><a href="#org0977ad8">Proxy Over Ssh</a></li>
-<li><a href="#org50498e3">Proxy Ssh</a></li>
-<li><a href="#orge932d33">Proxy Ansible</a></li>
+<li><a href="#orgf324ee3">which nic models qemu supports?</a></li>
+<li><a href="#orgfe1d78e">Quit qemu `C-A C`.</a></li>
 </ul>
 </li>
+<li><a href="#org06f6745">Ncat</a>
+<ul>
+<li><a href="#org82af2c1">Install</a></li>
+<li><a href="#org2c506fe">Transfer Single FIle</a></li>
+<li><a href="#orgf05fee4">Transfer Multiple Files</a></li>
+<li><a href="#orga2a171b">Proxy As A Http Proxy Server</a></li>
+<li><a href="#orgd80dda2">Proxy Over Ssh</a></li>
+<li><a href="#org766b43a">Proxy Ssh</a></li>
+<li><a href="#orgf4a22de">Proxy Ansible</a></li>
 </ul>
 </li>
 </ul>
 </div>
 </div>
 
-<div id="outline-container-orgfa69e5d" class="outline-2">
-<h2 id="orgfa69e5d">Qemu</h2>
-<div class="outline-text-2" id="text-orgfa69e5d">
-<ol class="org-ol">
-<li><p>
-which nic models qemu supports?
-</p>
+<div id="outline-container-org3dbe3e4" class="outline-2">
+<h2 id="org3dbe3e4">Ssh</h2>
+<div class="outline-text-2" id="text-org3dbe3e4">
+</div>
+<div id="outline-container-orgf78dd43" class="outline-3">
+<h3 id="orgf78dd43"><a href="https://blog.scottlowe.org/2015/12/11/using-ssh-multiplexing/">Using SSH Multiplexing</a></h3>
+<div class="outline-text-3" id="text-orgf78dd43">
+<pre class="example">
+ControlMaster auto
+ControlPath ~/.ssh/sockets/%r@%h-%p
+ControlPersist 600
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orgb17daf4" class="outline-2">
+<h2 id="orgb17daf4">QEMU</h2>
+<div class="outline-text-2" id="text-orgb17daf4">
+</div>
+<div id="outline-container-orgf324ee3" class="outline-3">
+<h3 id="orgf324ee3">which nic models qemu supports?</h3>
+<div class="outline-text-3" id="text-orgf324ee3">
 <div class="org-src-container">
 <pre class="src src-sh">qemu-system-x86_64 -net nic,<span class="org-variable-name">model</span>=?
 <span class="org-comment-delimiter">#</span><span class="org-comment">=&gt;</span>
 qemu: Supported NIC models: ne2k_pci,i82551,i82557b,i82559er,rtl8139,e1000,pcnet,virtio
 </pre>
-</div></li>
-<li>Quit qemu `C-A C`.</li>
-</ol>
+</div>
+</div>
+</div>
+<div id="outline-container-orgfe1d78e" class="outline-3">
+<h3 id="orgfe1d78e">Quit qemu `C-A C`.</h3>
 </div>
 </div>
 
-<div id="outline-container-org96a1fed" class="outline-2">
-<h2 id="org96a1fed">Ncat</h2>
-<div class="outline-text-2" id="text-org96a1fed">
+<div id="outline-container-org06f6745" class="outline-2">
+<h2 id="org06f6745">Ncat</h2>
+<div class="outline-text-2" id="text-org06f6745">
 <p>
 <a href="https://nmap.org/ncat/">Ncat</a> is a general-purpose command-line tool for reading, writing,
 redirecting, and encrypting data across a network. It is along with
@@ -73,9 +93,9 @@ redirecting, and encrypting data across a network. It is along with
 </p>
 </div>
 
-<div id="outline-container-orga752ff4" class="outline-3">
-<h3 id="orga752ff4">Install</h3>
-<div class="outline-text-3" id="text-orga752ff4">
+<div id="outline-container-org82af2c1" class="outline-3">
+<h3 id="org82af2c1">Install</h3>
+<div class="outline-text-3" id="text-org82af2c1">
 <p>
 To install ncat just install nmap, Ubuntu:
 </p>
@@ -97,13 +117,9 @@ Here some tips from me.
 </div>
 </div>
 
-<div id="outline-container-orgc0baa92" class="outline-3">
-<h3 id="orgc0baa92">Transfer Files</h3>
-<div class="outline-text-3" id="text-orgc0baa92">
-</div>
-<div id="outline-container-orgd65cc69" class="outline-4">
-<h4 id="orgd65cc69">Single File</h4>
-<div class="outline-text-4" id="text-orgd65cc69">
+<div id="outline-container-org2c506fe" class="outline-3">
+<h3 id="org2c506fe">Transfer Single FIle</h3>
+<div class="outline-text-3" id="text-org2c506fe">
 <p>
 Transfer single file:
 </p>
@@ -117,9 +133,9 @@ ncat &lt;machine A ip&gt; 80 --recv-only &gt; file
 </div>
 </div>
 
-<div id="outline-container-orgca7a996" class="outline-4">
-<h4 id="orgca7a996">Multiple Files</h4>
-<div class="outline-text-4" id="text-orgca7a996">
+<div id="outline-container-orgf05fee4" class="outline-3">
+<h3 id="orgf05fee4">Transfer Multiple Files</h3>
+<div class="outline-text-3" id="text-orgf05fee4">
 <p>
 Transfer multiple files:
 </p>
@@ -139,19 +155,14 @@ done
 </pre>
 </div>
 </div>
-</div>
 
-<div id="outline-container-orgaa38b00" class="outline-3">
-<h3 id="orgaa38b00">Proxy The World</h3>
-<div class="outline-text-3" id="text-orgaa38b00">
+<div id="outline-container-orga2a171b" class="outline-3">
+<h3 id="orga2a171b">Proxy As A Http Proxy Server</h3>
+<div class="outline-text-3" id="text-orga2a171b">
 <p>
 Ncat can act as a http proxy server, which 
 </p>
-</div>
 
-<div id="outline-container-orgcda8b93" class="outline-4">
-<h4 id="orgcda8b93">As A Http Proxy Server</h4>
-<div class="outline-text-4" id="text-orgcda8b93">
 <p>
 Run:
 </p>
@@ -171,9 +182,9 @@ curl https://www.google.com
 </div>
 </div>
 
-<div id="outline-container-org0977ad8" class="outline-4">
-<h4 id="org0977ad8">Proxy Over Ssh</h4>
-<div class="outline-text-4" id="text-org0977ad8">
+<div id="outline-container-orgd80dda2" class="outline-3">
+<h3 id="orgd80dda2">Proxy Over Ssh</h3>
+<div class="outline-text-3" id="text-orgd80dda2">
 <p>
 Let's say you are living in China, right behind the GFW. You have
 Ncat in http proxy mode on a machine outside. Now you can jump over
@@ -201,9 +212,9 @@ ncat to access the world. It's safe, simple, stable and fast.
 </div>
 </div>
 
-<div id="outline-container-org50498e3" class="outline-4">
-<h4 id="org50498e3">Proxy Ssh</h4>
-<div class="outline-text-4" id="text-org50498e3">
+<div id="outline-container-org766b43a" class="outline-3">
+<h3 id="org766b43a">Proxy Ssh</h3>
+<div class="outline-text-3" id="text-org766b43a">
 <p>
 Ncat http proxy mode support <code>CONNECT</code> method also. So it can be
 used as a ssh proxy:
@@ -233,9 +244,9 @@ ProxyCommand: ncat --proxy 127.0.0.1:8888 %h %p
 </div>
 </div>
 
-<div id="outline-container-orge932d33" class="outline-4">
-<h4 id="orge932d33">Proxy Ansible</h4>
-<div class="outline-text-4" id="text-orge932d33">
+<div id="outline-container-orgf4a22de" class="outline-3">
+<h3 id="orgf4a22de">Proxy Ansible</h3>
+<div class="outline-text-3" id="text-orgf4a22de">
 <p>
 You can run ansible with below configuration in your inventory:
 </p>
@@ -244,7 +255,6 @@ You can run ansible with below configuration in your inventory:
 [all:vars]
 ansible_ssh_common_args='-o ProxyCommand="ncat --proxy 127.0.0.1:8888 %h %p"'
 </pre>
-</div>
 </div>
 </div>
 </div>

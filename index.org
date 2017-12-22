@@ -1,7 +1,7 @@
 #+TITLE: Thatched Cottage
 
+- [2017-12-20 Wed] [[file:tips.org][Some Tips]]
 - [2017-12-06 Wed] [[file:arista.org][Running Arista vEOS in OpenStack]]
-- [2017-11-11 Sat] [[file:tips.org][tips]]
 - [2017-11-07 Tue] [[file:netmap.org][Netmap Learning]]
 - [2017-10-27 Fri] [[file:growfs.org][Disk Resize Under FreeBSD]]
 - [2017-10-27 Fri] [[file:cloudinit-bsd.org][CloudInit Setup on FreeBSD Image]]

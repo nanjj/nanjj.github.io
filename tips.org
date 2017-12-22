@@ -1,18 +1,28 @@
 #+TITLE: Some Tips
-#+DATE: <2017-11-11 Mon>
+#+DATE: <2017-12-20 Mon>
 #+LINK: ncat https://nmap.org/ncat/
 #+LINK: ncat guide https://nmap.org/ncat/guide/index.html
 #+LINK: nmap https://nmap.org/
 
-* Qemu
+* Ssh
+
+** [[https://blog.scottlowe.org/2015/12/11/using-ssh-multiplexing/][Using SSH Multiplexing]]
+
+   #+BEGIN_EXAMPLE
+     ControlMaster auto
+     ControlPath ~/.ssh/sockets/%r@%h-%p
+     ControlPersist 600
+   #+END_EXAMPLE
   
-  1. which nic models qemu supports?
-     #+BEGIN_SRC sh
-       qemu-system-x86_64 -net nic,model=?
-       #=>
-       qemu: Supported NIC models: ne2k_pci,i82551,i82557b,i82559er,rtl8139,e1000,pcnet,virtio
-     #+END_SRC
-  2. Quit qemu `C-A C`.
+* QEMU
+  
+** which nic models qemu supports?
+   #+BEGIN_SRC sh
+     qemu-system-x86_64 -net nic,model=?
+     #=>
+     qemu: Supported NIC models: ne2k_pci,i82551,i82557b,i82559er,rtl8139,e1000,pcnet,virtio
+   #+END_SRC
+** Quit qemu `C-A C`.
 
 * Ncat
   [[ncat][Ncat]] is a general-purpose command-line tool for reading, writing,
@@ -34,20 +44,18 @@
 
  Here some tips from me.
 
-** Transfer Files
+** Transfer Single FIle
 
-*** Single File
+  Transfer single file:
   
-   Transfer single file:
-  
-   #+BEGIN_EXAMPLE
-     # on machine A
-     ncat -p 80 -l --send-only < file
-     # on machine B
-     ncat <machine A ip> 80 --recv-only > file
-   #+END_EXAMPLE
+  #+BEGIN_EXAMPLE
+    # on machine A
+    ncat -p 80 -l --send-only < file
+    # on machine B
+    ncat <machine A ip> 80 --recv-only > file
+  #+END_EXAMPLE
 
-*** Multiple Files  
+** Transfer Multiple Files  
   
    Transfer multiple files:
 
@@ -65,75 +73,73 @@
      done
    #+END_EXAMPLE
 
-** Proxy The World
+** Proxy As A Http Proxy Server
 
    Ncat can act as a http proxy server, which 
   
-*** As A Http Proxy Server
-   
-    Run:
+   Run:
 
-   #+BEGIN_EXAMPLE
-     ncat -l -p 8888 --proxy-type http --allow 127.0.0.1
-   #+END_EXAMPLE
+  #+BEGIN_EXAMPLE
+    ncat -l -p 8888 --proxy-type http --allow 127.0.0.1
+  #+END_EXAMPLE
 
-   Test it(on the machine running ncat):
+  Test it(on the machine running ncat):
 
-   #+BEGIN_EXAMPLE
-     export https_proxy=http://127.0.0.1:8888
-     curl https://www.google.com
-   #+END_EXAMPLE
+  #+BEGIN_EXAMPLE
+    export https_proxy=http://127.0.0.1:8888
+    curl https://www.google.com
+  #+END_EXAMPLE
 
-*** Proxy Over Ssh
+** Proxy Over Ssh
 
-   Let's say you are living in China, right behind the GFW. You have
-   Ncat in http proxy mode on a machine outside. Now you can jump over
-   the wall via ssh:
+  Let's say you are living in China, right behind the GFW. You have
+  Ncat in http proxy mode on a machine outside. Now you can jump over
+  the wall via ssh:
 
-   #+BEGIN_EXAMPLE
-     ssh -L 127.0.0.1:8888:127.0.0.1:8888 <your machine outside the wall>
-   #+END_EXAMPLE
+  #+BEGIN_EXAMPLE
+    ssh -L 127.0.0.1:8888:127.0.0.1:8888 <your machine outside the wall>
+  #+END_EXAMPLE
 
-   Test it again(on the machine running =ssh -L=):
+  Test it again(on the machine running =ssh -L=):
 
-   #+BEGIN_EXAMPLE
-     export http_proxy=http://127.0.0.1:8888
-     curl http://www.google.com
-   #+END_EXAMPLE
+  #+BEGIN_EXAMPLE
+    export http_proxy=http://127.0.0.1:8888
+    curl http://www.google.com
+  #+END_EXAMPLE
 
-   Http request will go through your local port 8888, encrypted and
-   jump over the wall, go to your target machine local port 8888, via
-   ncat to access the world. It's safe, simple, stable and fast.
+  Http request will go through your local port 8888, encrypted and
+  jump over the wall, go to your target machine local port 8888, via
+  ncat to access the world. It's safe, simple, stable and fast.
 
-*** Proxy Ssh
+** Proxy Ssh
 
-   Ncat http proxy mode support =CONNECT= method also. So it can be
-   used as a ssh proxy:
+  Ncat http proxy mode support =CONNECT= method also. So it can be
+  used as a ssh proxy:
 
-   #+BEGIN_EXAMPLE
-     ssh -o "ProxyCommand=ncat --proxy 127.0.0.1:8888 %h %p" user@host
-   #+END_EXAMPLE
+  #+BEGIN_EXAMPLE
+    ssh -o "ProxyCommand=ncat --proxy 127.0.0.1:8888 %h %p" user@host
+  #+END_EXAMPLE
 
-   Ssh traffic will go to your local port 8888, ssh will forward it to
-   your jumpbox, which ncat is running there, to visit all the machines
-   running behind the jumpbox. In this way, you can keep your ssh keys
-   in your local, no need to copy anywhere in order to access your
-   machines.
+  Ssh traffic will go to your local port 8888, ssh will forward it to
+  your jumpbox, which ncat is running there, to visit all the machines
+  running behind the jumpbox. In this way, you can keep your ssh keys
+  in your local, no need to copy anywhere in order to access your
+  machines.
 
-   You can put it to your =~/.ssh/config=:
+  You can put it to your =~/.ssh/config=:
 
-   #+BEGIN_EXAMPLE
-     Host: host
-     Hostname: host
-     ProxyCommand: ncat --proxy 127.0.0.1:8888 %h %p
-   #+END_EXAMPLE
+  #+BEGIN_EXAMPLE
+    Host: host
+    Hostname: host
+    ProxyCommand: ncat --proxy 127.0.0.1:8888 %h %p
+  #+END_EXAMPLE
 
-*** Proxy Ansible
+** Proxy Ansible
 
-   You can run ansible with below configuration in your inventory:
+  You can run ansible with below configuration in your inventory:
 
-   #+BEGIN_EXAMPLE
-     [all:vars]
-     ansible_ssh_common_args='-o ProxyCommand="ncat --proxy 127.0.0.1:8888 %h %p"'
-   #+END_EXAMPLE
+  #+BEGIN_EXAMPLE
+    [all:vars]
+    ansible_ssh_common_args='-o ProxyCommand="ncat --proxy 127.0.0.1:8888 %h %p"'
+  #+END_EXAMPLE
 
