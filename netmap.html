@@ -3,7 +3,7 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2017-12-22 Fri 13:38 -->
+<!-- 2017-12-22 Fri 17:22 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Netmap Learning</title>
@@ -21,21 +21,12 @@
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents">
 <ul>
-<li><a href="#org5cb7217">Build Linux Kernel</a>
+<li><a href="#orgc3e9060">Vale Mac Learning</a>
 <ul>
-<li><a href="#orgf2a711f">Mount tmpfs</a></li>
-<li><a href="#org5829188">Enable ccache</a></li>
-<li><a href="#org6e12eba">Enable distcc</a></li>
-<li><a href="#org79e1a28">Build</a></li>
-</ul>
-</li>
-<li><a href="#org81b2928">Build Netmap</a></li>
-<li><a href="#org63777dc">Netmap and Vale</a>
-<ul>
-<li><a href="#org86532e5">Netmap Port</a></li>
-<li><a href="#org00ce436">Ping in Kernel</a></li>
-<li><a href="#orgc8a8d12">Arp Ping</a></li>
-<li><a href="#orge81259b">Netmap Pipe</a></li>
+<li><a href="#orgb352f20">Create 3 vale ports and attach</a></li>
+<li><a href="#org0fa1280">Show Mac Addresses</a></li>
+<li><a href="#org34f227f">Train Vale</a></li>
+<li><a href="#org11c08b7">Send Packets</a></li>
 </ul>
 </li>
 </ul>
@@ -45,285 +36,77 @@
 <a href="http://info.iet.unipi.it/~luigi/netmap">Netmap</a> is a framework for very fast packet I/O from userspace.
 </p>
 
-<div id="outline-container-org5cb7217" class="outline-2">
-<h2 id="org5cb7217">Build Linux Kernel</h2>
-<div class="outline-text-2" id="text-org5cb7217">
-<p>
-Kernel building takes too long time. We can use below methods
-together to speed up the process:
-</p>
-
-<ol class="org-ol">
-<li>Enable <code>tmpfs</code> to build in memory,</li>
-<li>Enable <code>ccache</code> to avoid unnecessary recompile,</li>
-<li>Enable <code>distcc</code> to build on multiple machines.</li>
-</ol>
+<div id="outline-container-orgc3e9060" class="outline-2">
+<h2 id="orgc3e9060">Vale Mac Learning</h2>
+<div class="outline-text-2" id="text-orgc3e9060">
 </div>
-
-<div id="outline-container-orgf2a711f" class="outline-3">
-<h3 id="orgf2a711f">Mount tmpfs</h3>
-<div class="outline-text-3" id="text-orgf2a711f">
+<div id="outline-container-orgb352f20" class="outline-3">
+<h3 id="orgb352f20">Create 3 vale ports and attach</h3>
+<div class="outline-text-3" id="text-orgb352f20">
 <div class="org-src-container">
-<pre class="src src-sh">mkdir src .ccache
-mount -t tmpfs -o <span class="org-variable-name">size</span>=30G,<span class="org-variable-name">mode</span>=0755 tmpfs src
-mount -t tmpfs -o <span class="org-variable-name">size</span>=10G,<span class="org-variable-name">mode</span>=0755 tmpfs .ccache
-</pre>
-</div>
-<p>
-Speed up kernel building via <code>ccache</code> and <code>distcc</code>:
-</p>
-</div>
-</div>
-
-<div id="outline-container-org5829188" class="outline-3">
-<h3 id="org5829188">Enable ccache</h3>
-<div class="outline-text-3" id="text-org5829188">
-<div class="org-src-container">
-<pre class="src src-sh">apt-get install ccache
+<pre class="src src-sh">vale-ctl -n vi0
+vale-ctl -n vi1
+vale-ctl -n vi2
+vale-ctl -a vale0:vi0
+vale-ctl -a vale0:vi1
+vale-ctl -a vale0:vi2
 </pre>
 </div>
 </div>
 </div>
 
-<div id="outline-container-org6e12eba" class="outline-3">
-<h3 id="org6e12eba">Enable distcc</h3>
-<div class="outline-text-3" id="text-org6e12eba">
-<div class="org-src-container">
-<pre class="src src-sh">apt-get install distcc
-<span class="org-builtin">echo</span> 10.113.111.160 10.113.111.187 &gt;&gt; /etc/distcc/hosts
-</pre>
-</div>
-
-<p>
-On <code>10.113.111.160</code> and  <code>10.113.111.187</code>:
-</p>
-
-<div class="org-src-container">
-<pre class="src src-sh">apt-get install distcc
-cat &gt; /etc/default/distcc &lt;&lt;EOF
-<span class="org-sh-heredoc">STARTDISTCC="true"</span>
-<span class="org-sh-heredoc">ALLOWEDNETS="10.113.111.152"    # master build ip</span>
-<span class="org-sh-heredoc">LISTENER="10.113.111.187"       # local ip</span>
-<span class="org-sh-heredoc">EOF</span>
-systemctl restart distcc
+<div id="outline-container-org0fa1280" class="outline-3">
+<h3 id="org0fa1280">Show Mac Addresses</h3>
+<div class="outline-text-3" id="text-org0fa1280">
+<pre class="example">
+65742: vi0: &lt;BROADCAST,MULTICAST&gt; mtu 1500 qdisc ...
+    link/ether 52:ec:30:31:bd:6c brd ff:ff:ff:ff:ff:ff
+65743: vi1: &lt;BROADCAST,MULTICAST&gt; mtu 1500 qdisc ...
+    link/ether b6:07:df:ed:04:86 brd ff:ff:ff:ff:ff:ff
+65744: vi2: &lt;BROADCAST,MULTICAST&gt; mtu 1500 qdisc ...
+    link/ether 42:d2:0e:93:c8:1b brd ff:ff:ff:ff:ff:ff
 </pre>
 </div>
 </div>
+
+<div id="outline-container-org34f227f" class="outline-3">
+<h3 id="org34f227f">Train Vale</h3>
+<div class="outline-text-3" id="text-org34f227f">
+<div class="org-src-container">
+<pre class="src src-sh">pkt-gen -i vale0:vi0 -S 52:ec:30:31:bd:6c -f tx
+pkt-gen -i vale0:vi1 -S b6:07:df:ed:04:86 -f tx
+pkt-gen -i vale0:vi2 -S 42:d2:0e:93:c8:1b -f tx
+</pre>
 </div>
-<div id="outline-container-org79e1a28" class="outline-3">
-<h3 id="org79e1a28">Build</h3>
-<div class="outline-text-3" id="text-org79e1a28">
+</div>
+</div>
+
+<div id="outline-container-org11c08b7" class="outline-3">
+<h3 id="org11c08b7">Send Packets</h3>
+<div class="outline-text-3" id="text-org11c08b7">
 <p>
-Build ubuntu kernel <code>Ubuntu-4.4.0-102.125</code> as below:
+Send packages from <code>vi0</code> to <code>vi1</code>:
 </p>
 <div class="org-src-container">
-<pre class="src src-sh"><span class="org-builtin">cd</span> src
-git clone git://kernel.ubuntu.com/ubuntu/ubuntu-xenial
-<span class="org-builtin">cd</span> ubuntu-xenial
-git checkout Ubuntu-4.4.0-102.125
-sed <span class="org-string">'s/CONFIG_VIRTIO_NET=y/CONFIG_VIRTIO_NET=m/g'</span>
-<span class="org-builtin">export</span> <span class="org-variable-name">PATH</span>=/usr/lib/ccache:$<span class="org-variable-name">PATH</span>
-<span class="org-builtin">export</span> <span class="org-variable-name">CCACHE_PREFIX</span>=<span class="org-string">"distcc"</span>
-fakeroot debian/rules clean
-fakeroot debian/rules binary
+<pre class="src src-sh">pkt-gen -i vale0:vi0 -S 52:ec:30:31:bd:6c -D b6:07:df:ed:04:86 -f tx
 </pre>
 </div>
 
 <p>
-It takes around 9 minutes on my machine.
+<code>vi1</code> should receive the packets:
 </p>
-</div>
-</div>
-</div>
-
-<div id="outline-container-org81b2928" class="outline-2">
-<h2 id="org81b2928">Build Netmap</h2>
-<div class="outline-text-2" id="text-org81b2928">
 <div class="org-src-container">
-<pre class="src src-sh">
+<pre class="src src-sh">pkt-gen -i vale0:vi1 -f rx
 </pre>
 </div>
-</div>
-</div>
-
-<div id="outline-container-org63777dc" class="outline-2">
-<h2 id="org63777dc">Netmap and Vale</h2>
-<div class="outline-text-2" id="text-org63777dc">
-</div>
-<div id="outline-container-org86532e5" class="outline-3">
-<h3 id="org86532e5">Netmap Port</h3>
-<div class="outline-text-3" id="text-org86532e5">
-<p>
-Vale can be used to create netmap port:
-</p>
-<pre class="example">
-vale-ctl -n a
-</pre>
-
 
 <p>
-Netmap ports are link devices, which can be managed by <code>ip</code> command:
+<code>vi2</code> should not receive the packets:
 </p>
-<pre class="example">
-ip addr add 10.1.1.3/24 dev a
-ip link set dev a state up
-ip link show a
-</pre>
-
-<p>
-Please notice now port <code>a</code> is attached on host stack:
-</p>
-<pre class="example">
-11: a: &lt;BROADCAST,MULTICAST,UP,LOWER_UP&gt; mtu 1500 qdisc noqueue state UP mode DEFAULT group default qlen 1
-  link/ether 56:df:5a:5a:01:94 brd ff:ff:ff:ff:ff:ff
+<div class="org-src-container">
+<pre class="src src-sh">pkt-gen -i vale0:vi2 -f rx
 </pre>
 </div>
-</div>
-
-<div id="outline-container-org00ce436" class="outline-3">
-<h3 id="org00ce436">Ping in Kernel</h3>
-<div class="outline-text-3" id="text-org00ce436">
-<p>
-You can ping it:
-</p>
-
-<pre class="example">
-ping 10.1.1.3
-#=&gt;
-</pre>
-
-<p>
-The ping icmp echo was replied by the kernel - the host stack:
-</p>
-<pre class="example">
-PING 10.1.1.3 (10.1.1.3) 56(84) bytes of data.
-64 bytes from 10.1.1.3: icmp_seq=1 ttl=64 time=0.042 ms
-</pre>
-</div>
-</div>
-
-<div id="outline-container-orgc8a8d12" class="outline-3">
-<h3 id="orgc8a8d12">Arp Ping</h3>
-<div class="outline-text-3" id="text-orgc8a8d12">
-<p>
-Now let's check the <code>arp</code> ping.
-</p>
-
-<p>
-<code>arping</code> can not get response from device in same <code>netns</code>. Create
-<code>netns</code> netns1:
-</p>
-<pre class="example">
-ip netns add netns1
-ip netns exec netns1 ip link set lo up
-</pre>
-
-<p>
-Create veth pair and move one peer to <code>netns1</code>:
-</p>
-<pre class="example">
-ip link add name veth0 type veth peer name veth1
-ip addr add 10.1.1.1/24 dev veth0
-ip link set veth0 up
-ip netns exec netns1 ip address add 10.1.1.2/24 dev veth1
-ip netns exec netns1 ip link set veth1 up
-</pre>
-
-<p>
-Run <code>arping</code> from <code>netns1</code>:
-</p>
-
-<pre class="example">
-ip netns exec netns1 arping 10.1.1.3
-</pre>
-
-<p>
-The arp request was replied by the kernel, or the host stack:
-</p>
-
-<pre class="example">
-ARPING 10.1.1.3
-42 bytes from 36:58:23:6f:f9:66 (10.1.1.3): index=0 time=2.776 msec
-</pre>
-
-<p>
-Now <code>ip link list</code> output:
-</p>
-<pre class="example">
-1: lo: &lt;LOOPBACK,UP,LOWER_UP&gt; mtu 65536 ..
-    link/loopback 00:00:00:00:00:00 brd 00:00:00:00:00:00
-2: eth0: &lt;BROADCAST,MULTICAST,UP,LOWER_UP&gt; mtu 1500 qdisc pfifo_fast state UP..
-    link/ether fa:16:3e:92:a2:af brd ff:ff:ff:ff:ff:ff
-3: eth1: &lt;BROADCAST,MULTICAST,UP,LOWER_UP&gt; mtu 1500 qdisc pfifo_fast state UP..
-    link/ether fa:16:3e:31:a1:df brd ff:ff:ff:ff:ff:ff
-11: a: &lt;BROADCAST,MULTICAST,UP,LOWER_UP&gt; mtu 1500 qdisc noqueue state UP..
-    link/ether 56:df:5a:5a:01:94 brd ff:ff:ff:ff:ff:ff
-20: veth0@if19: &lt;BROADCAST,MULTICAST,UP,LOWER_UP&gt; mtu 1500 qdisc netmap_generic..
-    link/ether 36:58:23:6f:f9:66 brd ff:ff:ff:ff:ff:ff link-netnsid 0
-</pre>
-
-<p>
-Put <code>veth0</code> and <code>a</code> into <code>vale0</code>:
-</p>
-
-<pre class="example">
-vale-ctl -a vale0:veth0
-vale-ctl -a vale0:a
-</pre>
-
-<p>
-Use <code>pkt-gen</code> to receive packets from vale port <code>a</code>:
-</p>
-<pre class="example">
-pkt-gen -i vale:a -f rx -X
-</pre>
-
-<p>
-Ping from <code>netns1</code>:
-</p>
-<pre class="example">
-ip netns exec netns1 arping 10.1.1.3
-</pre>
-
-<p>
-Now we can see arping got no response and <code>vale0:a</code> and received
-arp request as below:
-</p>
-<pre class="example">
-ring 0x7fdd7696f000 cur   106 [buf    108 flags 0x0100 len    42]
- 0: ff ff ff ff ff ff aa 00 f0 d4 50 5b 08 06 00 01 ..........P[....
-16: 08 00 06 04 00 01 aa 00 f0 d4 50 5b 0a 01 01 02 ..........P[....
-32: 00 00 00 00 00 00 0a 01 01 03
-</pre>
-
-<p>
-The arp requests can be handled in userspace. <a href="https://github.com/nanjj/netmapinetd">Netmapinetd</a> is for
-this:
-</p>
-<pre class="example">
-./netmapinetd -i vale0:a -a 10.1.1.3 -m 56:df:5a:5a:01:94
-</pre>
-</div>
-</div>
-
-<div id="outline-container-orge81259b" class="outline-3">
-<h3 id="orge81259b">Netmap Pipe</h3>
-<div class="outline-text-3" id="text-orge81259b">
-<p>
-Netmap pipes are very fast as they said:
-</p>
-<pre class="example">
-pkt-gen -i 'netmap:p{1' -f tx # Transmit master
-pkt-gen -i 'netmap:p}1' -f rx # Receive slave
-</pre>
-
-<p>
-Or vale:
-</p>
-<pre class="example">
-pkt-gen -i 'vale0:p{1' -f tx # Transmit master
-pkt-gen -i 'vale0:p}1' -f rx # Receive slave
-</pre>
 </div>
 </div>
 </div>

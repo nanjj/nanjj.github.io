@@ -3,7 +3,7 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2017-12-22 Fri 13:38 -->
+<!-- 2017-12-25 Mon 09:27 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Some Tips</title>
@@ -21,6 +21,14 @@
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents">
 <ul>
+<li><a href="#orgc5d8611">Linux Kernel</a>
+<ul>
+<li><a href="#org8a336d8">Mount tmpfs</a></li>
+<li><a href="#org22c9124">Enable ccache</a></li>
+<li><a href="#orgd14f0d5">Enable distcc</a></li>
+<li><a href="#orge6adf97">Build</a></li>
+</ul>
+</li>
 <li><a href="#org3dbe3e4">Ssh</a>
 <ul>
 <li><a href="#orgf78dd43">Using SSH Multiplexing</a></li>
@@ -35,10 +43,9 @@
 <li><a href="#org06f6745">Ncat</a>
 <ul>
 <li><a href="#org82af2c1">Install</a></li>
-<li><a href="#org2c506fe">Transfer Single FIle</a></li>
+<li><a href="#org61133d9">Transfer Single File</a></li>
 <li><a href="#orgf05fee4">Transfer Multiple Files</a></li>
-<li><a href="#orga2a171b">Proxy As A Http Proxy Server</a></li>
-<li><a href="#orgd80dda2">Proxy Over Ssh</a></li>
+<li><a href="#orgabdf628">Http Proxy</a></li>
 <li><a href="#org766b43a">Proxy Ssh</a></li>
 <li><a href="#orgf4a22de">Proxy Ansible</a></li>
 </ul>
@@ -46,6 +53,98 @@
 </ul>
 </div>
 </div>
+
+<div id="outline-container-orgc5d8611" class="outline-2">
+<h2 id="orgc5d8611">Linux Kernel</h2>
+<div class="outline-text-2" id="text-orgc5d8611">
+<p>
+Kernel building takes too long time. We can use below methods
+together to speed up the process:
+</p>
+
+<ol class="org-ol">
+<li>Enable <code>tmpfs</code> to build in memory,</li>
+<li>Enable <code>ccache</code> to avoid unnecessary recompile,</li>
+<li>Enable <code>distcc</code> to build on multiple machines.</li>
+</ol>
+</div>
+
+<div id="outline-container-org8a336d8" class="outline-3">
+<h3 id="org8a336d8">Mount tmpfs</h3>
+<div class="outline-text-3" id="text-org8a336d8">
+<div class="org-src-container">
+<pre class="src src-sh">mkdir src .ccache
+mount -t tmpfs -o <span class="org-variable-name">size</span>=30G,<span class="org-variable-name">mode</span>=0755 tmpfs src
+mount -t tmpfs -o <span class="org-variable-name">size</span>=10G,<span class="org-variable-name">mode</span>=0755 tmpfs .ccache
+</pre>
+</div>
+<p>
+Speed up kernel building via <code>ccache</code> and <code>distcc</code>:
+</p>
+</div>
+</div>
+
+<div id="outline-container-org22c9124" class="outline-3">
+<h3 id="org22c9124">Enable ccache</h3>
+<div class="outline-text-3" id="text-org22c9124">
+<div class="org-src-container">
+<pre class="src src-sh">apt-get install ccache
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orgd14f0d5" class="outline-3">
+<h3 id="orgd14f0d5">Enable distcc</h3>
+<div class="outline-text-3" id="text-orgd14f0d5">
+<div class="org-src-container">
+<pre class="src src-sh">apt-get install distcc
+<span class="org-builtin">echo</span> 10.113.111.160 10.113.111.187 &gt;&gt; /etc/distcc/hosts
+</pre>
+</div>
+
+<p>
+On <code>10.113.111.160</code> and  <code>10.113.111.187</code>:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-sh">apt-get install distcc
+cat &gt; /etc/default/distcc &lt;&lt;EOF
+<span class="org-sh-heredoc">STARTDISTCC="true"</span>
+<span class="org-sh-heredoc">ALLOWEDNETS="10.113.111.152"    # master build ip</span>
+<span class="org-sh-heredoc">LISTENER="10.113.111.187"       # local ip</span>
+<span class="org-sh-heredoc">EOF</span>
+systemctl restart distcc
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-orge6adf97" class="outline-3">
+<h3 id="orge6adf97">Build</h3>
+<div class="outline-text-3" id="text-orge6adf97">
+<p>
+Build ubuntu kernel <code>Ubuntu-4.4.0-102.125</code> as below:
+</p>
+<div class="org-src-container">
+<pre class="src src-sh"><span class="org-builtin">cd</span> src
+git clone git://kernel.ubuntu.com/ubuntu/ubuntu-xenial
+<span class="org-builtin">cd</span> ubuntu-xenial
+git checkout Ubuntu-4.4.0-102.125
+sed <span class="org-string">'s/CONFIG_VIRTIO_NET=y/CONFIG_VIRTIO_NET=m/g'</span>
+<span class="org-builtin">export</span> <span class="org-variable-name">PATH</span>=/usr/lib/ccache:$<span class="org-variable-name">PATH</span>
+<span class="org-builtin">export</span> <span class="org-variable-name">CCACHE_PREFIX</span>=<span class="org-string">"distcc"</span>
+fakeroot debian/rules clean
+fakeroot debian/rules binary
+</pre>
+</div>
+
+<p>
+It takes around 9 minutes on my machine.
+</p>
+</div>
+</div>
+</div>
+
 
 <div id="outline-container-org3dbe3e4" class="outline-2">
 <h2 id="org3dbe3e4">Ssh</h2>
@@ -117,9 +216,9 @@ Here some tips from me.
 </div>
 </div>
 
-<div id="outline-container-org2c506fe" class="outline-3">
-<h3 id="org2c506fe">Transfer Single FIle</h3>
-<div class="outline-text-3" id="text-org2c506fe">
+<div id="outline-container-org61133d9" class="outline-3">
+<h3 id="org61133d9">Transfer Single File</h3>
+<div class="outline-text-3" id="text-org61133d9">
 <p>
 Transfer single file:
 </p>
@@ -156,9 +255,9 @@ done
 </div>
 </div>
 
-<div id="outline-container-orga2a171b" class="outline-3">
-<h3 id="orga2a171b">Proxy As A Http Proxy Server</h3>
-<div class="outline-text-3" id="text-orga2a171b">
+<div id="outline-container-orgabdf628" class="outline-3">
+<h3 id="orgabdf628">Http Proxy</h3>
+<div class="outline-text-3" id="text-orgabdf628">
 <p>
 Ncat can act as a http proxy server, which 
 </p>
@@ -179,16 +278,9 @@ Test it(on the machine running ncat):
 export https_proxy=http://127.0.0.1:8888
 curl https://www.google.com
 </pre>
-</div>
-</div>
 
-<div id="outline-container-orgd80dda2" class="outline-3">
-<h3 id="orgd80dda2">Proxy Over Ssh</h3>
-<div class="outline-text-3" id="text-orgd80dda2">
 <p>
-Let's say you are living in China, right behind the GFW. You have
-Ncat in http proxy mode on a machine outside. Now you can jump over
-the wall via ssh:
+Jump over the wall via ssh:
 </p>
 
 <pre class="example">

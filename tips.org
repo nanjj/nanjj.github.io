@@ -4,6 +4,64 @@
 #+LINK: ncat guide https://nmap.org/ncat/guide/index.html
 #+LINK: nmap https://nmap.org/
 
+* Linux Kernel
+  
+  Kernel building takes too long time. We can use below methods
+  together to speed up the process:
+
+  1. Enable =tmpfs= to build in memory,
+  2. Enable =ccache= to avoid unnecessary recompile,
+  3. Enable =distcc= to build on multiple machines.
+  
+** Mount tmpfs
+
+   #+BEGIN_SRC sh
+   mkdir src .ccache
+   mount -t tmpfs -o size=30G,mode=0755 tmpfs src
+   mount -t tmpfs -o size=10G,mode=0755 tmpfs .ccache
+   #+END_SRC
+  Speed up kernel building via =ccache= and =distcc=:
+
+** Enable ccache  
+  #+BEGIN_SRC sh
+    apt-get install ccache
+  #+END_SRC
+
+** Enable distcc
+   #+BEGIN_SRC sh
+   apt-get install distcc
+   echo 10.113.111.160 10.113.111.187 >> /etc/distcc/hosts
+   #+END_SRC
+
+   On =10.113.111.160= and  =10.113.111.187=:
+
+   #+BEGIN_SRC sh
+     apt-get install distcc
+     cat > /etc/default/distcc <<EOF
+     STARTDISTCC="true"
+     ALLOWEDNETS="10.113.111.152"    # master build ip
+     LISTENER="10.113.111.187"       # local ip
+     EOF
+     systemctl restart distcc
+   #+END_SRC
+** Build
+
+   Build ubuntu kernel =Ubuntu-4.4.0-102.125= as below:
+   #+BEGIN_SRC sh
+     cd src
+     git clone git://kernel.ubuntu.com/ubuntu/ubuntu-xenial
+     cd ubuntu-xenial
+     git checkout Ubuntu-4.4.0-102.125
+     sed 's/CONFIG_VIRTIO_NET=y/CONFIG_VIRTIO_NET=m/g'
+     export PATH=/usr/lib/ccache:$PATH
+     export CCACHE_PREFIX="distcc"
+     fakeroot debian/rules clean
+     fakeroot debian/rules binary
+   #+END_SRC
+
+   It takes around 9 minutes on my machine.
+
+
 * Ssh
 
 ** [[https://blog.scottlowe.org/2015/12/11/using-ssh-multiplexing/][Using SSH Multiplexing]]
@@ -44,7 +102,7 @@
 
  Here some tips from me.
 
-** Transfer Single FIle
+** Transfer Single File
 
   Transfer single file:
   
@@ -73,7 +131,7 @@
      done
    #+END_EXAMPLE
 
-** Proxy As A Http Proxy Server
+** Http Proxy
 
    Ncat can act as a http proxy server, which 
   
@@ -90,11 +148,7 @@
     curl https://www.google.com
   #+END_EXAMPLE
 
-** Proxy Over Ssh
-
-  Let's say you are living in China, right behind the GFW. You have
-  Ncat in http proxy mode on a machine outside. Now you can jump over
-  the wall via ssh:
+  Jump over the wall via ssh:
 
   #+BEGIN_EXAMPLE
     ssh -L 127.0.0.1:8888:127.0.0.1:8888 <your machine outside the wall>
