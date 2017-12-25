@@ -1,5 +1,6 @@
 #+TITLE: Thatched Cottage
 
+- [2017-12-25 Mon] [[file:kids.org][My Kids]]
 - [2017-12-20 Wed] [[file:tips.org][Some Tips]]
 - [2017-12-06 Wed] [[file:arista.org][Running Arista vEOS in OpenStack]]
 - [2017-11-07 Tue] [[file:netmap.org][Netmap Learning]]
