@@ -15,8 +15,8 @@
 [[netmap-page:][Netmap]] is a framework for very fast packet I/O from userspace.
 
 * Netmap Vale Behavior
-  netmap vale is a high performance switch. It learns ethernet MAC
-  addresses from ether source header. Ether header:
+  Netmap vale is a high performance switch. It learns MAC addresses
+  from ether source header. Ether header format:
   #+BEGIN_SRC artist
     +---------------------------------+
     | Destination | Source  | Type    |
@@ -24,27 +24,29 @@
     +---------------------------------+
   #+END_SRC
 
-  There are 3 Types of ethernet MAC address:
+  There are 3 Types of MAC address:
   1. Broadcast
      
-     The only one: =ff.ff.ff.ff.ff.ff=
+     The only one: =ff:ff:ff:ff:ff:ff=
   2. Multicast
 
-     like =?x.??.??.??.??.??=, here x=1,3,5,7,9,b,d,f
+     like =?x:??:??:??:??:??=, here x=1,3,5,7,9,b,d,f
   3. Unicast
 
-     like =?x.??.??.??.??.??=, here x=0,2,4,6,8,a,c,e
+     like =?x:??:??:??:??:??=, here x=0,2,4,6,8,a,c,e
   
-  vale switch will forward packets to all ports if the destination is:
+  Vale switch forwards packets to all ports(except the one to send the
+  packets) if the destination MAC address is type of:
   1. Broadcast,
   2. Multicast,
   3. Unicast but the mac addresses is not in the vale switch or is not
      learned by the vale switch.
   
-  Or vale switch will send unicast to the specific port with the
-  unicast mac address.
-** Unicast Mac Address Learning
-*** Create 3 vale ports and attach
+  If the destination MAC address is unicast type and the MAC address
+  is learned by value, vale forwards packets to the port with the mac
+  address.
+** Mac Address Learning
+*** Prepare Vale
     #+BEGIN_SRC sh
       vale-ctl -n vi0
       vale-ctl -n vi1
@@ -95,7 +97,7 @@
     #+END_SRC
    
 ** Broadcast and Multicast
-*** Prepare Vale Switch
+*** Prepare Vale
 
     #+BEGIN_SRC sh
       vale-ctl -n v1p1
@@ -109,7 +111,7 @@
       pkt-gen -i vale1:v1p3 -S 45:d2:0e:93:c8:1b -f tx
     #+END_SRC
 
-*** Send Broadcast   
+*** Send Broadcast
     #+BEGIN_SRC sh
       pkt-gen -i vale1:v1p1 -D ff:ff:ff:ff:ff:ff -f tx
     #+END_SRC
@@ -128,133 +130,66 @@
       pkt-gen -i vale1:v1p3 -f rx -X
     #+END_SRC
 
-   # * Netmap and Vale
+* Netmap Max Vale
 
-   # ** Netmap Port
+  The default vale max number is 8. In one vale, the max port number
+  is 254.
 
-   #    Vale can be used to create netmap port:
-   #    #+BEGIN_EXAMPLE
-   #      vale-ctl -n a
-   #    #+END_EXAMPLE
+** Value Test Script
 
-   
-   #    Netmap ports are link devices, which can be managed by =ip= command:
-   #    #+BEGIN_EXAMPLE
-   #      ip addr add 10.1.1.3/24 dev a
-   #      ip link set dev a state up
-   #      ip link show a
-   #    #+END_EXAMPLE
+   =vale-test=:
+   #+BEGIN_SRC sh
+     #!/bin/bash
+     # file: vale-test
+     action=${1:-attach}
+     shift
+     vmax=${1:-1}
+     shift
+     pmax=${1:-252}
+     shift
+     for ((j=0; j<$vmax; j++)); do
+         for ((i=0; i<$pmax; i++)); do
+             p=$(printf "p%03d%03d" $j $i)
+             v=$(printf "vale%03d" $j)
+             echo $v:$p
+             if [ "$action" = "attach" ]; then
+                 vale-ctl -n $p
+                 vale-ctl -a $v:$p
+             else
+                 vale-ctl -d $v:$p
+                 vale-ctl -r $p
+             fi
+         done
+     done
+   #+END_SRC
 
-   #    Please notice now port =a= is attached on host stack:
-   #    #+BEGIN_EXAMPLE
-   #      11: a: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1500 qdisc noqueue state UP mode DEFAULT group default qlen 1
-   #        link/ether 56:df:5a:5a:01:94 brd ff:ff:ff:ff:ff:ff
-   #    #+END_EXAMPLE
+** Test Vale Port Number  
 
-   # ** Ping in Kernel
-  
-   #    You can ping it:
+   Attach 254 ports in 1 vale:
+   #+BEGIN_SRC sh
+     vale-test attach 1 254
+   #+END_SRC
 
-   #    #+BEGIN_EXAMPLE
-   #      ping 10.1.1.3
-   #      #=>
-   #    #+END_EXAMPLE
-  
-   #    The ping icmp echo was replied by the kernel - the host stack:
-   #    #+BEGIN_EXAMPLE
-   #      PING 10.1.1.3 (10.1.1.3) 56(84) bytes of data.
-   #      64 bytes from 10.1.1.3: icmp_seq=1 ttl=64 time=0.042 ms
-   #    #+END_EXAMPLE
+   Detach them:
 
-   # ** Arp Ping
+   #+BEGIN_SRC sh
+     vale-test detach 1 254
+   #+END_SRC
 
-   #    Now let's check the =arp= ping.
+** Test Vale Number   
 
-   #    =arping= can not get response from device in same =netns=. Create
-   #    =netns= netns1:
-   #    #+BEGIN_EXAMPLE
-   #      ip netns add netns1
-   #      ip netns exec netns1 ip link set lo up
-   #    #+END_EXAMPLE
+   Create 8 ports and attach 1 port for each:
+   #+BEGIN_SRC sh
+     vale-test attach 8 1
+   #+END_SRC
 
-   #    Create veth pair and move one peer to =netns1=:
-   #    #+BEGIN_EXAMPLE
-   #      ip link add name veth0 type veth peer name veth1
-   #      ip addr add 10.1.1.1/24 dev veth0
-   #      ip link set veth0 up
-   #      ip netns exec netns1 ip address add 10.1.1.2/24 dev veth1
-   #      ip netns exec netns1 ip link set veth1 up
-   #    #+END_EXAMPLE
+   Detach them:
+   #+BEGIN_SRC sh
+     vale-test detach 8 1
+   #+END_SRC
 
-   #    Run =arping= from =netns1=:
+* Netmap App Programming   
 
-   #    #+BEGIN_EXAMPLE
-   #      ip netns exec netns1 arping 10.1.1.3
-   #    #+END_EXAMPLE
+** Netmap APIs
 
-   #    The arp request was replied by the kernel, or the host stack:
-
-   #    #+BEGIN_EXAMPLE
-   #      ARPING 10.1.1.3
-   #      42 bytes from 36:58:23:6f:f9:66 (10.1.1.3): index=0 time=2.776 msec
-   #    #+END_EXAMPLE
-  
-   #    Now =ip link list= output:
-   #    #+BEGIN_EXAMPLE
-   #      1: lo: <LOOPBACK,UP,LOWER_UP> mtu 65536 ..
-   #          link/loopback 00:00:00:00:00:00 brd 00:00:00:00:00:00
-   #      2: eth0: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1500 qdisc pfifo_fast state UP..
-   #          link/ether fa:16:3e:92:a2:af brd ff:ff:ff:ff:ff:ff
-   #      3: eth1: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1500 qdisc pfifo_fast state UP..
-   #          link/ether fa:16:3e:31:a1:df brd ff:ff:ff:ff:ff:ff
-   #      11: a: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1500 qdisc noqueue state UP..
-   #          link/ether 56:df:5a:5a:01:94 brd ff:ff:ff:ff:ff:ff
-   #      20: veth0@if19: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1500 qdisc netmap_generic..
-   #          link/ether 36:58:23:6f:f9:66 brd ff:ff:ff:ff:ff:ff link-netnsid 0
-   #    #+END_EXAMPLE
-
-   #    Put =veth0= and =a= into =vale0=:
-
-   #    #+BEGIN_EXAMPLE
-   #    vale-ctl -a vale0:veth0
-   #    vale-ctl -a vale0:a
-   #    #+END_EXAMPLE
-   
-   #    Use =pkt-gen= to receive packets from vale port =a=:
-   #    #+BEGIN_EXAMPLE
-   #    pkt-gen -i vale:a -f rx -X
-   #    #+END_EXAMPLE
-
-   #    Ping from =netns1=:
-   #    #+BEGIN_EXAMPLE
-   #    ip netns exec netns1 arping 10.1.1.3
-   #    #+END_EXAMPLE
-
-   #    Now we can see arping got no response and =vale0:a= and received
-   #    arp request as below:
-   #    #+BEGIN_EXAMPLE
-   #    ring 0x7fdd7696f000 cur   106 [buf    108 flags 0x0100 len    42]
-   #     0: ff ff ff ff ff ff aa 00 f0 d4 50 5b 08 06 00 01 ..........P[....
-   #    16: 08 00 06 04 00 01 aa 00 f0 d4 50 5b 0a 01 01 02 ..........P[....
-   #    32: 00 00 00 00 00 00 0a 01 01 03
-   #    #+END_EXAMPLE
-
-   #    The arp requests can be handled in userspace. [[netmapinetd][Netmapinetd]] is for
-   #    this:
-   #    #+BEGIN_EXAMPLE
-   #    ./netmapinetd -i vale0:a -a 10.1.1.3 -m 56:df:5a:5a:01:94
-   #    #+END_EXAMPLE
-
-   # ** Netmap Pipe
-
-   #    Netmap pipes are very fast as they said:
-   #    #+BEGIN_EXAMPLE
-   #    pkt-gen -i 'netmap:p{1' -f tx # Transmit master
-   #    pkt-gen -i 'netmap:p}1' -f rx # Receive slave
-   #    #+END_EXAMPLE
-
-   #    Or vale:
-   #    #+BEGIN_EXAMPLE
-   #    pkt-gen -i 'vale0:p{1' -f tx # Transmit master
-   #    pkt-gen -i 'vale0:p}1' -f rx # Receive slave
-   #    #+END_EXAMPLE
+** Sample: Nmpingd

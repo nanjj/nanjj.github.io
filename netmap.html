@@ -3,7 +3,7 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2017-12-26 Tue 16:40 -->
+<!-- 2017-12-26 Tue 17:06 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Netmap Learning</title>
@@ -23,9 +23,9 @@
 <ul>
 <li><a href="#org24a1aba">Netmap Vale Behavior</a>
 <ul>
-<li><a href="#org509a2a7">Unicast Mac Address Learning</a>
+<li><a href="#org8cd518b">Mac Address Learning</a>
 <ul>
-<li><a href="#orgb352f20">Create 3 vale ports and attach</a></li>
+<li><a href="#orgade53ea">Prepare Vale</a></li>
 <li><a href="#org0fa1280">Show Mac Addresses</a></li>
 <li><a href="#org34f227f">Train Vale</a></li>
 <li><a href="#org11c08b7">Send Packets</a></li>
@@ -33,11 +33,24 @@
 </li>
 <li><a href="#org27794ee">Broadcast and Multicast</a>
 <ul>
-<li><a href="#org28678d3">Prepare Vale Switch</a></li>
+<li><a href="#org86c0ac7">Prepare Vale</a></li>
 <li><a href="#orgc711c71">Send Broadcast</a></li>
 <li><a href="#org5e8fe82">Send Multicast</a></li>
 </ul>
 </li>
+</ul>
+</li>
+<li><a href="#org74b17e2">Netmap Max Vale</a>
+<ul>
+<li><a href="#orga40e7c2">Value Test Script</a></li>
+<li><a href="#org42dfda7">Test Vale Port Number</a></li>
+<li><a href="#org7d199db">Test Vale Number</a></li>
+</ul>
+</li>
+<li><a href="#org7ae938f">Netmap App Programming</a>
+<ul>
+<li><a href="#org669a263">Netmap APIs</a></li>
+<li><a href="#org1caa3ba">Sample: Nmpingd</a></li>
 </ul>
 </li>
 </ul>
@@ -51,8 +64,8 @@
 <h2 id="org24a1aba">Netmap Vale Behavior</h2>
 <div class="outline-text-2" id="text-org24a1aba">
 <p>
-netmap vale is a high performance switch. It learns ethernet MAC
-addresses from ether source header. Ether header:
+Netmap vale is a high performance switch. It learns MAC addresses
+from ether source header. Ether header format:
 </p>
 <div class="org-src-container">
 <pre class="src src-artist">+---------------------------------+
@@ -63,7 +76,7 @@ addresses from ether source header. Ether header:
 </div>
 
 <p>
-There are 3 Types of ethernet MAC address:
+There are 3 Types of MAC address:
 </p>
 <ol class="org-ol">
 <li><p>
@@ -71,26 +84,27 @@ Broadcast
 </p>
 
 <p>
-The only one: <code>ff.ff.ff.ff.ff.ff</code>
+The only one: <code>ff:ff:ff:ff:ff:ff</code>
 </p></li>
 <li><p>
 Multicast
 </p>
 
 <p>
-like <code>?x.??.??.??.??.??</code>, here x=1,3,5,7,9,b,d,f
+like <code>?x:??:??:??:??:??</code>, here x=1,3,5,7,9,b,d,f
 </p></li>
 <li><p>
 Unicast
 </p>
 
 <p>
-like <code>?x.??.??.??.??.??</code>, here x=0,2,4,6,8,a,c,e
+like <code>?x:??:??:??:??:??</code>, here x=0,2,4,6,8,a,c,e
 </p></li>
 </ol>
 
 <p>
-vale switch will forward packets to all ports if the destination is:
+Vale switch forwards packets to all ports(except the one to send the
+packets) if the destination MAC address is type of:
 </p>
 <ol class="org-ol">
 <li>Broadcast,</li>
@@ -100,17 +114,18 @@ learned by the vale switch.</li>
 </ol>
 
 <p>
-Or vale switch will send unicast to the specific port with the
-unicast mac address.
+If the destination MAC address is unicast type and the MAC address
+is learned by value, vale forwards packets to the port with the mac
+address.
 </p>
 </div>
-<div id="outline-container-org509a2a7" class="outline-3">
-<h3 id="org509a2a7">Unicast Mac Address Learning</h3>
-<div class="outline-text-3" id="text-org509a2a7">
+<div id="outline-container-org8cd518b" class="outline-3">
+<h3 id="org8cd518b">Mac Address Learning</h3>
+<div class="outline-text-3" id="text-org8cd518b">
 </div>
-<div id="outline-container-orgb352f20" class="outline-4">
-<h4 id="orgb352f20">Create 3 vale ports and attach</h4>
-<div class="outline-text-4" id="text-orgb352f20">
+<div id="outline-container-orgade53ea" class="outline-4">
+<h4 id="orgade53ea">Prepare Vale</h4>
+<div class="outline-text-4" id="text-orgade53ea">
 <div class="org-src-container">
 <pre class="src src-sh">vale-ctl -n vi0
 vale-ctl -n vi1
@@ -191,9 +206,9 @@ Send packages from <code>vi0</code> to <code>vi1</code>:
 <h3 id="org27794ee">Broadcast and Multicast</h3>
 <div class="outline-text-3" id="text-org27794ee">
 </div>
-<div id="outline-container-org28678d3" class="outline-4">
-<h4 id="org28678d3">Prepare Vale Switch</h4>
-<div class="outline-text-4" id="text-org28678d3">
+<div id="outline-container-org86c0ac7" class="outline-4">
+<h4 id="org86c0ac7">Prepare Vale</h4>
+<div class="outline-text-4" id="text-org86c0ac7">
 <div class="org-src-container">
 <pre class="src src-sh">vale-ctl -n v1p1
 vale-ctl -n v1p2
@@ -243,6 +258,106 @@ The multicast traffic can be received by all vale ports:
 </div>
 </div>
 </div>
+</div>
+</div>
+
+<div id="outline-container-org74b17e2" class="outline-2">
+<h2 id="org74b17e2">Netmap Max Vale</h2>
+<div class="outline-text-2" id="text-org74b17e2">
+<p>
+The default vale max number is 8. In one vale, the max port number
+is 254.
+</p>
+</div>
+
+<div id="outline-container-orga40e7c2" class="outline-3">
+<h3 id="orga40e7c2">Value Test Script</h3>
+<div class="outline-text-3" id="text-orga40e7c2">
+<p>
+<code>vale-test</code>:
+</p>
+<div class="org-src-container">
+<pre class="src src-sh"><span class="org-comment-delimiter">#</span><span class="org-comment">!/bin/</span><span class="org-keyword">bash</span>
+<span class="org-comment-delimiter"># </span><span class="org-comment">file: vale-test</span>
+<span class="org-variable-name">action</span>=${<span class="org-variable-name">1</span>:-attach}
+<span class="org-builtin">shift</span>
+<span class="org-variable-name">vmax</span>=${<span class="org-variable-name">1</span>:-1}
+<span class="org-builtin">shift</span>
+<span class="org-variable-name">pmax</span>=${<span class="org-variable-name">1</span>:-252}
+<span class="org-builtin">shift</span>
+<span class="org-keyword">for</span> ((<span class="org-variable-name">j</span>=0; j&lt;$<span class="org-variable-name">vmax</span>; j++)); <span class="org-keyword">do</span>
+    <span class="org-keyword">for</span> ((<span class="org-variable-name">i</span>=0; i&lt;$<span class="org-variable-name">pmax</span>; i++)); <span class="org-keyword">do</span>
+        <span class="org-variable-name">p</span>=$(<span class="org-sh-quoted-exec">printf</span> <span class="org-string">"p%03d%03d"</span> $<span class="org-variable-name">j</span> $<span class="org-variable-name">i</span>)
+        <span class="org-variable-name">v</span>=$(<span class="org-sh-quoted-exec">printf</span> <span class="org-string">"vale%03d"</span> $<span class="org-variable-name">j</span>)
+        <span class="org-builtin">echo</span> $<span class="org-variable-name">v</span>:$<span class="org-variable-name">p</span>
+        <span class="org-keyword">if</span> [ <span class="org-string">"$action"</span> = <span class="org-string">"attach"</span> ]; <span class="org-keyword">then</span>
+            vale-ctl -n $<span class="org-variable-name">p</span>
+            vale-ctl -a $<span class="org-variable-name">v</span>:$<span class="org-variable-name">p</span>
+        <span class="org-keyword">else</span>
+            vale-ctl -d $<span class="org-variable-name">v</span>:$<span class="org-variable-name">p</span>
+            vale-ctl -r $<span class="org-variable-name">p</span>
+        <span class="org-keyword">fi</span>
+    <span class="org-keyword">done</span>
+<span class="org-keyword">done</span>
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org42dfda7" class="outline-3">
+<h3 id="org42dfda7">Test Vale Port Number</h3>
+<div class="outline-text-3" id="text-org42dfda7">
+<p>
+Attach 254 ports in 1 vale:
+</p>
+<div class="org-src-container">
+<pre class="src src-sh">vale-test attach 1 254
+</pre>
+</div>
+
+<p>
+Detach them:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-sh">vale-test detach 1 254
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org7d199db" class="outline-3">
+<h3 id="org7d199db">Test Vale Number</h3>
+<div class="outline-text-3" id="text-org7d199db">
+<p>
+Create 8 ports and attach 1 port for each:
+</p>
+<div class="org-src-container">
+<pre class="src src-sh">vale-test attach 8 1
+</pre>
+</div>
+
+<p>
+Detach them:
+</p>
+<div class="org-src-container">
+<pre class="src src-sh">vale-test detach 8 1
+</pre>
+</div>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org7ae938f" class="outline-2">
+<h2 id="org7ae938f">Netmap App Programming</h2>
+<div class="outline-text-2" id="text-org7ae938f">
+</div>
+<div id="outline-container-org669a263" class="outline-3">
+<h3 id="org669a263">Netmap APIs</h3>
+</div>
+
+<div id="outline-container-org1caa3ba" class="outline-3">
+<h3 id="org1caa3ba">Sample: Nmpingd</h3>
 </div>
 </div>
 </div>
