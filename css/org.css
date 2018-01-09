@@ -23,6 +23,10 @@ code {
     font-size: 90%;
 }
 
+div.org-src-container {
+    max-width: auto;
+}
+
 pre.example {
     background-color:#EFEFEF;
     color: #3E3E3E;

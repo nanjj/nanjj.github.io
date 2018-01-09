@@ -14,37 +14,38 @@
 
 [[netmap-page:][Netmap]] is a framework for very fast packet I/O from userspace.
 
-* Netmap Vale Behavior
-  Netmap vale is a high performance switch. It learns MAC addresses
-  from ether source header. Ether header format:
-  #+BEGIN_SRC artist
-    +---------------------------------+
-    | Destination | Source  | Type    |
-    | 6 Bytes     | 6 Bytes | 2 Bytes |
-    +---------------------------------+
-  #+END_SRC
+* Netmap Vale
+** Vale Behavior  
+   Netmap vale is a high performance switch. It learns MAC addresses
+   from ether source header. Ether header format:
+   #+BEGIN_SRC artist
+     +---------------------------------+
+     | Destination | Source  | Type    |
+     | 6 Bytes     | 6 Bytes | 2 Bytes |
+     +---------------------------------+
+   #+END_SRC
 
-  There are 3 Types of MAC address:
-  1. Broadcast
+   There are 3 Types of MAC address:
+   1. Broadcast
      
-     The only one: =ff:ff:ff:ff:ff:ff=
-  2. Multicast
+      The only one: =ff:ff:ff:ff:ff:ff=
+   2. Multicast
 
-     like =?x:??:??:??:??:??=, here x=1,3,5,7,9,b,d,f
-  3. Unicast
+      like =?x:??:??:??:??:??=, here x=1,3,5,7,9,b,d,f
+   3. Unicast
 
-     like =?x:??:??:??:??:??=, here x=0,2,4,6,8,a,c,e
+      like =?x:??:??:??:??:??=, here x=0,2,4,6,8,a,c,e
   
-  Vale switch forwards packets to all ports(except the one to send the
-  packets) if the destination MAC address is type of:
-  1. Broadcast,
-  2. Multicast,
-  3. Unicast but the mac addresses is not in the vale switch or is not
-     learned by the vale switch.
+   Vale switch forwards packets to all ports(except the one to send the
+   packets) if the destination MAC address is type of:
+   1. Broadcast,
+   2. Multicast,
+   3. Unicast but the mac addresses is not in the vale switch or is not
+      learned by the vale switch.
   
-  If the destination MAC address is unicast type and the MAC address
-  is learned by value, vale forwards packets to the port with the mac
-  address.
+   If the destination MAC address is unicast type and the MAC address
+   is learned by value, vale forwards packets to the port with the mac
+   address.
 ** Mac Address Learning
 *** Prepare Vale
     #+BEGIN_SRC sh
@@ -130,66 +131,229 @@
       pkt-gen -i vale1:v1p3 -f rx -X
     #+END_SRC
 
-* Netmap Max Vale
+** Vale Number and Vale Port Number
 
-  The default vale max number is 8. In one vale, the max port number
-  is 254.
+   The default vale max number is 8. In one vale, the max port number
+   is 254.
 
-** Value Test Script
+*** Value Test Script
 
-   =vale-test=:
-   #+BEGIN_SRC sh
-     #!/bin/bash
-     # file: vale-test
-     action=${1:-attach}
-     shift
-     vmax=${1:-1}
-     shift
-     pmax=${1:-252}
-     shift
-     for ((j=0; j<$vmax; j++)); do
-         for ((i=0; i<$pmax; i++)); do
-             p=$(printf "p%03d%03d" $j $i)
-             v=$(printf "vale%03d" $j)
-             echo $v:$p
-             if [ "$action" = "attach" ]; then
-                 vale-ctl -n $p
-                 vale-ctl -a $v:$p
-             else
-                 vale-ctl -d $v:$p
-                 vale-ctl -r $p
-             fi
-         done
-     done
+    =vale-test=:
+    #+BEGIN_SRC sh
+      #!/bin/bash
+      # file: vale-test
+      action=${1:-attach}
+      shift
+      vmax=${1:-1}
+      shift
+      pmax=${1:-252}
+      shift
+      for ((j=0; j<$vmax; j++)); do
+          for ((i=0; i<$pmax; i++)); do
+              p=$(printf "p%03d%03d" $j $i)
+              v=$(printf "vale%03d" $j)
+              echo $v:$p
+              if [ "$action" = "attach" ]; then
+                  vale-ctl -n $p
+                  vale-ctl -a $v:$p
+              else
+                  vale-ctl -d $v:$p
+                  vale-ctl -r $p
+              fi
+          done
+      done
+    #+END_SRC
+
+*** Test Vale Port Number  
+
+    Attach 254 ports in 1 vale:
+    #+BEGIN_SRC sh
+      vale-test attach 1 254
+    #+END_SRC
+
+    Detach them:
+
+    #+BEGIN_SRC sh
+      vale-test detach 1 254
+    #+END_SRC
+
+*** Test Vale Number   
+
+    Create 8 ports and attach 1 port for each:
+    #+BEGIN_SRC sh
+      vale-test attach 8 1
+    #+END_SRC
+
+    Detach them:
+    #+BEGIN_SRC sh
+      vale-test detach 8 1
+    #+END_SRC
+
+* Netmap Pipe
+  Netmap pipe are used to share data between two processes.
+
+** Master and Slave Endpoint
+  One pipe has two endpoints: master and slave. For examples:
+  1. master endpoint =netmap:p1{0= and slave endpoint =netmap:p1}0= is
+     a pipe,
+  2. master endpoint =vale0:p2{0= and slave endpoint =vale0:p2}0= is a
+     pipe.
+
+  =master= and =slave= may not be a good naming. Usually 1 slave is
+  owned by 1 master but 1 master may own one or more slaves. For
+  netmap pipe master and slave are in equal, maybe we should call them
+  =pair=.
+
+** Tranfer Anything Via Pipe
+  You can transfer through netmap pipes packet with non-ethernet
+  structure, since netmap pipe does not look at the packet's headers
+  or content.
+
+** Bidirection and Blocking
+
+  Netmap pipes are bidirectional and blocking.
+
+** Sample Code: nmpipe.c
+
+   Sample code:
+   
+   #+BEGIN_SRC c -n
+     /*
+      ,* nmpipe:
+      ,*
+      ,* read from stdin, write to netmap pipe or read from pipe and write
+      ,* to stdout.
+      ,*/
+     #include <stdio.h>              /* printf */
+     #include <unistd.h>             /* getopt, read, write */
+     #include <string.h>             /* strerror, strlen */
+     #include <poll.h>               /* pollfd, poll */
+
+     #define NETMAP_WITH_LIBS
+     #include <net/netmap_user.h>
+
+     void usage(char** argv)
+     {
+            printf("Usage: %s <ifname>\n"
+                    "ifname - interface name, which must be a pipe endpoint name,\n"
+                    "         for example netmap:pipe{0, or netmap:pipe}0\n",
+                    argv[0]);
+     }
+
+     void read_stdin(char *buf)
+     {
+         int n = strlen(buf);
+         if (n == 0) {
+             n = read(STDIN_FILENO, buf, 1024);
+             if (n > 0) {
+                 buf[n] = '\0';
+             }
+         }
+     }
+
+     void read_pipe(struct nm_desc *nmd, char *buf)
+     {
+         int n = strlen(buf);
+         if (n == 0) {
+             struct nm_pkthdr hdr = {0};
+             u_char* b = nm_nextpkt(nmd, &hdr);
+             if (b != NULL) {
+                 n = hdr.len;
+                 nm_pkt_copy(b, buf, n);
+                 buf[n] = '\0';
+             }
+         }
+     }
+     void flush_pipe(struct nm_desc *nmd, char *buf)
+     {
+         int n = strlen(buf);
+         if (n > 0 ) {
+             if (nm_inject(nmd, buf, n) > 0 ) {
+                 buf[0] = '\0';
+             }
+         }
+     }
+
+     void flush_stdout(char *buf)
+     {
+         int n = strlen(buf);
+         if (n > 0 ) {
+             write(STDOUT_FILENO, buf, n);
+             buf[0]='\0';
+         }
+     }
+
+     int main(int argc, char **argv)
+     {
+         if (argc != 2) {
+             usage(argv);
+             return 1;
+         }
+         const char* ifname = argv[1];
+
+         struct nm_desc *nmd = nm_open(ifname, NULL, 0, NULL);
+         if (nmd == NULL) {
+             usage(argv);
+             return -1;
+         }
+         char bufi[1024] = {0};
+         char bufo[1024] = {0};
+         struct pollfd pfd[3];
+         /* stdin */
+         pfd[0].fd = STDIN_FILENO;
+         pfd[0].events = POLLIN | POLLHUP;
+         /* stdout */
+         pfd[1].fd = STDOUT_FILENO;
+         pfd[1].events = POLLOUT | POLLHUP;
+         /* netmap pipe */
+         pfd[2].fd = nmd->fd;
+         pfd[2].events = (POLLIN | POLLOUT);
+         while(poll(pfd, 3, -1) > 0){
+             /* read from stdin */
+             if (pfd[0].revents & POLLIN) {
+                 read_stdin(bufi);
+             }
+
+             /* write to pipe */
+             if (pfd[2].revents & POLLOUT) {
+                 flush_pipe(nmd, bufi);
+             }
+
+             /* read from pipe */
+             if (pfd[2].revents & POLLIN) {
+                 read_pipe(nmd, bufo);
+             }
+
+             /* write to stdout */
+             if (pfd[1].revents & POLLOUT) {
+                 flush_stdout(bufo);
+             }
+
+             if (pfd[0].revents & POLLHUP || pfd[1].revents & POLLHUP ) {
+                 flush_pipe(nmd, bufi);
+                 flush_stdout(bufo);
+                 break;
+             }
+         }
+         nm_close(nmd);
+         return 0;
+     }
+
    #+END_SRC
 
-** Test Vale Port Number  
-
-   Attach 254 ports in 1 vale:
+   You can use it as chat room:
    #+BEGIN_SRC sh
-     vale-test attach 1 254
+     # One terminal
+     nmpipe netmap:pipe{0
+     # Another terminal
+     nmpipe netmap:pipe}0                   
+     # Type anything and watch
    #+END_SRC
-
-   Detach them:
-
+   Or use =pv= to measure pipe speed:
    #+BEGIN_SRC sh
-     vale-test detach 1 254
+     # one terminal
+     wget http://ita.ee.lbl.gov/traces/NASA_access_log_Jul95.gz
+     zcat NASA_access_log_Jul95.gz | nmpipe netmap:pipe}0
+     # another terminal
+     nmpipe netmap:pipe{0 | pv > /dev/null
    #+END_SRC
-
-** Test Vale Number   
-
-   Create 8 ports and attach 1 port for each:
-   #+BEGIN_SRC sh
-     vale-test attach 8 1
-   #+END_SRC
-
-   Detach them:
-   #+BEGIN_SRC sh
-     vale-test detach 8 1
-   #+END_SRC
-
-* Netmap App Programming   
-
-** Netmap APIs
-
-** Sample: Nmpingd
