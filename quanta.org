@@ -1,0 +1,16 @@
+#+TITLE: 光是什么
+#+DATE: <2018-05-15 Tue>
+
+我们如何理解光呢？
+
+* 光的速度
+
+  光在引力可以忽略的真空中，沿直线传播，速度为恒定值：299,792,458 m/s，
+  约等于30万公里每秒。地球距离月球平均约38万公里，一束光打来回约用2.5
+  秒，详见[[https://en.wikipedia.org/wiki/Lunar_Laser_Ranging_experiment][激光测量月距实验]]。
+
+  [[./laser-ranging.jpg]]
+
+* 光的颜色
+
+  
