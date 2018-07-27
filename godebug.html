@@ -3,7 +3,7 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2018-07-27 Fri 15:09 -->
+<!-- 2018-07-27 Fri 16:16 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Go Debug</title>
@@ -24,10 +24,13 @@
 <li><a href="#orgf1d5124">Background</a></li>
 <li><a href="#org49ccee8">Installation</a></li>
 <li><a href="#org0c178e4">Code to Debug</a></li>
-<li><a href="#org796eaa3">Debugging Practices</a></li>
+<li><a href="#org796eaa3">Debugging Practices</a>
+<ul>
 <li><a href="#org035ff29">Debug a Program</a></li>
 <li><a href="#orga547511">Debug Test Case</a></li>
 <li><a href="#org7772299">Debug a Service</a></li>
+</ul>
+</li>
 </ul>
 </div>
 </div>
@@ -156,11 +159,10 @@ We will learn:
 <li>How to debug a service</li>
 </ol>
 </div>
-</div>
 
-<div id="outline-container-org035ff29" class="outline-2">
-<h2 id="org035ff29">Debug a Program</h2>
-<div class="outline-text-2" id="text-org035ff29">
+<div id="outline-container-org035ff29" class="outline-3">
+<h3 id="org035ff29">Debug a Program</h3>
+<div class="outline-text-3" id="text-org035ff29">
 <div class="org-src-container">
 <pre class="src src-sh">$ dlv debug
 Type <span class="org-string">'help'</span> for list of commands.
@@ -184,9 +186,9 @@ Breakpoint 1 set at 0x10b1faf for main.main() ./main.go:9
 </div>
 </div>
 
-<div id="outline-container-orga547511" class="outline-2">
-<h2 id="orga547511">Debug Test Case</h2>
-<div class="outline-text-2" id="text-orga547511">
+<div id="outline-container-orga547511" class="outline-3">
+<h3 id="orga547511">Debug Test Case</h3>
+<div class="outline-text-3" id="text-orga547511">
 <div class="org-src-container">
 <pre class="src src-sh">dlv test
 Type <span class="org-string">'help'</span> for list of commands.
@@ -229,9 +231,9 @@ Breakpoint 2 set at 0x1138101 for _/Users/nanjj/source/nanjj/nanjj.github.io/hel
 </div>
 </div>
 
-<div id="outline-container-org7772299" class="outline-2">
-<h2 id="org7772299">Debug a Service</h2>
-<div class="outline-text-2" id="text-org7772299">
+<div id="outline-container-org7772299" class="outline-3">
+<h3 id="org7772299">Debug a Service</h3>
+<div class="outline-text-3" id="text-org7772299">
 <div class="org-src-container">
 <pre class="src src-sh">$ icp-cland&amp;
 $ ps -ef|grep icp-cland
@@ -255,6 +257,7 @@ Warning: debugging optimized <span class="org-keyword">function</span>
     31:         var purged int64
     32:         purged, err = model.Purge(filter)
 </pre>
+</div>
 </div>
 </div>
 </div>

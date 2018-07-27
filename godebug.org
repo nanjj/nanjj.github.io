@@ -96,91 +96,91 @@
      2. =goroutine 18= to switch goroutine
   3. How to debug a service
 
-* Debug a Program
+** Debug a Program
 
-  #+BEGIN_SRC sh
-    $ dlv debug
-    Type 'help' for list of commands.
-    (dlv) break main.main
-    Breakpoint 1 set at 0x10b1faf for main.main() ./main.go:9
-    (dlv) continue
-    > main.main() ./main.go:9 (hits goroutine(1):1 total:1) (PC: 0x10b1faf)
-         4:         "fmt"
-         5:
-         6:         "golang.org/x/sync/errgroup"
-         7: )
-         8:
-    =>   9: func main() {
-        10:         hello()
-        11: }
-        12:
-        13: var Printf = fmt.Printf
-        14:
-  #+END_SRC
+   #+BEGIN_SRC sh
+     $ dlv debug
+     Type 'help' for list of commands.
+     (dlv) break main.main
+     Breakpoint 1 set at 0x10b1faf for main.main() ./main.go:9
+     (dlv) continue
+     > main.main() ./main.go:9 (hits goroutine(1):1 total:1) (PC: 0x10b1faf)
+          4:         "fmt"
+          5:
+          6:         "golang.org/x/sync/errgroup"
+          7: )
+          8:
+     =>   9: func main() {
+         10:         hello()
+         11: }
+         12:
+         13: var Printf = fmt.Printf
+         14:
+   #+END_SRC
 
-* Debug Test Case
+** Debug Test Case
 
-  #+BEGIN_SRC sh
-    dlv test
-    Type 'help' for list of commands.
-    (dlv) break TestHello
-    Breakpoint 1 set at 0x1137b4b for _/Users/nanjj/source/nanjj/nanjj.github.io/hello.TestHello() ./main_test.go:9
-    (dlv) continue
-    > _/Users/nanjj/source/nanjj/nanjj.github.io/hello.TestHello() ./main_test.go:9 (hits goroutine(5):1 total:1) (PC: 0x1137b4b)
-         4:         "fmt"
-         5:         "reflect"
-         6:         "testing"
-         7: )
-         8:
-    =>   9: func TestHello(t *testing.T) {
-        10:         lines := make([]string, 10)
-        11:         Printf = func(format string, a ...interface{}) (n int, err error) {
-        12:                 i := a[0].(int)
-        13:                 lines[i] = fmt.Sprintf(format, a...)
-        14:                 return len(lines[i]), nil
-    (dlv) break 12
-    Breakpoint 2 set at 0x1138101 for _/Users/nanjj/source/nanjj/nanjj.github.io/hello.TestHello.func1() ./main_test.go:12
-    (dlv) continue
-    > _/Users/nanjj/source/nanjj/nanjj.github.io/hello.TestHello.func1() ./main_test.go:12 (hits goroutine(15):1 total:1) (PC: 0x1138101)
-         7: )
-         8:
-         9: func TestHello(t *testing.T) {
-        10:         lines := make([]string, 10)
-        11:         Printf = func(format string, a ...interface{}) (n int, err error) {
-    =>  12:                 i := a[0].(int)
-        13:                 lines[i] = fmt.Sprintf(format, a...)
-        14:                 return len(lines[i]), nil
-        15:         }
-        16:         hello()
-        17:         want := []string{
-    (dlv) print a
-    []interface {} len: 1, cap: 1, [
-            10,
-    ]
-  #+END_SRC
+   #+BEGIN_SRC sh
+     dlv test
+     Type 'help' for list of commands.
+     (dlv) break TestHello
+     Breakpoint 1 set at 0x1137b4b for _/Users/nanjj/source/nanjj/nanjj.github.io/hello.TestHello() ./main_test.go:9
+     (dlv) continue
+     > _/Users/nanjj/source/nanjj/nanjj.github.io/hello.TestHello() ./main_test.go:9 (hits goroutine(5):1 total:1) (PC: 0x1137b4b)
+          4:         "fmt"
+          5:         "reflect"
+          6:         "testing"
+          7: )
+          8:
+     =>   9: func TestHello(t *testing.T) {
+         10:         lines := make([]string, 10)
+         11:         Printf = func(format string, a ...interface{}) (n int, err error) {
+         12:                 i := a[0].(int)
+         13:                 lines[i] = fmt.Sprintf(format, a...)
+         14:                 return len(lines[i]), nil
+     (dlv) break 12
+     Breakpoint 2 set at 0x1138101 for _/Users/nanjj/source/nanjj/nanjj.github.io/hello.TestHello.func1() ./main_test.go:12
+     (dlv) continue
+     > _/Users/nanjj/source/nanjj/nanjj.github.io/hello.TestHello.func1() ./main_test.go:12 (hits goroutine(15):1 total:1) (PC: 0x1138101)
+          7: )
+          8:
+          9: func TestHello(t *testing.T) {
+         10:         lines := make([]string, 10)
+         11:         Printf = func(format string, a ...interface{}) (n int, err error) {
+     =>  12:                 i := a[0].(int)
+         13:                 lines[i] = fmt.Sprintf(format, a...)
+         14:                 return len(lines[i]), nil
+         15:         }
+         16:         hello()
+         17:         want := []string{
+     (dlv) print a
+     []interface {} len: 1, cap: 1, [
+             10,
+     ]
+   #+END_SRC
 
-* Debug a Service
+** Debug a Service
 
-  #+BEGIN_SRC sh
-    $ icp-cland&
-    $ ps -ef|grep icp-cland
-    501 89630  3744   0  2:44PM ttys002    0:00.34 icp-cland
-    $ dlv attach 89630
-    Type 'help' for list of commands.
-    (dlv) break github.ibm.com/cland/icp-cland/icp/service/admin/db.go:27
-    Breakpoint 1 set at 0x47c771e for github.ibm.com/cland/icp-cland/icp/service/admin.(*dbAdmin).Purge() /Users/nanjj/gource/src/github.ibm.com/cland/icp-cland/icp/service/admin/db.go:27
-    (dlv) continue
-    > github.ibm.com/cland/icp-cland/icp/service/admin.(*dbAdmin).Purge() /Users/nanjj/gource/src/github.ibm.com/cland/icp-cland/icp/service/admin/db.go:27 (hits goroutine(357):1 total:1) (PC: 0x47c771e)
-    Warning: debugging optimized function
-        22:         *logging.Tracer
-        23: }
-        24:
-        25: func (dba *dbAdmin) Purge(ctx context.Context,
-        26:         req *dbs.PurgeRequest) (rep *dbs.PurgeReply, err error) {
-    =>  27:         sp, ctx, logger := dba.StartSpanFromContext(ctx, "DBAdminPurge")
-        28:         defer sp.Finish()
-        29:         rep = &dbs.PurgeReply{}
-        30:         filter := req.GetFilter()
-        31:         var purged int64
-        32:         purged, err = model.Purge(filter)
-  #+END_SRC
+   #+BEGIN_SRC sh
+     $ icp-cland&
+     $ ps -ef|grep icp-cland
+     501 89630  3744   0  2:44PM ttys002    0:00.34 icp-cland
+     $ dlv attach 89630
+     Type 'help' for list of commands.
+     (dlv) break github.ibm.com/cland/icp-cland/icp/service/admin/db.go:27
+     Breakpoint 1 set at 0x47c771e for github.ibm.com/cland/icp-cland/icp/service/admin.(*dbAdmin).Purge() /Users/nanjj/gource/src/github.ibm.com/cland/icp-cland/icp/service/admin/db.go:27
+     (dlv) continue
+     > github.ibm.com/cland/icp-cland/icp/service/admin.(*dbAdmin).Purge() /Users/nanjj/gource/src/github.ibm.com/cland/icp-cland/icp/service/admin/db.go:27 (hits goroutine(357):1 total:1) (PC: 0x47c771e)
+     Warning: debugging optimized function
+         22:         *logging.Tracer
+         23: }
+         24:
+         25: func (dba *dbAdmin) Purge(ctx context.Context,
+         26:         req *dbs.PurgeRequest) (rep *dbs.PurgeReply, err error) {
+     =>  27:         sp, ctx, logger := dba.StartSpanFromContext(ctx, "DBAdminPurge")
+         28:         defer sp.Finish()
+         29:         rep = &dbs.PurgeReply{}
+         30:         filter := req.GetFilter()
+         31:         var purged int64
+         32:         purged, err = model.Purge(filter)
+   #+END_SRC
