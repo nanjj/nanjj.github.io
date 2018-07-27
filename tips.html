@@ -3,12 +3,12 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2017-12-25 Mon 09:27 -->
+<!-- 2018-07-27 Fri 13:28 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Some Tips</title>
 <meta name="generator" content="Org mode" />
-<meta name="author" content="Nan Jun Jie" />
+<meta name="author" content="JUNJIE NAN" />
 <link rel="stylesheet" type="text/css" href="css/org.css" />
 </head>
 <body>
@@ -50,6 +50,7 @@
 <li><a href="#orgf4a22de">Proxy Ansible</a></li>
 </ul>
 </li>
+<li><a href="#org9de6bc5">Permission Bits</a></li>
 </ul>
 </div>
 </div>
@@ -348,6 +349,118 @@ You can run ansible with below configuration in your inventory:
 ansible_ssh_common_args='-o ProxyCommand="ncat --proxy 127.0.0.1:8888 %h %p"'
 </pre>
 </div>
+</div>
+</div>
+
+<div id="outline-container-org9de6bc5" class="outline-2">
+<h2 id="org9de6bc5">Permission Bits</h2>
+<div class="outline-text-2" id="text-org9de6bc5">
+<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+<caption class="t-above"><span class="table-number">Table 1:</span> Read, write and execute permissions</caption>
+
+<colgroup>
+<col  class="org-left" />
+
+<col  class="org-right" />
+
+<col  class="org-left" />
+</colgroup>
+<thead>
+<tr>
+<th scope="col" class="org-left">Permission</th>
+<th scope="col" class="org-right">Octal</th>
+<th scope="col" class="org-left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="org-left">rwx</td>
+<td class="org-right">7</td>
+<td class="org-left">Read, write and execute</td>
+</tr>
+
+<tr>
+<td class="org-left">rw-</td>
+<td class="org-right">6</td>
+<td class="org-left">Read and write</td>
+</tr>
+
+<tr>
+<td class="org-left">r-x</td>
+<td class="org-right">5</td>
+<td class="org-left">Read and execute</td>
+</tr>
+
+<tr>
+<td class="org-left">r--</td>
+<td class="org-right">4</td>
+<td class="org-left">Read</td>
+</tr>
+
+<tr>
+<td class="org-left">-wx</td>
+<td class="org-right">3</td>
+<td class="org-left">Write and execute</td>
+</tr>
+
+<tr>
+<td class="org-left">-w-</td>
+<td class="org-right">2</td>
+<td class="org-left">Write</td>
+</tr>
+
+<tr>
+<td class="org-left">&#x2013;x</td>
+<td class="org-right">1</td>
+<td class="org-left">Execute</td>
+</tr>
+
+<tr>
+<td class="org-left">---</td>
+<td class="org-right">0</td>
+<td class="org-left">no permissions</td>
+</tr>
+</tbody>
+</table>
+
+
+<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+<caption class="t-above"><span class="table-number">Table 2:</span> User, group and others</caption>
+
+<colgroup>
+<col  class="org-left" />
+
+<col  class="org-right" />
+
+<col  class="org-left" />
+</colgroup>
+<thead>
+<tr>
+<th scope="col" class="org-left">Permission</th>
+<th scope="col" class="org-right">Octal</th>
+<th scope="col" class="org-left">Field</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="org-left">rwx------</td>
+<td class="org-right">0700</td>
+<td class="org-left">User</td>
+</tr>
+
+<tr>
+<td class="org-left">&#x2014;rwx---</td>
+<td class="org-right">0070</td>
+<td class="org-left">Group</td>
+</tr>
+
+<tr>
+<td class="org-left">-&#x2013;&#x2014;rwx</td>
+<td class="org-right">0007</td>
+<td class="org-left">All Others</td>
+</tr>
+</tbody>
+</table>
 </div>
 </div>
 </div>

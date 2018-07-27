@@ -5,14 +5,14 @@
 #+LINK: nmap https://nmap.org/
 
 * Linux Kernel
-  
+
   Kernel building takes too long time. We can use below methods
   together to speed up the process:
 
   1. Enable =tmpfs= to build in memory,
   2. Enable =ccache= to avoid unnecessary recompile,
   3. Enable =distcc= to build on multiple machines.
-  
+
 ** Mount tmpfs
 
    #+BEGIN_SRC sh
@@ -22,7 +22,7 @@
    #+END_SRC
   Speed up kernel building via =ccache= and =distcc=:
 
-** Enable ccache  
+** Enable ccache
   #+BEGIN_SRC sh
     apt-get install ccache
   #+END_SRC
@@ -196,4 +196,26 @@
     [all:vars]
     ansible_ssh_common_args='-o ProxyCommand="ncat --proxy 127.0.0.1:8888 %h %p"'
   #+END_EXAMPLE
+
+* Permission Bits
+
+  #+CAPTION: Read, write and execute permissions
+  | Permission | Octal | Description             |
+  |------------+-------+-------------------------|
+  | rwx        |     7 | Read, write and execute |
+  | rw-        |     6 | Read and write          |
+  | r-x        |     5 | Read and execute        |
+  | r--        |     4 | Read                    |
+  | -wx        |     3 | Write and execute       |
+  | -w-        |     2 | Write                   |
+  | --x        |     1 | Execute                 |
+  | ---        |     0 | no permissions          |
+
+
+  #+Caption: User, group and others
+  | Permission | Octal | Field      |
+  |------------+-------+------------|
+  | rwx------  |  0700 | User       |
+  | ---rwx---  |  0070 | Group      |
+  | ------rwx  |  0007 | All Others |
 
