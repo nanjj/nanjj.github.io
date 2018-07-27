@@ -1,0 +1,263 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+<!-- 2018-07-27 Fri 15:09 -->
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Go Debug</title>
+<meta name="generator" content="Org mode" />
+<meta name="author" content="JUNJIE NAN" />
+<link rel="stylesheet" type="text/css" href="css/org.css" />
+</head>
+<body>
+<div id="org-div-home-and-up">
+ <a accesskey="h" href="index.html"> UP </a> | 
+ <a accesskey="H" href="index.html"> HOME </a>
+</div><div id="content">
+<h1 class="title">Go Debug</h1>
+<div id="table-of-contents">
+<h2>Table of Contents</h2>
+<div id="text-table-of-contents">
+<ul>
+<li><a href="#orgf1d5124">Background</a></li>
+<li><a href="#org49ccee8">Installation</a></li>
+<li><a href="#org0c178e4">Code to Debug</a></li>
+<li><a href="#org796eaa3">Debugging Practices</a></li>
+<li><a href="#org035ff29">Debug a Program</a></li>
+<li><a href="#orga547511">Debug Test Case</a></li>
+<li><a href="#org7772299">Debug a Service</a></li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-orgf1d5124" class="outline-2">
+<h2 id="orgf1d5124">Background</h2>
+<div class="outline-text-2" id="text-orgf1d5124">
+<p>
+Go has no its own debugger so it turned to gdb. See <a href="https://golang.org/doc/gdb">Debugging Go
+Code with GDB</a> for details.
+</p>
+
+<p>
+But GDB does not understand Go programs well. As a better
+alternative, <a href="https://github.com/derekparker/delve">Delve</a> has its place.
+</p>
+</div>
+</div>
+
+<div id="outline-container-org49ccee8" class="outline-2">
+<h2 id="org49ccee8">Installation</h2>
+<div class="outline-text-2" id="text-org49ccee8">
+<div class="org-src-container">
+<pre class="src src-sh">go get github.com/derekparker/delve/cmd/dlv
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org0c178e4" class="outline-2">
+<h2 id="org0c178e4">Code to Debug</h2>
+<div class="outline-text-2" id="text-org0c178e4">
+<p>
+<code>main.go</code>:
+</p>
+<div class="org-src-container">
+<pre class="src src-go"><span class="org-keyword">package</span> main
+
+<span class="org-keyword">import</span> (
+    <span class="org-string">"fmt"</span>
+
+    <span class="org-string">"golang.org/x/sync/errgroup"</span>
+)
+
+<span class="org-keyword">func</span> <span class="org-function-name">main</span>() {
+    <span class="org-function-name">hello</span>()
+}
+
+<span class="org-keyword">var</span> Printf = fmt.Printf
+
+<span class="org-keyword">func</span> <span class="org-function-name">hello</span>() {
+    g := &amp;errgroup.<span class="org-type">Group</span>{}
+    <span class="org-keyword">for</span> i := 0; i &lt; 10; i++ {
+        g.<span class="org-function-name">Go</span>(<span class="org-keyword">func</span>() <span class="org-type">error</span> {
+            <span class="org-function-name">Printf</span>(<span class="org-string">"goroutine %02d\n"</span>, i)
+            <span class="org-keyword">return</span> <span class="org-constant">nil</span>
+        })
+    }
+    g.<span class="org-function-name">Wait</span>()
+}
+
+</pre>
+</div>
+
+<p>
+<code>main_test.go</code>:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-go"><span class="org-keyword">package</span> main
+
+<span class="org-keyword">import</span> (
+    <span class="org-string">"fmt"</span>
+    <span class="org-string">"reflect"</span>
+    <span class="org-string">"testing"</span>
+)
+
+<span class="org-keyword">func</span> <span class="org-function-name">TestHello</span>(t *<span class="org-type">testing.T</span>) {
+    lines := <span class="org-builtin">make</span>([]<span class="org-type">string</span>, 10)
+    Printf = <span class="org-keyword">func</span>(format <span class="org-type">string</span>, a ...<span class="org-keyword">interface</span>{}) (n <span class="org-type">int</span>, err <span class="org-type">error</span>) {
+        i := a[0].(<span class="org-type">int</span>)
+        lines[i] = fmt.<span class="org-function-name">Sprintf</span>(format, a...)
+        <span class="org-keyword">return</span> <span class="org-builtin">len</span>(lines[i]), <span class="org-constant">nil</span>
+    }
+    <span class="org-function-name">hello</span>()
+    want := []<span class="org-type">string</span>{
+        <span class="org-string">"goroutine 00\n"</span>,
+        <span class="org-string">"goroutine 01\n"</span>,
+        <span class="org-string">"goroutine 02\n"</span>,
+        <span class="org-string">"goroutine 03\n"</span>,
+        <span class="org-string">"goroutine 04\n"</span>,
+        <span class="org-string">"goroutine 05\n"</span>,
+        <span class="org-string">"goroutine 06\n"</span>,
+        <span class="org-string">"goroutine 07\n"</span>,
+        <span class="org-string">"goroutine 08\n"</span>,
+        <span class="org-string">"goroutine 09\n"</span>,
+    }
+    <span class="org-keyword">if</span> !reflect.<span class="org-function-name">DeepEqual</span>(want, lines) {
+        t.<span class="org-function-name">Fatal</span>(want, lines)
+    }
+}
+
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org796eaa3" class="outline-2">
+<h2 id="org796eaa3">Debugging Practices</h2>
+<div class="outline-text-2" id="text-org796eaa3">
+<p>
+We will learn:
+</p>
+<ol class="org-ol">
+<li>How to set breakpoints
+<ol class="org-ol">
+<li><code>break main.main</code>,</li>
+<li><code>break TestHello</code>,</li>
+<li><code>break db.go:27</code>,</li>
+</ol></li>
+<li>How to switch goroutines
+<ol class="org-ol">
+<li><code>goroutines</code> to list goroutines,</li>
+<li><code>goroutine 18</code> to switch goroutine</li>
+</ol></li>
+<li>How to debug a service</li>
+</ol>
+</div>
+</div>
+
+<div id="outline-container-org035ff29" class="outline-2">
+<h2 id="org035ff29">Debug a Program</h2>
+<div class="outline-text-2" id="text-org035ff29">
+<div class="org-src-container">
+<pre class="src src-sh">$ dlv debug
+Type <span class="org-string">'help'</span> for list of commands.
+(dlv) <span class="org-keyword">break</span> main.main
+Breakpoint 1 set at 0x10b1faf for main.main() ./main.go:9
+(dlv) <span class="org-keyword">continue</span>
+&gt; main.main() ./main.go:9 (hits goroutine(1):1 total:1) (PC: 0x10b1faf)
+     4:         <span class="org-string">"fmt"</span>
+     5:
+     6:         <span class="org-string">"golang.org/x/sync/errgroup"</span>
+     7: )
+     8:
+=&gt;   9: func main() {
+    10:         hello()
+    11: }
+    12:
+    13: var Printf = fmt.Printf
+    14:
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orga547511" class="outline-2">
+<h2 id="orga547511">Debug Test Case</h2>
+<div class="outline-text-2" id="text-orga547511">
+<div class="org-src-container">
+<pre class="src src-sh">dlv test
+Type <span class="org-string">'help'</span> for list of commands.
+(dlv) <span class="org-keyword">break</span> TestHello
+Breakpoint 1 set at 0x1137b4b for _/Users/nanjj/source/nanjj/nanjj.github.io/hello.TestHello() ./main_test.go:9
+(dlv) <span class="org-keyword">continue</span>
+&gt; _/Users/nanjj/source/nanjj/nanjj.github.io/hello.TestHello() ./main_test.go:9 (hits goroutine(5):1 total:1) (PC: 0x1137b4b)
+     4:         <span class="org-string">"fmt"</span>
+     5:         <span class="org-string">"reflect"</span>
+     6:         <span class="org-string">"testing"</span>
+     7: )
+     8:
+=&gt;   9: func TestHello(t *testing.T) {
+    10:         lines := make([]string, 10)
+    11:         Printf = func(format string, a ...interface{}) (n int, err error) {
+    12:                 i := a[0].(int)
+    13:                 lines[i] = fmt.Sprintf(format, a...)
+    14:                 return len(lines[i]), nil
+(dlv) <span class="org-keyword">break</span> 12
+Breakpoint 2 set at 0x1138101 for _/Users/nanjj/source/nanjj/nanjj.github.io/hello.TestHello.func1() ./main_test.go:12
+(dlv) <span class="org-keyword">continue</span>
+&gt; _/Users/nanjj/source/nanjj/nanjj.github.io/hello.TestHello.func1() ./main_test.go:12 (hits goroutine(15):1 total:1) (PC: 0x1138101)
+     7: )
+     8:
+     9: func TestHello(t *testing.T) {
+    10:         lines := make([]string, 10)
+    11:         Printf = func(format string, a ...interface{}) (n int, err error) {
+=&gt;  12:                 i := a[0].(int)
+    13:                 lines[i] = fmt.Sprintf(format, a...)
+    14:                 return len(lines[i]), nil
+    15:         }
+    16:         hello()
+    17:         want := []string{
+(dlv) print a
+[]interface {} len: 1, cap: 1, [
+        10,
+]
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org7772299" class="outline-2">
+<h2 id="org7772299">Debug a Service</h2>
+<div class="outline-text-2" id="text-org7772299">
+<div class="org-src-container">
+<pre class="src src-sh">$ icp-cland&amp;
+$ ps -ef|grep icp-cland
+501 89630  3744   0  2:44PM ttys002    0:00.34 icp-cland
+$ dlv attach 89630
+Type <span class="org-string">'help'</span> for list of commands.
+(dlv) <span class="org-keyword">break</span> github.ibm.com/cland/icp-cland/icp/service/admin/db.go:27
+Breakpoint 1 set at 0x47c771e for github.ibm.com/cland/icp-cland/icp/service/admin.(*dbAdmin).Purge() /Users/nanjj/gource/src/github.ibm.com/cland/icp-cland/icp/service/admin/db.go:27
+(dlv) <span class="org-keyword">continue</span>
+&gt; github.ibm.com/cland/icp-cland/icp/service/admin.(*dbAdmin).Purge() /Users/nanjj/gource/src/github.ibm.com/cland/icp-cland/icp/service/admin/db.go:27 (hits goroutine(357):1 total:1) (PC: 0x47c771e)
+Warning: debugging optimized <span class="org-keyword">function</span>
+    22:         *logging.Tracer
+    23: }
+    24:
+    25: func (dba *dbAdmin) Purge(ctx context.Context,
+    26:         req *dbs.PurgeRequest) (rep *dbs.PurgeReply, err error) {
+=&gt;  27:         sp, ctx, logger := dba.StartSpanFromContext(ctx, <span class="org-string">"DBAdminPurge"</span>)
+    28:         defer sp.Finish()
+    29:         rep = &amp;dbs.PurgeReply{}
+    30:         filter := req.GetFilter()
+    31:         var purged int64
+    32:         purged, err = model.Purge(filter)
+</pre>
+</div>
+</div>
+</div>
+</div>
+</body>
+</html>

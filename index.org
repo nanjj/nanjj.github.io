@@ -1,5 +1,6 @@
 #+TITLE: Thatched Cottage
 
+- [2018-07-27 Fri] [[file:godebug.org][Go Debug]]
 - [2018-05-15 Tue] [[file:quanta.org][光是什么]]
 - [2017-12-25 Mon] [[file:kids.org][My Kids]]
 - [2017-12-20 Wed] [[file:tips.org][Some Tips]]
