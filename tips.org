@@ -71,16 +71,16 @@
      ControlPath ~/.ssh/sockets/%r@%h-%p
      ControlPersist 600
    #+END_EXAMPLE
-  
+
 * QEMU
-  
+
 ** which nic models qemu supports?
    #+BEGIN_SRC sh
      qemu-system-x86_64 -net nic,model=?
      #=>
      qemu: Supported NIC models: ne2k_pci,i82551,i82557b,i82559er,rtl8139,e1000,pcnet,virtio
    #+END_SRC
-** Quit qemu `C-A C`.
+** Quit qemu =C-A C=.
 
 * Ncat
   [[ncat][Ncat]] is a general-purpose command-line tool for reading, writing,
