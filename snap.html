@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+<!-- 2018-08-05 Sun 01:35 -->
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Snap LXD</title>
+<meta name="generator" content="Org mode" />
+<meta name="author" content="JUNJIE NAN" />
+<link rel="stylesheet" type="text/css" href="css/org.css" />
+</head>
+<body>
+<div id="org-div-home-and-up">
+ <a accesskey="h" href="index.html"> UP </a> | 
+ <a accesskey="H" href="index.html"> HOME </a>
+</div><div id="content">
+<h1 class="title">Snap LXD</h1>
+<div id="table-of-contents">
+<h2>Table of Contents</h2>
+<div id="text-table-of-contents">
+<ul>
+<li><a href="#orgc2ff058">Snap and LXD</a></li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-orgc2ff058" class="outline-2">
+<h2 id="orgc2ff058">Snap and LXD</h2>
+<div class="outline-text-2" id="text-orgc2ff058">
+<p>
+By default ubuntu xenial with lxd and lxd client installed. You can
+check this by running:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-sh">which lxd                       <span class="org-comment-delimiter"># </span><span class="org-comment">=&gt; /usr/bin/lxd</span>
+which lxc                       <span class="org-comment-delimiter"># </span><span class="org-comment">=&gt; /usr/bin/lxc</span>
+</pre>
+</div>
+<p>
+But the version of lxd in apt repo is very low. We need to switch to
+the lxd in snap store:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-sh"><span class="org-comment-delimiter"># </span><span class="org-comment">Uninstall existing lxd in ubuntu repo.</span>
+apt-get purge -qq lxd lxd-client
+<span class="org-comment-delimiter"># </span><span class="org-comment">Install lxd in snap</span>
+snap install lxd
+<span class="org-comment-delimiter"># </span><span class="org-comment">Check lxd and lxc</span>
+which lxd                       <span class="org-comment-delimiter"># </span><span class="org-comment">=&gt; /snap/bin/lxd</span>
+lxd --version                   <span class="org-comment-delimiter"># </span><span class="org-comment">=&gt; 3.3</span>
+which lxc                       <span class="org-comment-delimiter"># </span><span class="org-comment">=&gt; /snap/bin/lxc</span>
+lxc --version                   <span class="org-comment-delimiter"># </span><span class="org-comment">=&gt; 3.3</span>
+<span class="org-comment-delimiter"># </span><span class="org-comment">Init lxd</span>
+lxd init
+<span class="org-comment-delimiter"># </span><span class="org-comment">Start lxd</span>
+snap restart lxd
+</pre>
+</div>
+
+<p>
+Now launch a vm like <code>lxc</code> container:
+</p>
+<div class="org-src-container">
+<pre class="src src-sh"><span class="org-comment-delimiter"># </span><span class="org-comment">List images</span>
+snap image list ubuntu:xenial
+<span class="org-comment-delimiter"># </span><span class="org-comment">Launch a container</span>
+lxc launch ubuntu:xenial/amd64
+<span class="org-comment-delimiter"># </span><span class="org-comment">List containers</span>
+lxc list
+<span class="org-comment-delimiter"># </span><span class="org-comment">exec bash in the container</span>
+lxc exec steady-dingo bash
+<span class="org-comment-delimiter"># </span><span class="org-comment">Now you can do anything in the container</span>
+</pre>
+</div>
+
+<p>
+Snap as a container, can run <code>lxd</code> and launch <code>lxc</code>
+container. Inside the <code>lxc</code> container, you can run <code>snap</code> container,
+say to install go snap:
+</p>
+<div class="org-src-container">
+<pre class="src src-sh">lxc exec steady-dingo bash
+snap install go --classic
+<span class="org-builtin">echo</span> <span class="org-string">'export GOPATH=/usr/local'</span> &gt;&gt; ~/.bashrc
+apt-get install build-essential
+cat &gt; ~/.netrc &lt;&lt;EOF
+<span class="org-sh-heredoc">  your github toke  n</span>
+<span class="org-sh-heredoc">EOF</span>
+go get github.ibm.com/nanjj/ncatd
+ncatd --version                 <span class="org-comment-delimiter"># </span><span class="org-comment">ncatd version 0.0.1</span>
+</pre>
+</div>
+
+<p>
+Run <code>lxd</code> inside lxd container nesting:
+</p>
+<div class="org-src-container">
+<pre class="src src-sh">lxc config set steady-dingo security.nesting true
+lxc exec steady-dingo bash
+apt-get purge -qq lxd lxd-client
+snap install lxd
+lxd init
+lxc launch ubuntu:xenial/amd64
+</pre>
+</div>
+
+<p>
+With <code>security.nesting true</code>, run docker:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-sh">apt-get install docker.io
+docker run hello-world
+</pre>
+</div>
+</div>
+</div>
+</div>
+</body>
+</html>
