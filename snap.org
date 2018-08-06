@@ -3,6 +3,20 @@
 
 * Snap and Lxd
 
+  You can use =snap= to run =lxd=, or the opposite. Inside =lxd= you
+  can run =docker=.
+
+  #+BEGIN_SRC artist
+     +----------+       +-----------+       +------------+        +-----------+
+     |          |       |           |       |            |        |           |
+     |    vm    +------>|    snap   +------>|     lxd    +------->|   docker  |
+     |          |       |           |       |            |        |           |
+     +----------+       +-----------+       +------+-----+        +-----------+
+                              ^                    |
+                              |                    |
+                              +--------------------+
+  #+END_SRC
+
 ** Run lxd in Snap
 
    By default ubuntu xenial with lxd and lxd client installed. You can
@@ -98,3 +112,5 @@
 ** TODO Test
 
 * TODO Snap Store
+
+  Here we may need to write a snapstore for our own use.

@@ -3,7 +3,7 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2018-08-06 Mon 09:39 -->
+<!-- 2018-08-06 Mon 09:50 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Snap LXD</title>
@@ -45,7 +45,24 @@
 <div id="outline-container-orgad9d414" class="outline-2">
 <h2 id="orgad9d414">Snap and Lxd</h2>
 <div class="outline-text-2" id="text-orgad9d414">
+<p>
+You can use <code>snap</code> to run <code>lxd</code>, or the opposite. Inside <code>lxd</code> you
+can run <code>docker</code>.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-artist">+----------+       +-----------+       +------------+        +-----------+
+|          |       |           |       |            |        |           |
+|    vm    +------&gt;|    snap   +------&gt;|     lxd    +-------&gt;|   docker  |
+|          |       |           |       |            |        |           |
++----------+       +-----------+       +------+-----+        +-----------+
+                         ^                    |
+                         |                    |
+                         +--------------------+
+</pre>
 </div>
+</div>
+
 <div id="outline-container-org5565342" class="outline-3">
 <h3 id="org5565342">Run lxd in Snap</h3>
 <div class="outline-text-3" id="text-org5565342">
@@ -188,6 +205,11 @@ snap install snapcraft --classic
 
 <div id="outline-container-orge4df037" class="outline-2">
 <h2 id="orge4df037"><span class="todo TODO">TODO</span> Snap Store</h2>
+<div class="outline-text-2" id="text-orge4df037">
+<p>
+Here we may need to write a snapstore for our own use.
+</p>
+</div>
 </div>
 </div>
 </body>
