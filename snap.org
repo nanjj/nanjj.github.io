@@ -1,75 +1,100 @@
 #+TITLE: Snap LXD
 #+DATE: <2018-08-04 Sat>
 
-* Snap and LXD
+* Snap and Lxd
 
-  By default ubuntu xenial with lxd and lxd client installed. You can
-  check this by running:
+** Run lxd in Snap
 
-  #+BEGIN_SRC sh
-    which lxd                       # => /usr/bin/lxd
-    which lxc                       # => /usr/bin/lxc
-  #+END_SRC
-  But the version of lxd in apt repo is very low. We need to switch to
-  the lxd in snap store:
+   By default ubuntu xenial with lxd and lxd client installed. You can
+   check this by running:
 
-  #+BEGIN_SRC sh
-    # Uninstall existing lxd in ubuntu repo.
-    apt-get purge -qq lxd lxd-client
-    # Install lxd in snap
-    snap install lxd
-    # Check lxd and lxc
-    which lxd                       # => /snap/bin/lxd
-    lxd --version                   # => 3.3
-    which lxc                       # => /snap/bin/lxc
-    lxc --version                   # => 3.3
-    # Init lxd
-    lxd init
-    # Start lxd
-    snap restart lxd
-  #+END_SRC
+   #+BEGIN_SRC sh
+     which lxd                       # => /usr/bin/lxd
+     which lxc                       # => /usr/bin/lxc
+   #+END_SRC
 
-  Now launch a vm like =lxc= container:
-  #+BEGIN_SRC sh
-    # List images
-    snap image list ubuntu:xenial
-    # Launch a container
-    lxc launch ubuntu:xenial/amd64
-    # List containers
-    lxc list
-    # exec bash in the container
-    lxc exec steady-dingo bash
-    # Now you can do anything in the container
-  #+END_SRC
+   The lxd in apt repo is very low. We need to switch to the lxd in
+   snap store:
 
-  Snap as a container, can run =lxd= and launch =lxc=
-  container. Inside the =lxc= container, you can run =snap= container,
-  say to install go snap:
-  #+BEGIN_SRC sh
-    lxc exec steady-dingo bash
-    snap install go --classic
-    echo 'export GOPATH=/usr/local' >> ~/.bashrc
-    apt-get install build-essential
-    cat > ~/.netrc <<EOF
-      your github toke  n
-    EOF
-    go get github.ibm.com/nanjj/ncatd
-    ncatd --version                 # ncatd version 0.0.1
-  #+END_SRC
+   #+BEGIN_SRC sh
+     # Uninstall existing lxd in ubuntu repo.
+     apt-get purge -qq lxd lxd-client
+     # Install lxd in snap
+     snap install lxd
+     # Check lxd and lxc
+     which lxd                       # => /snap/bin/lxd
+     lxd --version                   # => 3.3
+     which lxc                       # => /snap/bin/lxc
+     lxc --version                   # => 3.3
+     # Init lxd
+     lxd init
+     # Start lxd
+     snap restart lxd
+   #+END_SRC
 
-  Run =lxd= inside lxd container nesting:
-  #+BEGIN_SRC sh
-    lxc config set steady-dingo security.nesting true
-    lxc exec steady-dingo bash
-    apt-get purge -qq lxd lxd-client
-    snap install lxd
-    lxd init
-    lxc launch ubuntu:xenial/amd64
-  #+END_SRC
+** Launcn Lxd container
 
-  With =security.nesting true=, run docker:
+   Now launch a vm like =lxc= container:
+   #+BEGIN_SRC sh
+     # List images
+     snap image list ubuntu:xenial
+     # Launch a container
+     lxc launch ubuntu:xenial/amd64
+     # List containers
+     lxc list
+     # exec bash in the container
+     lxc exec steady-dingo bash
+     # Now you can do anything in the container
+   #+END_SRC
 
-  #+BEGIN_SRC sh
-    apt-get install docker.io
-    docker run hello-world
-  #+END_SRC
+** Run snap inside Lxd Container
+
+   Snap as a container, can run =lxd= and launch =lxd=
+   container. Inside the =lxc= container, you can run =snap=
+   container, say to install go snap:
+   #+BEGIN_SRC sh
+     lxc exec steady-dingo bash
+     snap install go --classic
+     echo 'export GOPATH=/usr/local' >> ~/.bashrc
+     apt-get install build-essential
+     cat > ~/.netrc <<EOF
+       your github toke  n
+     EOF
+     go get github.ibm.com/nanjj/ncatd
+     ncatd --version                 # ncatd version 0.0.1
+   #+END_SRC
+
+** Run Lxd inside Lxd Container
+
+   Run =lxd= inside lxd container nesting:
+   #+BEGIN_SRC sh
+     lxc config set steady-dingo security.nesting true
+     lxc exec steady-dingo bash
+     apt-get purge -qq lxd lxd-client
+     snap install lxd
+     lxd init
+     lxc launch ubuntu:xenial/amd64
+   #+END_SRC
+
+** Run Docker inside Lxd Container
+
+   With =security.nesting true=, run docker:
+
+   #+BEGIN_SRC sh
+     apt-get install docker.io
+     docker run hello-world
+   #+END_SRC
+
+* Build Snap
+
+** Setup
+   #+BEGIN_SRC sh
+   apt install snapcraft build-essential git
+   snap install snapcraft --classic
+   #+END_SRC
+
+** TODO Build
+
+** TODO Test
+
+* TODO Snap Store

@@ -3,7 +3,7 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2018-08-05 Sun 01:35 -->
+<!-- 2018-08-06 Mon 09:39 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Snap LXD</title>
@@ -21,14 +21,34 @@
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents">
 <ul>
-<li><a href="#orgc2ff058">Snap and LXD</a></li>
+<li><a href="#orgad9d414">Snap and Lxd</a>
+<ul>
+<li><a href="#org5565342">Run lxd in Snap</a></li>
+<li><a href="#orgb243b56">Launcn Lxd container</a></li>
+<li><a href="#orgfea3175">Run snap inside Lxd Container</a></li>
+<li><a href="#org61c24a3">Run Lxd inside Lxd Container</a></li>
+<li><a href="#org12af5d1">Run Docker inside Lxd Container</a></li>
+</ul>
+</li>
+<li><a href="#org9c9a707">Build Snap</a>
+<ul>
+<li><a href="#orge927375">Setup</a></li>
+<li><a href="#org764487f"><span class="todo TODO">TODO</span> Build</a></li>
+<li><a href="#orgaad8eae"><span class="todo TODO">TODO</span> Test</a></li>
+</ul>
+</li>
+<li><a href="#orge4df037"><span class="todo TODO">TODO</span> Snap Store</a></li>
 </ul>
 </div>
 </div>
 
-<div id="outline-container-orgc2ff058" class="outline-2">
-<h2 id="orgc2ff058">Snap and LXD</h2>
-<div class="outline-text-2" id="text-orgc2ff058">
+<div id="outline-container-orgad9d414" class="outline-2">
+<h2 id="orgad9d414">Snap and Lxd</h2>
+<div class="outline-text-2" id="text-orgad9d414">
+</div>
+<div id="outline-container-org5565342" class="outline-3">
+<h3 id="org5565342">Run lxd in Snap</h3>
+<div class="outline-text-3" id="text-org5565342">
 <p>
 By default ubuntu xenial with lxd and lxd client installed. You can
 check this by running:
@@ -39,9 +59,10 @@ check this by running:
 which lxc                       <span class="org-comment-delimiter"># </span><span class="org-comment">=&gt; /usr/bin/lxc</span>
 </pre>
 </div>
+
 <p>
-But the version of lxd in apt repo is very low. We need to switch to
-the lxd in snap store:
+The lxd in apt repo is very low. We need to switch to the lxd in
+snap store:
 </p>
 
 <div class="org-src-container">
@@ -60,7 +81,12 @@ lxd init
 snap restart lxd
 </pre>
 </div>
+</div>
+</div>
 
+<div id="outline-container-orgb243b56" class="outline-3">
+<h3 id="orgb243b56">Launcn Lxd container</h3>
+<div class="outline-text-3" id="text-orgb243b56">
 <p>
 Now launch a vm like <code>lxc</code> container:
 </p>
@@ -76,11 +102,16 @@ lxc exec steady-dingo bash
 <span class="org-comment-delimiter"># </span><span class="org-comment">Now you can do anything in the container</span>
 </pre>
 </div>
+</div>
+</div>
 
+<div id="outline-container-orgfea3175" class="outline-3">
+<h3 id="orgfea3175">Run snap inside Lxd Container</h3>
+<div class="outline-text-3" id="text-orgfea3175">
 <p>
-Snap as a container, can run <code>lxd</code> and launch <code>lxc</code>
-container. Inside the <code>lxc</code> container, you can run <code>snap</code> container,
-say to install go snap:
+Snap as a container, can run <code>lxd</code> and launch <code>lxd</code>
+container. Inside the <code>lxc</code> container, you can run <code>snap</code>
+container, say to install go snap:
 </p>
 <div class="org-src-container">
 <pre class="src src-sh">lxc exec steady-dingo bash
@@ -94,7 +125,12 @@ go get github.ibm.com/nanjj/ncatd
 ncatd --version                 <span class="org-comment-delimiter"># </span><span class="org-comment">ncatd version 0.0.1</span>
 </pre>
 </div>
+</div>
+</div>
 
+<div id="outline-container-org61c24a3" class="outline-3">
+<h3 id="org61c24a3">Run Lxd inside Lxd Container</h3>
+<div class="outline-text-3" id="text-org61c24a3">
 <p>
 Run <code>lxd</code> inside lxd container nesting:
 </p>
@@ -107,7 +143,12 @@ lxd init
 lxc launch ubuntu:xenial/amd64
 </pre>
 </div>
+</div>
+</div>
 
+<div id="outline-container-org12af5d1" class="outline-3">
+<h3 id="org12af5d1">Run Docker inside Lxd Container</h3>
+<div class="outline-text-3" id="text-org12af5d1">
 <p>
 With <code>security.nesting true</code>, run docker:
 </p>
@@ -118,6 +159,35 @@ docker run hello-world
 </pre>
 </div>
 </div>
+</div>
+</div>
+
+<div id="outline-container-org9c9a707" class="outline-2">
+<h2 id="org9c9a707">Build Snap</h2>
+<div class="outline-text-2" id="text-org9c9a707">
+</div>
+<div id="outline-container-orge927375" class="outline-3">
+<h3 id="orge927375">Setup</h3>
+<div class="outline-text-3" id="text-orge927375">
+<div class="org-src-container">
+<pre class="src src-sh">apt install snapcraft build-essential git
+snap install snapcraft --classic
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org764487f" class="outline-3">
+<h3 id="org764487f"><span class="todo TODO">TODO</span> Build</h3>
+</div>
+
+<div id="outline-container-orgaad8eae" class="outline-3">
+<h3 id="orgaad8eae"><span class="todo TODO">TODO</span> Test</h3>
+</div>
+</div>
+
+<div id="outline-container-orge4df037" class="outline-2">
+<h2 id="orge4df037"><span class="todo TODO">TODO</span> Snap Store</h2>
 </div>
 </div>
 </body>
