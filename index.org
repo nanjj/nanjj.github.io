@@ -1,5 +1,6 @@
 #+TITLE: Thatched Cottage
 
+- [2018-09-03 Mon] [[file:gushi.org][古诗]]
 - [2018-08-04 Sat] [[file:snap.org][Snap LXD]]
 - [2018-07-27 Fri] [[file:godebug.org][Go Debug]]
 - [2018-05-15 Tue] [[file:quanta.org][光是什么]]
