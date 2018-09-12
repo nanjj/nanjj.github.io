@@ -1,0 +1,72 @@
+#+OPTIONS: reveal_overview:t num:nil toc:1
+#+REVEAL_TRANS: none
+#+REVEAL_THEME: night
+#+html_head_extra:
+#+TITLE: Cloud
+#+Author: nanjj@cn.ibm.com
+
+* Containers
+  - Docker
+  - Warden
+  - Garden
+  - Snap
+  - Lxc
+** Docker
+   - Package application via os image,
+   - Run application via container,
+   - Namespaces(net,pid,ipc,mnt,uts)
+   - Cgroups(cpu, cpuset, memory, blkio, net)
+   - Union file systems
+** Warden
+   - In Ruby,
+   - Package and run application via container
+   - Namespaces
+   - Cgroups
+** Docker Vs Warden
+   | Item                        | Warden      | Docker   |
+   |-----------------------------+-------------+----------|
+   | Development Language        | Ruby        | Go       |
+   | Resource Isolation          | disk size   | CPU Sets |
+   | Image management            | not layered | layered  |
+   | Linking container           | no          | yes      |
+   | Exposing Ports              | Single      | Multiple |
+   | Dynamic Resource Management | Yes         | No       |
+** Garden
+   - In Go
+   - Run on Linux/Windows
+   - Support docker image
+** Snap
+   - Namespaces,cgroups, selinux...
+   - A packaging system
+   - Use container to run snap
+** LXD
+    - cgroups, namespaces, selinux...
+    - Deploying (Linux) Virtual Machines via Container,
+    - A container hypervisor,
+    - Fast than KVM
+** Container Management
+   - Docker Swarm is a container orchestrator embedded in docker engine
+   - Kubernetes is a container orchestrator platform developed by
+     google
+   - docker cloud is a PaaS offer that will let you run and
+     orchestrate containers through the docker engine API
+** IBM Position in Container
+  - Bluemix (cloudfoundry, warden, garden, docker)
+  - ICP(docker, kubernetes)
+  - Armada(docker, kubernetes)
+  - Container Service(succeed by armada)
+
+* Virtual Machines
+** Xen & KVM
+   [[./xen-kvm.png]]
+** Management
+   - OpenStack,
+   - Genesis,
+   - IMS,
+   - Cloudland
+** IBM Position in Virtualization
+* Deploy Service
+** Package
+** Release
+** Target
+

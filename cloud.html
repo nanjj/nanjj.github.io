@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<title>Cloud</title>
+<meta name="author" content="(nanjj@cn.ibm.com)"/>
+<style type="text/css">
+.underline { text-decoration: underline; }
+</style>
+<link rel="stylesheet" href="./css/reveal.css"/>
+
+<link rel="stylesheet" href="./css/theme/night.css" id="theme"/>
+
+
+<!-- If the query includes 'print-pdf', include the PDF print sheet -->
+<script>
+    if( window.location.search.match( /print-pdf/gi ) ) {
+        var link = document.createElement( 'link' );
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = './css/print/pdf.css';
+        document.getElementsByTagName( 'head' )[0].appendChild( link );
+    }
+</script>
+</head>
+<body>
+<div class="reveal">
+<div class="slides">
+<section id="sec-title-slide"><h1 class="title">Cloud</h1><h2 class="author">nanjj@cn.ibm.com</h2><p class="date">Created: 2018-09-12 Wed 14:34</p>
+</section>
+<section id="table-of-contents">
+<div id="table-of-contents">
+<h2>Table of Contents</h2>
+<div id="text-table-of-contents">
+<ul>
+<li><a href="#/slide-org926ba22">Containers</a></li>
+<li><a href="#/slide-orgd7bd2dc">Virtual Machines</a></li>
+<li><a href="#/slide-org8a16b68">Deploy Service</a></li>
+</ul>
+</div>
+</div>
+</section>
+
+<section>
+<section id="slide-sec-">
+<h2 id="org926ba22">Containers</h2>
+<ul>
+<li>Docker</li>
+<li>Warden</li>
+<li>Garden</li>
+<li>Snap</li>
+<li>Lxc</li>
+
+</ul>
+</section>
+<section id="slide-sec-">
+<h3 id="org239210d">Docker</h3>
+<ul>
+<li>Package application via os image,</li>
+<li>Run application via container,</li>
+<li>Namespaces(net,pid,ipc,mnt,uts)</li>
+<li>Cgroups(cpu, cpuset, memory, blkio, net)</li>
+<li>Union file systems</li>
+
+</ul>
+</section>
+<section id="slide-sec-">
+<h3 id="org2b42c4e">Warden</h3>
+<ul>
+<li>In Ruby,</li>
+<li>Package and run application via container</li>
+<li>Namespaces</li>
+<li>Cgroups</li>
+
+</ul>
+</section>
+<section id="slide-sec-">
+<h3 id="org0444a73">Docker Vs Warden</h3>
+<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+
+
+<colgroup>
+<col  class="org-left" />
+
+<col  class="org-left" />
+
+<col  class="org-left" />
+</colgroup>
+<thead>
+<tr>
+<th scope="col" class="org-left">Item</th>
+<th scope="col" class="org-left">Warden</th>
+<th scope="col" class="org-left">Docker</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="org-left">Development Language</td>
+<td class="org-left">Ruby</td>
+<td class="org-left">Go</td>
+</tr>
+
+<tr>
+<td class="org-left">Resource Isolation</td>
+<td class="org-left">disk size</td>
+<td class="org-left">CPU Sets</td>
+</tr>
+
+<tr>
+<td class="org-left">Image management</td>
+<td class="org-left">not layered</td>
+<td class="org-left">layered</td>
+</tr>
+
+<tr>
+<td class="org-left">Linking container</td>
+<td class="org-left">no</td>
+<td class="org-left">yes</td>
+</tr>
+
+<tr>
+<td class="org-left">Exposing Ports</td>
+<td class="org-left">Single</td>
+<td class="org-left">Multiple</td>
+</tr>
+
+<tr>
+<td class="org-left">Dynamic Resource Management</td>
+<td class="org-left">Yes</td>
+<td class="org-left">No</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="slide-sec-">
+<h3 id="orgd86f941">Garden</h3>
+<ul>
+<li>In Go</li>
+<li>Run on Linux/Windows</li>
+<li>Support docker image</li>
+
+</ul>
+</section>
+<section id="slide-sec-">
+<h3 id="orgc5d7253">Snap</h3>
+<ul>
+<li>Namespaces,cgroups, selinux&#x2026;</li>
+<li>A packaging system</li>
+<li>Use container to run snap</li>
+
+</ul>
+</section>
+<section id="slide-sec-">
+<h3 id="org87f078d">LXD</h3>
+<ul>
+<li>cgroups, namespaces, selinux&#x2026;</li>
+<li>Deploying (Linux) Virtual Machines via Container,</li>
+<li>A container hypervisor,</li>
+<li>Fast than KVM</li>
+
+</ul>
+</section>
+<section id="slide-sec-">
+<h3 id="org7a3e7ac">Container Management</h3>
+<ul>
+<li>Docker Swarm is a container orchestrator embedded in docker engine</li>
+<li>Kubernetes is a container orchestrator platform developed by
+google</li>
+<li>docker cloud is a PaaS offer that will let you run and
+orchestrate containers through the docker engine API</li>
+
+</ul>
+</section>
+<section id="slide-sec-">
+<h3 id="org894393a">IBM Position in Container</h3>
+<ul>
+<li>Bluemix (cloudfoundry, warden, garden, docker)</li>
+<li>ICP(docker, kubernetes)</li>
+<li>Armada(docker, kubernetes)</li>
+<li>Container Service(succeed by armada)</li>
+
+</ul>
+
+</section>
+</section>
+<section>
+<section id="slide-sec-">
+<h2 id="orgd7bd2dc">Virtual Machines</h2>
+<div class="outline-text-2" id="text-orgd7bd2dc">
+</div>
+</section>
+<section id="slide-sec-">
+<h3 id="org127696e">Xen &amp; KVM</h3>
+
+<div class="figure">
+<p><img src="./xen-kvm.png" alt="xen-kvm.png" />
+</p>
+</div>
+</section>
+<section id="slide-sec-">
+<h3 id="org7948369">Management</h3>
+<ul>
+<li>OpenStack,</li>
+<li>Genesis,</li>
+<li>IMS,</li>
+<li>Cloudland</li>
+
+</ul>
+</section>
+<section id="slide-sec-">
+<h3 id="org9ec2ad5">IBM Position in Virtualization</h3>
+</section>
+</section>
+<section>
+<section id="slide-sec-">
+<h2 id="org8a16b68">Deploy Service</h2>
+<div class="outline-text-2" id="text-org8a16b68">
+</div>
+</section>
+<section id="slide-sec-">
+<h3 id="org2a062ab">Package</h3>
+</section>
+<section id="slide-sec-">
+<h3 id="orga025081">Release</h3>
+</section>
+<section id="slide-sec-">
+<h3 id="org2d4271a">Target</h3>
+</section>
+</section>
+</div>
+</div>
+<script src="./lib/js/head.min.js"></script>
+<script src="./js/reveal.js"></script>
+
+<script>
+// Full list of configuration options available here:
+// https://github.com/hakimel/reveal.js#configuration
+Reveal.initialize({
+
+controls: true,
+progress: true,
+history: false,
+center: true,
+slideNumber: 'c',
+rollingLinks: false,
+keyboard: true,
+overview: true,
+
+theme: Reveal.getQueryHash().theme, // available themes are in /css/theme
+transition: Reveal.getQueryHash().transition || 'none', // default/cube/page/concave/zoom/linear/fade/none
+transitionSpeed: 'default',
+multiplex: {
+    secret: '', // null if client
+    id: '', // id, obtained from socket.io server
+    url: '' // Location of socket.io server
+},
+
+// Optional libraries used to extend on reveal.js
+dependencies: [
+ { src: './lib/js/classList.js', condition: function() { return !document.body.classList; } },
+ { src: './plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+ { src: './plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+ { src: './plugin/zoom-js/zoom.js', async: true, condition: function() { return !!document.body.classList; } },
+ { src: './plugin/notes/notes.js', async: true, condition: function() { return !!document.body.classList; } }]
+});
+</script>
+</body>
+</html>
