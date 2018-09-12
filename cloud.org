@@ -44,29 +44,63 @@
     - Deploying (Linux) Virtual Machines via Container,
     - A container hypervisor,
     - Fast than KVM
+** Snap LXD Demo
+   [[./snap.html]]
 ** Container Management
-   - Docker Swarm is a container orchestrator embedded in docker engine
-   - Kubernetes is a container orchestrator platform developed by
-     google
-   - docker cloud is a PaaS offer that will let you run and
-     orchestrate containers through the docker engine API
+   - Docker Swarm a container orchestrator embedded in docker engine
+   - Kubernetes a container orchestrator platform developed by google
+   - docker cloud a PaaS offer that will let you run and orchestrate
+     containers through the docker engine API
 ** IBM Position in Container
-  - Bluemix (cloudfoundry, warden, garden, docker)
-  - ICP(docker, kubernetes)
-  - Armada(docker, kubernetes)
-  - Container Service(succeed by armada)
+   | Action            | Result               |
+   |-------------------+----------------------|
+   | Bluemix           | Running              |
+   | ICP               | Running              |
+   | Container Service | Deprecated by Armada |
+   | Amarda            | Running              |
 
 * Virtual Machines
 ** Xen & KVM
    [[./xen-kvm.png]]
-** Management
+** VM Management
    - OpenStack,
    - Genesis,
    - IMS,
    - Cloudland
-** IBM Position in Virtualization
+** IBM Position in VM Management
+   | Action             | Result  |
+   |--------------------+---------|
+   | OpenStack EE       | Failed  |
+   | IWD                | Running |
+   | SCO                | Failed  |
+   | OS Public Cloud    | Failed  |
+   | Genesis            | Failed  |
+   | Softlayer IMS(Xen) | Running |
+
 * Deploy Service
 ** Package
+   - Build
+   - Download
+   - Upload
+   - Remove
+   - List
 ** Release
+   - Create
+   - Delete
+   - Show
+   - List
+   - Publish
+   - Refresh
+   - Add
+   - Remove
 ** Target
+   - Create
+   - Delete
+   - Envs
+   - Keys
+   - Hosts
+   - List
+   - Show
+   - Update
+
 
