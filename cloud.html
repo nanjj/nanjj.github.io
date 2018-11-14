@@ -26,16 +26,16 @@
 <body>
 <div class="reveal">
 <div class="slides">
-<section id="sec-title-slide"><h1 class="title">Cloud</h1><h2 class="author">nanjj@cn.ibm.com</h2><p class="date">Created: 2018-09-12 Wed 16:23</p>
+<section id="sec-title-slide"><h1 class="title">Cloud</h1><h2 class="author">nanjj@cn.ibm.com</h2><p class="date">Created: 2018-11-14 Wed 13:54</p>
 </section>
 <section id="table-of-contents">
 <div id="table-of-contents">
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents">
 <ul>
-<li><a href="#/slide-org008762e">Containers</a></li>
-<li><a href="#/slide-orgc0806d9">Virtual Machines</a></li>
-<li><a href="#/slide-org5cff63b">Deploy Service</a></li>
+<li><a href="#/slide-orgdb62d01">Containers</a></li>
+<li><a href="#/slide-org10ce55d">Virtual Machines</a></li>
+<li><a href="#/slide-org90dc47c">Deploy Service</a></li>
 </ul>
 </div>
 </div>
@@ -43,7 +43,7 @@
 
 <section>
 <section id="slide-sec-">
-<h2 id="org008762e">Containers</h2>
+<h2 id="orgdb62d01">Containers</h2>
 <ul>
 <li>Docker</li>
 <li>Warden</li>
@@ -54,7 +54,7 @@
 </ul>
 </section>
 <section id="slide-sec-">
-<h3 id="org0aeedd1">Docker</h3>
+<h3 id="org227c937">Docker</h3>
 <ul>
 <li>Package application via os image,</li>
 <li>Run application via container,</li>
@@ -65,7 +65,7 @@
 </ul>
 </section>
 <section id="slide-sec-">
-<h3 id="org2ac03ea">Warden</h3>
+<h3 id="org382ae22">Warden</h3>
 <ul>
 <li>In Ruby,</li>
 <li>Package and run application via container</li>
@@ -75,7 +75,7 @@
 </ul>
 </section>
 <section id="slide-sec-">
-<h3 id="org5497d91">Docker Vs Warden</h3>
+<h3 id="org47a1edb">Docker Vs Warden</h3>
 <table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
 
 
@@ -133,7 +133,7 @@
 </table>
 </section>
 <section id="slide-sec-">
-<h3 id="org2d21618">Garden</h3>
+<h3 id="orgf5e7a4d">Garden</h3>
 <ul>
 <li>In Go</li>
 <li>Run on Linux/Windows</li>
@@ -142,7 +142,7 @@
 </ul>
 </section>
 <section id="slide-sec-">
-<h3 id="org81795c8">Snap</h3>
+<h3 id="orgf61e77d">Snap</h3>
 <ul>
 <li>Namespaces,cgroups, selinux&#x2026;</li>
 <li>A packaging system</li>
@@ -151,7 +151,7 @@
 </ul>
 </section>
 <section id="slide-sec-">
-<h3 id="org3750221">LXD</h3>
+<h3 id="org8e4dad4">LXD</h3>
 <ul>
 <li>cgroups, namespaces, selinux&#x2026;</li>
 <li>Deploying (Linux) Virtual Machines via Container,</li>
@@ -161,13 +161,13 @@
 </ul>
 </section>
 <section id="slide-sec-">
-<h3 id="orgd7f4a2d">Snap LXD Demo</h3>
+<h3 id="orgf2e8046">Snap LXD Demo</h3>
 <p>
 <a href="./snap.html">./snap.html</a>
 </p>
 </section>
 <section id="slide-sec-">
-<h3 id="org01ca2a1">Container Management</h3>
+<h3 id="org5eca2e4">Container Management</h3>
 <ul>
 <li>Docker Swarm a container orchestrator embedded in docker engine</li>
 <li>Kubernetes a container orchestrator platform developed by google</li>
@@ -177,7 +177,7 @@ containers through the docker engine API</li>
 </ul>
 </section>
 <section id="slide-sec-">
-<h3 id="orgb3d707e">IBM Position in Container</h3>
+<h3 id="org963628a">IBM Position in Container</h3>
 <table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
 
 
@@ -219,12 +219,12 @@ containers through the docker engine API</li>
 </section>
 <section>
 <section id="slide-sec-">
-<h2 id="orgc0806d9">Virtual Machines</h2>
-<div class="outline-text-2" id="text-orgc0806d9">
+<h2 id="org10ce55d">Virtual Machines</h2>
+<div class="outline-text-2" id="text-org10ce55d">
 </div>
 </section>
 <section id="slide-sec-">
-<h3 id="org655ce44">Xen &amp; KVM</h3>
+<h3 id="orgc83db21">Xen &amp; KVM</h3>
 
 <div class="figure">
 <p><img src="./xen-kvm.png" alt="xen-kvm.png" />
@@ -232,7 +232,7 @@ containers through the docker engine API</li>
 </div>
 </section>
 <section id="slide-sec-">
-<h3 id="orga9721cf">VM Management</h3>
+<h3 id="org50ddb10">VM Management</h3>
 <ul>
 <li>OpenStack,</li>
 <li>Genesis,</li>
@@ -242,7 +242,7 @@ containers through the docker engine API</li>
 </ul>
 </section>
 <section id="slide-sec-">
-<h3 id="org61114f5">IBM Position in VM Management</h3>
+<h3 id="org00d7d32">IBM Position in VM Management</h3>
 <table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
 
 
@@ -294,12 +294,12 @@ containers through the docker engine API</li>
 </section>
 <section>
 <section id="slide-sec-">
-<h2 id="org5cff63b">Deploy Service</h2>
-<div class="outline-text-2" id="text-org5cff63b">
+<h2 id="org90dc47c">Deploy Service</h2>
+<div class="outline-text-2" id="text-org90dc47c">
 </div>
 </section>
 <section id="slide-sec-">
-<h3 id="org833ae8b">Package</h3>
+<h3 id="org4869020">Package</h3>
 <ul>
 <li>Build</li>
 <li>Download</li>
@@ -310,7 +310,7 @@ containers through the docker engine API</li>
 </ul>
 </section>
 <section id="slide-sec-">
-<h3 id="orgf7434ae">Release</h3>
+<h3 id="org8f9a432">Release</h3>
 <ul>
 <li>Create</li>
 <li>Delete</li>
@@ -324,7 +324,7 @@ containers through the docker engine API</li>
 </ul>
 </section>
 <section id="slide-sec-">
-<h3 id="org7dd8483">Target</h3>
+<h3 id="orgec1f06c">Target</h3>
 <ul>
 <li>Create</li>
 <li>Delete</li>
