@@ -99,6 +99,27 @@
      docker run hello-world
    #+END_SRC
 
+** Use Lxd Container as a Router
+   #+begin_src sh
+     lxc launch ubuntu:16.04 router #=>
+     lxc list #=>
+     +--------+---------+-----------------------+------+------------+-----------+
+     |  NAME  |  STATE  |         IPV4          | IPV6 |    TYPE    | SNAPSHOTS |
+     +--------+---------+-----------------------+------+------------+-----------+
+     | router | RUNNING |  10.149.11.203 (eth0) |      | PERSISTENT |           |
+     +--------+---------+-----------------------+------+------------+-----------+
+     lxc exec router -- bash -i
+     # configure vpn if needed
+
+     # check ip forward setting
+     sysctl net.ipv4.ip_forward #=>
+     net.ipv4.ip_forward = 1
+     # iptables
+     iptables -t nat -A POSTROUTING -s 10.149.11.0/24 ! -d 10.0.2.0/24 -j MASQUERADE
+     apt-get update
+     apt-get install iptables-persistent
+   #+end_src
+   Now you can use this as a router
 * Build Snap
 
 ** Setup
