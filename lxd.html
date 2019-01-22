@@ -1,0 +1,523 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+<!-- 2019-01-24 Thu 09:31 -->
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>LXD</title>
+<meta name="generator" content="Org mode" />
+<meta name="author" content="JUNJIE NAN" />
+<link rel="stylesheet" type="text/css" href="css/org.css" />
+</head>
+<body>
+<div id="org-div-home-and-up">
+ <a accesskey="h" href="index.html"> UP </a> | 
+ <a accesskey="H" href="index.html"> HOME </a>
+</div><div id="content">
+<h1 class="title">LXD</h1>
+<div id="table-of-contents">
+<h2>Table of Contents</h2>
+<div id="text-table-of-contents">
+<ul>
+<li><a href="#org168117b">LXD Setup</a>
+<ul>
+<li><a href="#orgbc8d4c9">Deb or Snap</a></li>
+<li><a href="#org8d3b124">Init</a></li>
+</ul>
+</li>
+<li><a href="#orgd3d2355">Clustering Mode</a>
+<ul>
+<li><a href="#org739495d">Cluster Setup</a>
+<ul>
+<li><a href="#orgd67f2ec">New Cluster</a></li>
+<li><a href="#org40b6907">Join Cluster</a></li>
+<li><a href="#orgd3701ab">List Cluster</a></li>
+<li><a href="#orge38dffe">Distributed Sqlite</a></li>
+</ul>
+</li>
+<li><a href="#org9466a4e">Launch Container</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-org168117b" class="outline-2">
+<h2 id="org168117b">LXD Setup</h2>
+<div class="outline-text-2" id="text-org168117b">
+<p>
+So easy to setup LXD!
+</p>
+</div>
+<div id="outline-container-orgbc8d4c9" class="outline-3">
+<h3 id="orgbc8d4c9">Deb or Snap</h3>
+<div class="outline-text-3" id="text-orgbc8d4c9">
+<p>
+The existing lxd packages in ubuntu 16.04 are too old to use, which
+need to be purged:
+</p>
+<div class="org-src-container">
+<pre class="src src-sh">apt-get -qq purge lxd lxd-client
+snap install lxd
+</pre>
+</div>
+
+<p>
+<code>lxd</code> is lxd daemon and <code>lxc</code> is the lxd client:
+</p>
+<div class="org-src-container">
+<pre class="src src-sh">which lxd <span class="org-comment-delimiter">#</span><span class="org-comment">=&gt;</span>
+/snap/bin/lxd
+which lxc <span class="org-comment-delimiter">#</span><span class="org-comment">=&gt;</span>
+/snap/bin/lxc
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org8d3b124" class="outline-3">
+<h3 id="org8d3b124">Init</h3>
+<div class="outline-text-3" id="text-org8d3b124">
+<p>
+<code>lxd</code> provides a sub command <code>init</code> to init lxd:
+</p>
+<div class="org-src-container">
+<pre class="src src-sh">lxd init
+</pre>
+</div>
+
+<p>
+<code>lxd init</code> can configure <code>lxd</code> run in clustering mode or standalone
+mode.
+</p>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orgd3d2355" class="outline-2">
+<h2 id="orgd3d2355">Clustering Mode</h2>
+<div class="outline-text-2" id="text-orgd3d2355">
+<p>
+Lxd clustering mode makes lxd run in multiple nodes. Each node lxd
+is running on is a cluster member. The whole set of the cluster
+members is called a cluster.
+</p>
+</div>
+
+<div id="outline-container-org739495d" class="outline-3">
+<h3 id="org739495d">Cluster Setup</h3>
+<div class="outline-text-3" id="text-org739495d">
+<p>
+Easy to setup a cluster and maintain it.
+</p>
+</div>
+
+<div id="outline-container-orgd67f2ec" class="outline-4">
+<h4 id="orgd67f2ec">New Cluster</h4>
+<div class="outline-text-4" id="text-orgd67f2ec">
+<div class="org-src-container">
+<pre class="src src-sh">lxd init
+Would you like to use LXD clustering? (yes/no) [<span class="org-variable-name">default</span>=no]: yes
+What name should be used to identify this node<span class="org-keyword"> in</span> the cluster? [<span class="org-variable-name">default</span>=hypercube01]:
+What IP address or DNS name should be used to reach this node? [<span class="org-variable-name">default</span>=192.168.0.46]:
+Are you joining an existing cluster? (yes/no) [<span class="org-variable-name">default</span>=no]:
+Setup password authentication on the cluster? (yes/no) [<span class="org-variable-name">default</span>=yes]: yes
+Trust password for new clients:
+Again:
+Do you want to configure a new local storage pool? (yes/no) [<span class="org-variable-name">default</span>=yes]:
+Name of the storage backend to use (btrfs, dir, lvm, zfs) [<span class="org-variable-name">default</span>=zfs]:
+Create a new ZFS pool? (yes/no) [<span class="org-variable-name">default</span>=yes]:
+Would you like to use an existing block device? (yes/no) [<span class="org-variable-name">default</span>=no]:
+Size<span class="org-keyword"> in</span> GB of the new loop device (1GB minimum) [<span class="org-variable-name">default</span>=31GB]: 128GB
+Do you want to configure a new remote storage pool? (yes/no) [<span class="org-variable-name">default</span>=no]:
+Would you like to connect to a MAAS server? (yes/no) [<span class="org-variable-name">default</span>=no]:
+Would you like to configure LXD to use an existing bridge or host interface? (yes/no) [<span class="org-variable-name">default</span>=no]:
+Would you like to create a new Fan overlay network? (yes/no) [<span class="org-variable-name">default</span>=yes]:
+What subnet should be used as the Fan underlay? [<span class="org-variable-name">default</span>=auto]:
+Would you like stale cached images to be updated automatically? (yes/no) [<span class="org-variable-name">default</span>=yes]
+Would you like a YAML <span class="org-string">"lxd init"</span> preseed to be printed? (yes/no) [<span class="org-variable-name">default</span>=no]:
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-org40b6907" class="outline-4">
+<h4 id="org40b6907">Join Cluster</h4>
+<div class="outline-text-4" id="text-org40b6907">
+<div class="org-src-container">
+<pre class="src src-sh">lxd init
+Would you like to use LXD clustering? (yes/no) [<span class="org-variable-name">default</span>=no]: yes
+What name should be used to identify this node<span class="org-keyword"> in</span> the cluster? [<span class="org-variable-name">default</span>=hypercube06]:
+What IP address or DNS name should be used to reach this node? [<span class="org-variable-name">default</span>=192.168.0.21]:
+Are you joining an existing cluster? (yes/no) [<span class="org-variable-name">default</span>=no]: yes
+IP address or FQDN of an existing cluster node: 192.168.0.30
+Cluster fingerprint: 6ab5b519ffbb309cb38b73657299dd9b0b8c6f2bd5b359974bf3bc77ce9c8977
+You can validate this fingerprint by running <span class="org-string">"lxc info"</span> locally on an existing node.
+Is this the correct fingerprint? (yes/no) [<span class="org-variable-name">default</span>=no]: yes
+Cluster trust password:
+All existing data is lost when joining a cluster, continue? (yes/no) [<span class="org-variable-name">default</span>=no] yes
+Choose <span class="org-string">"size"</span> property for storage pool <span class="org-string">"local"</span>: 128GB
+Choose <span class="org-string">"source"</span> property for storage pool <span class="org-string">"local"</span>:
+Choose <span class="org-string">"zfs.pool_name"</span> property for storage pool <span class="org-string">"local"</span>:
+Would you like a YAML <span class="org-string">"lxd init"</span> preseed to be printed? (yes/no) [<span class="org-variable-name">default</span>=no]:
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-orgd3701ab" class="outline-4">
+<h4 id="orgd3701ab">List Cluster</h4>
+<div class="outline-text-4" id="text-orgd3701ab">
+<div class="org-src-container">
+<pre class="src src-sh">lxc cluster list
+
++-------------+---------------------------+----------+--------+-------------------+
+|    NAME     |            URL            | DATABASE | STATE  |      MESSAGE      |
++-------------+---------------------------+----------+--------+-------------------+
+| hypercube01 | https://192.168.0.46:8443 | YES      | ONLINE | fully operational |
++-------------+---------------------------+----------+--------+-------------------+
+| hypercube02 | https://192.168.0.47:8443 | YES      | ONLINE | fully operational |
++-------------+---------------------------+----------+--------+-------------------+
+| hypercube03 | https://192.168.0.48:8443 | YES      | ONLINE | fully operational |
++-------------+---------------------------+----------+--------+-------------------+
+| hypercube04 | https://192.168.0.51:8443 | NO       | ONLINE | fully operational |
++-------------+---------------------------+----------+--------+-------------------+
+| hypercube05 | https://192.168.0.30:8443 | NO       | ONLINE | fully operational |
++-------------+---------------------------+----------+--------+-------------------+
+| hypercube06 | https://192.168.0.21:8443 | NO       | ONLINE | fully operational |
++-------------+---------------------------+----------+--------+-------------------+
+| hypercube07 | https://192.168.0.26:8443 | NO       | ONLINE | fully operational |
++-------------+---------------------------+----------+--------+-------------------+
+</pre>
+</div>
+<p>
+It's a 7 nodes lxd cluster with 3 database nodes and 7 service
+nodes.
+</p>
+</div>
+</div>
+<div id="outline-container-orge38dffe" class="outline-4">
+<h4 id="orge38dffe">Distributed Sqlite</h4>
+<div class="outline-text-4" id="text-orge38dffe">
+<p>
+<a href="//github.com/CanonicalLtd/go-dqlite/">Distributed Sqlite</a> is running on the first 3 nodes. One broken
+database node doesn't destroy the whole system.
+</p>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org9466a4e" class="outline-3">
+<h3 id="org9466a4e">Launch Container</h3>
+<div class="outline-text-3" id="text-org9466a4e">
+<p>
+<code>lxc launch b --debug</code> will do:
+</p>
+<ol class="org-ol">
+<li><p>
+Get version
+</p>
+<div class="org-src-container">
+<pre class="src src-sh">DBUG[01-22|14:13:15] Connecting to a remote LXD over HTTPs
+DBUG[01-22|14:13:15] Sending request to LXD                   <span class="org-variable-name">method</span>=GET <span class="org-variable-name">url</span>=https://192.168.0.48:8443/1.0 <span class="org-variable-name">etag</span>=
+DBUG[01-22|14:13:17] Got response struct from LXD
+DBUG[01-22|14:13:17]
+        {
+                <span class="org-string">"config"</span>: {
+                        <span class="org-string">"cluster.https_address"</span>: <span class="org-string">"192.168.0.48:8443"</span>,
+                        <span class="org-string">"core.https_address"</span>: <span class="org-string">"192.168.0.48:8443"</span>,
+                        <span class="org-string">"core.trust_password"</span>: true
+                },
+                <span class="org-string">"api_extensions"</span>: [...],
+                <span class="org-string">"api_status"</span>: <span class="org-string">"stable"</span>,
+                <span class="org-string">"api_version"</span>: <span class="org-string">"1.0"</span>,
+                <span class="org-string">"auth"</span>: <span class="org-string">"trusted"</span>,
+                <span class="org-string">"public"</span>: false,
+                <span class="org-string">"auth_methods"</span>: [
+                        <span class="org-string">"tls"</span>
+                ],
+                <span class="org-string">"environment"</span>: {
+                        <span class="org-string">"addresses"</span>: [
+                                <span class="org-string">"192.168.0.48:8443"</span>
+                        ],
+                        <span class="org-string">"architectures"</span>: [
+                                <span class="org-string">"x86_64"</span>,
+                                <span class="org-string">"i686"</span>
+                        ],
+                        <span class="org-string">"certificate"</span>: <span class="org-string">"..."</span>,
+                        <span class="org-string">"certificate_fingerprint"</span>: <span class="org-string">"..."</span>,
+                        <span class="org-string">"driver"</span>: <span class="org-string">"lxc"</span>,
+                        <span class="org-string">"driver_version"</span>: <span class="org-string">"3.1.0"</span>,
+                        <span class="org-string">"kernel"</span>: <span class="org-string">"Linux"</span>,
+                        <span class="org-string">"kernel_architecture"</span>: <span class="org-string">"x86_64"</span>,
+                        <span class="org-string">"kernel_version"</span>: <span class="org-string">"4.15.0-43-generic"</span>,
+                        <span class="org-string">"server"</span>: <span class="org-string">"lxd"</span>,
+                        <span class="org-string">"server_pid"</span>: 32645,
+                        <span class="org-string">"server_version"</span>: <span class="org-string">"3.9"</span>,
+                        <span class="org-string">"storage"</span>: <span class="org-string">"zfs"</span>,
+                        <span class="org-string">"storage_version"</span>: <span class="org-string">"0.7.5-1ubuntu16.4"</span>,
+                        <span class="org-string">"server_clustered"</span>: true,
+                        <span class="org-string">"server_name"</span>: <span class="org-string">"hypercube03"</span>,
+                        <span class="org-string">"project"</span>: <span class="org-string">"default"</span>
+                }
+        }
+</pre>
+</div></li>
+<li><p>
+Get image
+</p>
+<div class="org-src-container">
+<pre class="src src-sh">Creating the container
+DBUG[01-22|14:13:17] Sending request to LXD                   <span class="org-variable-name">method</span>=GET <span class="org-variable-name">url</span>=https://192.168.0.48:8443/1.0/images/aliases/b <span class="org-variable-name">etag</span>=
+DBUG[01-22|14:13:19] Got response struct from LXD
+DBUG[01-22|14:13:19]
+        {
+                <span class="org-string">"description"</span>: <span class="org-string">""</span>,
+                <span class="org-string">"target"</span>: <span class="org-string">"dcbc8e3e5c2ed9fb21c3d0659a0eee004bde52fac6616bc1453717032e52a700"</span>,
+                <span class="org-string">"name"</span>: <span class="org-string">"b"</span>
+        }
+DBUG[01-22|14:13:19] Sending request to LXD                   <span class="org-variable-name">method</span>=GET <span class="org-variable-name">url</span>=https://192.168.0.48:8443/1.0/images/dcbc8e3e5c2ed9fb21c3d0659a0eee004bde52fac6616bc1453717032e52a700 <span class="org-variable-name">etag</span>=
+DBUG[01-22|14:13:20] Got response struct from LXD
+DBUG[01-22|14:13:20]
+        {
+                <span class="org-string">"auto_update"</span>: true,
+                <span class="org-string">"properties"</span>: {
+                        <span class="org-string">"architecture"</span>: <span class="org-string">"amd64"</span>,
+                        <span class="org-string">"description"</span>: <span class="org-string">"ubuntu 18.04 LTS amd64 (release) (20190114)"</span>,
+                        <span class="org-string">"label"</span>: <span class="org-string">"release"</span>,
+                        <span class="org-string">"os"</span>: <span class="org-string">"ubuntu"</span>,
+                        <span class="org-string">"release"</span>: <span class="org-string">"bionic"</span>,
+                        <span class="org-string">"serial"</span>: <span class="org-string">"20190114"</span>,
+                        <span class="org-string">"version"</span>: <span class="org-string">"18.04"</span>
+                },
+                <span class="org-string">"public"</span>: false,
+                <span class="org-string">"aliases"</span>: [
+                        {
+                                <span class="org-string">"name"</span>: <span class="org-string">"b"</span>,
+                                <span class="org-string">"description"</span>: <span class="org-string">""</span>
+                        }
+                ],
+                <span class="org-string">"architecture"</span>: <span class="org-string">"x86_64"</span>,
+                <span class="org-string">"cached"</span>: true,
+                <span class="org-string">"filename"</span>: <span class="org-string">"ubuntu-18.04-server-cloudimg-amd64-lxd.tar.xz"</span>,
+                <span class="org-string">"fingerprint"</span>: <span class="org-string">"dcbc8e3e5c2ed9fb21c3d0659a0eee004bde52fac6616bc1453717032e52a700"</span>,
+                <span class="org-string">"size"</span>: 183468820,
+                <span class="org-string">"update_source"</span>: {
+                        <span class="org-string">"alias"</span>: <span class="org-string">"b"</span>,
+                        <span class="org-string">"certificate"</span>: <span class="org-string">""</span>,
+                        <span class="org-string">"protocol"</span>: <span class="org-string">"simplestreams"</span>,
+                        <span class="org-string">"server"</span>: <span class="org-string">"https://cloud-images.ubuntu.com/releases"</span>
+                },
+                <span class="org-string">"created_at"</span>: <span class="org-string">"2019-01-14T00:00:00Z"</span>,
+                <span class="org-string">"expires_at"</span>: <span class="org-string">"2023-04-26T00:00:00Z"</span>,
+                <span class="org-string">"last_used_at"</span>: <span class="org-string">"2019-01-18T08:22:28.5476208Z"</span>,
+                <span class="org-string">"uploaded_at"</span>: <span class="org-string">"2019-01-15T00:36:47.651093161Z"</span>
+        }
+</pre>
+</div></li>
+<li><p>
+Create Container Operation
+</p>
+<div class="org-src-container">
+<pre class="src src-sh">DBUG[01-22|14:13:22] Connected to the websocket
+DBUG[01-22|14:13:22] Sending request to LXD                   <span class="org-variable-name">method</span>=POST <span class="org-variable-name">url</span>=https://192.168.0.48:8443/1.0/containers <span class="org-variable-name">etag</span>=
+DBUG[01-22|14:13:22]
+        {
+                <span class="org-string">"architecture"</span>: <span class="org-string">""</span>,
+                <span class="org-string">"config"</span>: {},
+                <span class="org-string">"devices"</span>: {},
+                <span class="org-string">"ephemeral"</span>: false,
+                <span class="org-string">"profiles"</span>: null,
+                <span class="org-string">"stateful"</span>: false,
+                <span class="org-string">"description"</span>: <span class="org-string">""</span>,
+                <span class="org-string">"name"</span>: <span class="org-string">""</span>,
+                <span class="org-string">"source"</span>: {
+                        <span class="org-string">"type"</span>: <span class="org-string">"image"</span>,
+                        <span class="org-string">"certificate"</span>: <span class="org-string">""</span>,
+                        <span class="org-string">"fingerprint"</span>: <span class="org-string">"dcbc8e3e5c2ed9fb21c3d0659a0eee004bde52fac6616bc1453717032e52a700"</span>
+                },
+                <span class="org-string">"instance_type"</span>: <span class="org-string">""</span>
+        }
+DBUG[01-22|14:13:24] Got operation from LXD
+DBUG[01-22|14:13:24]
+        {
+                <span class="org-string">"id"</span>: <span class="org-string">"1de45646-d209-413f-827a-ef7921c3c7f8"</span>,
+                <span class="org-string">"class"</span>: <span class="org-string">"task"</span>,
+                <span class="org-string">"description"</span>: <span class="org-string">"Creating container"</span>,
+                <span class="org-string">"created_at"</span>: <span class="org-string">"2019-01-22T06:13:23.360302136Z"</span>,
+                <span class="org-string">"updated_at"</span>: <span class="org-string">"2019-01-22T06:13:23.360302136Z"</span>,
+                <span class="org-string">"status"</span>: <span class="org-string">"Running"</span>,
+                <span class="org-string">"status_code"</span>: 103,
+                <span class="org-string">"resources"</span>: {
+                        <span class="org-string">"containers"</span>: [
+                                <span class="org-string">"/1.0/containers/fluent-hamster"</span>
+                        ]
+                },
+                <span class="org-string">"metadata"</span>: null,
+                <span class="org-string">"may_cancel"</span>: false,
+                <span class="org-string">"err"</span>: <span class="org-string">""</span>
+        }
+</pre>
+</div></li>
+<li><p>
+Wait Create Operation Done
+</p>
+<div class="org-src-container">
+<pre class="src src-sh">DBUG[01-22|14:13:24] Sending request to LXD                   <span class="org-variable-name">method</span>=GET <span class="org-variable-name">url</span>=https://192.168.0.48:8443/1.0/operations/1de45646-d209-413f-827a-ef7921c3c7f8 <span class="org-variable-name">etag</span>=
+DBUG[01-22|14:13:25] Got response struct from LXD
+DBUG[01-22|14:13:25]
+        {
+                <span class="org-string">"id"</span>: <span class="org-string">"1de45646-d209-413f-827a-ef7921c3c7f8"</span>,
+                <span class="org-string">"class"</span>: <span class="org-string">"task"</span>,
+                <span class="org-string">"description"</span>: <span class="org-string">"Creating container"</span>,
+                <span class="org-string">"created_at"</span>: <span class="org-string">"2019-01-22T06:13:23.360302136Z"</span>,
+                <span class="org-string">"updated_at"</span>: <span class="org-string">"2019-01-22T06:13:23.360302136Z"</span>,
+                <span class="org-string">"status"</span>: <span class="org-string">"Running"</span>,
+                <span class="org-string">"status_code"</span>: 103,
+                <span class="org-string">"resources"</span>: {
+                        <span class="org-string">"containers"</span>: [
+                                <span class="org-string">"/1.0/containers/fluent-hamster"</span>
+                        ]
+                },
+                <span class="org-string">"metadata"</span>: null,
+                <span class="org-string">"may_cancel"</span>: false,
+                <span class="org-string">"err"</span>: <span class="org-string">""</span>
+        }
+Container name is: fluent-hamster
+</pre>
+</div></li>
+<li><p>
+Get container
+</p>
+<div class="org-src-container">
+<pre class="src src-sh">DBUG[01-22|14:13:37] Sending request to LXD                   <span class="org-variable-name">method</span>=GET <span class="org-variable-name">url</span>=https://192.168.0.48:8443/1.0/containers/fluent-hamster <span class="org-variable-name">etag</span>=
+DBUG[01-22|14:13:39] Got response struct from LXD
+DBUG[01-22|14:13:39]
+        {
+                <span class="org-string">"architecture"</span>: <span class="org-string">"x86_64"</span>,
+                <span class="org-string">"config"</span>: {
+                        <span class="org-string">"image.architecture"</span>: <span class="org-string">"amd64"</span>,
+                        <span class="org-string">"image.description"</span>: <span class="org-string">"ubuntu 18.04 LTS amd64 (release) (20190114)"</span>,
+                        <span class="org-string">"image.label"</span>: <span class="org-string">"release"</span>,
+                        <span class="org-string">"image.os"</span>: <span class="org-string">"ubuntu"</span>,
+                        <span class="org-string">"image.release"</span>: <span class="org-string">"bionic"</span>,
+                        <span class="org-string">"image.serial"</span>: <span class="org-string">"20190114"</span>,
+                        <span class="org-string">"image.version"</span>: <span class="org-string">"18.04"</span>,
+                        <span class="org-string">"volatile.apply_template"</span>: <span class="org-string">"create"</span>,
+                        <span class="org-string">"volatile.base_image"</span>: <span class="org-string">"dcbc8e3e5c2ed9fb21c3d0659a0eee004bde52fac6616bc1453717032e52a700"</span>,
+                        <span class="org-string">"volatile.eth0.hwaddr"</span>: <span class="org-string">"00:16:3e:e3:bf:17"</span>,
+                        <span class="org-string">"volatile.idmap.base"</span>: <span class="org-string">"0"</span>,
+                        <span class="org-string">"volatile.idmap.next"</span>: <span class="org-string">"[{\"Isuid\":true,\"Isgid\":true,\"Hostid\":1000000,\"Nsid\":0,\"Maprange\":1000000000}]"</span>,
+                        <span class="org-string">"volatile.last_state.idmap"</span>: <span class="org-string">"[{\"Isuid\":true,\"Isgid\":true,\"Hostid\":1000000,\"Nsid\":0,\"Maprange\":1000000000}]"</span>
+                },
+                <span class="org-string">"devices"</span>: {},
+                <span class="org-string">"ephemeral"</span>: false,
+                <span class="org-string">"profiles"</span>: [
+                        <span class="org-string">"default"</span>
+                ],
+                <span class="org-string">"stateful"</span>: false,
+                <span class="org-string">"description"</span>: <span class="org-string">""</span>,
+                <span class="org-string">"created_at"</span>: <span class="org-string">"2019-01-22T06:13:29.053538619Z"</span>,
+                <span class="org-string">"expanded_config"</span>: {
+                        <span class="org-string">"image.architecture"</span>: <span class="org-string">"amd64"</span>,
+                        <span class="org-string">"image.description"</span>: <span class="org-string">"ubuntu 18.04 LTS amd64 (release) (20190114)"</span>,
+                        <span class="org-string">"image.label"</span>: <span class="org-string">"release"</span>,
+                        <span class="org-string">"image.os"</span>: <span class="org-string">"ubuntu"</span>,
+                        <span class="org-string">"image.release"</span>: <span class="org-string">"bionic"</span>,
+                        <span class="org-string">"image.serial"</span>: <span class="org-string">"20190114"</span>,
+                        <span class="org-string">"image.version"</span>: <span class="org-string">"18.04"</span>,
+                        <span class="org-string">"volatile.apply_template"</span>: <span class="org-string">"create"</span>,
+                        <span class="org-string">"volatile.base_image"</span>: <span class="org-string">"dcbc8e3e5c2ed9fb21c3d0659a0eee004bde52fac6616bc1453717032e52a700"</span>,
+                        <span class="org-string">"volatile.eth0.hwaddr"</span>: <span class="org-string">"00:16:3e:e3:bf:17"</span>,
+                        <span class="org-string">"volatile.idmap.base"</span>: <span class="org-string">"0"</span>,
+                        <span class="org-string">"volatile.idmap.next"</span>: <span class="org-string">"[{\"Isuid\":true,\"Isgid\":true,\"Hostid\":1000000,\"Nsid\":0,\"Maprange\":1000000000}]"</span>,
+                        <span class="org-string">"volatile.last_state.idmap"</span>: <span class="org-string">"[{\"Isuid\":true,\"Isgid\":true,\"Hostid\":1000000,\"Nsid\":0,\"Maprange\":1000000000}]"</span>
+                },
+                <span class="org-string">"expanded_devices"</span>: {
+                        <span class="org-string">"eth0"</span>: {
+                                <span class="org-string">"name"</span>: <span class="org-string">"eth0"</span>,
+                                <span class="org-string">"nictype"</span>: <span class="org-string">"bridged"</span>,
+                                <span class="org-string">"parent"</span>: <span class="org-string">"lxdfan0"</span>,
+                                <span class="org-string">"type"</span>: <span class="org-string">"nic"</span>
+                        },
+                        <span class="org-string">"root"</span>: {
+                                <span class="org-string">"path"</span>: <span class="org-string">"/"</span>,
+                                <span class="org-string">"pool"</span>: <span class="org-string">"local"</span>,
+                                <span class="org-string">"type"</span>: <span class="org-string">"disk"</span>
+                        }
+                },
+                <span class="org-string">"name"</span>: <span class="org-string">"fluent-hamster"</span>,
+                <span class="org-string">"status"</span>: <span class="org-string">"Stopped"</span>,
+                <span class="org-string">"status_code"</span>: 102,
+                <span class="org-string">"last_used_at"</span>: <span class="org-string">"1970-01-01T00:00:00Z"</span>,
+                <span class="org-string">"location"</span>: <span class="org-string">"hypercube06"</span>
+        }
+</pre>
+</div></li>
+<li><p>
+Start Container Operation
+</p>
+<div class="org-src-container">
+<pre class="src src-sh">Starting fluent-hamster
+DBUG[01-22|14:13:39] Sending request to LXD                   <span class="org-variable-name">method</span>=PUT <span class="org-variable-name">url</span>=https://192.168.0.48:8443/1.0/containers/fluent-hamster/state <span class="org-variable-name">etag</span>=
+DBUG[01-22|14:13:39]
+        {
+                <span class="org-string">"action"</span>: <span class="org-string">"start"</span>,
+                <span class="org-string">"timeout"</span>: -1,
+                <span class="org-string">"force"</span>: false,
+                <span class="org-string">"stateful"</span>: false
+        }
+DBUG[01-22|14:13:40] Got operation from LXD
+DBUG[01-22|14:13:40]
+        {
+                <span class="org-string">"id"</span>: <span class="org-string">"46746a23-5873-4755-a0ad-27385370aa39"</span>,
+                <span class="org-string">"class"</span>: <span class="org-string">"task"</span>,
+                <span class="org-string">"description"</span>: <span class="org-string">"Starting container"</span>,
+                <span class="org-string">"created_at"</span>: <span class="org-string">"2019-01-22T06:13:40.232324373Z"</span>,
+                <span class="org-string">"updated_at"</span>: <span class="org-string">"2019-01-22T06:13:40.232324373Z"</span>,
+                <span class="org-string">"status"</span>: <span class="org-string">"Running"</span>,
+                <span class="org-string">"status_code"</span>: 103,
+                <span class="org-string">"resources"</span>: {
+                        <span class="org-string">"containers"</span>: [
+                                <span class="org-string">"/1.0/containers/fluent-hamster"</span>
+                        ]
+                },
+                <span class="org-string">"metadata"</span>: null,
+                <span class="org-string">"may_cancel"</span>: false,
+                <span class="org-string">"err"</span>: <span class="org-string">""</span>
+        }
+</pre>
+</div></li>
+<li><p>
+Wait Start Operation Done
+</p>
+<div class="org-src-container">
+<pre class="src src-sh">DBUG[01-22|14:13:40] Sending request to LXD                   <span class="org-variable-name">method</span>=GET <span class="org-variable-name">url</span>=https://192.168.0.48:8443/1.0/operations/46746a23-5873-4755-a0ad-27385370aa39 <span class="org-variable-name">etag</span>=
+DBUG[01-22|14:13:42] Got response struct from LXD
+DBUG[01-22|14:13:42]
+        {
+                <span class="org-string">"id"</span>: <span class="org-string">"46746a23-5873-4755-a0ad-27385370aa39"</span>,
+                <span class="org-string">"class"</span>: <span class="org-string">"task"</span>,
+                <span class="org-string">"description"</span>: <span class="org-string">"Starting container"</span>,
+                <span class="org-string">"created_at"</span>: <span class="org-string">"2019-01-22T06:13:40.232324373Z"</span>,
+                <span class="org-string">"updated_at"</span>: <span class="org-string">"2019-01-22T06:13:40.232324373Z"</span>,
+                <span class="org-string">"status"</span>: <span class="org-string">"Success"</span>,
+                <span class="org-string">"status_code"</span>: 200,
+                <span class="org-string">"resources"</span>: {
+                        <span class="org-string">"containers"</span>: [
+                                <span class="org-string">"/1.0/containers/fluent-hamster"</span>
+                        ]
+                },
+                <span class="org-string">"metadata"</span>: null,
+                <span class="org-string">"may_cancel"</span>: false,
+                <span class="org-string">"err"</span>: <span class="org-string">""</span>
+        }
+</pre>
+</div></li>
+</ol>
+</div>
+</div>
+</div>
+</div>
+</body>
+</html>
