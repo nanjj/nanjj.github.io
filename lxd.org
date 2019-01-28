@@ -108,6 +108,27 @@
     [[Https://github.com/CanonicalLtd/go-dqlite/][Distributed Sqlite]] is running on the first 3 nodes. One broken
     database node doesn't destroy the whole system.
 
+*** Ubuntu Fan Network
+
+    Lxd can be configured to use [[https://wiki.ubuntu.com/FanNetworking][Ubuntu Fan Network]].
+
+    Say 2 containers A and B:
+    | Container | IP            | Hyper       | Hyper IP        |
+    |-----------+---------------+-------------+-----------------|
+    | A         | 240.0.46.14/8 | hypercube01 | 192.168.0.46/16 |
+    | B         | 240.0.47.99/8 | hypercube02 | 192.168.0.47/16 |
+
+    Now ping B on A:
+    #+begin_src sh
+    ping 240.0.47.99 #=>
+    ARP, Request who-has 240.0.47.99 tell 240.0.46.14, length 28
+    #+end_src
+    On hypercube01:
+    #+begin_src sh
+      17:07:29.650323 IP 192.168.0.46.53730 > 192.168.0.47.8472
+      ARP, Request who-has 240.0.47.99 tell 240.0.46.14, length 28
+    #+end_src
+
 ** Launch Container
    =lxc launch b --debug= will do:
    1. Get version
