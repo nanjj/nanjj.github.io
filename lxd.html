@@ -3,7 +3,7 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2019-01-29 Tue 17:49 -->
+<!-- 2019-01-29 Tue 22:43 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>LXD</title>
@@ -29,18 +29,24 @@
 </li>
 <li><a href="#orgd3d2355">Clustering Mode</a>
 <ul>
-<li><a href="#org739495d">Cluster Setup</a>
-<ul>
 <li><a href="#orgd67f2ec">New Cluster</a></li>
 <li><a href="#org40b6907">Join Cluster</a></li>
 <li><a href="#orgd3701ab">List Cluster</a></li>
-<li><a href="#orge38dffe">Distributed Sqlite</a></li>
-<li><a href="#org19e8439">Ubuntu Fan Network</a></li>
 </ul>
 </li>
+<li><a href="#org3c91270">Database</a>
+<ul>
+<li><a href="#org0a07aa0">Global and Local</a></li>
+<li><a href="#org8056189">Lxd sql</a></li>
+<li><a href="#org77f3733">Global Schemas</a></li>
+<li><a href="#orgcf11a9c">Local Schemas</a></li>
+<li><a href="#orgcd81dd1">Raft Nodes</a></li>
+<li><a href="#orgb2ae831">Cluster nodes</a></li>
+<li><a href="#org428d1e8">Containers</a></li>
+</ul>
+</li>
+<li><a href="#org32f0aeb">Network</a></li>
 <li><a href="#org9466a4e">Launch Container</a></li>
-</ul>
-</li>
 </ul>
 </div>
 </div>
@@ -107,17 +113,9 @@ members is called a cluster.
 </p>
 </div>
 
-<div id="outline-container-org739495d" class="outline-3">
-<h3 id="org739495d">Cluster Setup</h3>
-<div class="outline-text-3" id="text-org739495d">
-<p>
-Easy to setup a cluster and maintain it.
-</p>
-</div>
-
-<div id="outline-container-orgd67f2ec" class="outline-4">
-<h4 id="orgd67f2ec">New Cluster</h4>
-<div class="outline-text-4" id="text-orgd67f2ec">
+<div id="outline-container-orgd67f2ec" class="outline-3">
+<h3 id="orgd67f2ec">New Cluster</h3>
+<div class="outline-text-3" id="text-orgd67f2ec">
 <div class="org-src-container">
 <pre class="src src-sh">lxd init
 Would you like to use LXD clustering? (yes/no) [<span class="org-variable-name">default</span>=no]: yes
@@ -143,9 +141,9 @@ Would you like a YAML <span class="org-string">"lxd init"</span> preseed to be p
 </div>
 </div>
 </div>
-<div id="outline-container-org40b6907" class="outline-4">
-<h4 id="org40b6907">Join Cluster</h4>
-<div class="outline-text-4" id="text-org40b6907">
+<div id="outline-container-org40b6907" class="outline-3">
+<h3 id="org40b6907">Join Cluster</h3>
+<div class="outline-text-3" id="text-org40b6907">
 <div class="org-src-container">
 <pre class="src src-sh">lxd init
 Would you like to use LXD clustering? (yes/no) [<span class="org-variable-name">default</span>=no]: yes
@@ -166,9 +164,9 @@ Would you like a YAML <span class="org-string">"lxd init"</span> preseed to be p
 </div>
 </div>
 </div>
-<div id="outline-container-orgd3701ab" class="outline-4">
-<h4 id="orgd3701ab">List Cluster</h4>
-<div class="outline-text-4" id="text-orgd3701ab">
+<div id="outline-container-orgd3701ab" class="outline-3">
+<h3 id="orgd3701ab">List Cluster</h3>
+<div class="outline-text-3" id="text-orgd3701ab">
 <div class="org-src-container">
 <pre class="src src-sh">lxc cluster list
 
@@ -197,19 +195,439 @@ nodes.
 </p>
 </div>
 </div>
-<div id="outline-container-orge38dffe" class="outline-4">
-<h4 id="orge38dffe">Distributed Sqlite</h4>
-<div class="outline-text-4" id="text-orge38dffe">
+</div>
+<div id="outline-container-org3c91270" class="outline-2">
+<h2 id="org3c91270">Database</h2>
+<div class="outline-text-2" id="text-org3c91270">
 <p>
-<a href="//github.com/CanonicalLtd/go-dqlite/">Distributed Sqlite</a> is running on the first 3 nodes. One broken
-database node doesn't destroy the whole system.
+<a href="https://github.com/lxc/lxd/blob/master/doc/database.md">Lxd database</a> is based on <a href="https://github.com/CanonicalLtd/dqlite">distributed sqlite</a>, which removed lxd's
+dependency on traditional database like postgres or mysql. <a href="https://wiki.ubuntu.com/FanNetworking">Fan
+network</a> introduced lxd a simple and fast container network.
+</p>
+</div>
+<div id="outline-container-org0a07aa0" class="outline-3">
+<h3 id="org0a07aa0">Global and Local</h3>
+<div class="outline-text-3" id="text-org0a07aa0">
+<p>
+For each lxd node, there are two type databases: global and
+local. Data in global database is shared by each lxd cluster
+members, while data in local database can only be accessed in
+local node, does not impact others.
 </p>
 </div>
 </div>
-
-<div id="outline-container-org19e8439" class="outline-4">
-<h4 id="org19e8439">Ubuntu Fan Network</h4>
-<div class="outline-text-4" id="text-org19e8439">
+<div id="outline-container-org8056189" class="outline-3">
+<h3 id="org8056189">Lxd sql</h3>
+<div class="outline-text-3" id="text-org8056189">
+<div class="org-src-container">
+<pre class="src src-sh">lxd sql &lt;local|global&gt; &lt;query&gt;  [flags]
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-org77f3733" class="outline-3">
+<h3 id="org77f3733">Global Schemas</h3>
+<div class="outline-text-3" id="text-org77f3733">
+<p>
+For example, to list global schemas:
+</p>
+<div class="org-src-container">
+<pre class="src src-sh">lxd sql global .schema <span class="org-comment-delimiter">#</span><span class="org-comment">=&gt;</span>
+PRAGMA <span class="org-variable-name">foreign_keys</span>=OFF;
+BEGIN TRANSACTION;
+CREATE TABLE schema (
+    id         INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
+    version    INTEGER NOT NULL,
+    updated_at DATETIME NOT NULL,
+    UNIQUE (version)
+);
+INSERT INTO schema VALUES(1,13,1546788241);
+CREATE TABLE <span class="org-string">"containers"</span> (
+    id INTEGER primary key AUTOINCREMENT NOT NULL,
+    node_id INTEGER NOT NULL,
+    name TEXT NOT NULL,
+    architecture INTEGER NOT NULL,
+    <span class="org-builtin">type</span> INTEGER NOT NULL,
+    ephemeral INTEGER NOT NULL DEFAULT 0,
+    creation_date DATETIME NOT NULL DEFAULT 0,
+    stateful INTEGER NOT NULL DEFAULT 0,
+    last_use_date DATETIME,
+    description TEXT,
+    project_id INTEGER NOT NULL,
+    UNIQUE (project_id, name),
+    FOREIGN KEY (node_id) REFERENCES nodes (id) ON DELETE CASCADE,
+    FOREIGN KEY (project_id) REFERENCES projects (id) ON DELETE CASCADE
+);
+CREATE TABLE <span class="org-string">"images"</span> (
+    id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
+    fingerprint TEXT NOT NULL,
+    filename TEXT NOT NULL,
+    size INTEGER NOT NULL,
+    public INTEGER NOT NULL DEFAULT 0,
+    architecture INTEGER NOT NULL,
+    creation_date DATETIME,
+    expiry_date DATETIME,
+    upload_date DATETIME NOT NULL,
+    cached INTEGER NOT NULL DEFAULT 0,
+    last_use_date DATETIME,
+    auto_update INTEGER NOT NULL DEFAULT 0,
+    project_id INTEGER NOT NULL,
+    UNIQUE (project_id, fingerprint),
+    FOREIGN KEY (project_id) REFERENCES projects (id) ON DELETE CASCADE
+);
+CREATE TABLE <span class="org-string">"images_aliases"</span> (
+    id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
+    name TEXT NOT NULL,
+    image_id INTEGER NOT NULL,
+    description TEXT,
+    project_id INTEGER NOT NULL,
+    UNIQUE (project_id, name),
+    FOREIGN KEY (image_id) REFERENCES images (id) ON DELETE CASCADE,
+    FOREIGN KEY (project_id) REFERENCES projects (id) ON DELETE CASCADE
+);
+CREATE TABLE <span class="org-string">"operations"</span> (
+    id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
+    uuid TEXT NOT NULL,
+    node_id TEXT NOT NULL,
+    <span class="org-builtin">type</span> INTEGER NOT NULL DEFAULT 0,
+    project_id INTEGER,
+    UNIQUE (uuid),
+    FOREIGN KEY (node_id) REFERENCES nodes (id) ON DELETE CASCADE,
+    FOREIGN KEY (project_id) REFERENCES projects (id) ON DELETE CASCADE
+);
+CREATE TABLE <span class="org-string">"profiles"</span> (
+    id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
+    name TEXT NOT NULL,
+    description TEXT,
+    project_id INTEGER NOT NULL,
+    UNIQUE (project_id, name),
+    FOREIGN KEY (project_id) REFERENCES projects (id) ON DELETE CASCADE
+);
+CREATE TABLE <span class="org-string">"storage_volumes"</span> (
+    id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
+    name TEXT NOT NULL,
+    storage_pool_id INTEGER NOT NULL,
+    node_id INTEGER NOT NULL,
+    <span class="org-builtin">type</span> INTEGER NOT NULL,
+    description TEXT,
+    snapshot INTEGER NOT NULL DEFAULT 0,
+    project_id INTEGER NOT NULL,
+    UNIQUE (storage_pool_id, node_id, project_id, name, type),
+    FOREIGN KEY (storage_pool_id) REFERENCES storage_pools (id) ON DELETE CASCADE,
+    FOREIGN KEY (node_id) REFERENCES nodes (id) ON DELETE CASCADE,
+    FOREIGN KEY (project_id) REFERENCES projects (id) ON DELETE CASCADE
+);
+CREATE TABLE certificates (
+    id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
+    fingerprint TEXT NOT NULL,
+    <span class="org-builtin">type</span> INTEGER NOT NULL,
+    name TEXT NOT NULL,
+    certificate TEXT NOT NULL,
+    UNIQUE (fingerprint)
+);
+CREATE TABLE config (
+    id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
+    key TEXT NOT NULL,
+    value TEXT,
+    UNIQUE (key)
+);
+CREATE TABLE containers_backups (
+    id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
+    container_id INTEGER NOT NULL,
+    name VARCHAR(255) NOT NULL,
+    creation_date DATETIME,
+    expiry_date DATETIME,
+    container_only INTEGER NOT NULL default 0,
+    optimized_storage INTEGER NOT NULL default 0,
+    FOREIGN KEY (container_id) REFERENCES containers (id) ON DELETE CASCADE,
+    UNIQUE (container_id, name)
+);
+CREATE TABLE containers_config (
+    id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
+    container_id INTEGER NOT NULL,
+    key TEXT NOT NULL,
+    value TEXT,
+    FOREIGN KEY (container_id) REFERENCES containers (id) ON DELETE CASCADE,
+    UNIQUE (container_id, key)
+);
+CREATE TABLE containers_devices (
+    id INTEGER primary key AUTOINCREMENT NOT NULL,
+    container_id INTEGER NOT NULL,
+    name TEXT NOT NULL,
+    <span class="org-builtin">type</span> INTEGER NOT NULL default 0,
+    FOREIGN KEY (container_id) REFERENCES containers (id) ON DELETE CASCADE,
+    UNIQUE (container_id, name)
+);
+CREATE TABLE containers_devices_config (
+    id INTEGER primary key AUTOINCREMENT NOT NULL,
+    container_device_id INTEGER NOT NULL,
+    key TEXT NOT NULL,
+    value TEXT,
+    FOREIGN KEY (container_device_id) REFERENCES containers_devices (id) ON DELETE CASCADE,
+    UNIQUE (container_device_id, key)
+);
+CREATE TABLE containers_profiles (
+    id INTEGER primary key AUTOINCREMENT NOT NULL,
+    container_id INTEGER NOT NULL,
+    profile_id INTEGER NOT NULL,
+    apply_order INTEGER NOT NULL default 0,
+    UNIQUE (container_id, profile_id),
+    FOREIGN KEY (container_id) REFERENCES containers(id) ON DELETE CASCADE,
+    FOREIGN KEY (profile_id) REFERENCES profiles(id) ON DELETE CASCADE
+);
+CREATE TABLE images_nodes (
+    id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
+    image_id INTEGER NOT NULL,
+    node_id INTEGER NOT NULL,
+    UNIQUE (image_id, node_id),
+    FOREIGN KEY (image_id) REFERENCES images (id) ON DELETE CASCADE,
+    FOREIGN KEY (node_id) REFERENCES nodes (id) ON DELETE CASCADE
+);
+CREATE TABLE images_properties (
+    id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
+    image_id INTEGER NOT NULL,
+    <span class="org-builtin">type</span> INTEGER NOT NULL,
+    key TEXT NOT NULL,
+    value TEXT,
+    FOREIGN KEY (image_id) REFERENCES images (id) ON DELETE CASCADE
+);
+CREATE TABLE images_source (
+    id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
+    image_id INTEGER NOT NULL,
+    server TEXT NOT NULL,
+    protocol INTEGER NOT NULL,
+    certificate TEXT NOT NULL,
+    <span class="org-builtin">alias</span> TEXT NOT NULL,
+    FOREIGN KEY (image_id) REFERENCES images (id) ON DELETE CASCADE
+);
+CREATE TABLE networks (
+    id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
+    name TEXT NOT NULL,
+    description TEXT,
+    state INTEGER NOT NULL DEFAULT 0,
+    UNIQUE (name)
+);
+CREATE TABLE networks_config (
+    id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
+    network_id INTEGER NOT NULL,
+    node_id INTEGER,
+    key TEXT NOT NULL,
+    value TEXT,
+    UNIQUE (network_id, node_id, key),
+    FOREIGN KEY (network_id) REFERENCES networks (id) ON DELETE CASCADE,
+    FOREIGN KEY (node_id) REFERENCES nodes (id) ON DELETE CASCADE
+);
+CREATE TABLE networks_nodes (
+    id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
+    network_id INTEGER NOT NULL,
+    node_id INTEGER NOT NULL,
+    UNIQUE (network_id, node_id),
+    FOREIGN KEY (network_id) REFERENCES networks (id) ON DELETE CASCADE,
+    FOREIGN KEY (node_id) REFERENCES nodes (id) ON DELETE CASCADE
+);
+CREATE TABLE nodes (
+    id INTEGER PRIMARY KEY,
+    name TEXT NOT NULL,
+    description TEXT DEFAULT <span class="org-string">''</span>,
+    address TEXT NOT NULL,
+    schema INTEGER NOT NULL,
+    api_extensions INTEGER NOT NULL,
+    heartbeat DATETIME DEFAULT CURRENT_TIMESTAMP,
+    pending INTEGER NOT NULL DEFAULT 0,
+    UNIQUE (name),
+    UNIQUE (address)
+);
+CREATE TABLE profiles_config (
+    id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
+    profile_id INTEGER NOT NULL,
+    key TEXT NOT NULL,
+    value TEXT,
+    UNIQUE (profile_id, key),
+    FOREIGN KEY (profile_id) REFERENCES profiles(id) ON DELETE CASCADE
+);
+CREATE TABLE profiles_devices (
+    id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
+    profile_id INTEGER NOT NULL,
+    name TEXT NOT NULL,
+    <span class="org-builtin">type</span> INTEGER NOT NULL default 0,
+    UNIQUE (profile_id, name),
+    FOREIGN KEY (profile_id) REFERENCES profiles (id) ON DELETE CASCADE
+);
+CREATE TABLE profiles_devices_config (
+    id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
+    profile_device_id INTEGER NOT NULL,
+    key TEXT NOT NULL,
+    value TEXT,
+    UNIQUE (profile_device_id, key),
+    FOREIGN KEY (profile_device_id) REFERENCES profiles_devices (id) ON DELETE CASCADE
+);
+CREATE TABLE projects (
+    id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
+    name TEXT NOT NULL,
+    description TEXT,
+    UNIQUE (name)
+);
+CREATE TABLE projects_config (
+    id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
+    project_id INTEGER NOT NULL,
+    key TEXT NOT NULL,
+    value TEXT,
+    FOREIGN KEY (project_id) REFERENCES projects (id) ON DELETE CASCADE,
+    UNIQUE (project_id, key)
+);
+CREATE TABLE storage_pools (
+    id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
+    name TEXT NOT NULL,
+    driver TEXT NOT NULL,
+    description TEXT,
+    state INTEGER NOT NULL DEFAULT 0,
+    UNIQUE (name)
+);
+CREATE TABLE storage_pools_config (
+    id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
+    storage_pool_id INTEGER NOT NULL,
+    node_id INTEGER,
+    key TEXT NOT NULL,
+    value TEXT,
+    UNIQUE (storage_pool_id, node_id, key),
+    FOREIGN KEY (storage_pool_id) REFERENCES storage_pools (id) ON DELETE CASCADE,
+    FOREIGN KEY (node_id) REFERENCES nodes (id) ON DELETE CASCADE
+);
+CREATE TABLE storage_pools_nodes (
+    id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
+    storage_pool_id INTEGER NOT NULL,
+    node_id INTEGER NOT NULL,
+    UNIQUE (storage_pool_id, node_id),
+    FOREIGN KEY (storage_pool_id) REFERENCES storage_pools (id) ON DELETE CASCADE,
+    FOREIGN KEY (node_id) REFERENCES nodes (id) ON DELETE CASCADE
+);
+CREATE TABLE storage_volumes_config (
+    id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
+    storage_volume_id INTEGER NOT NULL,
+    key TEXT NOT NULL,
+    value TEXT,
+    UNIQUE (storage_volume_id, key),
+    FOREIGN KEY (storage_volume_id) REFERENCES storage_volumes (id) ON DELETE CASCADE
+);
+COMMIT;
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-orgcf11a9c" class="outline-3">
+<h3 id="orgcf11a9c">Local Schemas</h3>
+<div class="outline-text-3" id="text-orgcf11a9c">
+<p>
+To list local database schemas:
+</p>
+<div class="org-src-container">
+<pre class="src src-sh">lxd sql local .schema <span class="org-comment-delimiter">#</span><span class="org-comment">=&gt;</span>
+PRAGMA <span class="org-variable-name">foreign_keys</span>=OFF;
+BEGIN TRANSACTION;
+CREATE TABLE schema (
+    id         INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
+    version    INTEGER NOT NULL,
+    updated_at DATETIME NOT NULL,
+    UNIQUE (version)
+);
+INSERT INTO schema VALUES(1,38,1546788240);
+CREATE TABLE config (
+    id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
+    key VARCHAR(255) NOT NULL,
+    value TEXT,
+    UNIQUE (key)
+);
+CREATE TABLE patches (
+    id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
+    name VARCHAR(255) NOT NULL,
+    applied_at DATETIME NOT NULL,
+    UNIQUE (name)
+);
+CREATE TABLE raft_nodes (
+    id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
+    address TEXT NOT NULL,
+    UNIQUE (address)
+);
+COMMIT;
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-orgcd81dd1" class="outline-3">
+<h3 id="orgcd81dd1">Raft Nodes</h3>
+<div class="outline-text-3" id="text-orgcd81dd1">
+<div class="org-src-container">
+<pre class="src src-sh">lxd sql local <span class="org-string">'select * from raft_nodes'</span> <span class="org-comment-delimiter">#</span><span class="org-comment">=&gt;</span>
++----+-------------------+
+| id |      address      |
++----+-------------------+
+| 1  | 192.168.0.46:8443 |
+| 2  | 192.168.0.47:8443 |
+| 3  | 192.168.0.48:8443 |
++----+-------------------+
+</pre>
+</div>
+<p>
+<a href="https://github.com/CanonicalLtd/dqlite">Distributed Sqlite</a> is using raft to sync sqlite db logs.
+</p>
+</div>
+</div>
+<div id="outline-container-orgb2ae831" class="outline-3">
+<h3 id="orgb2ae831">Cluster nodes</h3>
+<div class="outline-text-3" id="text-orgb2ae831">
+<div class="org-src-container">
+<pre class="src src-sh">lxd sql global <span class="org-string">'select * from nodes'</span>
++----+-------------+-------------------+--------+----------------+--------------------------------+---------+
+| id |    name     |      address      | schema | api_extensions |           heartbeat            | pending |
++----+-------------+-------------------+--------+----------------+--------------------------------+---------+
+| 1  | hypercube01 | 192.168.0.46:8443 | 13     | 115            | 2019-01-29T12:09:42.37271017Z  | 0       |
+| 2  | hypercube02 | 192.168.0.47:8443 | 13     | 115            | 2019-01-29T12:09:42.45776374Z  | 0       |
+| 3  | hypercube03 | 192.168.0.48:8443 | 13     | 115            | 2019-01-29T12:09:42.521913386Z | 0       |
+| 4  | hypercube04 | 192.168.0.51:8443 | 13     | 115            | 2019-01-29T12:09:42.599993638Z | 0       |
+| 5  | hypercube05 | 192.168.0.30:8443 | 13     | 115            | 2019-01-29T12:09:42.661997234Z | 0       |
+| 6  | hypercube06 | 192.168.0.21:8443 | 13     | 115            | 2019-01-29T12:09:42.733539797Z | 0       |
+| 7  | hypercube07 | 192.168.0.26:8443 | 13     | 115            | 2019-01-29T12:09:42.796405819Z | 0       |
++----+-------------+-------------------+--------+----------------+--------------------------------+---------+
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-org428d1e8" class="outline-3">
+<h3 id="org428d1e8">Containers</h3>
+<div class="outline-text-3" id="text-org428d1e8">
+<div class="org-src-container">
+<pre class="src src-sh">lxd sql global <span class="org-string">'select * from containers'</span> <span class="org-comment-delimiter">#</span><span class="org-comment">=&gt;</span>
++----+---------+----------------+------------+
+| id | node_id |      name      | project_id |
++----+---------+----------------+------------+
+| 20 | 2       | grafana        | 1          |
+| 30 | 3       | go             | 1          |
+| 32 | 1       | guyujie        | 1          |
+| 33 | 4       | nginx          | 1          |
+| 36 | 1       | lxdui01        | 1          |
+| 38 | 1       | crack-mako     | 1          |
+| 39 | 5       | lxdui02        | 1          |
+| 42 | 6       | fluent-hamster | 1          |
+| 43 | 1       | b2             | 1          |
+| 44 | 2       | b3             | 1          |
++----+---------+----------------+------------+
+</pre>
+</div>
+<p>
+To select the node with least containers:
+</p>
+<div class="org-src-container">
+<pre class="src src-sh">lxd sql global <span class="org-sh-escaped-newline">\</span>
+    <span class="org-string">'select node_id, count(node_id) as node_count from containers</span>
+<span class="org-string">     group by node_id order by node_count'</span>
+</pre>
+</div>
+</div>
+</div>
+</div>
+<div id="outline-container-org32f0aeb" class="outline-2">
+<h2 id="org32f0aeb">Network</h2>
+<div class="outline-text-2" id="text-org32f0aeb">
 <p>
 Lxd can be configured to use <a href="https://wiki.ubuntu.com/FanNetworking">Ubuntu Fan Network</a>.
 </p>
@@ -272,11 +690,10 @@ ARP, Request who-has 240.0.47.99 tell 240.0.46.14, length 28
 </div>
 </div>
 </div>
-</div>
 
-<div id="outline-container-org9466a4e" class="outline-3">
-<h3 id="org9466a4e">Launch Container</h3>
-<div class="outline-text-3" id="text-org9466a4e">
+<div id="outline-container-org9466a4e" class="outline-2">
+<h2 id="org9466a4e">Launch Container</h2>
+<div class="outline-text-2" id="text-org9466a4e">
 <p>
 <code>lxc launch b --debug</code> will do:
 </p>
@@ -582,7 +999,6 @@ DBUG[01-22|14:13:42]
 </pre>
 </div></li>
 </ol>
-</div>
 </div>
 </div>
 </div>
