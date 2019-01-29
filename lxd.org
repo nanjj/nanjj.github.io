@@ -123,7 +123,7 @@
     ping 240.0.47.99 #=>
     ARP, Request who-has 240.0.47.99 tell 240.0.46.14, length 28
     #+end_src
-    On hypercube01:
+    On hypercube01 the arp request being forwarded to hypercube02:
     #+begin_src sh
       17:07:29.650323 IP 192.168.0.46.53730 > 192.168.0.47.8472
       ARP, Request who-has 240.0.47.99 tell 240.0.46.14, length 28
