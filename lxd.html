@@ -3,7 +3,7 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2019-01-29 Tue 22:43 -->
+<!-- 2019-01-30 Wed 00:13 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>LXD</title>
@@ -46,7 +46,16 @@
 </ul>
 </li>
 <li><a href="#org32f0aeb">Network</a></li>
+<li><a href="#org4da87bb">Operations</a>
+<ul>
 <li><a href="#org9466a4e">Launch Container</a></li>
+</ul>
+</li>
+<li><a href="#org6de1bf1">Ansible</a>
+<ul>
+<li><a href="#org3686cd3">Lxd connection</a></li>
+</ul>
+</li>
 </ul>
 </div>
 </div>
@@ -690,10 +699,13 @@ ARP, Request who-has 240.0.47.99 tell 240.0.46.14, length 28
 </div>
 </div>
 </div>
-
-<div id="outline-container-org9466a4e" class="outline-2">
-<h2 id="org9466a4e">Launch Container</h2>
-<div class="outline-text-2" id="text-org9466a4e">
+<div id="outline-container-org4da87bb" class="outline-2">
+<h2 id="org4da87bb">Operations</h2>
+<div class="outline-text-2" id="text-org4da87bb">
+</div>
+<div id="outline-container-org9466a4e" class="outline-3">
+<h3 id="org9466a4e">Launch Container</h3>
+<div class="outline-text-3" id="text-org9466a4e">
 <p>
 <code>lxc launch b --debug</code> will do:
 </p>
@@ -999,6 +1011,71 @@ DBUG[01-22|14:13:42]
 </pre>
 </div></li>
 </ol>
+</div>
+</div>
+</div>
+<div id="outline-container-org6de1bf1" class="outline-2">
+<h2 id="org6de1bf1">Ansible</h2>
+<div class="outline-text-2" id="text-org6de1bf1">
+</div>
+<div id="outline-container-org3686cd3" class="outline-3">
+<h3 id="org3686cd3">Lxd connection</h3>
+<div class="outline-text-3" id="text-org3686cd3">
+<p>
+Ansible has a <code>lxd</code> connection, which can be used to manage lxd
+containers.
+</p>
+<div class="org-src-container">
+<pre class="src src-conf">[<span class="org-type">lxdui</span>]
+<span class="org-variable-name">lxdui01 ansible_host</span>=lxdui01
+<span class="org-variable-name">lxdui02 ansible_host</span>=lxdui02
+[<span class="org-type">lxdui:vars</span>]
+<span class="org-variable-name">ansible_user</span>=root
+<span class="org-variable-name">ansible_connection</span>=lxd
+</pre>
+</div>
+
+<p>
+To ping:
+</p>
+<div class="org-src-container">
+<pre class="src src-sh">ansible -m ping lxdui -vvvvv <span class="org-comment-delimiter">#</span><span class="org-comment">=&gt;</span>
+
+ansible 2.7.6
+&lt;lxdui01&gt; ESTABLISH LXD CONNECTION FOR USER: root
+&lt;lxdui01&gt; EXEC /bin/sh -c <span class="org-string">'echo ~root &amp;&amp; sleep 0'</span>
+&lt;lxdui02&gt; ESTABLISH LXD CONNECTION FOR USER: root
+lxdui02 | SUCCESS =&gt; {
+    <span class="org-string">"changed"</span>: false,
+    <span class="org-string">"invocation"</span>: {
+        <span class="org-string">"module_args"</span>: {
+            <span class="org-string">"data"</span>: <span class="org-string">"pong"</span>
+        }
+    },
+    <span class="org-string">"ping"</span>: <span class="org-string">"pong"</span>
+}
+lxdui01 | SUCCESS =&gt; {
+    <span class="org-string">"changed"</span>: false,
+    <span class="org-string">"invocation"</span>: {
+        <span class="org-string">"module_args"</span>: {
+            <span class="org-string">"data"</span>: <span class="org-string">"pong"</span>
+        }
+    },
+    <span class="org-string">"ping"</span>: <span class="org-string">"pong"</span>
+}
+META: ran handlers
+META: ran handlers
+</pre>
+</div>
+
+<p>
+It can work without ssh:
+</p>
+<div class="org-src-container">
+<pre class="src src-sh"><span class="org-function-name">ansible</span> (client) -&gt; lxc (client) -&gt; lxd api(server) -&gt; lxd containers
+</pre>
+</div>
+</div>
 </div>
 </div>
 </div>

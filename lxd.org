@@ -499,285 +499,333 @@
     17:07:29.650323 IP 192.168.0.46.53730 > 192.168.0.47.8472
     ARP, Request who-has 240.0.47.99 tell 240.0.46.14, length 28
   #+end_src
+* Operations
+** Launch Container
+   =lxc launch b --debug= will do:
+   1. Get version
+      #+begin_src sh
+        DBUG[01-22|14:13:15] Connecting to a remote LXD over HTTPs
+        DBUG[01-22|14:13:15] Sending request to LXD                   method=GET url=https://192.168.0.48:8443/1.0 etag=
+        DBUG[01-22|14:13:17] Got response struct from LXD
+        DBUG[01-22|14:13:17]
+                {
+                        "config": {
+                                "cluster.https_address": "192.168.0.48:8443",
+                                "core.https_address": "192.168.0.48:8443",
+                                "core.trust_password": true
+                        },
+                        "api_extensions": [...],
+                        "api_status": "stable",
+                        "api_version": "1.0",
+                        "auth": "trusted",
+                        "public": false,
+                        "auth_methods": [
+                                "tls"
+                        ],
+                        "environment": {
+                                "addresses": [
+                                        "192.168.0.48:8443"
+                                ],
+                                "architectures": [
+                                        "x86_64",
+                                        "i686"
+                                ],
+                                "certificate": "...",
+                                "certificate_fingerprint": "...",
+                                "driver": "lxc",
+                                "driver_version": "3.1.0",
+                                "kernel": "Linux",
+                                "kernel_architecture": "x86_64",
+                                "kernel_version": "4.15.0-43-generic",
+                                "server": "lxd",
+                                "server_pid": 32645,
+                                "server_version": "3.9",
+                                "storage": "zfs",
+                                "storage_version": "0.7.5-1ubuntu16.4",
+                                "server_clustered": true,
+                                "server_name": "hypercube03",
+                                "project": "default"
+                        }
+                }
+      #+end_src
+   2. Get image
+      #+begin_src sh
+        Creating the container
+        DBUG[01-22|14:13:17] Sending request to LXD                   method=GET url=https://192.168.0.48:8443/1.0/images/aliases/b etag=
+        DBUG[01-22|14:13:19] Got response struct from LXD
+        DBUG[01-22|14:13:19]
+                {
+                        "description": "",
+                        "target": "dcbc8e3e5c2ed9fb21c3d0659a0eee004bde52fac6616bc1453717032e52a700",
+                        "name": "b"
+                }
+        DBUG[01-22|14:13:19] Sending request to LXD                   method=GET url=https://192.168.0.48:8443/1.0/images/dcbc8e3e5c2ed9fb21c3d0659a0eee004bde52fac6616bc1453717032e52a700 etag=
+        DBUG[01-22|14:13:20] Got response struct from LXD
+        DBUG[01-22|14:13:20]
+                {
+                        "auto_update": true,
+                        "properties": {
+                                "architecture": "amd64",
+                                "description": "ubuntu 18.04 LTS amd64 (release) (20190114)",
+                                "label": "release",
+                                "os": "ubuntu",
+                                "release": "bionic",
+                                "serial": "20190114",
+                                "version": "18.04"
+                        },
+                        "public": false,
+                        "aliases": [
+                                {
+                                        "name": "b",
+                                        "description": ""
+                                }
+                        ],
+                        "architecture": "x86_64",
+                        "cached": true,
+                        "filename": "ubuntu-18.04-server-cloudimg-amd64-lxd.tar.xz",
+                        "fingerprint": "dcbc8e3e5c2ed9fb21c3d0659a0eee004bde52fac6616bc1453717032e52a700",
+                        "size": 183468820,
+                        "update_source": {
+                                "alias": "b",
+                                "certificate": "",
+                                "protocol": "simplestreams",
+                                "server": "https://cloud-images.ubuntu.com/releases"
+                        },
+                        "created_at": "2019-01-14T00:00:00Z",
+                        "expires_at": "2023-04-26T00:00:00Z",
+                        "last_used_at": "2019-01-18T08:22:28.5476208Z",
+                        "uploaded_at": "2019-01-15T00:36:47.651093161Z"
+                }
+      #+end_src
+   3. Create Container Operation
+      #+begin_src sh
+        DBUG[01-22|14:13:22] Connected to the websocket
+        DBUG[01-22|14:13:22] Sending request to LXD                   method=POST url=https://192.168.0.48:8443/1.0/containers etag=
+        DBUG[01-22|14:13:22]
+                {
+                        "architecture": "",
+                        "config": {},
+                        "devices": {},
+                        "ephemeral": false,
+                        "profiles": null,
+                        "stateful": false,
+                        "description": "",
+                        "name": "",
+                        "source": {
+                                "type": "image",
+                                "certificate": "",
+                                "fingerprint": "dcbc8e3e5c2ed9fb21c3d0659a0eee004bde52fac6616bc1453717032e52a700"
+                        },
+                        "instance_type": ""
+                }
+        DBUG[01-22|14:13:24] Got operation from LXD
+        DBUG[01-22|14:13:24]
+                {
+                        "id": "1de45646-d209-413f-827a-ef7921c3c7f8",
+                        "class": "task",
+                        "description": "Creating container",
+                        "created_at": "2019-01-22T06:13:23.360302136Z",
+                        "updated_at": "2019-01-22T06:13:23.360302136Z",
+                        "status": "Running",
+                        "status_code": 103,
+                        "resources": {
+                                "containers": [
+                                        "/1.0/containers/fluent-hamster"
+                                ]
+                        },
+                        "metadata": null,
+                        "may_cancel": false,
+                        "err": ""
+                }
+      #+end_src
+   4. Wait Create Operation Done
+      #+begin_src sh
+        DBUG[01-22|14:13:24] Sending request to LXD                   method=GET url=https://192.168.0.48:8443/1.0/operations/1de45646-d209-413f-827a-ef7921c3c7f8 etag=
+        DBUG[01-22|14:13:25] Got response struct from LXD
+        DBUG[01-22|14:13:25]
+                {
+                        "id": "1de45646-d209-413f-827a-ef7921c3c7f8",
+                        "class": "task",
+                        "description": "Creating container",
+                        "created_at": "2019-01-22T06:13:23.360302136Z",
+                        "updated_at": "2019-01-22T06:13:23.360302136Z",
+                        "status": "Running",
+                        "status_code": 103,
+                        "resources": {
+                                "containers": [
+                                        "/1.0/containers/fluent-hamster"
+                                ]
+                        },
+                        "metadata": null,
+                        "may_cancel": false,
+                        "err": ""
+                }
+        Container name is: fluent-hamster
+      #+end_src
+   5. Get container
+      #+begin_src sh
+        DBUG[01-22|14:13:37] Sending request to LXD                   method=GET url=https://192.168.0.48:8443/1.0/containers/fluent-hamster etag=
+        DBUG[01-22|14:13:39] Got response struct from LXD
+        DBUG[01-22|14:13:39]
+                {
+                        "architecture": "x86_64",
+                        "config": {
+                                "image.architecture": "amd64",
+                                "image.description": "ubuntu 18.04 LTS amd64 (release) (20190114)",
+                                "image.label": "release",
+                                "image.os": "ubuntu",
+                                "image.release": "bionic",
+                                "image.serial": "20190114",
+                                "image.version": "18.04",
+                                "volatile.apply_template": "create",
+                                "volatile.base_image": "dcbc8e3e5c2ed9fb21c3d0659a0eee004bde52fac6616bc1453717032e52a700",
+                                "volatile.eth0.hwaddr": "00:16:3e:e3:bf:17",
+                                "volatile.idmap.base": "0",
+                                "volatile.idmap.next": "[{\"Isuid\":true,\"Isgid\":true,\"Hostid\":1000000,\"Nsid\":0,\"Maprange\":1000000000}]",
+                                "volatile.last_state.idmap": "[{\"Isuid\":true,\"Isgid\":true,\"Hostid\":1000000,\"Nsid\":0,\"Maprange\":1000000000}]"
+                        },
+                        "devices": {},
+                        "ephemeral": false,
+                        "profiles": [
+                                "default"
+                        ],
+                        "stateful": false,
+                        "description": "",
+                        "created_at": "2019-01-22T06:13:29.053538619Z",
+                        "expanded_config": {
+                                "image.architecture": "amd64",
+                                "image.description": "ubuntu 18.04 LTS amd64 (release) (20190114)",
+                                "image.label": "release",
+                                "image.os": "ubuntu",
+                                "image.release": "bionic",
+                                "image.serial": "20190114",
+                                "image.version": "18.04",
+                                "volatile.apply_template": "create",
+                                "volatile.base_image": "dcbc8e3e5c2ed9fb21c3d0659a0eee004bde52fac6616bc1453717032e52a700",
+                                "volatile.eth0.hwaddr": "00:16:3e:e3:bf:17",
+                                "volatile.idmap.base": "0",
+                                "volatile.idmap.next": "[{\"Isuid\":true,\"Isgid\":true,\"Hostid\":1000000,\"Nsid\":0,\"Maprange\":1000000000}]",
+                                "volatile.last_state.idmap": "[{\"Isuid\":true,\"Isgid\":true,\"Hostid\":1000000,\"Nsid\":0,\"Maprange\":1000000000}]"
+                        },
+                        "expanded_devices": {
+                                "eth0": {
+                                        "name": "eth0",
+                                        "nictype": "bridged",
+                                        "parent": "lxdfan0",
+                                        "type": "nic"
+                                },
+                                "root": {
+                                        "path": "/",
+                                        "pool": "local",
+                                        "type": "disk"
+                                }
+                        },
+                        "name": "fluent-hamster",
+                        "status": "Stopped",
+                        "status_code": 102,
+                        "last_used_at": "1970-01-01T00:00:00Z",
+                        "location": "hypercube06"
+                }
+      #+end_src
+   6. Start Container Operation
+      #+begin_src sh
+        Starting fluent-hamster
+        DBUG[01-22|14:13:39] Sending request to LXD                   method=PUT url=https://192.168.0.48:8443/1.0/containers/fluent-hamster/state etag=
+        DBUG[01-22|14:13:39]
+                {
+                        "action": "start",
+                        "timeout": -1,
+                        "force": false,
+                        "stateful": false
+                }
+        DBUG[01-22|14:13:40] Got operation from LXD
+        DBUG[01-22|14:13:40]
+                {
+                        "id": "46746a23-5873-4755-a0ad-27385370aa39",
+                        "class": "task",
+                        "description": "Starting container",
+                        "created_at": "2019-01-22T06:13:40.232324373Z",
+                        "updated_at": "2019-01-22T06:13:40.232324373Z",
+                        "status": "Running",
+                        "status_code": 103,
+                        "resources": {
+                                "containers": [
+                                        "/1.0/containers/fluent-hamster"
+                                ]
+                        },
+                        "metadata": null,
+                        "may_cancel": false,
+                        "err": ""
+                }
+      #+end_src
+   7. Wait Start Operation Done
+      #+begin_src sh
+        DBUG[01-22|14:13:40] Sending request to LXD                   method=GET url=https://192.168.0.48:8443/1.0/operations/46746a23-5873-4755-a0ad-27385370aa39 etag=
+        DBUG[01-22|14:13:42] Got response struct from LXD
+        DBUG[01-22|14:13:42]
+                {
+                        "id": "46746a23-5873-4755-a0ad-27385370aa39",
+                        "class": "task",
+                        "description": "Starting container",
+                        "created_at": "2019-01-22T06:13:40.232324373Z",
+                        "updated_at": "2019-01-22T06:13:40.232324373Z",
+                        "status": "Success",
+                        "status_code": 200,
+                        "resources": {
+                                "containers": [
+                                        "/1.0/containers/fluent-hamster"
+                                ]
+                        },
+                        "metadata": null,
+                        "may_cancel": false,
+                        "err": ""
+                }
+      #+end_src
+* Ansible
+** Lxd connection
+   Ansible has a =lxd= connection, which can be used to manage lxd
+   containers.
+   #+begin_src conf
+     [lxdui]
+     lxdui01 ansible_host=lxdui01
+     lxdui02 ansible_host=lxdui02
+     [lxdui:vars]
+     ansible_user=root
+     ansible_connection=lxd
+   #+end_src
 
-* Launch Container
-  =lxc launch b --debug= will do:
-  1. Get version
-     #+begin_src sh
-       DBUG[01-22|14:13:15] Connecting to a remote LXD over HTTPs
-       DBUG[01-22|14:13:15] Sending request to LXD                   method=GET url=https://192.168.0.48:8443/1.0 etag=
-       DBUG[01-22|14:13:17] Got response struct from LXD
-       DBUG[01-22|14:13:17]
-               {
-                       "config": {
-                               "cluster.https_address": "192.168.0.48:8443",
-                               "core.https_address": "192.168.0.48:8443",
-                               "core.trust_password": true
-                       },
-                       "api_extensions": [...],
-                       "api_status": "stable",
-                       "api_version": "1.0",
-                       "auth": "trusted",
-                       "public": false,
-                       "auth_methods": [
-                               "tls"
-                       ],
-                       "environment": {
-                               "addresses": [
-                                       "192.168.0.48:8443"
-                               ],
-                               "architectures": [
-                                       "x86_64",
-                                       "i686"
-                               ],
-                               "certificate": "...",
-                               "certificate_fingerprint": "...",
-                               "driver": "lxc",
-                               "driver_version": "3.1.0",
-                               "kernel": "Linux",
-                               "kernel_architecture": "x86_64",
-                               "kernel_version": "4.15.0-43-generic",
-                               "server": "lxd",
-                               "server_pid": 32645,
-                               "server_version": "3.9",
-                               "storage": "zfs",
-                               "storage_version": "0.7.5-1ubuntu16.4",
-                               "server_clustered": true,
-                               "server_name": "hypercube03",
-                               "project": "default"
-                       }
-               }
-     #+end_src
-  2. Get image
-     #+begin_src sh
-       Creating the container
-       DBUG[01-22|14:13:17] Sending request to LXD                   method=GET url=https://192.168.0.48:8443/1.0/images/aliases/b etag=
-       DBUG[01-22|14:13:19] Got response struct from LXD
-       DBUG[01-22|14:13:19]
-               {
-                       "description": "",
-                       "target": "dcbc8e3e5c2ed9fb21c3d0659a0eee004bde52fac6616bc1453717032e52a700",
-                       "name": "b"
-               }
-       DBUG[01-22|14:13:19] Sending request to LXD                   method=GET url=https://192.168.0.48:8443/1.0/images/dcbc8e3e5c2ed9fb21c3d0659a0eee004bde52fac6616bc1453717032e52a700 etag=
-       DBUG[01-22|14:13:20] Got response struct from LXD
-       DBUG[01-22|14:13:20]
-               {
-                       "auto_update": true,
-                       "properties": {
-                               "architecture": "amd64",
-                               "description": "ubuntu 18.04 LTS amd64 (release) (20190114)",
-                               "label": "release",
-                               "os": "ubuntu",
-                               "release": "bionic",
-                               "serial": "20190114",
-                               "version": "18.04"
-                       },
-                       "public": false,
-                       "aliases": [
-                               {
-                                       "name": "b",
-                                       "description": ""
-                               }
-                       ],
-                       "architecture": "x86_64",
-                       "cached": true,
-                       "filename": "ubuntu-18.04-server-cloudimg-amd64-lxd.tar.xz",
-                       "fingerprint": "dcbc8e3e5c2ed9fb21c3d0659a0eee004bde52fac6616bc1453717032e52a700",
-                       "size": 183468820,
-                       "update_source": {
-                               "alias": "b",
-                               "certificate": "",
-                               "protocol": "simplestreams",
-                               "server": "https://cloud-images.ubuntu.com/releases"
-                       },
-                       "created_at": "2019-01-14T00:00:00Z",
-                       "expires_at": "2023-04-26T00:00:00Z",
-                       "last_used_at": "2019-01-18T08:22:28.5476208Z",
-                       "uploaded_at": "2019-01-15T00:36:47.651093161Z"
-               }
-     #+end_src
-  3. Create Container Operation
-     #+begin_src sh
-       DBUG[01-22|14:13:22] Connected to the websocket
-       DBUG[01-22|14:13:22] Sending request to LXD                   method=POST url=https://192.168.0.48:8443/1.0/containers etag=
-       DBUG[01-22|14:13:22]
-               {
-                       "architecture": "",
-                       "config": {},
-                       "devices": {},
-                       "ephemeral": false,
-                       "profiles": null,
-                       "stateful": false,
-                       "description": "",
-                       "name": "",
-                       "source": {
-                               "type": "image",
-                               "certificate": "",
-                               "fingerprint": "dcbc8e3e5c2ed9fb21c3d0659a0eee004bde52fac6616bc1453717032e52a700"
-                       },
-                       "instance_type": ""
-               }
-       DBUG[01-22|14:13:24] Got operation from LXD
-       DBUG[01-22|14:13:24]
-               {
-                       "id": "1de45646-d209-413f-827a-ef7921c3c7f8",
-                       "class": "task",
-                       "description": "Creating container",
-                       "created_at": "2019-01-22T06:13:23.360302136Z",
-                       "updated_at": "2019-01-22T06:13:23.360302136Z",
-                       "status": "Running",
-                       "status_code": 103,
-                       "resources": {
-                               "containers": [
-                                       "/1.0/containers/fluent-hamster"
-                               ]
-                       },
-                       "metadata": null,
-                       "may_cancel": false,
-                       "err": ""
-               }
-     #+end_src
-  4. Wait Create Operation Done
-     #+begin_src sh
-       DBUG[01-22|14:13:24] Sending request to LXD                   method=GET url=https://192.168.0.48:8443/1.0/operations/1de45646-d209-413f-827a-ef7921c3c7f8 etag=
-       DBUG[01-22|14:13:25] Got response struct from LXD
-       DBUG[01-22|14:13:25]
-               {
-                       "id": "1de45646-d209-413f-827a-ef7921c3c7f8",
-                       "class": "task",
-                       "description": "Creating container",
-                       "created_at": "2019-01-22T06:13:23.360302136Z",
-                       "updated_at": "2019-01-22T06:13:23.360302136Z",
-                       "status": "Running",
-                       "status_code": 103,
-                       "resources": {
-                               "containers": [
-                                       "/1.0/containers/fluent-hamster"
-                               ]
-                       },
-                       "metadata": null,
-                       "may_cancel": false,
-                       "err": ""
-               }
-       Container name is: fluent-hamster
-     #+end_src
-  5. Get container
-     #+begin_src sh
-       DBUG[01-22|14:13:37] Sending request to LXD                   method=GET url=https://192.168.0.48:8443/1.0/containers/fluent-hamster etag=
-       DBUG[01-22|14:13:39] Got response struct from LXD
-       DBUG[01-22|14:13:39]
-               {
-                       "architecture": "x86_64",
-                       "config": {
-                               "image.architecture": "amd64",
-                               "image.description": "ubuntu 18.04 LTS amd64 (release) (20190114)",
-                               "image.label": "release",
-                               "image.os": "ubuntu",
-                               "image.release": "bionic",
-                               "image.serial": "20190114",
-                               "image.version": "18.04",
-                               "volatile.apply_template": "create",
-                               "volatile.base_image": "dcbc8e3e5c2ed9fb21c3d0659a0eee004bde52fac6616bc1453717032e52a700",
-                               "volatile.eth0.hwaddr": "00:16:3e:e3:bf:17",
-                               "volatile.idmap.base": "0",
-                               "volatile.idmap.next": "[{\"Isuid\":true,\"Isgid\":true,\"Hostid\":1000000,\"Nsid\":0,\"Maprange\":1000000000}]",
-                               "volatile.last_state.idmap": "[{\"Isuid\":true,\"Isgid\":true,\"Hostid\":1000000,\"Nsid\":0,\"Maprange\":1000000000}]"
-                       },
-                       "devices": {},
-                       "ephemeral": false,
-                       "profiles": [
-                               "default"
-                       ],
-                       "stateful": false,
-                       "description": "",
-                       "created_at": "2019-01-22T06:13:29.053538619Z",
-                       "expanded_config": {
-                               "image.architecture": "amd64",
-                               "image.description": "ubuntu 18.04 LTS amd64 (release) (20190114)",
-                               "image.label": "release",
-                               "image.os": "ubuntu",
-                               "image.release": "bionic",
-                               "image.serial": "20190114",
-                               "image.version": "18.04",
-                               "volatile.apply_template": "create",
-                               "volatile.base_image": "dcbc8e3e5c2ed9fb21c3d0659a0eee004bde52fac6616bc1453717032e52a700",
-                               "volatile.eth0.hwaddr": "00:16:3e:e3:bf:17",
-                               "volatile.idmap.base": "0",
-                               "volatile.idmap.next": "[{\"Isuid\":true,\"Isgid\":true,\"Hostid\":1000000,\"Nsid\":0,\"Maprange\":1000000000}]",
-                               "volatile.last_state.idmap": "[{\"Isuid\":true,\"Isgid\":true,\"Hostid\":1000000,\"Nsid\":0,\"Maprange\":1000000000}]"
-                       },
-                       "expanded_devices": {
-                               "eth0": {
-                                       "name": "eth0",
-                                       "nictype": "bridged",
-                                       "parent": "lxdfan0",
-                                       "type": "nic"
-                               },
-                               "root": {
-                                       "path": "/",
-                                       "pool": "local",
-                                       "type": "disk"
-                               }
-                       },
-                       "name": "fluent-hamster",
-                       "status": "Stopped",
-                       "status_code": 102,
-                       "last_used_at": "1970-01-01T00:00:00Z",
-                       "location": "hypercube06"
-               }
-     #+end_src
-  6. Start Container Operation
-     #+begin_src sh
-       Starting fluent-hamster
-       DBUG[01-22|14:13:39] Sending request to LXD                   method=PUT url=https://192.168.0.48:8443/1.0/containers/fluent-hamster/state etag=
-       DBUG[01-22|14:13:39]
-               {
-                       "action": "start",
-                       "timeout": -1,
-                       "force": false,
-                       "stateful": false
-               }
-       DBUG[01-22|14:13:40] Got operation from LXD
-       DBUG[01-22|14:13:40]
-               {
-                       "id": "46746a23-5873-4755-a0ad-27385370aa39",
-                       "class": "task",
-                       "description": "Starting container",
-                       "created_at": "2019-01-22T06:13:40.232324373Z",
-                       "updated_at": "2019-01-22T06:13:40.232324373Z",
-                       "status": "Running",
-                       "status_code": 103,
-                       "resources": {
-                               "containers": [
-                                       "/1.0/containers/fluent-hamster"
-                               ]
-                       },
-                       "metadata": null,
-                       "may_cancel": false,
-                       "err": ""
-               }
-     #+end_src
-  7. Wait Start Operation Done
-     #+begin_src sh
-       DBUG[01-22|14:13:40] Sending request to LXD                   method=GET url=https://192.168.0.48:8443/1.0/operations/46746a23-5873-4755-a0ad-27385370aa39 etag=
-       DBUG[01-22|14:13:42] Got response struct from LXD
-       DBUG[01-22|14:13:42]
-               {
-                       "id": "46746a23-5873-4755-a0ad-27385370aa39",
-                       "class": "task",
-                       "description": "Starting container",
-                       "created_at": "2019-01-22T06:13:40.232324373Z",
-                       "updated_at": "2019-01-22T06:13:40.232324373Z",
-                       "status": "Success",
-                       "status_code": 200,
-                       "resources": {
-                               "containers": [
-                                       "/1.0/containers/fluent-hamster"
-                               ]
-                       },
-                       "metadata": null,
-                       "may_cancel": false,
-                       "err": ""
-               }
-     #+end_src
+   To ping:
+   #+begin_src sh
+     ansible -m ping lxdui -vvvvv #=>
+
+     ansible 2.7.6
+     <lxdui01> ESTABLISH LXD CONNECTION FOR USER: root
+     <lxdui01> EXEC /bin/sh -c 'echo ~root && sleep 0'
+     <lxdui02> ESTABLISH LXD CONNECTION FOR USER: root
+     lxdui02 | SUCCESS => {
+         "changed": false,
+         "invocation": {
+             "module_args": {
+                 "data": "pong"
+             }
+         },
+         "ping": "pong"
+     }
+     lxdui01 | SUCCESS => {
+         "changed": false,
+         "invocation": {
+             "module_args": {
+                 "data": "pong"
+             }
+         },
+         "ping": "pong"
+     }
+     META: ran handlers
+     META: ran handlers
+   #+end_src
+
+   It can work without ssh:
+   #+begin_src sh
+     ansible (client) -> lxc (client) -> lxd api(server) -> lxd containers
+   #+end_src
+   
