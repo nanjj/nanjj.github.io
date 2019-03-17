@@ -3,61 +3,61 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2018-07-27 Fri 13:34 -->
+<!-- 2019-03-17 Sun 23:34 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Some Tips</title>
+<title>Tips</title>
 <meta name="generator" content="Org mode" />
 <meta name="author" content="JUNJIE NAN" />
 <link rel="stylesheet" type="text/css" href="css/org.css" />
 </head>
 <body>
 <div id="org-div-home-and-up">
- <a accesskey="h" href="index.html"> UP </a> | 
+ <a accesskey="h" href="index.html"> UP </a> |
  <a accesskey="H" href="index.html"> HOME </a>
 </div><div id="content">
-<h1 class="title">Some Tips</h1>
+<h1 class="title">Tips</h1>
 <div id="table-of-contents">
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents">
 <ul>
-<li><a href="#orgc5d8611">Linux Kernel</a>
+<li><a href="#orgd915b4f">Linux Kernel</a>
 <ul>
-<li><a href="#org8a336d8">Mount tmpfs</a></li>
-<li><a href="#org22c9124">Enable ccache</a></li>
-<li><a href="#orgd14f0d5">Enable distcc</a></li>
-<li><a href="#orge6adf97">Build</a></li>
+<li><a href="#orge704cb2">Mount tmpfs</a></li>
+<li><a href="#orgecbf43a">Enable ccache</a></li>
+<li><a href="#orga6f642d">Enable distcc</a></li>
+<li><a href="#org8d44dbc">Build</a></li>
 </ul>
 </li>
-<li><a href="#org3dbe3e4">Ssh</a>
+<li><a href="#org3bf3055">Ssh</a>
 <ul>
-<li><a href="#orgf78dd43">Using SSH Multiplexing</a></li>
+<li><a href="#org6a09c52">Using SSH Multiplexing</a></li>
 </ul>
 </li>
-<li><a href="#orgb17daf4">QEMU</a>
+<li><a href="#org33b955f">QEMU</a>
 <ul>
-<li><a href="#orgf324ee3">which nic models qemu supports?</a></li>
-<li><a href="#org104c2b1">Quit qemu <code>C-A C</code>.</a></li>
+<li><a href="#org6967c34">which nic models qemu supports?</a></li>
+<li><a href="#org205b708">Quit qemu <code>C-A C</code>.</a></li>
 </ul>
 </li>
-<li><a href="#org06f6745">Ncat</a>
+<li><a href="#orgd3fc545">Ncat</a>
 <ul>
-<li><a href="#org82af2c1">Install</a></li>
-<li><a href="#org61133d9">Transfer Single File</a></li>
-<li><a href="#orgf05fee4">Transfer Multiple Files</a></li>
-<li><a href="#orgabdf628">Http Proxy</a></li>
-<li><a href="#org766b43a">Proxy Ssh</a></li>
-<li><a href="#orgf4a22de">Proxy Ansible</a></li>
+<li><a href="#org87f0e70">Install</a></li>
+<li><a href="#orgb55cb39">Transfer Single File</a></li>
+<li><a href="#org28d51f2">Transfer Multiple Files</a></li>
+<li><a href="#org19f2c76">Http Proxy</a></li>
+<li><a href="#orgd738acf">Proxy Ssh</a></li>
+<li><a href="#org26e52a1">Proxy Ansible</a></li>
 </ul>
 </li>
-<li><a href="#org9de6bc5">Permission Bits</a></li>
+<li><a href="#org4741aa2">Permission Bits</a></li>
 </ul>
 </div>
 </div>
 
-<div id="outline-container-orgc5d8611" class="outline-2">
-<h2 id="orgc5d8611">Linux Kernel</h2>
-<div class="outline-text-2" id="text-orgc5d8611">
+<div id="outline-container-orgd915b4f" class="outline-2">
+<h2 id="orgd915b4f">Linux Kernel</h2>
+<div class="outline-text-2" id="text-orgd915b4f">
 <p>
 Kernel building takes too long time. We can use below methods
 together to speed up the process:
@@ -70,9 +70,9 @@ together to speed up the process:
 </ol>
 </div>
 
-<div id="outline-container-org8a336d8" class="outline-3">
-<h3 id="org8a336d8">Mount tmpfs</h3>
-<div class="outline-text-3" id="text-org8a336d8">
+<div id="outline-container-orge704cb2" class="outline-3">
+<h3 id="orge704cb2">Mount tmpfs</h3>
+<div class="outline-text-3" id="text-orge704cb2">
 <div class="org-src-container">
 <pre class="src src-sh">mkdir src .ccache
 mount -t tmpfs -o <span class="org-variable-name">size</span>=30G,<span class="org-variable-name">mode</span>=0755 tmpfs src
@@ -85,9 +85,9 @@ Speed up kernel building via <code>ccache</code> and <code>distcc</code>:
 </div>
 </div>
 
-<div id="outline-container-org22c9124" class="outline-3">
-<h3 id="org22c9124">Enable ccache</h3>
-<div class="outline-text-3" id="text-org22c9124">
+<div id="outline-container-orgecbf43a" class="outline-3">
+<h3 id="orgecbf43a">Enable ccache</h3>
+<div class="outline-text-3" id="text-orgecbf43a">
 <div class="org-src-container">
 <pre class="src src-sh">apt-get install ccache
 </pre>
@@ -95,9 +95,9 @@ Speed up kernel building via <code>ccache</code> and <code>distcc</code>:
 </div>
 </div>
 
-<div id="outline-container-orgd14f0d5" class="outline-3">
-<h3 id="orgd14f0d5">Enable distcc</h3>
-<div class="outline-text-3" id="text-orgd14f0d5">
+<div id="outline-container-orga6f642d" class="outline-3">
+<h3 id="orga6f642d">Enable distcc</h3>
+<div class="outline-text-3" id="text-orga6f642d">
 <div class="org-src-container">
 <pre class="src src-sh">apt-get install distcc
 <span class="org-builtin">echo</span> 10.113.111.160 10.113.111.187 &gt;&gt; /etc/distcc/hosts
@@ -120,9 +120,9 @@ systemctl restart distcc
 </div>
 </div>
 </div>
-<div id="outline-container-orge6adf97" class="outline-3">
-<h3 id="orge6adf97">Build</h3>
-<div class="outline-text-3" id="text-orge6adf97">
+<div id="outline-container-org8d44dbc" class="outline-3">
+<h3 id="org8d44dbc">Build</h3>
+<div class="outline-text-3" id="text-org8d44dbc">
 <p>
 Build ubuntu kernel <code>Ubuntu-4.4.0-102.125</code> as below:
 </p>
@@ -147,13 +147,13 @@ It takes around 9 minutes on my machine.
 </div>
 
 
-<div id="outline-container-org3dbe3e4" class="outline-2">
-<h2 id="org3dbe3e4">Ssh</h2>
-<div class="outline-text-2" id="text-org3dbe3e4">
+<div id="outline-container-org3bf3055" class="outline-2">
+<h2 id="org3bf3055">Ssh</h2>
+<div class="outline-text-2" id="text-org3bf3055">
 </div>
-<div id="outline-container-orgf78dd43" class="outline-3">
-<h3 id="orgf78dd43"><a href="https://blog.scottlowe.org/2015/12/11/using-ssh-multiplexing/">Using SSH Multiplexing</a></h3>
-<div class="outline-text-3" id="text-orgf78dd43">
+<div id="outline-container-org6a09c52" class="outline-3">
+<h3 id="org6a09c52"><a href="https://blog.scottlowe.org/2015/12/11/using-ssh-multiplexing/">Using SSH Multiplexing</a></h3>
+<div class="outline-text-3" id="text-org6a09c52">
 <pre class="example">
 ControlMaster auto
 ControlPath ~/.ssh/sockets/%r@%h-%p
@@ -163,13 +163,13 @@ ControlPersist 600
 </div>
 </div>
 
-<div id="outline-container-orgb17daf4" class="outline-2">
-<h2 id="orgb17daf4">QEMU</h2>
-<div class="outline-text-2" id="text-orgb17daf4">
+<div id="outline-container-org33b955f" class="outline-2">
+<h2 id="org33b955f">QEMU</h2>
+<div class="outline-text-2" id="text-org33b955f">
 </div>
-<div id="outline-container-orgf324ee3" class="outline-3">
-<h3 id="orgf324ee3">which nic models qemu supports?</h3>
-<div class="outline-text-3" id="text-orgf324ee3">
+<div id="outline-container-org6967c34" class="outline-3">
+<h3 id="org6967c34">which nic models qemu supports?</h3>
+<div class="outline-text-3" id="text-org6967c34">
 <div class="org-src-container">
 <pre class="src src-sh">qemu-system-x86_64 -net nic,<span class="org-variable-name">model</span>=?
 <span class="org-comment-delimiter">#</span><span class="org-comment">=&gt;</span>
@@ -178,14 +178,14 @@ qemu: Supported NIC models: ne2k_pci,i82551,i82557b,i82559er,rtl8139,e1000,pcnet
 </div>
 </div>
 </div>
-<div id="outline-container-org104c2b1" class="outline-3">
-<h3 id="org104c2b1">Quit qemu <code>C-A C</code>.</h3>
+<div id="outline-container-org205b708" class="outline-3">
+<h3 id="org205b708">Quit qemu <code>C-A C</code>.</h3>
 </div>
 </div>
 
-<div id="outline-container-org06f6745" class="outline-2">
-<h2 id="org06f6745">Ncat</h2>
-<div class="outline-text-2" id="text-org06f6745">
+<div id="outline-container-orgd3fc545" class="outline-2">
+<h2 id="orgd3fc545">Ncat</h2>
+<div class="outline-text-2" id="text-orgd3fc545">
 <p>
 <a href="https://nmap.org/ncat/">Ncat</a> is a general-purpose command-line tool for reading, writing,
 redirecting, and encrypting data across a network. It is along with
@@ -193,9 +193,9 @@ redirecting, and encrypting data across a network. It is along with
 </p>
 </div>
 
-<div id="outline-container-org82af2c1" class="outline-3">
-<h3 id="org82af2c1">Install</h3>
-<div class="outline-text-3" id="text-org82af2c1">
+<div id="outline-container-org87f0e70" class="outline-3">
+<h3 id="org87f0e70">Install</h3>
+<div class="outline-text-3" id="text-org87f0e70">
 <p>
 To install ncat just install nmap, Ubuntu:
 </p>
@@ -217,9 +217,9 @@ Here some tips from me.
 </div>
 </div>
 
-<div id="outline-container-org61133d9" class="outline-3">
-<h3 id="org61133d9">Transfer Single File</h3>
-<div class="outline-text-3" id="text-org61133d9">
+<div id="outline-container-orgb55cb39" class="outline-3">
+<h3 id="orgb55cb39">Transfer Single File</h3>
+<div class="outline-text-3" id="text-orgb55cb39">
 <p>
 Transfer single file:
 </p>
@@ -233,9 +233,9 @@ ncat &lt;machine A ip&gt; 80 --recv-only &gt; file
 </div>
 </div>
 
-<div id="outline-container-orgf05fee4" class="outline-3">
-<h3 id="orgf05fee4">Transfer Multiple Files</h3>
-<div class="outline-text-3" id="text-orgf05fee4">
+<div id="outline-container-org28d51f2" class="outline-3">
+<h3 id="org28d51f2">Transfer Multiple Files</h3>
+<div class="outline-text-3" id="text-org28d51f2">
 <p>
 Transfer multiple files:
 </p>
@@ -256,11 +256,11 @@ done
 </div>
 </div>
 
-<div id="outline-container-orgabdf628" class="outline-3">
-<h3 id="orgabdf628">Http Proxy</h3>
-<div class="outline-text-3" id="text-orgabdf628">
+<div id="outline-container-org19f2c76" class="outline-3">
+<h3 id="org19f2c76">Http Proxy</h3>
+<div class="outline-text-3" id="text-org19f2c76">
 <p>
-Ncat can act as a http proxy server, which 
+Ncat can act as a http proxy server, which
 </p>
 
 <p>
@@ -305,9 +305,9 @@ ncat to access the world. It's safe, simple, stable and fast.
 </div>
 </div>
 
-<div id="outline-container-org766b43a" class="outline-3">
-<h3 id="org766b43a">Proxy Ssh</h3>
-<div class="outline-text-3" id="text-org766b43a">
+<div id="outline-container-orgd738acf" class="outline-3">
+<h3 id="orgd738acf">Proxy Ssh</h3>
+<div class="outline-text-3" id="text-orgd738acf">
 <p>
 Ncat http proxy mode support <code>CONNECT</code> method also. So it can be
 used as a ssh proxy:
@@ -337,9 +337,9 @@ ProxyCommand: ncat --proxy 127.0.0.1:8888 %h %p
 </div>
 </div>
 
-<div id="outline-container-orgf4a22de" class="outline-3">
-<h3 id="orgf4a22de">Proxy Ansible</h3>
-<div class="outline-text-3" id="text-orgf4a22de">
+<div id="outline-container-org26e52a1" class="outline-3">
+<h3 id="org26e52a1">Proxy Ansible</h3>
+<div class="outline-text-3" id="text-org26e52a1">
 <p>
 You can run ansible with below configuration in your inventory:
 </p>
@@ -352,9 +352,9 @@ ansible_ssh_common_args='-o ProxyCommand="ncat --proxy 127.0.0.1:8888 %h %p"'
 </div>
 </div>
 
-<div id="outline-container-org9de6bc5" class="outline-2">
-<h2 id="org9de6bc5">Permission Bits</h2>
-<div class="outline-text-2" id="text-org9de6bc5">
+<div id="outline-container-org4741aa2" class="outline-2">
+<h2 id="org4741aa2">Permission Bits</h2>
+<div class="outline-text-2" id="text-org4741aa2">
 <table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
 <caption class="t-above"><span class="table-number">Table 1:</span> Read, write and execute permissions</caption>
 

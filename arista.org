@@ -3,7 +3,7 @@
 
 * vEOS Image
 
-** Download  
+** Download
   Download below files:
 
   1. =Aboot-veos-8.0.0.iso=,
@@ -60,7 +60,7 @@
          --nic net-id=7c072643-2170-4a46-9dc2-e04f5f427f72 \
          --block-device \
          id=ba02703d-6d2b-40a8-bdb7-bf41163d78f7,source=image,bus=ide,dest=volume,size=4,shutdown=remove \
-         veosvm1  
+         veosvm1
    #+END_SRC
 
 ** Notices
@@ -76,7 +76,7 @@
   Get vm's novnc console:
 
   #+BEGIN_SRC sh
-    nova get-vnc-console veosvm1 novnc  
+    nova get-vnc-console veosvm1 novnc
   #+END_SRC
 
   Go to the novnc console to configure network:
@@ -142,7 +142,7 @@ Now you can use ssh =ssh admin@192.168.0.15= to login.
 ** Napalm
 
    So that netbox can talk to vEOS via napalm:
-  
+
    #+BEGIN_SRC ditaa :file napalm.png :cmdline -E :exports code
      +--------------------+             +---------------------+
      |      netbox        |             |   arista veos       |
@@ -160,7 +160,7 @@ Now you can use ssh =ssh admin@192.168.0.15= to login.
 * A Clasic Configuration
 
 ** Topology
-  
+
    #+BEGIN_SRC ditaa :file arista.png :cmdline -E :exports code
      +-----------------+                  +-----------------+
      |   arista 0  et2 +------vlan30------+ et2 arista 1    |
@@ -185,7 +185,7 @@ Now you can use ssh =ssh admin@192.168.0.15= to login.
    #+RESULTS:
   [[file:arista.png]]
 
-** Create Topology   
+** Create Topology
 
    #+BEGIN_SRC yaml
      ---
@@ -250,7 +250,7 @@ Now you can use ssh =ssh admin@192.168.0.15= to login.
            network: vlan20
 
    #+END_SRC
-   
+
 ** Configure Arista 0
 
    #+BEGIN_SRC sh
@@ -284,9 +284,9 @@ Now you can use ssh =ssh admin@192.168.0.15= to login.
      network 172.16.10.0/24 area 0
      network 172.16.30.0/24 area 0
 
-     end  
+     end
    #+END_SRC
-  
+
 ** Configure Arista 1
 
    #+BEGIN_SRC sh
@@ -324,7 +324,7 @@ Now you can use ssh =ssh admin@192.168.0.15= to login.
    #+END_SRC
 
 ** Test
-   
+
    login vm-0 and ping vm-1.
 * Tips
 
