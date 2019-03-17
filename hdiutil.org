@@ -1,4 +1,4 @@
-#+TITLE: How to Manipulate Disk Images Under Mac
+#+TITLE: Manipulate Disk Images Under Mac
 
 By default, file system under Mac is case insensitive. It may cause
 trouble when you work with some projects like Linux Kernel. To solve
@@ -16,7 +16,7 @@ Say we want to create disk image at =/usr/local=, and attach it to
 
   Image =src.sparseimage= will be created, with case sensitive
   journaled file system and the size limit 20G.
-  
+
 * Attach Disk Image
 
   #+BEGIN_SRC sh
@@ -38,8 +38,7 @@ Say we want to create disk image at =/usr/local=, and attach it to
 * Resize Disk Image If needed
 
   If =20G= is not enough you can resize the image:
-  
+
   #+BEGIN_SRC sh
     $ hdiutil resize -size 20G src.sparseimage
   #+END_SRC
-

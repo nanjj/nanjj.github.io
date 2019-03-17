@@ -1,4 +1,4 @@
-#+TITLE: Netmap Learning
+#+TITLE: Netmap
 #+Date: <2017-11-07 Tue>
 #+LINK: pcap  http://yuba.stanford.edu/~casado/pcap/section1.html
 #+LINK: stack-receiving https://blog.packagecloud.io/eng/2016/06/22/monitoring-tuning-linux-networking-stack-receiving-data/
@@ -15,7 +15,7 @@
 [[netmap-page:][Netmap]] is a framework for very fast packet I/O from userspace.
 
 * Netmap Vale
-** Vale Behavior  
+** Vale Behavior
    Netmap vale is a high performance switch. It learns MAC addresses
    from ether source header. Ether header format:
    #+BEGIN_SRC artist
@@ -27,7 +27,7 @@
 
    There are 3 Types of MAC address:
    1. Broadcast
-     
+
       The only one: =ff:ff:ff:ff:ff:ff=
    2. Multicast
 
@@ -35,14 +35,14 @@
    3. Unicast
 
       like =?x:??:??:??:??:??=, here x=0,2,4,6,8,a,c,e
-  
+
    Vale switch forwards packets to all ports(except the one to send the
    packets) if the destination MAC address is type of:
    1. Broadcast,
    2. Multicast,
    3. Unicast but the mac addresses is not in the vale switch or is not
       learned by the vale switch.
-  
+
    If the destination MAC address is unicast type and the MAC address
    is learned by value, vale forwards packets to the port with the mac
    address.
@@ -96,7 +96,7 @@
     #+BEGIN_SRC sh
     pkt-gen -i vale0:vi2 -f rx
     #+END_SRC
-   
+
 ** Broadcast and Multicast
 *** Prepare Vale
 
@@ -164,7 +164,7 @@
       done
     #+END_SRC
 
-*** Test Vale Port Number  
+*** Test Vale Port Number
 
     Attach 254 ports in 1 vale:
     #+BEGIN_SRC sh
@@ -177,7 +177,7 @@
       vale-test detach 1 254
     #+END_SRC
 
-*** Test Vale Number   
+*** Test Vale Number
 
     Create 8 ports and attach 1 port for each:
     #+BEGIN_SRC sh
@@ -216,7 +216,7 @@
 ** Sample Code: nmpipe.c
 
    Sample code:
-   
+
    #+BEGIN_SRC c -n
      /*
       ,* nmpipe:
@@ -346,7 +346,7 @@
      # One terminal
      nmpipe netmap:pipe{0
      # Another terminal
-     nmpipe netmap:pipe}0                   
+     nmpipe netmap:pipe}0
      # Type anything and watch
    #+END_SRC
    Or use =pv= to measure pipe speed:

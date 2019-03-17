@@ -1,4 +1,4 @@
-#+TITLE: Some Tips
+#+TITLE: Tips
 #+DATE: <2017-12-20 Mon>
 #+LINK: ncat https://nmap.org/ncat/
 #+LINK: ncat guide https://nmap.org/ncat/guide/index.html
@@ -105,7 +105,7 @@
 ** Transfer Single File
 
   Transfer single file:
-  
+
   #+BEGIN_EXAMPLE
     # on machine A
     ncat -p 80 -l --send-only < file
@@ -113,8 +113,8 @@
     ncat <machine A ip> 80 --recv-only > file
   #+END_EXAMPLE
 
-** Transfer Multiple Files  
-  
+** Transfer Multiple Files
+
    Transfer multiple files:
 
    #+BEGIN_EXAMPLE
@@ -133,8 +133,8 @@
 
 ** Http Proxy
 
-   Ncat can act as a http proxy server, which 
-  
+   Ncat can act as a http proxy server, which
+
    Run:
 
   #+BEGIN_EXAMPLE
@@ -218,4 +218,3 @@
   | rwx------  |  0700 | User       |
   | ---rwx---  |  0070 | Group      |
   | ------rwx  |  0007 | All Others |
-
