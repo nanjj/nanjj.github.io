@@ -3,7 +3,7 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2019-03-17 Sun 23:34 -->
+<!-- 2019-03-18 Mon 00:30 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Manipulate Disk Images Under Mac</title>
@@ -21,10 +21,10 @@
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents">
 <ul>
-<li><a href="#orgeb92d42">Create Disk Image</a></li>
-<li><a href="#org50cfe3b">Attach Disk Image</a></li>
-<li><a href="#org6f5715c">Detach Disk Image</a></li>
-<li><a href="#org8dd1a5e">Resize Disk Image If needed</a></li>
+<li><a href="#orgf65d27f">Create Disk Image</a></li>
+<li><a href="#org463005c">Attach Disk Image</a></li>
+<li><a href="#orgc889566">Detach Disk Image</a></li>
+<li><a href="#org4b58e96">Resize Disk Image If needed</a></li>
 </ul>
 </div>
 </div>
@@ -40,9 +40,9 @@ Say we want to create disk image at <code>/usr/local</code>, and attach it to
 <code>/usr/local/src</code>. All operations are executed under <code>/usr/local</code>.
 </p>
 
-<div id="outline-container-orgeb92d42" class="outline-2">
-<h2 id="orgeb92d42">Create Disk Image</h2>
-<div class="outline-text-2" id="text-orgeb92d42">
+<div id="outline-container-orgf65d27f" class="outline-2">
+<h2 id="orgf65d27f">Create Disk Image</h2>
+<div class="outline-text-2" id="text-orgf65d27f">
 <div class="org-src-container">
 <pre class="src src-sh">$ hdiutil create -size 10G src -type SPARSE -fs <span class="org-string">'Case-sensitive Journaled HFS+'</span> -volname src
 </pre>
@@ -55,9 +55,9 @@ journaled file system and the size limit 20G.
 </div>
 </div>
 
-<div id="outline-container-org50cfe3b" class="outline-2">
-<h2 id="org50cfe3b">Attach Disk Image</h2>
-<div class="outline-text-2" id="text-org50cfe3b">
+<div id="outline-container-org463005c" class="outline-2">
+<h2 id="org463005c">Attach Disk Image</h2>
+<div class="outline-text-2" id="text-org463005c">
 <div class="org-src-container">
 <pre class="src src-sh">$ mkdir src
 $ hdiutil attach -mountpoint src src.sparseimage <span class="org-comment-delimiter">#</span><span class="org-comment">=&gt;</span>
@@ -69,9 +69,9 @@ $ hdiutil attach -mountpoint src src.sparseimage <span class="org-comment-delimi
 </div>
 </div>
 
-<div id="outline-container-org6f5715c" class="outline-2">
-<h2 id="org6f5715c">Detach Disk Image</h2>
-<div class="outline-text-2" id="text-org6f5715c">
+<div id="outline-container-orgc889566" class="outline-2">
+<h2 id="orgc889566">Detach Disk Image</h2>
+<div class="outline-text-2" id="text-orgc889566">
 <div class="org-src-container">
 <pre class="src src-sh">$ hdiutil detach src <span class="org-comment-delimiter">#</span><span class="org-comment">=&gt;</span>
 <span class="org-string">"disk4"</span> unmounted.
@@ -81,9 +81,9 @@ $ hdiutil attach -mountpoint src src.sparseimage <span class="org-comment-delimi
 </div>
 </div>
 
-<div id="outline-container-org8dd1a5e" class="outline-2">
-<h2 id="org8dd1a5e">Resize Disk Image If needed</h2>
-<div class="outline-text-2" id="text-org8dd1a5e">
+<div id="outline-container-org4b58e96" class="outline-2">
+<h2 id="org4b58e96">Resize Disk Image If needed</h2>
+<div class="outline-text-2" id="text-org4b58e96">
 <p>
 If <code>20G</code> is not enough you can resize the image:
 </p>
