@@ -3,12 +3,18 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2019-03-18 Mon 00:30 -->
+<!-- 2019-03-18 Mon 11:58 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Running Arista vEOS in OpenStack</title>
 <meta name="generator" content="Org mode" />
 <meta name="author" content="JUNJIE NAN" />
+<script>
+  ((window.gitter = {}).chat = {}).options = {
+    room: 'nanjj/nanjj.github.io'
+  };
+</script>
+<script src='https://sidecar.gitter.im/dist/sidecar.v1.js' async defer></script>
 <link rel="stylesheet" type="text/css" href="css/org.css" />
 </head>
 <body>
@@ -21,48 +27,48 @@
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents">
 <ul>
-<li><a href="#orga9a6fc8">vEOS Image</a>
+<li><a href="#org785a7bf">vEOS Image</a>
 <ul>
-<li><a href="#org3b7c17b">Download</a></li>
-<li><a href="#org0cb7442">Upload</a></li>
-<li><a href="#orgf2b1491">List images</a></li>
+<li><a href="#org0228cee">Download</a></li>
+<li><a href="#org62898c0">Upload</a></li>
+<li><a href="#orgdf2e049">List images</a></li>
 </ul>
 </li>
-<li><a href="#org755f9f2">Boot vEOS VM</a>
+<li><a href="#org53ca14b">Boot vEOS VM</a>
 <ul>
-<li><a href="#org85eb4d6">Prerequisite</a></li>
-<li><a href="#org966b64d">Boot VM</a></li>
-<li><a href="#org3240045">Notices</a></li>
+<li><a href="#org1b744f7">Prerequisite</a></li>
+<li><a href="#org3583dd5">Boot VM</a></li>
+<li><a href="#orga4b207e">Notices</a></li>
 </ul>
 </li>
-<li><a href="#org4d98449">Enable SSH</a></li>
-<li><a href="#orgcf71e25">Netbox Integration</a>
+<li><a href="#org3617e0f">Enable SSH</a></li>
+<li><a href="#org7445f7e">Netbox Integration</a>
 <ul>
-<li><a href="#org4344c39">Enable Management Api</a></li>
-<li><a href="#org88042da">Napalm</a></li>
+<li><a href="#org871c6d8">Enable Management Api</a></li>
+<li><a href="#org36a0e21">Napalm</a></li>
 </ul>
 </li>
-<li><a href="#orgd2eeb37">A Clasic Configuration</a>
+<li><a href="#orgb3eed85">A Clasic Configuration</a>
 <ul>
-<li><a href="#orge6fbb94">Topology</a></li>
-<li><a href="#orgb4c4df6">Create Topology</a></li>
-<li><a href="#orga70f16a">Configure Arista 0</a></li>
-<li><a href="#org5bf60c6">Configure Arista 1</a></li>
-<li><a href="#orgfa50f6b">Test</a></li>
+<li><a href="#org6b6a57c">Topology</a></li>
+<li><a href="#orgc071812">Create Topology</a></li>
+<li><a href="#org3aab3fe">Configure Arista 0</a></li>
+<li><a href="#org7aa9de1">Configure Arista 1</a></li>
+<li><a href="#orgc45a917">Test</a></li>
 </ul>
 </li>
-<li><a href="#orgf5d935a">Tips</a></li>
+<li><a href="#org019487d">Tips</a></li>
 </ul>
 </div>
 </div>
 
-<div id="outline-container-orga9a6fc8" class="outline-2">
-<h2 id="orga9a6fc8">vEOS Image</h2>
-<div class="outline-text-2" id="text-orga9a6fc8">
+<div id="outline-container-org785a7bf" class="outline-2">
+<h2 id="org785a7bf">vEOS Image</h2>
+<div class="outline-text-2" id="text-org785a7bf">
 </div>
-<div id="outline-container-org3b7c17b" class="outline-3">
-<h3 id="org3b7c17b">Download</h3>
-<div class="outline-text-3" id="text-org3b7c17b">
+<div id="outline-container-org0228cee" class="outline-3">
+<h3 id="org0228cee">Download</h3>
+<div class="outline-text-3" id="text-org0228cee">
 <p>
 Download below files:
 </p>
@@ -78,9 +84,9 @@ from: <a href="https://www.arista.com/en/support/software-download">https://www.
 </div>
 </div>
 
-<div id="outline-container-org0cb7442" class="outline-3">
-<h3 id="org0cb7442">Upload</h3>
-<div class="outline-text-3" id="text-org0cb7442">
+<div id="outline-container-org62898c0" class="outline-3">
+<h3 id="org62898c0">Upload</h3>
+<div class="outline-text-3" id="text-org62898c0">
 <p>
 Upload to OpenStack Glance:
 </p>
@@ -98,9 +104,9 @@ openstack image create vEOS-lab-4.20.1F.vmdk <span class="org-sh-escaped-newline
 </div>
 </div>
 
-<div id="outline-container-orgf2b1491" class="outline-3">
-<h3 id="orgf2b1491">List images</h3>
-<div class="outline-text-3" id="text-orgf2b1491">
+<div id="outline-container-orgdf2e049" class="outline-3">
+<h3 id="orgdf2e049">List images</h3>
+<div class="outline-text-3" id="text-orgdf2e049">
 <div class="org-src-container">
 <pre class="src src-sh">openstack image list
 <span class="org-comment-delimiter">#</span><span class="org-comment">=&gt;</span>
@@ -114,13 +120,13 @@ openstack image create vEOS-lab-4.20.1F.vmdk <span class="org-sh-escaped-newline
 </div>
 </div>
 
-<div id="outline-container-org755f9f2" class="outline-2">
-<h2 id="org755f9f2">Boot vEOS VM</h2>
-<div class="outline-text-2" id="text-org755f9f2">
+<div id="outline-container-org53ca14b" class="outline-2">
+<h2 id="org53ca14b">Boot vEOS VM</h2>
+<div class="outline-text-2" id="text-org53ca14b">
 </div>
-<div id="outline-container-org85eb4d6" class="outline-3">
-<h3 id="org85eb4d6">Prerequisite</h3>
-<div class="outline-text-3" id="text-org85eb4d6">
+<div id="outline-container-org1b744f7" class="outline-3">
+<h3 id="org1b744f7">Prerequisite</h3>
+<div class="outline-text-3" id="text-org1b744f7">
 <p>
 Before boot VM, make sure:
 </p>
@@ -141,9 +147,9 @@ A workaround to disable ebtables:
 </div>
 </div>
 
-<div id="outline-container-org966b64d" class="outline-3">
-<h3 id="org966b64d">Boot VM</h3>
-<div class="outline-text-3" id="text-org966b64d">
+<div id="outline-container-org3583dd5" class="outline-3">
+<h3 id="org3583dd5">Boot VM</h3>
+<div class="outline-text-3" id="text-org3583dd5">
 <div class="org-src-container">
 <pre class="src src-sh">nova boot --flavor m1.medium <span class="org-sh-escaped-newline">\</span>
     --image Aboot-veos-8.0.0.iso <span class="org-sh-escaped-newline">\</span>
@@ -158,9 +164,9 @@ A workaround to disable ebtables:
 </div>
 </div>
 
-<div id="outline-container-org3240045" class="outline-3">
-<h3 id="org3240045">Notices</h3>
-<div class="outline-text-3" id="text-org3240045">
+<div id="outline-container-orga4b207e" class="outline-3">
+<h3 id="orga4b207e">Notices</h3>
+<div class="outline-text-3" id="text-orga4b207e">
 <ol class="org-ol">
 <li>The first network is for vEOS management port, the left are for
 vEOS switch ports,</li>
@@ -172,9 +178,9 @@ option is the image id of glance image vEOS-lab-4.20.1F.vmdk,</li>
 </div>
 </div>
 
-<div id="outline-container-org4d98449" class="outline-2">
-<h2 id="org4d98449">Enable SSH</h2>
-<div class="outline-text-2" id="text-org4d98449">
+<div id="outline-container-org3617e0f" class="outline-2">
+<h2 id="org3617e0f">Enable SSH</h2>
+<div class="outline-text-2" id="text-org3617e0f">
 <p>
 Get vm's novnc console:
 </p>
@@ -208,13 +214,13 @@ Now you can use ssh <code>ssh admin@192.168.0.15</code> to login.
 </div>
 </div>
 
-<div id="outline-container-orgcf71e25" class="outline-2">
-<h2 id="orgcf71e25">Netbox Integration</h2>
-<div class="outline-text-2" id="text-orgcf71e25">
+<div id="outline-container-org7445f7e" class="outline-2">
+<h2 id="org7445f7e">Netbox Integration</h2>
+<div class="outline-text-2" id="text-org7445f7e">
 </div>
-<div id="outline-container-org4344c39" class="outline-3">
-<h3 id="org4344c39">Enable Management Api</h3>
-<div class="outline-text-3" id="text-org4344c39">
+<div id="outline-container-org871c6d8" class="outline-3">
+<h3 id="org871c6d8">Enable Management Api</h3>
+<div class="outline-text-3" id="text-org871c6d8">
 <div class="org-src-container">
 <pre class="src src-sh">ssh admin@192.168.0.15 <span class="org-comment-delimiter"># </span><span class="org-comment">password admin</span>
 &gt; enable
@@ -257,9 +263,9 @@ Management1 : https://192.168.0.15:443
 </div>
 </div>
 
-<div id="outline-container-org88042da" class="outline-3">
-<h3 id="org88042da">Napalm</h3>
-<div class="outline-text-3" id="text-org88042da">
+<div id="outline-container-org36a0e21" class="outline-3">
+<h3 id="org36a0e21">Napalm</h3>
+<div class="outline-text-3" id="text-org36a0e21">
 <p>
 So that netbox can talk to vEOS via napalm:
 </p>
@@ -279,13 +285,13 @@ So that netbox can talk to vEOS via napalm:
 </div>
 </div>
 
-<div id="outline-container-orgd2eeb37" class="outline-2">
-<h2 id="orgd2eeb37">A Clasic Configuration</h2>
-<div class="outline-text-2" id="text-orgd2eeb37">
+<div id="outline-container-orgb3eed85" class="outline-2">
+<h2 id="orgb3eed85">A Clasic Configuration</h2>
+<div class="outline-text-2" id="text-orgb3eed85">
 </div>
-<div id="outline-container-orge6fbb94" class="outline-3">
-<h3 id="orge6fbb94">Topology</h3>
-<div class="outline-text-3" id="text-orge6fbb94">
+<div id="outline-container-org6b6a57c" class="outline-3">
+<h3 id="org6b6a57c">Topology</h3>
+<div class="outline-text-3" id="text-org6b6a57c">
 <div class="org-src-container">
 <pre class="src src-ditaa">+-----------------+                  +-----------------+
 |   arista 0  et2 +------vlan30------+ et2 arista 1    |
@@ -310,9 +316,9 @@ So that netbox can talk to vEOS via napalm:
 </div>
 </div>
 
-<div id="outline-container-orgb4c4df6" class="outline-3">
-<h3 id="orgb4c4df6">Create Topology</h3>
-<div class="outline-text-3" id="text-orgb4c4df6">
+<div id="outline-container-orgc071812" class="outline-3">
+<h3 id="orgc071812">Create Topology</h3>
+<div class="outline-text-3" id="text-orgc071812">
 <div class="org-src-container">
 <pre class="src src-yaml"><span class="org-comment">---</span>
 - <span class="org-variable-name">name</span>: <span class="org-string">"Create network vlan10, vlan20, vlan30"</span>
@@ -380,9 +386,9 @@ So that netbox can talk to vEOS via napalm:
 </div>
 </div>
 
-<div id="outline-container-orga70f16a" class="outline-3">
-<h3 id="orga70f16a">Configure Arista 0</h3>
-<div class="outline-text-3" id="text-orga70f16a">
+<div id="outline-container-org3aab3fe" class="outline-3">
+<h3 id="org3aab3fe">Configure Arista 0</h3>
+<div class="outline-text-3" id="text-org3aab3fe">
 <div class="org-src-container">
 <pre class="src src-sh"><span class="org-builtin">enable</span>
 config terminal
@@ -420,9 +426,9 @@ end
 </div>
 </div>
 
-<div id="outline-container-org5bf60c6" class="outline-3">
-<h3 id="org5bf60c6">Configure Arista 1</h3>
-<div class="outline-text-3" id="text-org5bf60c6">
+<div id="outline-container-org7aa9de1" class="outline-3">
+<h3 id="org7aa9de1">Configure Arista 1</h3>
+<div class="outline-text-3" id="text-org7aa9de1">
 <div class="org-src-container">
 <pre class="src src-sh">interface management 1
 ip address 192.168.0.26/16
@@ -460,18 +466,18 @@ end
 </div>
 </div>
 
-<div id="outline-container-orgfa50f6b" class="outline-3">
-<h3 id="orgfa50f6b">Test</h3>
-<div class="outline-text-3" id="text-orgfa50f6b">
+<div id="outline-container-orgc45a917" class="outline-3">
+<h3 id="orgc45a917">Test</h3>
+<div class="outline-text-3" id="text-orgc45a917">
 <p>
 login vm-0 and ping vm-1.
 </p>
 </div>
 </div>
 </div>
-<div id="outline-container-orgf5d935a" class="outline-2">
-<h2 id="orgf5d935a">Tips</h2>
-<div class="outline-text-2" id="text-orgf5d935a">
+<div id="outline-container-org019487d" class="outline-2">
+<h2 id="org019487d">Tips</h2>
+<div class="outline-text-2" id="text-org019487d">
 <ol class="org-ol">
 <li><a href="https://eos.arista.com/forum/qeustions-about-some-features-in-veos-that-may-or-may-not-work/">vEOS does not support NAT</a></li>
 </ol>
