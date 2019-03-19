@@ -1,7 +1,6 @@
 #+title: LXD
 #+date: <2019-01-03 Thu>
-#+TITLE: Snap LXD
-#+DATE: <2018-08-04 Sat>
+
 * LXD Setup
 
   So easy to setup LXD!

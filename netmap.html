@@ -3,12 +3,18 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2019-03-17 Sun 23:34 -->
+<!-- 2019-03-18 Mon 11:58 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Netmap</title>
 <meta name="generator" content="Org mode" />
 <meta name="author" content="JUNJIE NAN" />
+<script>
+  ((window.gitter = {}).chat = {}).options = {
+    room: 'nanjj/nanjj.github.io'
+  };
+</script>
+<script src='https://sidecar.gitter.im/dist/sidecar.v1.js' async defer></script>
 <link rel="stylesheet" type="text/css" href="css/org.css" />
 </head>
 <body>
@@ -21,39 +27,39 @@
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents">
 <ul>
-<li><a href="#orga8a702c">Netmap Vale</a>
+<li><a href="#org7e6be0d">Netmap Vale</a>
 <ul>
-<li><a href="#org7b6d90b">Vale Behavior</a></li>
-<li><a href="#orge3dcb28">Mac Address Learning</a>
+<li><a href="#org240c6bd">Vale Behavior</a></li>
+<li><a href="#org218dc1f">Mac Address Learning</a>
 <ul>
-<li><a href="#orgc7550e4">Prepare Vale</a></li>
-<li><a href="#orgffb375e">Show Mac Addresses</a></li>
-<li><a href="#orgcbe6fa0">Train Vale</a></li>
-<li><a href="#org682b1fb">Send Packets</a></li>
+<li><a href="#org91989b6">Prepare Vale</a></li>
+<li><a href="#org3c10e26">Show Mac Addresses</a></li>
+<li><a href="#org7cf9a0a">Train Vale</a></li>
+<li><a href="#orge784715">Send Packets</a></li>
 </ul>
 </li>
-<li><a href="#org1600346">Broadcast and Multicast</a>
+<li><a href="#org5bd3482">Broadcast and Multicast</a>
 <ul>
-<li><a href="#org7b48279">Prepare Vale</a></li>
-<li><a href="#orgcb9347d">Send Broadcast</a></li>
-<li><a href="#org339616d">Send Multicast</a></li>
+<li><a href="#org60802d5">Prepare Vale</a></li>
+<li><a href="#orgf2cad6d">Send Broadcast</a></li>
+<li><a href="#org3353132">Send Multicast</a></li>
 </ul>
 </li>
-<li><a href="#orge1d5838">Vale Number and Vale Port Number</a>
+<li><a href="#orgf22b328">Vale Number and Vale Port Number</a>
 <ul>
-<li><a href="#orga894c73">Value Test Script</a></li>
-<li><a href="#org8248a5d">Test Vale Port Number</a></li>
-<li><a href="#orgf8e38c9">Test Vale Number</a></li>
+<li><a href="#org8bf42ce">Value Test Script</a></li>
+<li><a href="#org800c11d">Test Vale Port Number</a></li>
+<li><a href="#org326a5ca">Test Vale Number</a></li>
 </ul>
 </li>
 </ul>
 </li>
-<li><a href="#orgc0860c9">Netmap Pipe</a>
+<li><a href="#org0ad8f1f">Netmap Pipe</a>
 <ul>
-<li><a href="#org257ebdf">Master and Slave Endpoint</a></li>
-<li><a href="#org343d15a">Tranfer Anything Via Pipe</a></li>
-<li><a href="#org552476c">Bidirection and Blocking</a></li>
-<li><a href="#org35f8e33">Sample Code: nmpipe.c</a></li>
+<li><a href="#org882ef1b">Master and Slave Endpoint</a></li>
+<li><a href="#orgfc4d1d2">Tranfer Anything Via Pipe</a></li>
+<li><a href="#orgb5c9d74">Bidirection and Blocking</a></li>
+<li><a href="#org7a9d19c">Sample Code: nmpipe.c</a></li>
 </ul>
 </li>
 </ul>
@@ -63,13 +69,13 @@
 <a href="http://info.iet.unipi.it/~luigi/netmap">Netmap</a> is a framework for very fast packet I/O from userspace.
 </p>
 
-<div id="outline-container-orga8a702c" class="outline-2">
-<h2 id="orga8a702c">Netmap Vale</h2>
-<div class="outline-text-2" id="text-orga8a702c">
+<div id="outline-container-org7e6be0d" class="outline-2">
+<h2 id="org7e6be0d">Netmap Vale</h2>
+<div class="outline-text-2" id="text-org7e6be0d">
 </div>
-<div id="outline-container-org7b6d90b" class="outline-3">
-<h3 id="org7b6d90b">Vale Behavior</h3>
-<div class="outline-text-3" id="text-org7b6d90b">
+<div id="outline-container-org240c6bd" class="outline-3">
+<h3 id="org240c6bd">Vale Behavior</h3>
+<div class="outline-text-3" id="text-org240c6bd">
 <p>
 Netmap vale is a high performance switch. It learns MAC addresses
 from ether source header. Ether header format:
@@ -127,13 +133,13 @@ address.
 </p>
 </div>
 </div>
-<div id="outline-container-orge3dcb28" class="outline-3">
-<h3 id="orge3dcb28">Mac Address Learning</h3>
-<div class="outline-text-3" id="text-orge3dcb28">
+<div id="outline-container-org218dc1f" class="outline-3">
+<h3 id="org218dc1f">Mac Address Learning</h3>
+<div class="outline-text-3" id="text-org218dc1f">
 </div>
-<div id="outline-container-orgc7550e4" class="outline-4">
-<h4 id="orgc7550e4">Prepare Vale</h4>
-<div class="outline-text-4" id="text-orgc7550e4">
+<div id="outline-container-org91989b6" class="outline-4">
+<h4 id="org91989b6">Prepare Vale</h4>
+<div class="outline-text-4" id="text-org91989b6">
 <div class="org-src-container">
 <pre class="src src-sh">vale-ctl -n vi0
 vale-ctl -n vi1
@@ -146,9 +152,9 @@ vale-ctl -a vale0:vi2
 </div>
 </div>
 
-<div id="outline-container-orgffb375e" class="outline-4">
-<h4 id="orgffb375e">Show Mac Addresses</h4>
-<div class="outline-text-4" id="text-orgffb375e">
+<div id="outline-container-org3c10e26" class="outline-4">
+<h4 id="org3c10e26">Show Mac Addresses</h4>
+<div class="outline-text-4" id="text-org3c10e26">
 <pre class="example">
 ip link #=&gt;
 65742: vi0: &lt;BROADCAST,MULTICAST&gt; mtu 1500 qdisc ...
@@ -164,9 +170,9 @@ show.
 </p>
 </div>
 </div>
-<div id="outline-container-orgcbe6fa0" class="outline-4">
-<h4 id="orgcbe6fa0">Train Vale</h4>
-<div class="outline-text-4" id="text-orgcbe6fa0">
+<div id="outline-container-org7cf9a0a" class="outline-4">
+<h4 id="org7cf9a0a">Train Vale</h4>
+<div class="outline-text-4" id="text-org7cf9a0a">
 <p>
 Vale learns mac address from ether source header, so train it like
 below:
@@ -180,9 +186,9 @@ pkt-gen -i vale0:vi2 -S 42:d2:0e:93:c8:1b -f tx
 </div>
 </div>
 
-<div id="outline-container-org682b1fb" class="outline-4">
-<h4 id="org682b1fb">Send Packets</h4>
-<div class="outline-text-4" id="text-org682b1fb">
+<div id="outline-container-orge784715" class="outline-4">
+<h4 id="orge784715">Send Packets</h4>
+<div class="outline-text-4" id="text-orge784715">
 <p>
 Send packages from <code>vi0</code> to <code>vi1</code>:
 </p>
@@ -210,13 +216,13 @@ Send packages from <code>vi0</code> to <code>vi1</code>:
 </div>
 </div>
 
-<div id="outline-container-org1600346" class="outline-3">
-<h3 id="org1600346">Broadcast and Multicast</h3>
-<div class="outline-text-3" id="text-org1600346">
+<div id="outline-container-org5bd3482" class="outline-3">
+<h3 id="org5bd3482">Broadcast and Multicast</h3>
+<div class="outline-text-3" id="text-org5bd3482">
 </div>
-<div id="outline-container-org7b48279" class="outline-4">
-<h4 id="org7b48279">Prepare Vale</h4>
-<div class="outline-text-4" id="text-org7b48279">
+<div id="outline-container-org60802d5" class="outline-4">
+<h4 id="org60802d5">Prepare Vale</h4>
+<div class="outline-text-4" id="text-org60802d5">
 <div class="org-src-container">
 <pre class="src src-sh">vale-ctl -n v1p1
 vale-ctl -n v1p2
@@ -232,9 +238,9 @@ pkt-gen -i vale1:v1p3 -S 45:d2:0e:93:c8:1b -f tx
 </div>
 </div>
 
-<div id="outline-container-orgcb9347d" class="outline-4">
-<h4 id="orgcb9347d">Send Broadcast</h4>
-<div class="outline-text-4" id="text-orgcb9347d">
+<div id="outline-container-orgf2cad6d" class="outline-4">
+<h4 id="orgf2cad6d">Send Broadcast</h4>
+<div class="outline-text-4" id="text-orgf2cad6d">
 <div class="org-src-container">
 <pre class="src src-sh">pkt-gen -i vale1:v1p1 -D ff:ff:ff:ff:ff:ff -f tx
 </pre>
@@ -249,9 +255,9 @@ The broadcast traffic can be received by all vale ports:
 </div>
 </div>
 </div>
-<div id="outline-container-org339616d" class="outline-4">
-<h4 id="org339616d">Send Multicast</h4>
-<div class="outline-text-4" id="text-org339616d">
+<div id="outline-container-org3353132" class="outline-4">
+<h4 id="org3353132">Send Multicast</h4>
+<div class="outline-text-4" id="text-org3353132">
 <div class="org-src-container">
 <pre class="src src-sh">pkt-gen -i vale1:v1p1 -S 51:ec:30:31:bd:6c -D b3:07:df:ed:04:86 -f tx
 </pre>
@@ -268,18 +274,18 @@ The multicast traffic can be received by all vale ports:
 </div>
 </div>
 
-<div id="outline-container-orge1d5838" class="outline-3">
-<h3 id="orge1d5838">Vale Number and Vale Port Number</h3>
-<div class="outline-text-3" id="text-orge1d5838">
+<div id="outline-container-orgf22b328" class="outline-3">
+<h3 id="orgf22b328">Vale Number and Vale Port Number</h3>
+<div class="outline-text-3" id="text-orgf22b328">
 <p>
 The default vale max number is 8. In one vale, the max port number
 is 254.
 </p>
 </div>
 
-<div id="outline-container-orga894c73" class="outline-4">
-<h4 id="orga894c73">Value Test Script</h4>
-<div class="outline-text-4" id="text-orga894c73">
+<div id="outline-container-org8bf42ce" class="outline-4">
+<h4 id="org8bf42ce">Value Test Script</h4>
+<div class="outline-text-4" id="text-org8bf42ce">
 <p>
 <code>vale-test</code>:
 </p>
@@ -311,9 +317,9 @@ is 254.
 </div>
 </div>
 
-<div id="outline-container-org8248a5d" class="outline-4">
-<h4 id="org8248a5d">Test Vale Port Number</h4>
-<div class="outline-text-4" id="text-org8248a5d">
+<div id="outline-container-org800c11d" class="outline-4">
+<h4 id="org800c11d">Test Vale Port Number</h4>
+<div class="outline-text-4" id="text-org800c11d">
 <p>
 Attach 254 ports in 1 vale:
 </p>
@@ -333,9 +339,9 @@ Detach them:
 </div>
 </div>
 
-<div id="outline-container-orgf8e38c9" class="outline-4">
-<h4 id="orgf8e38c9">Test Vale Number</h4>
-<div class="outline-text-4" id="text-orgf8e38c9">
+<div id="outline-container-org326a5ca" class="outline-4">
+<h4 id="org326a5ca">Test Vale Number</h4>
+<div class="outline-text-4" id="text-org326a5ca">
 <p>
 Create 8 ports and attach 1 port for each:
 </p>
@@ -356,17 +362,17 @@ Detach them:
 </div>
 </div>
 
-<div id="outline-container-orgc0860c9" class="outline-2">
-<h2 id="orgc0860c9">Netmap Pipe</h2>
-<div class="outline-text-2" id="text-orgc0860c9">
+<div id="outline-container-org0ad8f1f" class="outline-2">
+<h2 id="org0ad8f1f">Netmap Pipe</h2>
+<div class="outline-text-2" id="text-org0ad8f1f">
 <p>
 Netmap pipe are used to share data between two processes.
 </p>
 </div>
 
-<div id="outline-container-org257ebdf" class="outline-3">
-<h3 id="org257ebdf">Master and Slave Endpoint</h3>
-<div class="outline-text-3" id="text-org257ebdf">
+<div id="outline-container-org882ef1b" class="outline-3">
+<h3 id="org882ef1b">Master and Slave Endpoint</h3>
+<div class="outline-text-3" id="text-org882ef1b">
 <p>
 One pipe has two endpoints: master and slave. For examples:
 </p>
@@ -386,9 +392,9 @@ netmap pipe master and slave are in equal, maybe we should call them
 </div>
 </div>
 
-<div id="outline-container-org343d15a" class="outline-3">
-<h3 id="org343d15a">Tranfer Anything Via Pipe</h3>
-<div class="outline-text-3" id="text-org343d15a">
+<div id="outline-container-orgfc4d1d2" class="outline-3">
+<h3 id="orgfc4d1d2">Tranfer Anything Via Pipe</h3>
+<div class="outline-text-3" id="text-orgfc4d1d2">
 <p>
 You can transfer through netmap pipes packet with non-ethernet
 structure, since netmap pipe does not look at the packet's headers
@@ -397,18 +403,18 @@ or content.
 </div>
 </div>
 
-<div id="outline-container-org552476c" class="outline-3">
-<h3 id="org552476c">Bidirection and Blocking</h3>
-<div class="outline-text-3" id="text-org552476c">
+<div id="outline-container-orgb5c9d74" class="outline-3">
+<h3 id="orgb5c9d74">Bidirection and Blocking</h3>
+<div class="outline-text-3" id="text-orgb5c9d74">
 <p>
 Netmap pipes are bidirectional and blocking.
 </p>
 </div>
 </div>
 
-<div id="outline-container-org35f8e33" class="outline-3">
-<h3 id="org35f8e33">Sample Code: nmpipe.c</h3>
-<div class="outline-text-3" id="text-org35f8e33">
+<div id="outline-container-org7a9d19c" class="outline-3">
+<h3 id="org7a9d19c">Sample Code: nmpipe.c</h3>
+<div class="outline-text-3" id="text-org7a9d19c">
 <p>
 Sample code:
 </p>

@@ -3,12 +3,18 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2019-03-17 Sun 23:34 -->
+<!-- 2019-03-18 Mon 11:58 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>LXD Snap LXD</title>
+<title>LXD</title>
 <meta name="generator" content="Org mode" />
 <meta name="author" content="JUNJIE NAN" />
+<script>
+  ((window.gitter = {}).chat = {}).options = {
+    room: 'nanjj/nanjj.github.io'
+  };
+</script>
+<script src='https://sidecar.gitter.im/dist/sidecar.v1.js' async defer></script>
 <link rel="stylesheet" type="text/css" href="css/org.css" />
 </head>
 <body>
@@ -16,69 +22,70 @@
  <a accesskey="h" href="index.html"> UP </a> |
  <a accesskey="H" href="index.html"> HOME </a>
 </div><div id="content">
-<h1 class="title">LXD Snap LXD</h1>
+<h1 class="title">LXD</h1>
 <div id="table-of-contents">
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents">
 <ul>
-<li><a href="#orge2fd4fa">LXD Setup</a>
+<li><a href="#org5eef1ee">LXD Setup</a>
 <ul>
-<li><a href="#org43ebb18">Deb or Snap</a></li>
-<li><a href="#org72588bc">Init</a></li>
+<li><a href="#org8e83d19">Deb or Snap</a></li>
+<li><a href="#org2a6f91a">Init</a></li>
 </ul>
 </li>
-<li><a href="#org5af360b">Snap and Lxd</a>
+<li><a href="#org4a22b04">Snap and Lxd</a>
 <ul>
-<li><a href="#org717dd55">Run lxd in Snap</a></li>
-<li><a href="#org7c6e935">Launcn Lxd container</a></li>
-<li><a href="#org5488255">Run snap inside Lxd Container</a></li>
-<li><a href="#org87132e6">Run Lxd inside Lxd Container</a></li>
-<li><a href="#orge89ad38">Run Docker inside Lxd Container</a></li>
-<li><a href="#org85f4ee2">Use Lxd Container as a Router</a></li>
+<li><a href="#org6225d45">Run lxd in Snap</a></li>
+<li><a href="#orgab99a2e">Launcn Lxd container</a></li>
+<li><a href="#orgc38821a">Run snap inside Lxd Container</a></li>
+<li><a href="#org86becea">Run Lxd inside Lxd Container</a></li>
+<li><a href="#orgc483bed">Run Docker inside Lxd Container</a></li>
+<li><a href="#orgcca7b2b">Use Lxd Container as a Router</a></li>
 </ul>
 </li>
-<li><a href="#org7e349e5">Clustering Mode</a>
+<li><a href="#orgf77a0f9">Clustering Mode</a>
 <ul>
-<li><a href="#org3338430">New Cluster</a></li>
-<li><a href="#org7e759b7">Join Cluster</a></li>
-<li><a href="#orgbeeed40">List Cluster</a></li>
+<li><a href="#org0722e3a">New Cluster</a></li>
+<li><a href="#org5da82d1">Join Cluster</a></li>
+<li><a href="#org11786b1">List Cluster</a></li>
 </ul>
 </li>
-<li><a href="#orgc8b698d">Database</a>
+<li><a href="#org07878b8">Database</a>
 <ul>
-<li><a href="#org6a3f223">Global and Local</a></li>
-<li><a href="#orgc7fc03b">Lxd sql</a></li>
-<li><a href="#org8cbff28">Global Schemas</a></li>
-<li><a href="#org510ebb8">Local Schemas</a></li>
-<li><a href="#org5ee6798">Raft Nodes</a></li>
-<li><a href="#orgcf99e3b">Cluster nodes</a></li>
-<li><a href="#org033fbc0">Containers</a></li>
+<li><a href="#orgddee9c8">Global and Local</a></li>
+<li><a href="#org5d33101">Lxd sql</a></li>
+<li><a href="#orgdf11a7b">Global Schemas</a></li>
+<li><a href="#orgc2223c6">Local Schemas</a></li>
+<li><a href="#org4d468c6">Raft Nodes</a></li>
+<li><a href="#org006cc21">Cluster nodes</a></li>
+<li><a href="#org08879c3">Containers</a></li>
 </ul>
 </li>
-<li><a href="#org41458a7">Network</a></li>
-<li><a href="#org57ef812">Operations</a>
+<li><a href="#orgc105aa6">Network</a></li>
+<li><a href="#orgc9de943">Operations</a>
 <ul>
-<li><a href="#orgfd50061">Launch Container</a></li>
+<li><a href="#org514cf39">Launch Container</a></li>
 </ul>
 </li>
-<li><a href="#orgdbadd6e">Ansible</a>
+<li><a href="#org0b624eb">Ansible</a>
 <ul>
-<li><a href="#org205840b">Lxd connection</a></li>
+<li><a href="#orgfa2de78">Lxd connection</a></li>
 </ul>
 </li>
 </ul>
 </div>
 </div>
-<div id="outline-container-orge2fd4fa" class="outline-2">
-<h2 id="orge2fd4fa">LXD Setup</h2>
-<div class="outline-text-2" id="text-orge2fd4fa">
+
+<div id="outline-container-org5eef1ee" class="outline-2">
+<h2 id="org5eef1ee">LXD Setup</h2>
+<div class="outline-text-2" id="text-org5eef1ee">
 <p>
 So easy to setup LXD!
 </p>
 </div>
-<div id="outline-container-org43ebb18" class="outline-3">
-<h3 id="org43ebb18">Deb or Snap</h3>
-<div class="outline-text-3" id="text-org43ebb18">
+<div id="outline-container-org8e83d19" class="outline-3">
+<h3 id="org8e83d19">Deb or Snap</h3>
+<div class="outline-text-3" id="text-org8e83d19">
 <p>
 The existing lxd packages in ubuntu 16.04 are too old to use, which
 need to be purged:
@@ -102,9 +109,9 @@ which lxc <span class="org-comment-delimiter">#</span><span class="org-comment">
 </div>
 </div>
 
-<div id="outline-container-org72588bc" class="outline-3">
-<h3 id="org72588bc">Init</h3>
-<div class="outline-text-3" id="text-org72588bc">
+<div id="outline-container-org2a6f91a" class="outline-3">
+<h3 id="org2a6f91a">Init</h3>
+<div class="outline-text-3" id="text-org2a6f91a">
 <p>
 <code>lxd</code> provides a sub command <code>init</code> to init lxd:
 </p>
@@ -121,9 +128,9 @@ mode.
 </div>
 </div>
 
-<div id="outline-container-org5af360b" class="outline-2">
-<h2 id="org5af360b">Snap and Lxd</h2>
-<div class="outline-text-2" id="text-org5af360b">
+<div id="outline-container-org4a22b04" class="outline-2">
+<h2 id="org4a22b04">Snap and Lxd</h2>
+<div class="outline-text-2" id="text-org4a22b04">
 <p>
 You can use <code>snap</code> to run <code>lxd</code>, or the opposite. Inside <code>lxd</code> you
 can run <code>docker</code>.
@@ -142,9 +149,9 @@ can run <code>docker</code>.
 </div>
 </div>
 
-<div id="outline-container-org717dd55" class="outline-3">
-<h3 id="org717dd55">Run lxd in Snap</h3>
-<div class="outline-text-3" id="text-org717dd55">
+<div id="outline-container-org6225d45" class="outline-3">
+<h3 id="org6225d45">Run lxd in Snap</h3>
+<div class="outline-text-3" id="text-org6225d45">
 <p>
 By default ubuntu xenial with lxd and lxd client installed. You can
 check this by running:
@@ -180,9 +187,9 @@ snap restart lxd
 </div>
 </div>
 
-<div id="outline-container-org7c6e935" class="outline-3">
-<h3 id="org7c6e935">Launcn Lxd container</h3>
-<div class="outline-text-3" id="text-org7c6e935">
+<div id="outline-container-orgab99a2e" class="outline-3">
+<h3 id="orgab99a2e">Launcn Lxd container</h3>
+<div class="outline-text-3" id="text-orgab99a2e">
 <p>
 Now launch a vm like <code>lxc</code> container:
 </p>
@@ -201,9 +208,9 @@ lxc exec steady-dingo bash
 </div>
 </div>
 
-<div id="outline-container-org5488255" class="outline-3">
-<h3 id="org5488255">Run snap inside Lxd Container</h3>
-<div class="outline-text-3" id="text-org5488255">
+<div id="outline-container-orgc38821a" class="outline-3">
+<h3 id="orgc38821a">Run snap inside Lxd Container</h3>
+<div class="outline-text-3" id="text-orgc38821a">
 <p>
 Snap as a container, can run <code>lxd</code> and launch <code>lxd</code>
 container. Inside the <code>lxc</code> container, you can run <code>snap</code>
@@ -224,9 +231,9 @@ ncatd --version                 <span class="org-comment-delimiter"># </span><sp
 </div>
 </div>
 
-<div id="outline-container-org87132e6" class="outline-3">
-<h3 id="org87132e6">Run Lxd inside Lxd Container</h3>
-<div class="outline-text-3" id="text-org87132e6">
+<div id="outline-container-org86becea" class="outline-3">
+<h3 id="org86becea">Run Lxd inside Lxd Container</h3>
+<div class="outline-text-3" id="text-org86becea">
 <p>
 Run <code>lxd</code> inside lxd container nesting:
 </p>
@@ -242,9 +249,9 @@ lxc launch ubuntu:xenial/amd64
 </div>
 </div>
 
-<div id="outline-container-orge89ad38" class="outline-3">
-<h3 id="orge89ad38">Run Docker inside Lxd Container</h3>
-<div class="outline-text-3" id="text-orge89ad38">
+<div id="outline-container-orgc483bed" class="outline-3">
+<h3 id="orgc483bed">Run Docker inside Lxd Container</h3>
+<div class="outline-text-3" id="text-orgc483bed">
 <p>
 With <code>security.nesting true</code>, run docker:
 </p>
@@ -257,9 +264,9 @@ docker run hello-world
 </div>
 </div>
 
-<div id="outline-container-org85f4ee2" class="outline-3">
-<h3 id="org85f4ee2">Use Lxd Container as a Router</h3>
-<div class="outline-text-3" id="text-org85f4ee2">
+<div id="outline-container-orgcca7b2b" class="outline-3">
+<h3 id="orgcca7b2b">Use Lxd Container as a Router</h3>
+<div class="outline-text-3" id="text-orgcca7b2b">
 <div class="org-src-container">
 <pre class="src src-sh">lxc launch ubuntu:16.04 router <span class="org-comment-delimiter">#</span><span class="org-comment">=&gt;</span>
 lxc list <span class="org-comment-delimiter">#</span><span class="org-comment">=&gt;</span>
@@ -287,9 +294,9 @@ Now you can use this as a router
 </div>
 </div>
 
-<div id="outline-container-org7e349e5" class="outline-2">
-<h2 id="org7e349e5">Clustering Mode</h2>
-<div class="outline-text-2" id="text-org7e349e5">
+<div id="outline-container-orgf77a0f9" class="outline-2">
+<h2 id="orgf77a0f9">Clustering Mode</h2>
+<div class="outline-text-2" id="text-orgf77a0f9">
 <p>
 Lxd clustering mode makes lxd run in multiple nodes. Each node lxd
 is running on is a cluster member. The whole set of the cluster
@@ -297,9 +304,9 @@ members is called a cluster.
 </p>
 </div>
 
-<div id="outline-container-org3338430" class="outline-3">
-<h3 id="org3338430">New Cluster</h3>
-<div class="outline-text-3" id="text-org3338430">
+<div id="outline-container-org0722e3a" class="outline-3">
+<h3 id="org0722e3a">New Cluster</h3>
+<div class="outline-text-3" id="text-org0722e3a">
 <div class="org-src-container">
 <pre class="src src-sh">lxd init
 Would you like to use LXD clustering? (yes/no) [<span class="org-variable-name">default</span>=no]: yes
@@ -325,9 +332,9 @@ Would you like a YAML <span class="org-string">"lxd init"</span> preseed to be p
 </div>
 </div>
 </div>
-<div id="outline-container-org7e759b7" class="outline-3">
-<h3 id="org7e759b7">Join Cluster</h3>
-<div class="outline-text-3" id="text-org7e759b7">
+<div id="outline-container-org5da82d1" class="outline-3">
+<h3 id="org5da82d1">Join Cluster</h3>
+<div class="outline-text-3" id="text-org5da82d1">
 <div class="org-src-container">
 <pre class="src src-sh">lxd init
 Would you like to use LXD clustering? (yes/no) [<span class="org-variable-name">default</span>=no]: yes
@@ -348,9 +355,9 @@ Would you like a YAML <span class="org-string">"lxd init"</span> preseed to be p
 </div>
 </div>
 </div>
-<div id="outline-container-orgbeeed40" class="outline-3">
-<h3 id="orgbeeed40">List Cluster</h3>
-<div class="outline-text-3" id="text-orgbeeed40">
+<div id="outline-container-org11786b1" class="outline-3">
+<h3 id="org11786b1">List Cluster</h3>
+<div class="outline-text-3" id="text-org11786b1">
 <div class="org-src-container">
 <pre class="src src-sh">lxc cluster list
 
@@ -380,18 +387,18 @@ nodes.
 </div>
 </div>
 </div>
-<div id="outline-container-orgc8b698d" class="outline-2">
-<h2 id="orgc8b698d">Database</h2>
-<div class="outline-text-2" id="text-orgc8b698d">
+<div id="outline-container-org07878b8" class="outline-2">
+<h2 id="org07878b8">Database</h2>
+<div class="outline-text-2" id="text-org07878b8">
 <p>
 <a href="https://github.com/lxc/lxd/blob/master/doc/database.md">Lxd database</a> is based on <a href="https://github.com/CanonicalLtd/dqlite">distributed sqlite</a>, which removed lxd's
 dependency on traditional database like postgres or mysql. <a href="https://wiki.ubuntu.com/FanNetworking">Fan
 network</a> introduced lxd a simple and fast container network.
 </p>
 </div>
-<div id="outline-container-org6a3f223" class="outline-3">
-<h3 id="org6a3f223">Global and Local</h3>
-<div class="outline-text-3" id="text-org6a3f223">
+<div id="outline-container-orgddee9c8" class="outline-3">
+<h3 id="orgddee9c8">Global and Local</h3>
+<div class="outline-text-3" id="text-orgddee9c8">
 <p>
 For each lxd node, there are two type databases: global and
 local. Data in global database is shared by each lxd cluster
@@ -400,18 +407,18 @@ local node, does not impact others.
 </p>
 </div>
 </div>
-<div id="outline-container-orgc7fc03b" class="outline-3">
-<h3 id="orgc7fc03b">Lxd sql</h3>
-<div class="outline-text-3" id="text-orgc7fc03b">
+<div id="outline-container-org5d33101" class="outline-3">
+<h3 id="org5d33101">Lxd sql</h3>
+<div class="outline-text-3" id="text-org5d33101">
 <div class="org-src-container">
 <pre class="src src-sh">lxd sql &lt;local|global&gt; &lt;query&gt;  [flags]
 </pre>
 </div>
 </div>
 </div>
-<div id="outline-container-org8cbff28" class="outline-3">
-<h3 id="org8cbff28">Global Schemas</h3>
-<div class="outline-text-3" id="text-org8cbff28">
+<div id="outline-container-orgdf11a7b" class="outline-3">
+<h3 id="orgdf11a7b">Global Schemas</h3>
+<div class="outline-text-3" id="text-orgdf11a7b">
 <p>
 For example, to list global schemas:
 </p>
@@ -698,9 +705,9 @@ COMMIT;
 </div>
 </div>
 </div>
-<div id="outline-container-org510ebb8" class="outline-3">
-<h3 id="org510ebb8">Local Schemas</h3>
-<div class="outline-text-3" id="text-org510ebb8">
+<div id="outline-container-orgc2223c6" class="outline-3">
+<h3 id="orgc2223c6">Local Schemas</h3>
+<div class="outline-text-3" id="text-orgc2223c6">
 <p>
 To list local database schemas:
 </p>
@@ -737,9 +744,9 @@ COMMIT;
 </div>
 </div>
 </div>
-<div id="outline-container-org5ee6798" class="outline-3">
-<h3 id="org5ee6798">Raft Nodes</h3>
-<div class="outline-text-3" id="text-org5ee6798">
+<div id="outline-container-org4d468c6" class="outline-3">
+<h3 id="org4d468c6">Raft Nodes</h3>
+<div class="outline-text-3" id="text-org4d468c6">
 <div class="org-src-container">
 <pre class="src src-sh">lxd sql local <span class="org-string">'select * from raft_nodes'</span> <span class="org-comment-delimiter">#</span><span class="org-comment">=&gt;</span>
 +----+-------------------+
@@ -756,9 +763,9 @@ COMMIT;
 </p>
 </div>
 </div>
-<div id="outline-container-orgcf99e3b" class="outline-3">
-<h3 id="orgcf99e3b">Cluster nodes</h3>
-<div class="outline-text-3" id="text-orgcf99e3b">
+<div id="outline-container-org006cc21" class="outline-3">
+<h3 id="org006cc21">Cluster nodes</h3>
+<div class="outline-text-3" id="text-org006cc21">
 <div class="org-src-container">
 <pre class="src src-sh">lxd sql global <span class="org-string">'select * from nodes'</span>
 +----+-------------+-------------------+--------+----------------+--------------------------------+---------+
@@ -776,9 +783,9 @@ COMMIT;
 </div>
 </div>
 </div>
-<div id="outline-container-org033fbc0" class="outline-3">
-<h3 id="org033fbc0">Containers</h3>
-<div class="outline-text-3" id="text-org033fbc0">
+<div id="outline-container-org08879c3" class="outline-3">
+<h3 id="org08879c3">Containers</h3>
+<div class="outline-text-3" id="text-org08879c3">
 <div class="org-src-container">
 <pre class="src src-sh">lxd sql global <span class="org-string">'select * from containers'</span> <span class="org-comment-delimiter">#</span><span class="org-comment">=&gt;</span>
 +----+---------+----------------+------------+
@@ -809,9 +816,9 @@ To select the node with least containers:
 </div>
 </div>
 </div>
-<div id="outline-container-org41458a7" class="outline-2">
-<h2 id="org41458a7">Network</h2>
-<div class="outline-text-2" id="text-org41458a7">
+<div id="outline-container-orgc105aa6" class="outline-2">
+<h2 id="orgc105aa6">Network</h2>
+<div class="outline-text-2" id="text-orgc105aa6">
 <p>
 Lxd can be configured to use <a href="https://wiki.ubuntu.com/FanNetworking">Ubuntu Fan Network</a>.
 </p>
@@ -874,13 +881,13 @@ ARP, Request who-has 240.0.47.99 tell 240.0.46.14, length 28
 </div>
 </div>
 </div>
-<div id="outline-container-org57ef812" class="outline-2">
-<h2 id="org57ef812">Operations</h2>
-<div class="outline-text-2" id="text-org57ef812">
+<div id="outline-container-orgc9de943" class="outline-2">
+<h2 id="orgc9de943">Operations</h2>
+<div class="outline-text-2" id="text-orgc9de943">
 </div>
-<div id="outline-container-orgfd50061" class="outline-3">
-<h3 id="orgfd50061">Launch Container</h3>
-<div class="outline-text-3" id="text-orgfd50061">
+<div id="outline-container-org514cf39" class="outline-3">
+<h3 id="org514cf39">Launch Container</h3>
+<div class="outline-text-3" id="text-org514cf39">
 <p>
 <code>lxc launch b --debug</code> will do:
 </p>
@@ -1189,13 +1196,13 @@ DBUG[01-22|14:13:42]
 </div>
 </div>
 </div>
-<div id="outline-container-orgdbadd6e" class="outline-2">
-<h2 id="orgdbadd6e">Ansible</h2>
-<div class="outline-text-2" id="text-orgdbadd6e">
+<div id="outline-container-org0b624eb" class="outline-2">
+<h2 id="org0b624eb">Ansible</h2>
+<div class="outline-text-2" id="text-org0b624eb">
 </div>
-<div id="outline-container-org205840b" class="outline-3">
-<h3 id="org205840b">Lxd connection</h3>
-<div class="outline-text-3" id="text-org205840b">
+<div id="outline-container-orgfa2de78" class="outline-3">
+<h3 id="orgfa2de78">Lxd connection</h3>
+<div class="outline-text-3" id="text-orgfa2de78">
 <p>
 Ansible has a <code>lxd</code> connection, which can be used to manage lxd
 containers.

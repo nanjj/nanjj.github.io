@@ -89,21 +89,21 @@ a:visited {
 div#org-div-home-and-up {
     text-align: right;
     font-size: 85%;
-    white-space: nowrap; 
+    white-space: nowrap;
 }
 
 div.title {
     margin: -1em -1em 0;
     font-size: 200%;
     font-weight: bold;
-    background: #369;
+    background: #368998;
     color: #fff;
     padding: .75em 1em;
     letter-spacing: .1em;
 }
 
 h1 {
-    background: #369 none repeat scroll 0 0;
+    background: #368898 none repeat scroll 0 0;
     color: #fff;
     font-size: 230%;
     font-weight: bold;
@@ -821,7 +821,7 @@ td, th {
     font-weight: bold;
 }
 
-.move { 
+.move {
     float: left;
     font-weight: 800;
     font-size: 1.3em;

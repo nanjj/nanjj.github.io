@@ -1,7 +1,7 @@
 #+TITLE: Nanjj Blog
 
 - [2019-03-17 Sun]  [[file:hdiutil.org][Manipulate Disk Images Under Mac]]
-- [2019-01-03 Thu]  [[file:lxd.org][LXD Snap LXD]]
+- [2019-01-03 Thu]  [[file:lxd.org][LXD]]
 - [2018-07-27 Fri]  [[file:godebug.org][Go Debug]]
 - [2017-12-25 Mon]  [[file:kids.org][My Kids]]
 - [2017-12-20 Wed]  [[file:tips.org][Tips]]
