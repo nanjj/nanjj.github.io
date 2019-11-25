@@ -3,47 +3,37 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2019-03-18 Mon 11:58 -->
+<!-- 2019-11-26 二 00:12 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Go Debug</title>
 <meta name="generator" content="Org mode" />
-<meta name="author" content="JUNJIE NAN" />
-<script>
-  ((window.gitter = {}).chat = {}).options = {
-    room: 'nanjj/nanjj.github.io'
-  };
-</script>
-<script src='https://sidecar.gitter.im/dist/sidecar.v1.js' async defer></script>
 <link rel="stylesheet" type="text/css" href="css/org.css" />
 </head>
 <body>
-<div id="org-div-home-and-up">
- <a accesskey="h" href="index.html"> UP </a> |
- <a accesskey="H" href="index.html"> HOME </a>
-</div><div id="content">
+<div id="content">
 <h1 class="title">Go Debug</h1>
 <div id="table-of-contents">
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents">
 <ul>
-<li><a href="#orgde4dd77">Background</a></li>
-<li><a href="#orgff6ad9c">Installation</a></li>
-<li><a href="#org81e7654">Code to Debug</a></li>
-<li><a href="#orge43df09">Debugging Practices</a>
+<li><a href="#orgd44cc52">Background</a></li>
+<li><a href="#orgece6bf3">Installation</a></li>
+<li><a href="#org770c76b">Code to Debug</a></li>
+<li><a href="#org669d2a0">Debugging Practices</a>
 <ul>
-<li><a href="#org6c98a43">Debug a Program</a></li>
-<li><a href="#org8f679ba">Debug Test Case</a></li>
-<li><a href="#orgdc82e74">Debug a Service</a></li>
+<li><a href="#org1532b48">Debug a Program</a></li>
+<li><a href="#org13db147">Debug Test Case</a></li>
+<li><a href="#org3aee3e0">Debug a Service</a></li>
 </ul>
 </li>
 </ul>
 </div>
 </div>
 
-<div id="outline-container-orgde4dd77" class="outline-2">
-<h2 id="orgde4dd77">Background</h2>
-<div class="outline-text-2" id="text-orgde4dd77">
+<div id="outline-container-orgd44cc52" class="outline-2">
+<h2 id="orgd44cc52">Background</h2>
+<div class="outline-text-2" id="text-orgd44cc52">
 <p>
 Go has no its own debugger so it turned to gdb. See <a href="https://golang.org/doc/gdb">Debugging Go
 Code with GDB</a> for details.
@@ -56,9 +46,9 @@ alternative, <a href="https://github.com/derekparker/delve">Delve</a> has its pl
 </div>
 </div>
 
-<div id="outline-container-orgff6ad9c" class="outline-2">
-<h2 id="orgff6ad9c">Installation</h2>
-<div class="outline-text-2" id="text-orgff6ad9c">
+<div id="outline-container-orgece6bf3" class="outline-2">
+<h2 id="orgece6bf3">Installation</h2>
+<div class="outline-text-2" id="text-orgece6bf3">
 <div class="org-src-container">
 <pre class="src src-sh">go get github.com/derekparker/delve/cmd/dlv
 </pre>
@@ -66,36 +56,36 @@ alternative, <a href="https://github.com/derekparker/delve">Delve</a> has its pl
 </div>
 </div>
 
-<div id="outline-container-org81e7654" class="outline-2">
-<h2 id="org81e7654">Code to Debug</h2>
-<div class="outline-text-2" id="text-org81e7654">
+<div id="outline-container-org770c76b" class="outline-2">
+<h2 id="org770c76b">Code to Debug</h2>
+<div class="outline-text-2" id="text-org770c76b">
 <p>
 <code>main.go</code>:
 </p>
 <div class="org-src-container">
-<pre class="src src-go"><span class="org-keyword">package</span> main
+<pre class="src src-go"><span style="color: #b4fa70;">package</span> main
 
-<span class="org-keyword">import</span> (
-    <span class="org-string">"fmt"</span>
+<span style="color: #b4fa70;">import</span> (
+    <span style="color: #e9b96e;">"fmt"</span>
 
-    <span class="org-string">"golang.org/x/sync/errgroup"</span>
+    <span style="color: #e9b96e;">"golang.org/x/sync/errgroup"</span>
 )
 
-<span class="org-keyword">func</span> <span class="org-function-name">main</span>() {
-    <span class="org-function-name">hello</span>()
+<span style="color: #b4fa70;">func</span> <span style="color: #fce94f;">main</span>() {
+    <span style="color: #fce94f;">hello</span>()
 }
 
-<span class="org-keyword">var</span> Printf = fmt.Printf
+<span style="color: #b4fa70;">var</span> <span style="color: #fcaf3e;">Printf</span> = fmt.Printf
 
-<span class="org-keyword">func</span> <span class="org-function-name">hello</span>() {
-    g := &amp;errgroup.<span class="org-type">Group</span>{}
-    <span class="org-keyword">for</span> i := 0; i &lt; 10; i++ {
-        g.<span class="org-function-name">Go</span>(<span class="org-keyword">func</span>() <span class="org-type">error</span> {
-            <span class="org-function-name">Printf</span>(<span class="org-string">"goroutine %02d\n"</span>, i)
-            <span class="org-keyword">return</span> <span class="org-constant">nil</span>
+<span style="color: #b4fa70;">func</span> <span style="color: #fce94f;">hello</span>() {
+    <span style="color: #fcaf3e;">g</span> := &amp;<span style="color: #8cc4ff;">errgroup.Group</span>{}
+    <span style="color: #b4fa70;">for</span> <span style="color: #fcaf3e;">i</span> := 0; i &lt; 10; i++ {
+        g.<span style="color: #fce94f;">Go</span>(<span style="color: #b4fa70;">func</span>() <span style="color: #8cc4ff;">error</span> {
+            <span style="color: #fce94f;">Printf</span>(<span style="color: #e9b96e;">"goroutine %02d\n"</span>, i)
+            <span style="color: #b4fa70;">return</span> <span style="color: #e9b2e3;">nil</span>
         })
     }
-    g.<span class="org-function-name">Wait</span>()
+    g.<span style="color: #fce94f;">Wait</span>()
 }
 
 </pre>
@@ -106,36 +96,36 @@ alternative, <a href="https://github.com/derekparker/delve">Delve</a> has its pl
 </p>
 
 <div class="org-src-container">
-<pre class="src src-go"><span class="org-keyword">package</span> main
+<pre class="src src-go"><span style="color: #b4fa70;">package</span> main
 
-<span class="org-keyword">import</span> (
-    <span class="org-string">"fmt"</span>
-    <span class="org-string">"reflect"</span>
-    <span class="org-string">"testing"</span>
+<span style="color: #b4fa70;">import</span> (
+    <span style="color: #e9b96e;">"fmt"</span>
+    <span style="color: #e9b96e;">"reflect"</span>
+    <span style="color: #e9b96e;">"testing"</span>
 )
 
-<span class="org-keyword">func</span> <span class="org-function-name">TestHello</span>(t *<span class="org-type">testing.T</span>) {
-    lines := <span class="org-builtin">make</span>([]<span class="org-type">string</span>, 10)
-    Printf = <span class="org-keyword">func</span>(format <span class="org-type">string</span>, a ...<span class="org-keyword">interface</span>{}) (n <span class="org-type">int</span>, err <span class="org-type">error</span>) {
-        i := a[0].(<span class="org-type">int</span>)
-        lines[i] = fmt.<span class="org-function-name">Sprintf</span>(format, a...)
-        <span class="org-keyword">return</span> <span class="org-builtin">len</span>(lines[i]), <span class="org-constant">nil</span>
+<span style="color: #b4fa70;">func</span> <span style="color: #fce94f;">TestHello</span>(<span style="color: #fcaf3e;">t</span> *<span style="color: #8cc4ff;">testing.T</span>) {
+    <span style="color: #fcaf3e;">lines</span> := <span style="color: #e090d7;">make</span>([]<span style="color: #8cc4ff;">string</span>, 10)
+    Printf = <span style="color: #b4fa70;">func</span>(<span style="color: #fcaf3e;">format</span> <span style="color: #8cc4ff;">string</span>, <span style="color: #fcaf3e;">a</span> ...<span style="color: #b4fa70;">interface</span>{}) (<span style="color: #fcaf3e;">n</span> <span style="color: #8cc4ff;">int</span>, <span style="color: #fcaf3e;">err</span> <span style="color: #8cc4ff;">error</span>) {
+        <span style="color: #fcaf3e;">i</span> := a[0].(<span style="color: #8cc4ff;">int</span>)
+        lines[i] = fmt.<span style="color: #fce94f;">Sprintf</span>(format, a...)
+        <span style="color: #b4fa70;">return</span> <span style="color: #e090d7;">len</span>(lines[i]), <span style="color: #e9b2e3;">nil</span>
     }
-    <span class="org-function-name">hello</span>()
-    want := []<span class="org-type">string</span>{
-        <span class="org-string">"goroutine 00\n"</span>,
-        <span class="org-string">"goroutine 01\n"</span>,
-        <span class="org-string">"goroutine 02\n"</span>,
-        <span class="org-string">"goroutine 03\n"</span>,
-        <span class="org-string">"goroutine 04\n"</span>,
-        <span class="org-string">"goroutine 05\n"</span>,
-        <span class="org-string">"goroutine 06\n"</span>,
-        <span class="org-string">"goroutine 07\n"</span>,
-        <span class="org-string">"goroutine 08\n"</span>,
-        <span class="org-string">"goroutine 09\n"</span>,
+    <span style="color: #fce94f;">hello</span>()
+    <span style="color: #fcaf3e;">want</span> := []<span style="color: #8cc4ff;">string</span>{
+        <span style="color: #e9b96e;">"goroutine 00\n"</span>,
+        <span style="color: #e9b96e;">"goroutine 01\n"</span>,
+        <span style="color: #e9b96e;">"goroutine 02\n"</span>,
+        <span style="color: #e9b96e;">"goroutine 03\n"</span>,
+        <span style="color: #e9b96e;">"goroutine 04\n"</span>,
+        <span style="color: #e9b96e;">"goroutine 05\n"</span>,
+        <span style="color: #e9b96e;">"goroutine 06\n"</span>,
+        <span style="color: #e9b96e;">"goroutine 07\n"</span>,
+        <span style="color: #e9b96e;">"goroutine 08\n"</span>,
+        <span style="color: #e9b96e;">"goroutine 09\n"</span>,
     }
-    <span class="org-keyword">if</span> !reflect.<span class="org-function-name">DeepEqual</span>(want, lines) {
-        t.<span class="org-function-name">Fatal</span>(want, lines)
+    <span style="color: #b4fa70;">if</span> !reflect.<span style="color: #fce94f;">DeepEqual</span>(want, lines) {
+        t.<span style="color: #fce94f;">Fatal</span>(want, lines)
     }
 }
 
@@ -144,9 +134,9 @@ alternative, <a href="https://github.com/derekparker/delve">Delve</a> has its pl
 </div>
 </div>
 
-<div id="outline-container-orge43df09" class="outline-2">
-<h2 id="orge43df09">Debugging Practices</h2>
-<div class="outline-text-2" id="text-orge43df09">
+<div id="outline-container-org669d2a0" class="outline-2">
+<h2 id="org669d2a0">Debugging Practices</h2>
+<div class="outline-text-2" id="text-org669d2a0">
 <p>
 We will learn:
 </p>
@@ -166,19 +156,19 @@ We will learn:
 </ol>
 </div>
 
-<div id="outline-container-org6c98a43" class="outline-3">
-<h3 id="org6c98a43">Debug a Program</h3>
-<div class="outline-text-3" id="text-org6c98a43">
+<div id="outline-container-org1532b48" class="outline-3">
+<h3 id="org1532b48">Debug a Program</h3>
+<div class="outline-text-3" id="text-org1532b48">
 <div class="org-src-container">
 <pre class="src src-sh">$ dlv debug
-Type <span class="org-string">'help'</span> for list of commands.
-(dlv) <span class="org-keyword">break</span> main.main
+Type <span style="color: #e9b96e;">'help'</span> for list of commands.
+(dlv) <span style="color: #b4fa70;">break</span> main.main
 Breakpoint 1 set at 0x10b1faf for main.main() ./main.go:9
-(dlv) <span class="org-keyword">continue</span>
+(dlv) <span style="color: #b4fa70;">continue</span>
 &gt; main.main() ./main.go:9 (hits goroutine(1):1 total:1) (PC: 0x10b1faf)
-     4:         <span class="org-string">"fmt"</span>
+     4:         <span style="color: #e9b96e;">"fmt"</span>
      5:
-     6:         <span class="org-string">"golang.org/x/sync/errgroup"</span>
+     6:         <span style="color: #e9b96e;">"golang.org/x/sync/errgroup"</span>
      7: )
      8:
 =&gt;   9: func main() {
@@ -192,19 +182,19 @@ Breakpoint 1 set at 0x10b1faf for main.main() ./main.go:9
 </div>
 </div>
 
-<div id="outline-container-org8f679ba" class="outline-3">
-<h3 id="org8f679ba">Debug Test Case</h3>
-<div class="outline-text-3" id="text-org8f679ba">
+<div id="outline-container-org13db147" class="outline-3">
+<h3 id="org13db147">Debug Test Case</h3>
+<div class="outline-text-3" id="text-org13db147">
 <div class="org-src-container">
 <pre class="src src-sh">dlv test
-Type <span class="org-string">'help'</span> for list of commands.
-(dlv) <span class="org-keyword">break</span> TestHello
+Type <span style="color: #e9b96e;">'help'</span> for list of commands.
+(dlv) <span style="color: #b4fa70;">break</span> TestHello
 Breakpoint 1 set at 0x1137b4b for _/Users/nanjj/source/nanjj/nanjj.github.io/hello.TestHello() ./main_test.go:9
-(dlv) <span class="org-keyword">continue</span>
+(dlv) <span style="color: #b4fa70;">continue</span>
 &gt; _/Users/nanjj/source/nanjj/nanjj.github.io/hello.TestHello() ./main_test.go:9 (hits goroutine(5):1 total:1) (PC: 0x1137b4b)
-     4:         <span class="org-string">"fmt"</span>
-     5:         <span class="org-string">"reflect"</span>
-     6:         <span class="org-string">"testing"</span>
+     4:         <span style="color: #e9b96e;">"fmt"</span>
+     5:         <span style="color: #e9b96e;">"reflect"</span>
+     6:         <span style="color: #e9b96e;">"testing"</span>
      7: )
      8:
 =&gt;   9: func TestHello(t *testing.T) {
@@ -213,9 +203,9 @@ Breakpoint 1 set at 0x1137b4b for _/Users/nanjj/source/nanjj/nanjj.github.io/hel
     12:                 i := a[0].(int)
     13:                 lines[i] = fmt.Sprintf(format, a...)
     14:                 return len(lines[i]), nil
-(dlv) <span class="org-keyword">break</span> 12
+(dlv) <span style="color: #b4fa70;">break</span> 12
 Breakpoint 2 set at 0x1138101 for _/Users/nanjj/source/nanjj/nanjj.github.io/hello.TestHello.func1() ./main_test.go:12
-(dlv) <span class="org-keyword">continue</span>
+(dlv) <span style="color: #b4fa70;">continue</span>
 &gt; _/Users/nanjj/source/nanjj/nanjj.github.io/hello.TestHello.func1() ./main_test.go:12 (hits goroutine(15):1 total:1) (PC: 0x1138101)
      7: )
      8:
@@ -237,26 +227,26 @@ Breakpoint 2 set at 0x1138101 for _/Users/nanjj/source/nanjj/nanjj.github.io/hel
 </div>
 </div>
 
-<div id="outline-container-orgdc82e74" class="outline-3">
-<h3 id="orgdc82e74">Debug a Service</h3>
-<div class="outline-text-3" id="text-orgdc82e74">
+<div id="outline-container-org3aee3e0" class="outline-3">
+<h3 id="org3aee3e0">Debug a Service</h3>
+<div class="outline-text-3" id="text-org3aee3e0">
 <div class="org-src-container">
 <pre class="src src-sh">$ icp-cland&amp;
 $ ps -ef|grep icp-cland
 501 89630  3744   0  2:44PM ttys002    0:00.34 icp-cland
 $ dlv attach 89630
-Type <span class="org-string">'help'</span> for list of commands.
-(dlv) <span class="org-keyword">break</span> github.ibm.com/cland/icp-cland/icp/service/admin/db.go:27
+Type <span style="color: #e9b96e;">'help'</span> for list of commands.
+(dlv) <span style="color: #b4fa70;">break</span> github.ibm.com/cland/icp-cland/icp/service/admin/db.go:27
 Breakpoint 1 set at 0x47c771e for github.ibm.com/cland/icp-cland/icp/service/admin.(*dbAdmin).Purge() /Users/nanjj/gource/src/github.ibm.com/cland/icp-cland/icp/service/admin/db.go:27
-(dlv) <span class="org-keyword">continue</span>
+(dlv) <span style="color: #b4fa70;">continue</span>
 &gt; github.ibm.com/cland/icp-cland/icp/service/admin.(*dbAdmin).Purge() /Users/nanjj/gource/src/github.ibm.com/cland/icp-cland/icp/service/admin/db.go:27 (hits goroutine(357):1 total:1) (PC: 0x47c771e)
-Warning: debugging optimized <span class="org-keyword">function</span>
+Warning: debugging optimized <span style="color: #b4fa70;">function</span>
     22:         *logging.Tracer
     23: }
     24:
     25: func (dba *dbAdmin) Purge(ctx context.Context,
     26:         req *dbs.PurgeRequest) (rep *dbs.PurgeReply, err error) {
-=&gt;  27:         sp, ctx, logger := dba.StartSpanFromContext(ctx, <span class="org-string">"DBAdminPurge"</span>)
+=&gt;  27:         sp, ctx, logger := dba.StartSpanFromContext(ctx, <span style="color: #e9b96e;">"DBAdminPurge"</span>)
     28:         defer sp.Finish()
     29:         rep = &amp;dbs.PurgeReply{}
     30:         filter := req.GetFilter()

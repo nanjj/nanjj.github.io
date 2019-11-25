@@ -1,5 +1,6 @@
-#+TITLE: Tips
-#+DATE: <2017-12-20 Mon>
+#+title: Tips
+#+date: <2017-12-20 Mon>
+#+index: tips
 #+LINK: ncat https://nmap.org/ncat/
 #+LINK: ncat guide https://nmap.org/ncat/guide/index.html
 #+LINK: nmap https://nmap.org/

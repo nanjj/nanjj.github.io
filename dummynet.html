@@ -3,31 +3,21 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2019-03-18 Mon 11:58 -->
+<!-- 2019-11-26 二 00:12 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Dummynet Usage on Mac</title>
 <meta name="generator" content="Org mode" />
-<meta name="author" content="JUNJIE NAN" />
-<script>
-  ((window.gitter = {}).chat = {}).options = {
-    room: 'nanjj/nanjj.github.io'
-  };
-</script>
-<script src='https://sidecar.gitter.im/dist/sidecar.v1.js' async defer></script>
 <link rel="stylesheet" type="text/css" href="css/org.css" />
 </head>
 <body>
-<div id="org-div-home-and-up">
- <a accesskey="h" href="index.html"> UP </a> |
- <a accesskey="H" href="index.html"> HOME </a>
-</div><div id="content">
+<div id="content">
 <h1 class="title">Dummynet Usage on Mac</h1>
 <div id="table-of-contents">
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents">
 <ul>
-<li><a href="#orgda9b174">Configure Bandwidth</a></li>
+<li><a href="#org11b3130">Configure Bandwidth</a></li>
 </ul>
 </div>
 </div>
@@ -35,16 +25,16 @@
 Here some <code>dummynet</code> usages on Mac
 </p>
 
-<div id="outline-container-orgda9b174" class="outline-2">
-<h2 id="orgda9b174">Configure Bandwidth</h2>
-<div class="outline-text-2" id="text-orgda9b174">
+<div id="outline-container-org11b3130" class="outline-2">
+<h2 id="org11b3130">Configure Bandwidth</h2>
+<div class="outline-text-2" id="text-org11b3130">
 <ol class="org-ol">
 <li><p>
 Create pipe with bandwidth, redirect packets to the pipe
 </p>
 <div class="org-src-container">
 <pre class="src src-sh">sudo dnctl pipe 1 config bw 1Kbit/s
-<span class="org-builtin">echo</span> <span class="org-string">"dummynet out proto tcp from any to wordpress.org pipe 1"</span> |sudo pfctl -f -
+<span style="color: #e090d7;">echo</span> <span style="color: #e9b96e;">"dummynet out proto tcp from any to wordpress.org pipe 1"</span> |sudo pfctl -f -
 </pre>
 </div></li>
 <li><p>
@@ -57,7 +47,7 @@ sudo pfctl -e
 do download and watch the speed
 </p>
 <div class="org-src-container">
-<pre class="src src-sh">wget -O /dev/null wordpress.org/latest.zip <span class="org-comment-delimiter">#</span><span class="org-comment">=&gt;</span>
+<pre class="src src-sh">wget -O /dev/null wordpress.org/latest.zip <span style="color: #73d216;">#</span><span style="color: #73d216;">=&gt;</span>
 ... 3.02KB/s ...
 </pre>
 </div></li>
@@ -65,7 +55,7 @@ do download and watch the speed
 Adjust the bandwitch on fly and watch the speed
 </p>
 <div class="org-src-container">
-<pre class="src src-sh">sudo dnctl pipe 1 config bw 10Kbit/s <span class="org-comment-delimiter">#</span><span class="org-comment">=&gt;</span>
+<pre class="src src-sh">sudo dnctl pipe 1 config bw 10Kbit/s <span style="color: #73d216;">#</span><span style="color: #73d216;">=&gt;</span>
 ... 61.0KB/s ...
 </pre>
 </div></li>

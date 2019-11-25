@@ -3,72 +3,62 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2019-03-18 Mon 11:58 -->
+<!-- 2019-11-26 二 00:12 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Running Arista vEOS in OpenStack</title>
 <meta name="generator" content="Org mode" />
-<meta name="author" content="JUNJIE NAN" />
-<script>
-  ((window.gitter = {}).chat = {}).options = {
-    room: 'nanjj/nanjj.github.io'
-  };
-</script>
-<script src='https://sidecar.gitter.im/dist/sidecar.v1.js' async defer></script>
 <link rel="stylesheet" type="text/css" href="css/org.css" />
 </head>
 <body>
-<div id="org-div-home-and-up">
- <a accesskey="h" href="index.html"> UP </a> |
- <a accesskey="H" href="index.html"> HOME </a>
-</div><div id="content">
+<div id="content">
 <h1 class="title">Running Arista vEOS in OpenStack</h1>
 <div id="table-of-contents">
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents">
 <ul>
-<li><a href="#org785a7bf">vEOS Image</a>
+<li><a href="#org1e42de1">vEOS Image</a>
 <ul>
-<li><a href="#org0228cee">Download</a></li>
-<li><a href="#org62898c0">Upload</a></li>
-<li><a href="#orgdf2e049">List images</a></li>
+<li><a href="#org7904e1e">Download</a></li>
+<li><a href="#org0de6d3c">Upload</a></li>
+<li><a href="#org113d3bf">List images</a></li>
 </ul>
 </li>
-<li><a href="#org53ca14b">Boot vEOS VM</a>
+<li><a href="#org0513d94">Boot vEOS VM</a>
 <ul>
-<li><a href="#org1b744f7">Prerequisite</a></li>
-<li><a href="#org3583dd5">Boot VM</a></li>
-<li><a href="#orga4b207e">Notices</a></li>
+<li><a href="#org5a3ba99">Prerequisite</a></li>
+<li><a href="#org4dc154b">Boot VM</a></li>
+<li><a href="#orgb6f91c2">Notices</a></li>
 </ul>
 </li>
-<li><a href="#org3617e0f">Enable SSH</a></li>
-<li><a href="#org7445f7e">Netbox Integration</a>
+<li><a href="#orgae56b02">Enable SSH</a></li>
+<li><a href="#org75fb17f">Netbox Integration</a>
 <ul>
-<li><a href="#org871c6d8">Enable Management Api</a></li>
-<li><a href="#org36a0e21">Napalm</a></li>
+<li><a href="#orgc93b86d">Enable Management Api</a></li>
+<li><a href="#org42a0f45">Napalm</a></li>
 </ul>
 </li>
-<li><a href="#orgb3eed85">A Clasic Configuration</a>
+<li><a href="#orgbdcb6ce">A Clasic Configuration</a>
 <ul>
-<li><a href="#org6b6a57c">Topology</a></li>
-<li><a href="#orgc071812">Create Topology</a></li>
-<li><a href="#org3aab3fe">Configure Arista 0</a></li>
-<li><a href="#org7aa9de1">Configure Arista 1</a></li>
-<li><a href="#orgc45a917">Test</a></li>
+<li><a href="#orgb781791">Topology</a></li>
+<li><a href="#org0454414">Create Topology</a></li>
+<li><a href="#org890b917">Configure Arista 0</a></li>
+<li><a href="#orgca3c7f7">Configure Arista 1</a></li>
+<li><a href="#orgc4aac33">Test</a></li>
 </ul>
 </li>
-<li><a href="#org019487d">Tips</a></li>
+<li><a href="#orgdee41d3">Tips</a></li>
 </ul>
 </div>
 </div>
 
-<div id="outline-container-org785a7bf" class="outline-2">
-<h2 id="org785a7bf">vEOS Image</h2>
-<div class="outline-text-2" id="text-org785a7bf">
+<div id="outline-container-org1e42de1" class="outline-2">
+<h2 id="org1e42de1">vEOS Image</h2>
+<div class="outline-text-2" id="text-org1e42de1">
 </div>
-<div id="outline-container-org0228cee" class="outline-3">
-<h3 id="org0228cee">Download</h3>
-<div class="outline-text-3" id="text-org0228cee">
+<div id="outline-container-org7904e1e" class="outline-3">
+<h3 id="org7904e1e">Download</h3>
+<div class="outline-text-3" id="text-org7904e1e">
 <p>
 Download below files:
 </p>
@@ -84,33 +74,33 @@ from: <a href="https://www.arista.com/en/support/software-download">https://www.
 </div>
 </div>
 
-<div id="outline-container-org62898c0" class="outline-3">
-<h3 id="org62898c0">Upload</h3>
-<div class="outline-text-3" id="text-org62898c0">
+<div id="outline-container-org0de6d3c" class="outline-3">
+<h3 id="org0de6d3c">Upload</h3>
+<div class="outline-text-3" id="text-org0de6d3c">
 <p>
 Upload to OpenStack Glance:
 </p>
 <div class="org-src-container">
-<pre class="src src-sh">openstack image create Aboot-veos-8.0.0.iso <span class="org-sh-escaped-newline">\</span>
-          --container-format bare <span class="org-sh-escaped-newline">\</span>
-          --disk-format iso <span class="org-sh-escaped-newline">\</span>
+<pre class="src src-sh">openstack image create Aboot-veos-8.0.0.iso <span style="color: #e9b96e;">\</span>
+          --container-format bare <span style="color: #e9b96e;">\</span>
+          --disk-format iso <span style="color: #e9b96e;">\</span>
           --file Aboot-veos-8.0.0.iso
-openstack image create vEOS-lab-4.20.1F.vmdk <span class="org-sh-escaped-newline">\</span>
-          --container-format bare <span class="org-sh-escaped-newline">\</span>
-          --disk-format vmdk <span class="org-sh-escaped-newline">\</span>
+openstack image create vEOS-lab-4.20.1F.vmdk <span style="color: #e9b96e;">\</span>
+          --container-format bare <span style="color: #e9b96e;">\</span>
+          --disk-format vmdk <span style="color: #e9b96e;">\</span>
           --file vEOS-lab-4.20.1F.vmdk
 </pre>
 </div>
 </div>
 </div>
 
-<div id="outline-container-orgdf2e049" class="outline-3">
-<h3 id="orgdf2e049">List images</h3>
-<div class="outline-text-3" id="text-orgdf2e049">
+<div id="outline-container-org113d3bf" class="outline-3">
+<h3 id="org113d3bf">List images</h3>
+<div class="outline-text-3" id="text-org113d3bf">
 <div class="org-src-container">
 <pre class="src src-sh">openstack image list
-<span class="org-comment-delimiter">#</span><span class="org-comment">=&gt;</span>
-| name                  | id                                   | <span class="org-builtin">type</span>       |
+<span style="color: #73d216;">#</span><span style="color: #73d216;">=&gt;</span>
+| name                  | id                                   | <span style="color: #e090d7;">type</span>       |
 |-----------------------|--------------------------------------|------------|
 | Aboot-veos-8.0.0.iso  | 43c78dee-e055-4592-9b81-d66f6a33584d | iso image  |
 | vEOS-lab-4.20.1F.vmdk | ba02703d-6d2b-40a8-bdb7-bf41163d78f7 | vmdk image |
@@ -120,13 +110,13 @@ openstack image create vEOS-lab-4.20.1F.vmdk <span class="org-sh-escaped-newline
 </div>
 </div>
 
-<div id="outline-container-org53ca14b" class="outline-2">
-<h2 id="org53ca14b">Boot vEOS VM</h2>
-<div class="outline-text-2" id="text-org53ca14b">
+<div id="outline-container-org0513d94" class="outline-2">
+<h2 id="org0513d94">Boot vEOS VM</h2>
+<div class="outline-text-2" id="text-org0513d94">
 </div>
-<div id="outline-container-org1b744f7" class="outline-3">
-<h3 id="org1b744f7">Prerequisite</h3>
-<div class="outline-text-3" id="text-org1b744f7">
+<div id="outline-container-org5a3ba99" class="outline-3">
+<h3 id="org5a3ba99">Prerequisite</h3>
+<div class="outline-text-3" id="text-org5a3ba99">
 <p>
 Before boot VM, make sure:
 </p>
@@ -141,32 +131,32 @@ A workaround to disable ebtables:
 </p>
 
 <div class="org-src-container">
-<pre class="src src-sh">ansible -m cron -a <span class="org-string">'job="/sbin/ebtables -F" name="flush ebtables"'</span> all
+<pre class="src src-sh">ansible -m cron -a <span style="color: #e9b96e;">'job="/sbin/ebtables -F" name="flush ebtables"'</span> all
 </pre>
 </div>
 </div>
 </div>
 
-<div id="outline-container-org3583dd5" class="outline-3">
-<h3 id="org3583dd5">Boot VM</h3>
-<div class="outline-text-3" id="text-org3583dd5">
+<div id="outline-container-org4dc154b" class="outline-3">
+<h3 id="org4dc154b">Boot VM</h3>
+<div class="outline-text-3" id="text-org4dc154b">
 <div class="org-src-container">
-<pre class="src src-sh">nova boot --flavor m1.medium <span class="org-sh-escaped-newline">\</span>
-    --image Aboot-veos-8.0.0.iso <span class="org-sh-escaped-newline">\</span>
-    --nic net-id=64304c68-646f-4a2b-8a7a-e8f557c4b94a <span class="org-sh-escaped-newline">\</span>
-    --nic net-id=15bfca37-119e-475e-ad0e-fc2e377cac32 <span class="org-sh-escaped-newline">\</span>
-    --nic net-id=7c072643-2170-4a46-9dc2-e04f5f427f72 <span class="org-sh-escaped-newline">\</span>
-    --block-device <span class="org-sh-escaped-newline">\</span>
-    <span class="org-variable-name">id</span>=ba02703d-6d2b-40a8-bdb7-bf41163d78f7,<span class="org-variable-name">source</span>=image,<span class="org-variable-name">bus</span>=ide,<span class="org-variable-name">dest</span>=volume,<span class="org-variable-name">size</span>=4,<span class="org-variable-name">shutdown</span>=remove <span class="org-sh-escaped-newline">\</span>
+<pre class="src src-sh">nova boot --flavor m1.medium <span style="color: #e9b96e;">\</span>
+    --image Aboot-veos-8.0.0.iso <span style="color: #e9b96e;">\</span>
+    --nic net-id=64304c68-646f-4a2b-8a7a-e8f557c4b94a <span style="color: #e9b96e;">\</span>
+    --nic net-id=15bfca37-119e-475e-ad0e-fc2e377cac32 <span style="color: #e9b96e;">\</span>
+    --nic net-id=7c072643-2170-4a46-9dc2-e04f5f427f72 <span style="color: #e9b96e;">\</span>
+    --block-device <span style="color: #e9b96e;">\</span>
+    <span style="color: #fcaf3e;">id</span>=ba02703d-6d2b-40a8-bdb7-bf41163d78f7,<span style="color: #fcaf3e;">source</span>=image,<span style="color: #fcaf3e;">bus</span>=ide,<span style="color: #fcaf3e;">dest</span>=volume,<span style="color: #fcaf3e;">size</span>=4,<span style="color: #fcaf3e;">shutdown</span>=remove <span style="color: #e9b96e;">\</span>
     veosvm1
 </pre>
 </div>
 </div>
 </div>
 
-<div id="outline-container-orga4b207e" class="outline-3">
-<h3 id="orga4b207e">Notices</h3>
-<div class="outline-text-3" id="text-orga4b207e">
+<div id="outline-container-orgb6f91c2" class="outline-3">
+<h3 id="orgb6f91c2">Notices</h3>
+<div class="outline-text-3" id="text-orgb6f91c2">
 <ol class="org-ol">
 <li>The first network is for vEOS management port, the left are for
 vEOS switch ports,</li>
@@ -178,9 +168,9 @@ option is the image id of glance image vEOS-lab-4.20.1F.vmdk,</li>
 </div>
 </div>
 
-<div id="outline-container-org3617e0f" class="outline-2">
-<h2 id="org3617e0f">Enable SSH</h2>
-<div class="outline-text-2" id="text-org3617e0f">
+<div id="outline-container-orgae56b02" class="outline-2">
+<h2 id="orgae56b02">Enable SSH</h2>
+<div class="outline-text-2" id="text-orgae56b02">
 <p>
 Get vm's novnc console:
 </p>
@@ -195,16 +185,16 @@ Go to the novnc console to configure network:
 </p>
 
 <div class="org-src-container">
-<pre class="src src-sh">login: admin <span class="org-comment-delimiter"># </span><span class="org-comment">default username admin, no password</span>
+<pre class="src src-sh">login: admin <span style="color: #73d216;"># </span><span style="color: #73d216;">default username admin, no password</span>
 &gt; enable
-<span class="org-comment-delimiter"># </span><span class="org-comment">configure terminal</span>
-<span class="org-comment-delimiter"># </span><span class="org-comment">interface management 1</span>
-<span class="org-comment-delimiter"># </span><span class="org-comment">ip address 192.168.0.15 255.255.0.0</span>
-<span class="org-comment-delimiter"># </span><span class="org-comment">ip route 0.0.0.0 0.0.0.0 192.168.0.1</span>
-<span class="org-comment-delimiter"># </span><span class="org-comment">hostname veosvm1</span>
-<span class="org-comment-delimiter"># </span><span class="org-comment">username admin secret 0 admin</span>
-<span class="org-comment-delimiter"># </span><span class="org-comment">end</span>
-<span class="org-comment-delimiter"># </span><span class="org-comment">copy running-config startup-config</span>
+<span style="color: #73d216;"># </span><span style="color: #73d216;">configure terminal</span>
+<span style="color: #73d216;"># </span><span style="color: #73d216;">interface management 1</span>
+<span style="color: #73d216;"># </span><span style="color: #73d216;">ip address 192.168.0.15 255.255.0.0</span>
+<span style="color: #73d216;"># </span><span style="color: #73d216;">ip route 0.0.0.0 0.0.0.0 192.168.0.1</span>
+<span style="color: #73d216;"># </span><span style="color: #73d216;">hostname veosvm1</span>
+<span style="color: #73d216;"># </span><span style="color: #73d216;">username admin secret 0 admin</span>
+<span style="color: #73d216;"># </span><span style="color: #73d216;">end</span>
+<span style="color: #73d216;"># </span><span style="color: #73d216;">copy running-config startup-config</span>
 </pre>
 </div>
 
@@ -214,23 +204,23 @@ Now you can use ssh <code>ssh admin@192.168.0.15</code> to login.
 </div>
 </div>
 
-<div id="outline-container-org7445f7e" class="outline-2">
-<h2 id="org7445f7e">Netbox Integration</h2>
-<div class="outline-text-2" id="text-org7445f7e">
+<div id="outline-container-org75fb17f" class="outline-2">
+<h2 id="org75fb17f">Netbox Integration</h2>
+<div class="outline-text-2" id="text-org75fb17f">
 </div>
-<div id="outline-container-org871c6d8" class="outline-3">
-<h3 id="org871c6d8">Enable Management Api</h3>
-<div class="outline-text-3" id="text-org871c6d8">
+<div id="outline-container-orgc93b86d" class="outline-3">
+<h3 id="orgc93b86d">Enable Management Api</h3>
+<div class="outline-text-3" id="text-orgc93b86d">
 <div class="org-src-container">
-<pre class="src src-sh">ssh admin@192.168.0.15 <span class="org-comment-delimiter"># </span><span class="org-comment">password admin</span>
+<pre class="src src-sh">ssh admin@192.168.0.15 <span style="color: #73d216;"># </span><span style="color: #73d216;">password admin</span>
 &gt; enable
-<span class="org-comment-delimiter"># </span><span class="org-comment">config terminal</span>
-<span class="org-comment-delimiter"># </span><span class="org-comment">management api http-commands</span>
-<span class="org-comment-delimiter"># </span><span class="org-comment">no shutdown</span>
-<span class="org-comment-delimiter"># </span><span class="org-comment">no protocol http</span>
-<span class="org-comment-delimiter"># </span><span class="org-comment">protocol https</span>
-<span class="org-comment-delimiter"># </span><span class="org-comment">end</span>
-<span class="org-comment-delimiter"># </span><span class="org-comment">show management api http-commands #=&gt;</span>
+<span style="color: #73d216;"># </span><span style="color: #73d216;">config terminal</span>
+<span style="color: #73d216;"># </span><span style="color: #73d216;">management api http-commands</span>
+<span style="color: #73d216;"># </span><span style="color: #73d216;">no shutdown</span>
+<span style="color: #73d216;"># </span><span style="color: #73d216;">no protocol http</span>
+<span style="color: #73d216;"># </span><span style="color: #73d216;">protocol https</span>
+<span style="color: #73d216;"># </span><span style="color: #73d216;">end</span>
+<span style="color: #73d216;"># </span><span style="color: #73d216;">show management api http-commands #=&gt;</span>
 Enabled:            Yes
 HTTPS server:       running, set to use port 443
 HTTP server:        shutdown, set to use port 80
@@ -239,7 +229,7 @@ Unix Socket server: shutdown, no authentication
 VRFs:               default
 Hits:               75
 Last hit:           36 seconds ago
-Bytes<span class="org-keyword"> in</span>:           11714
+Bytes<span style="color: #b4fa70;"> in</span>:           11714
 Bytes out:          178064
 Requests:           60
 Commands:           147
@@ -250,22 +240,22 @@ QoS DSCP:           0
 Log Level:          none
 CSP Frame Ancestor: None
 TLS Protocols:      1.0 1.1 1.2
-   User        Requests       Bytes<span class="org-keyword"> in</span>       Bytes out    Last hit
+   User        Requests       Bytes<span style="color: #b4fa70;"> in</span>       Bytes out    Last hit
 ----------- -------------- -------------- --------------- --------------
    admin       60             11714          178064       36 seconds ago
 
 URLs
 --------------------------------------
 Management1 : https://192.168.0.15:443
-<span class="org-comment-delimiter"># </span><span class="org-comment">copy running-config startup-config</span>
+<span style="color: #73d216;"># </span><span style="color: #73d216;">copy running-config startup-config</span>
 </pre>
 </div>
 </div>
 </div>
 
-<div id="outline-container-org36a0e21" class="outline-3">
-<h3 id="org36a0e21">Napalm</h3>
-<div class="outline-text-3" id="text-org36a0e21">
+<div id="outline-container-org42a0f45" class="outline-3">
+<h3 id="org42a0f45">Napalm</h3>
+<div class="outline-text-3" id="text-org42a0f45">
 <p>
 So that netbox can talk to vEOS via napalm:
 </p>
@@ -285,13 +275,13 @@ So that netbox can talk to vEOS via napalm:
 </div>
 </div>
 
-<div id="outline-container-orgb3eed85" class="outline-2">
-<h2 id="orgb3eed85">A Clasic Configuration</h2>
-<div class="outline-text-2" id="text-orgb3eed85">
+<div id="outline-container-orgbdcb6ce" class="outline-2">
+<h2 id="orgbdcb6ce">A Clasic Configuration</h2>
+<div class="outline-text-2" id="text-orgbdcb6ce">
 </div>
-<div id="outline-container-org6b6a57c" class="outline-3">
-<h3 id="org6b6a57c">Topology</h3>
-<div class="outline-text-3" id="text-org6b6a57c">
+<div id="outline-container-orgb781791" class="outline-3">
+<h3 id="orgb781791">Topology</h3>
+<div class="outline-text-3" id="text-orgb781791">
 <div class="org-src-container">
 <pre class="src src-ditaa">+-----------------+                  +-----------------+
 |   arista 0  et2 +------vlan30------+ et2 arista 1    |
@@ -316,81 +306,81 @@ So that netbox can talk to vEOS via napalm:
 </div>
 </div>
 
-<div id="outline-container-orgc071812" class="outline-3">
-<h3 id="orgc071812">Create Topology</h3>
-<div class="outline-text-3" id="text-orgc071812">
+<div id="outline-container-org0454414" class="outline-3">
+<h3 id="org0454414">Create Topology</h3>
+<div class="outline-text-3" id="text-org0454414">
 <div class="org-src-container">
-<pre class="src src-yaml"><span class="org-comment">---</span>
-- <span class="org-variable-name">name</span>: <span class="org-string">"Create network vlan10, vlan20, vlan30"</span>
-  <span class="org-variable-name">hosts</span>: localhost
-  <span class="org-variable-name">tasks</span>:
-    - <span class="org-variable-name">name</span>: <span class="org-string">"ensure networks created."</span>
-      <span class="org-variable-name">os_network</span>:
-         <span class="org-variable-name">name</span>: <span class="org-string">"{{ item }}"</span>
-         <span class="org-variable-name">state</span>: present
-      <span class="org-variable-name">with_items</span>:
-        - vlan10
-        - vlan20
-        - vlan30
-    - <span class="org-variable-name">name</span>: <span class="org-string">"ensure vlan subnets created"</span>
-      <span class="org-variable-name">os_subnet</span>:
-        <span class="org-variable-name">name</span>: <span class="org-string">"vlan{{ item }}-subnet"</span>
-        <span class="org-variable-name">state</span>: <span class="org-string">"present"</span>
-        <span class="org-variable-name">network_name</span>: <span class="org-string">"vlan{{ item }}"</span>
-        <span class="org-variable-name">cidr</span>: <span class="org-string">"172.16.{{ item }}.0/24"</span>
-        <span class="org-variable-name">enable_dhcp</span>: <span class="org-constant">True</span>
-      <span class="org-variable-name">with_items</span>:
-        - <span class="org-string">"10"</span>
-        - <span class="org-string">"20"</span>
-        - <span class="org-string">"30"</span>
-- <span class="org-variable-name">name</span>: <span class="org-string">"Create arista vms"</span>
-  <span class="org-variable-name">hosts</span>: localhost
-  <span class="org-variable-name">tasks</span>:
-   - <span class="org-variable-name">name</span>: <span class="org-string">"ensure arista-0 created"</span>
-     <span class="org-variable-name">shell</span>: |
-       <span class="org-string">nova show arista-0 &amp;&gt; /dev/null &amp;&amp; exit 0</span>
-<span class="org-string">       nova boot --flavor m1.small \</span>
-<span class="org-string">         --image Aboot-veos-8.0.0.iso \</span>
-<span class="org-string">         --nic net-name=netops \</span>
-<span class="org-string">         --nic net-name=vlan10,v4-fixed-ip=172.16.10.1 \</span>
-<span class="org-string">         --nic net-name=vlan30,v4-fixed-ip=172.16.30.3 \</span>
-<span class="org-string">         --block-device \</span>
-<span class="org-string">         id=ba02703d-6d2b-40a8-bdb7-bf41163d78f7,source=image,bus=ide,dest=volume,size=4,shutdown=remove \</span>
-<span class="org-string">         arista-0</span>
-   - <span class="org-variable-name">name</span>: <span class="org-string">"ensure arista-1 created"</span>
-     <span class="org-variable-name">shell</span>: |
-       <span class="org-string">nova show arista-1 &amp;&gt; /dev/null &amp;&amp; exit 0</span>
-<span class="org-string">       nova boot --flavor m1.small \</span>
-<span class="org-string">         --image Aboot-veos-8.0.0.iso \</span>
-<span class="org-string">         --nic net-name=netops \</span>
-<span class="org-string">         --nic net-name=vlan20,v4-fixed-ip=172.16.20.1 \</span>
-<span class="org-string">         --nic net-name=vlan30,v4-fixed-ip=172.16.30.4 \</span>
-<span class="org-string">         --block-device \</span>
-<span class="org-string">         id=ba02703d-6d2b-40a8-bdb7-bf41163d78f7,source=image,bus=ide,dest=volume,size=4,shutdown=remove \</span>
-<span class="org-string">         arista-1</span>
-- <span class="org-variable-name">name</span>: <span class="org-string">"Create vm"</span>
-  <span class="org-variable-name">hosts</span>: localhost
-  <span class="org-variable-name">roles</span>:
-    - <span class="org-variable-name">role</span>: vm
-      <span class="org-variable-name">group</span>: vlan10vm
-      <span class="org-variable-name">network</span>: vlan10
-- <span class="org-variable-name">name</span>: <span class="org-string">"Create vm"</span>
-  <span class="org-variable-name">hosts</span>: localhost
-  <span class="org-variable-name">roles</span>:
-    - <span class="org-variable-name">role</span>: vm
-      <span class="org-variable-name">group</span>: vlan20vm
-      <span class="org-variable-name">network</span>: vlan20
+<pre class="src src-yaml">---
+- name: "Create network vlan10, vlan20, vlan30"
+  hosts: localhost
+  tasks:
+	- name: "ensure networks created."
+	  os_network:
+		 name: "{{ item }}"
+		 state: present
+	  with_items:
+		- vlan10
+		- vlan20
+		- vlan30
+	- name: "ensure vlan subnets created"
+	  os_subnet:
+		name: "vlan{{ item }}-subnet"
+		state: "present"
+		network_name: "vlan{{ item }}"
+		cidr: "172.16.{{ item }}.0/24"
+		enable_dhcp: True
+	  with_items:
+		- "10"
+		- "20"
+		- "30"
+- name: "Create arista vms"
+  hosts: localhost
+  tasks:
+   - name: "ensure arista-0 created"
+	 shell: |
+	   nova show arista-0 &amp;&gt; /dev/null &amp;&amp; exit 0
+	   nova boot --flavor m1.small \
+		 --image Aboot-veos-8.0.0.iso \
+		 --nic net-name=netops \
+		 --nic net-name=vlan10,v4-fixed-ip=172.16.10.1 \
+		 --nic net-name=vlan30,v4-fixed-ip=172.16.30.3 \
+		 --block-device \
+		 id=ba02703d-6d2b-40a8-bdb7-bf41163d78f7,source=image,bus=ide,dest=volume,size=4,shutdown=remove \
+		 arista-0
+   - name: "ensure arista-1 created"
+	 shell: |
+	   nova show arista-1 &amp;&gt; /dev/null &amp;&amp; exit 0
+	   nova boot --flavor m1.small \
+		 --image Aboot-veos-8.0.0.iso \
+		 --nic net-name=netops \
+		 --nic net-name=vlan20,v4-fixed-ip=172.16.20.1 \
+		 --nic net-name=vlan30,v4-fixed-ip=172.16.30.4 \
+		 --block-device \
+		 id=ba02703d-6d2b-40a8-bdb7-bf41163d78f7,source=image,bus=ide,dest=volume,size=4,shutdown=remove \
+		 arista-1
+- name: "Create vm"
+  hosts: localhost
+  roles:
+	- role: vm
+	  group: vlan10vm
+	  network: vlan10
+- name: "Create vm"
+  hosts: localhost
+  roles:
+	- role: vm
+	  group: vlan20vm
+	  network: vlan20
 
 </pre>
 </div>
 </div>
 </div>
 
-<div id="outline-container-org3aab3fe" class="outline-3">
-<h3 id="org3aab3fe">Configure Arista 0</h3>
-<div class="outline-text-3" id="text-org3aab3fe">
+<div id="outline-container-org890b917" class="outline-3">
+<h3 id="org890b917">Configure Arista 0</h3>
+<div class="outline-text-3" id="text-org890b917">
 <div class="org-src-container">
-<pre class="src src-sh"><span class="org-builtin">enable</span>
+<pre class="src src-sh"><span style="color: #e090d7;">enable</span>
 config terminal
 
 interface management 1
@@ -426,9 +416,9 @@ end
 </div>
 </div>
 
-<div id="outline-container-org7aa9de1" class="outline-3">
-<h3 id="org7aa9de1">Configure Arista 1</h3>
-<div class="outline-text-3" id="text-org7aa9de1">
+<div id="outline-container-orgca3c7f7" class="outline-3">
+<h3 id="orgca3c7f7">Configure Arista 1</h3>
+<div class="outline-text-3" id="text-orgca3c7f7">
 <div class="org-src-container">
 <pre class="src src-sh">interface management 1
 ip address 192.168.0.26/16
@@ -466,21 +456,24 @@ end
 </div>
 </div>
 
-<div id="outline-container-orgc45a917" class="outline-3">
-<h3 id="orgc45a917">Test</h3>
-<div class="outline-text-3" id="text-orgc45a917">
+<div id="outline-container-orgc4aac33" class="outline-3">
+<h3 id="orgc4aac33">Test</h3>
+<div class="outline-text-3" id="text-orgc4aac33">
 <p>
 login vm-0 and ping vm-1.
 </p>
 </div>
 </div>
 </div>
-<div id="outline-container-org019487d" class="outline-2">
-<h2 id="org019487d">Tips</h2>
-<div class="outline-text-2" id="text-org019487d">
+<div id="outline-container-orgdee41d3" class="outline-2">
+<h2 id="orgdee41d3">Tips</h2>
+<div class="outline-text-2" id="text-orgdee41d3">
 <ol class="org-ol">
 <li><a href="https://eos.arista.com/forum/qeustions-about-some-features-in-veos-that-may-or-may-not-work/">vEOS does not support NAT</a></li>
 </ol>
+<p>
+html-head-include-default-style nil
+</p>
 </div>
 </div>
 </div>

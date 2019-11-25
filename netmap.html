@@ -3,63 +3,53 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2019-03-18 Mon 11:58 -->
+<!-- 2019-11-26 二 00:12 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Netmap</title>
 <meta name="generator" content="Org mode" />
-<meta name="author" content="JUNJIE NAN" />
-<script>
-  ((window.gitter = {}).chat = {}).options = {
-    room: 'nanjj/nanjj.github.io'
-  };
-</script>
-<script src='https://sidecar.gitter.im/dist/sidecar.v1.js' async defer></script>
 <link rel="stylesheet" type="text/css" href="css/org.css" />
 </head>
 <body>
-<div id="org-div-home-and-up">
- <a accesskey="h" href="index.html"> UP </a> |
- <a accesskey="H" href="index.html"> HOME </a>
-</div><div id="content">
+<div id="content">
 <h1 class="title">Netmap</h1>
 <div id="table-of-contents">
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents">
 <ul>
-<li><a href="#org7e6be0d">Netmap Vale</a>
+<li><a href="#orgf5791a4">Netmap Vale</a>
 <ul>
-<li><a href="#org240c6bd">Vale Behavior</a></li>
-<li><a href="#org218dc1f">Mac Address Learning</a>
+<li><a href="#orged022e9">Vale Behavior</a></li>
+<li><a href="#org906567c">Mac Address Learning</a>
 <ul>
-<li><a href="#org91989b6">Prepare Vale</a></li>
-<li><a href="#org3c10e26">Show Mac Addresses</a></li>
-<li><a href="#org7cf9a0a">Train Vale</a></li>
-<li><a href="#orge784715">Send Packets</a></li>
+<li><a href="#org6d5fbb7">Prepare Vale</a></li>
+<li><a href="#org1df2fa7">Show Mac Addresses</a></li>
+<li><a href="#orge5b83c6">Train Vale</a></li>
+<li><a href="#org19a8039">Send Packets</a></li>
 </ul>
 </li>
-<li><a href="#org5bd3482">Broadcast and Multicast</a>
+<li><a href="#orge41566d">Broadcast and Multicast</a>
 <ul>
-<li><a href="#org60802d5">Prepare Vale</a></li>
-<li><a href="#orgf2cad6d">Send Broadcast</a></li>
-<li><a href="#org3353132">Send Multicast</a></li>
+<li><a href="#orgd5536c8">Prepare Vale</a></li>
+<li><a href="#orgcf44f05">Send Broadcast</a></li>
+<li><a href="#org8f00fc1">Send Multicast</a></li>
 </ul>
 </li>
-<li><a href="#orgf22b328">Vale Number and Vale Port Number</a>
+<li><a href="#orgaee73dd">Vale Number and Vale Port Number</a>
 <ul>
-<li><a href="#org8bf42ce">Value Test Script</a></li>
-<li><a href="#org800c11d">Test Vale Port Number</a></li>
-<li><a href="#org326a5ca">Test Vale Number</a></li>
+<li><a href="#org50ca223">Value Test Script</a></li>
+<li><a href="#org3befdc1">Test Vale Port Number</a></li>
+<li><a href="#org4149dd6">Test Vale Number</a></li>
 </ul>
 </li>
 </ul>
 </li>
-<li><a href="#org0ad8f1f">Netmap Pipe</a>
+<li><a href="#orga7559e2">Netmap Pipe</a>
 <ul>
-<li><a href="#org882ef1b">Master and Slave Endpoint</a></li>
-<li><a href="#orgfc4d1d2">Tranfer Anything Via Pipe</a></li>
-<li><a href="#orgb5c9d74">Bidirection and Blocking</a></li>
-<li><a href="#org7a9d19c">Sample Code: nmpipe.c</a></li>
+<li><a href="#orgb663858">Master and Slave Endpoint</a></li>
+<li><a href="#orgdd9b82c">Tranfer Anything Via Pipe</a></li>
+<li><a href="#org14f8920">Bidirection and Blocking</a></li>
+<li><a href="#orge41cf3c">Sample Code: nmpipe.c</a></li>
 </ul>
 </li>
 </ul>
@@ -69,13 +59,13 @@
 <a href="http://info.iet.unipi.it/~luigi/netmap">Netmap</a> is a framework for very fast packet I/O from userspace.
 </p>
 
-<div id="outline-container-org7e6be0d" class="outline-2">
-<h2 id="org7e6be0d">Netmap Vale</h2>
-<div class="outline-text-2" id="text-org7e6be0d">
+<div id="outline-container-orgf5791a4" class="outline-2">
+<h2 id="orgf5791a4">Netmap Vale</h2>
+<div class="outline-text-2" id="text-orgf5791a4">
 </div>
-<div id="outline-container-org240c6bd" class="outline-3">
-<h3 id="org240c6bd">Vale Behavior</h3>
-<div class="outline-text-3" id="text-org240c6bd">
+<div id="outline-container-orged022e9" class="outline-3">
+<h3 id="orged022e9">Vale Behavior</h3>
+<div class="outline-text-3" id="text-orged022e9">
 <p>
 Netmap vale is a high performance switch. It learns MAC addresses
 from ether source header. Ether header format:
@@ -133,13 +123,13 @@ address.
 </p>
 </div>
 </div>
-<div id="outline-container-org218dc1f" class="outline-3">
-<h3 id="org218dc1f">Mac Address Learning</h3>
-<div class="outline-text-3" id="text-org218dc1f">
+<div id="outline-container-org906567c" class="outline-3">
+<h3 id="org906567c">Mac Address Learning</h3>
+<div class="outline-text-3" id="text-org906567c">
 </div>
-<div id="outline-container-org91989b6" class="outline-4">
-<h4 id="org91989b6">Prepare Vale</h4>
-<div class="outline-text-4" id="text-org91989b6">
+<div id="outline-container-org6d5fbb7" class="outline-4">
+<h4 id="org6d5fbb7">Prepare Vale</h4>
+<div class="outline-text-4" id="text-org6d5fbb7">
 <div class="org-src-container">
 <pre class="src src-sh">vale-ctl -n vi0
 vale-ctl -n vi1
@@ -152,9 +142,9 @@ vale-ctl -a vale0:vi2
 </div>
 </div>
 
-<div id="outline-container-org3c10e26" class="outline-4">
-<h4 id="org3c10e26">Show Mac Addresses</h4>
-<div class="outline-text-4" id="text-org3c10e26">
+<div id="outline-container-org1df2fa7" class="outline-4">
+<h4 id="org1df2fa7">Show Mac Addresses</h4>
+<div class="outline-text-4" id="text-org1df2fa7">
 <pre class="example">
 ip link #=&gt;
 65742: vi0: &lt;BROADCAST,MULTICAST&gt; mtu 1500 qdisc ...
@@ -170,9 +160,9 @@ show.
 </p>
 </div>
 </div>
-<div id="outline-container-org7cf9a0a" class="outline-4">
-<h4 id="org7cf9a0a">Train Vale</h4>
-<div class="outline-text-4" id="text-org7cf9a0a">
+<div id="outline-container-orge5b83c6" class="outline-4">
+<h4 id="orge5b83c6">Train Vale</h4>
+<div class="outline-text-4" id="text-orge5b83c6">
 <p>
 Vale learns mac address from ether source header, so train it like
 below:
@@ -186,9 +176,9 @@ pkt-gen -i vale0:vi2 -S 42:d2:0e:93:c8:1b -f tx
 </div>
 </div>
 
-<div id="outline-container-orge784715" class="outline-4">
-<h4 id="orge784715">Send Packets</h4>
-<div class="outline-text-4" id="text-orge784715">
+<div id="outline-container-org19a8039" class="outline-4">
+<h4 id="org19a8039">Send Packets</h4>
+<div class="outline-text-4" id="text-org19a8039">
 <p>
 Send packages from <code>vi0</code> to <code>vi1</code>:
 </p>
@@ -216,13 +206,13 @@ Send packages from <code>vi0</code> to <code>vi1</code>:
 </div>
 </div>
 
-<div id="outline-container-org5bd3482" class="outline-3">
-<h3 id="org5bd3482">Broadcast and Multicast</h3>
-<div class="outline-text-3" id="text-org5bd3482">
+<div id="outline-container-orge41566d" class="outline-3">
+<h3 id="orge41566d">Broadcast and Multicast</h3>
+<div class="outline-text-3" id="text-orge41566d">
 </div>
-<div id="outline-container-org60802d5" class="outline-4">
-<h4 id="org60802d5">Prepare Vale</h4>
-<div class="outline-text-4" id="text-org60802d5">
+<div id="outline-container-orgd5536c8" class="outline-4">
+<h4 id="orgd5536c8">Prepare Vale</h4>
+<div class="outline-text-4" id="text-orgd5536c8">
 <div class="org-src-container">
 <pre class="src src-sh">vale-ctl -n v1p1
 vale-ctl -n v1p2
@@ -238,9 +228,9 @@ pkt-gen -i vale1:v1p3 -S 45:d2:0e:93:c8:1b -f tx
 </div>
 </div>
 
-<div id="outline-container-orgf2cad6d" class="outline-4">
-<h4 id="orgf2cad6d">Send Broadcast</h4>
-<div class="outline-text-4" id="text-orgf2cad6d">
+<div id="outline-container-orgcf44f05" class="outline-4">
+<h4 id="orgcf44f05">Send Broadcast</h4>
+<div class="outline-text-4" id="text-orgcf44f05">
 <div class="org-src-container">
 <pre class="src src-sh">pkt-gen -i vale1:v1p1 -D ff:ff:ff:ff:ff:ff -f tx
 </pre>
@@ -255,9 +245,9 @@ The broadcast traffic can be received by all vale ports:
 </div>
 </div>
 </div>
-<div id="outline-container-org3353132" class="outline-4">
-<h4 id="org3353132">Send Multicast</h4>
-<div class="outline-text-4" id="text-org3353132">
+<div id="outline-container-org8f00fc1" class="outline-4">
+<h4 id="org8f00fc1">Send Multicast</h4>
+<div class="outline-text-4" id="text-org8f00fc1">
 <div class="org-src-container">
 <pre class="src src-sh">pkt-gen -i vale1:v1p1 -S 51:ec:30:31:bd:6c -D b3:07:df:ed:04:86 -f tx
 </pre>
@@ -274,52 +264,52 @@ The multicast traffic can be received by all vale ports:
 </div>
 </div>
 
-<div id="outline-container-orgf22b328" class="outline-3">
-<h3 id="orgf22b328">Vale Number and Vale Port Number</h3>
-<div class="outline-text-3" id="text-orgf22b328">
+<div id="outline-container-orgaee73dd" class="outline-3">
+<h3 id="orgaee73dd">Vale Number and Vale Port Number</h3>
+<div class="outline-text-3" id="text-orgaee73dd">
 <p>
 The default vale max number is 8. In one vale, the max port number
 is 254.
 </p>
 </div>
 
-<div id="outline-container-org8bf42ce" class="outline-4">
-<h4 id="org8bf42ce">Value Test Script</h4>
-<div class="outline-text-4" id="text-org8bf42ce">
+<div id="outline-container-org50ca223" class="outline-4">
+<h4 id="org50ca223">Value Test Script</h4>
+<div class="outline-text-4" id="text-org50ca223">
 <p>
 <code>vale-test</code>:
 </p>
 <div class="org-src-container">
-<pre class="src src-sh"><span class="org-comment-delimiter">#</span><span class="org-comment">!/bin/</span><span class="org-keyword">bash</span>
-<span class="org-comment-delimiter"># </span><span class="org-comment">file: vale-test</span>
-<span class="org-variable-name">action</span>=${<span class="org-variable-name">1</span>:-attach}
-<span class="org-builtin">shift</span>
-<span class="org-variable-name">vmax</span>=${<span class="org-variable-name">1</span>:-1}
-<span class="org-builtin">shift</span>
-<span class="org-variable-name">pmax</span>=${<span class="org-variable-name">1</span>:-252}
-<span class="org-builtin">shift</span>
-<span class="org-keyword">for</span> ((<span class="org-variable-name">j</span>=0; j&lt;$<span class="org-variable-name">vmax</span>; j++)); <span class="org-keyword">do</span>
-    <span class="org-keyword">for</span> ((<span class="org-variable-name">i</span>=0; i&lt;$<span class="org-variable-name">pmax</span>; i++)); <span class="org-keyword">do</span>
-        <span class="org-variable-name">p</span>=$(<span class="org-sh-quoted-exec">printf</span> <span class="org-string">"p%03d%03d"</span> $<span class="org-variable-name">j</span> $<span class="org-variable-name">i</span>)
-        <span class="org-variable-name">v</span>=$(<span class="org-sh-quoted-exec">printf</span> <span class="org-string">"vale%03d"</span> $<span class="org-variable-name">j</span>)
-        <span class="org-builtin">echo</span> $<span class="org-variable-name">v</span>:$<span class="org-variable-name">p</span>
-        <span class="org-keyword">if</span> [ <span class="org-string">"$action"</span> = <span class="org-string">"attach"</span> ]; <span class="org-keyword">then</span>
-            vale-ctl -n $<span class="org-variable-name">p</span>
-            vale-ctl -a $<span class="org-variable-name">v</span>:$<span class="org-variable-name">p</span>
-        <span class="org-keyword">else</span>
-            vale-ctl -d $<span class="org-variable-name">v</span>:$<span class="org-variable-name">p</span>
-            vale-ctl -r $<span class="org-variable-name">p</span>
-        <span class="org-keyword">fi</span>
-    <span class="org-keyword">done</span>
-<span class="org-keyword">done</span>
+<pre class="src src-sh"><span style="color: #73d216;">#</span><span style="color: #73d216;">!/bin/</span><span style="color: #b4fa70;">bash</span>
+<span style="color: #73d216;"># </span><span style="color: #73d216;">file: vale-test</span>
+<span style="color: #fcaf3e;">action</span>=${<span style="color: #fcaf3e;">1</span>:-attach}
+<span style="color: #e090d7;">shift</span>
+<span style="color: #fcaf3e;">vmax</span>=${<span style="color: #fcaf3e;">1</span>:-1}
+<span style="color: #e090d7;">shift</span>
+<span style="color: #fcaf3e;">pmax</span>=${<span style="color: #fcaf3e;">1</span>:-252}
+<span style="color: #e090d7;">shift</span>
+<span style="color: #b4fa70;">for</span> ((<span style="color: #fcaf3e;">j</span>=0; j&lt;$<span style="color: #fcaf3e;">vmax</span>; j++)); <span style="color: #b4fa70;">do</span>
+    <span style="color: #b4fa70;">for</span> ((<span style="color: #fcaf3e;">i</span>=0; i&lt;$<span style="color: #fcaf3e;">pmax</span>; i++)); <span style="color: #b4fa70;">do</span>
+        <span style="color: #fcaf3e;">p</span>=$(<span style="color: #fa8072;">printf</span> <span style="color: #e9b96e;">"p%03d%03d"</span> $<span style="color: #fcaf3e;">j</span> $<span style="color: #fcaf3e;">i</span>)
+        <span style="color: #fcaf3e;">v</span>=$(<span style="color: #fa8072;">printf</span> <span style="color: #e9b96e;">"vale%03d"</span> $<span style="color: #fcaf3e;">j</span>)
+        <span style="color: #e090d7;">echo</span> $<span style="color: #fcaf3e;">v</span>:$<span style="color: #fcaf3e;">p</span>
+        <span style="color: #b4fa70;">if</span> [ <span style="color: #e9b96e;">"$action"</span> = <span style="color: #e9b96e;">"attach"</span> ]; <span style="color: #b4fa70;">then</span>
+            vale-ctl -n $<span style="color: #fcaf3e;">p</span>
+            vale-ctl -a $<span style="color: #fcaf3e;">v</span>:$<span style="color: #fcaf3e;">p</span>
+        <span style="color: #b4fa70;">else</span>
+            vale-ctl -d $<span style="color: #fcaf3e;">v</span>:$<span style="color: #fcaf3e;">p</span>
+            vale-ctl -r $<span style="color: #fcaf3e;">p</span>
+        <span style="color: #b4fa70;">fi</span>
+    <span style="color: #b4fa70;">done</span>
+<span style="color: #b4fa70;">done</span>
 </pre>
 </div>
 </div>
 </div>
 
-<div id="outline-container-org800c11d" class="outline-4">
-<h4 id="org800c11d">Test Vale Port Number</h4>
-<div class="outline-text-4" id="text-org800c11d">
+<div id="outline-container-org3befdc1" class="outline-4">
+<h4 id="org3befdc1">Test Vale Port Number</h4>
+<div class="outline-text-4" id="text-org3befdc1">
 <p>
 Attach 254 ports in 1 vale:
 </p>
@@ -339,9 +329,9 @@ Detach them:
 </div>
 </div>
 
-<div id="outline-container-org326a5ca" class="outline-4">
-<h4 id="org326a5ca">Test Vale Number</h4>
-<div class="outline-text-4" id="text-org326a5ca">
+<div id="outline-container-org4149dd6" class="outline-4">
+<h4 id="org4149dd6">Test Vale Number</h4>
+<div class="outline-text-4" id="text-org4149dd6">
 <p>
 Create 8 ports and attach 1 port for each:
 </p>
@@ -362,17 +352,17 @@ Detach them:
 </div>
 </div>
 
-<div id="outline-container-org0ad8f1f" class="outline-2">
-<h2 id="org0ad8f1f">Netmap Pipe</h2>
-<div class="outline-text-2" id="text-org0ad8f1f">
+<div id="outline-container-orga7559e2" class="outline-2">
+<h2 id="orga7559e2">Netmap Pipe</h2>
+<div class="outline-text-2" id="text-orga7559e2">
 <p>
 Netmap pipe are used to share data between two processes.
 </p>
 </div>
 
-<div id="outline-container-org882ef1b" class="outline-3">
-<h3 id="org882ef1b">Master and Slave Endpoint</h3>
-<div class="outline-text-3" id="text-org882ef1b">
+<div id="outline-container-orgb663858" class="outline-3">
+<h3 id="orgb663858">Master and Slave Endpoint</h3>
+<div class="outline-text-3" id="text-orgb663858">
 <p>
 One pipe has two endpoints: master and slave. For examples:
 </p>
@@ -392,9 +382,9 @@ netmap pipe master and slave are in equal, maybe we should call them
 </div>
 </div>
 
-<div id="outline-container-orgfc4d1d2" class="outline-3">
-<h3 id="orgfc4d1d2">Tranfer Anything Via Pipe</h3>
-<div class="outline-text-3" id="text-orgfc4d1d2">
+<div id="outline-container-orgdd9b82c" class="outline-3">
+<h3 id="orgdd9b82c">Tranfer Anything Via Pipe</h3>
+<div class="outline-text-3" id="text-orgdd9b82c">
 <p>
 You can transfer through netmap pipes packet with non-ethernet
 structure, since netmap pipe does not look at the packet's headers
@@ -403,142 +393,142 @@ or content.
 </div>
 </div>
 
-<div id="outline-container-orgb5c9d74" class="outline-3">
-<h3 id="orgb5c9d74">Bidirection and Blocking</h3>
-<div class="outline-text-3" id="text-orgb5c9d74">
+<div id="outline-container-org14f8920" class="outline-3">
+<h3 id="org14f8920">Bidirection and Blocking</h3>
+<div class="outline-text-3" id="text-org14f8920">
 <p>
 Netmap pipes are bidirectional and blocking.
 </p>
 </div>
 </div>
 
-<div id="outline-container-org7a9d19c" class="outline-3">
-<h3 id="org7a9d19c">Sample Code: nmpipe.c</h3>
-<div class="outline-text-3" id="text-org7a9d19c">
+<div id="outline-container-orge41cf3c" class="outline-3">
+<h3 id="orge41cf3c">Sample Code: nmpipe.c</h3>
+<div class="outline-text-3" id="text-orge41cf3c">
 <p>
 Sample code:
 </p>
 
 <div class="org-src-container">
-<pre class="src src-c"><span class="linenr">  1: </span><span class="org-comment-delimiter">/*</span>
-<span class="linenr">  2: </span><span class="org-comment"> * nmpipe:</span>
-<span class="linenr">  3: </span><span class="org-comment"> *</span>
-<span class="linenr">  4: </span><span class="org-comment"> * read from stdin, write to netmap pipe or read from pipe and write</span>
-<span class="linenr">  5: </span><span class="org-comment"> * to stdout.</span>
-<span class="linenr">  6: </span><span class="org-comment"> </span><span class="org-comment-delimiter">*/</span>
-<span class="linenr">  7: </span><span class="org-preprocessor">#include</span> <span class="org-string">&lt;stdio.h&gt;</span>              <span class="org-comment-delimiter">/* </span><span class="org-comment">printf </span><span class="org-comment-delimiter">*/</span>
-<span class="linenr">  8: </span><span class="org-preprocessor">#include</span> <span class="org-string">&lt;unistd.h&gt;</span>             <span class="org-comment-delimiter">/* </span><span class="org-comment">getopt, read, write </span><span class="org-comment-delimiter">*/</span>
-<span class="linenr">  9: </span><span class="org-preprocessor">#include</span> <span class="org-string">&lt;string.h&gt;</span>             <span class="org-comment-delimiter">/* </span><span class="org-comment">strerror, strlen </span><span class="org-comment-delimiter">*/</span>
-<span class="linenr"> 10: </span><span class="org-preprocessor">#include</span> <span class="org-string">&lt;poll.h&gt;</span>               <span class="org-comment-delimiter">/* </span><span class="org-comment">pollfd, poll </span><span class="org-comment-delimiter">*/</span>
+<pre class="src src-c"><span class="linenr">  1: </span><span style="color: #73d216;">/*</span>
+<span class="linenr">  2: </span><span style="color: #73d216;"> * nmpipe:</span>
+<span class="linenr">  3: </span><span style="color: #73d216;"> *</span>
+<span class="linenr">  4: </span><span style="color: #73d216;"> * read from stdin, write to netmap pipe or read from pipe and write</span>
+<span class="linenr">  5: </span><span style="color: #73d216;"> * to stdout.</span>
+<span class="linenr">  6: </span><span style="color: #73d216;"> </span><span style="color: #73d216;">*/</span>
+<span class="linenr">  7: </span><span style="color: #e090d7;">#include</span> <span style="color: #e9b96e;">&lt;stdio.h&gt;</span>              <span style="color: #73d216;">/* </span><span style="color: #73d216;">printf </span><span style="color: #73d216;">*/</span>
+<span class="linenr">  8: </span><span style="color: #e090d7;">#include</span> <span style="color: #e9b96e;">&lt;unistd.h&gt;</span>             <span style="color: #73d216;">/* </span><span style="color: #73d216;">getopt, read, write </span><span style="color: #73d216;">*/</span>
+<span class="linenr">  9: </span><span style="color: #e090d7;">#include</span> <span style="color: #e9b96e;">&lt;string.h&gt;</span>             <span style="color: #73d216;">/* </span><span style="color: #73d216;">strerror, strlen </span><span style="color: #73d216;">*/</span>
+<span class="linenr"> 10: </span><span style="color: #e090d7;">#include</span> <span style="color: #e9b96e;">&lt;poll.h&gt;</span>               <span style="color: #73d216;">/* </span><span style="color: #73d216;">pollfd, poll </span><span style="color: #73d216;">*/</span>
 <span class="linenr"> 11: </span>
-<span class="linenr"> 12: </span><span class="org-preprocessor">#define</span> <span class="org-variable-name">NETMAP_WITH_LIBS</span>
-<span class="linenr"> 13: </span><span class="org-preprocessor">#include</span> <span class="org-string">&lt;net/netmap_user.h&gt;</span>
+<span class="linenr"> 12: </span><span style="color: #e090d7;">#define</span> <span style="color: #fcaf3e;">NETMAP_WITH_LIBS</span>
+<span class="linenr"> 13: </span><span style="color: #e090d7;">#include</span> <span style="color: #e9b96e;">&lt;net/netmap_user.h&gt;</span>
 <span class="linenr"> 14: </span>
-<span class="linenr"> 15: </span><span class="org-type">void</span> <span class="org-function-name">usage</span>(<span class="org-type">char</span>** <span class="org-variable-name">argv</span>)
+<span class="linenr"> 15: </span><span style="color: #8cc4ff;">void</span> <span style="color: #fce94f;">usage</span>(<span style="color: #8cc4ff;">char</span>** <span style="color: #fcaf3e;">argv</span>)
 <span class="linenr"> 16: </span>{
-<span class="linenr"> 17: </span>       printf(<span class="org-string">"Usage: %s &lt;ifname&gt;\n"</span>
-<span class="linenr"> 18: </span>               <span class="org-string">"ifname - interface name, which must be a pipe endpoint name,\n"</span>
-<span class="linenr"> 19: </span>               <span class="org-string">"         for example netmap:pipe{0, or netmap:pipe}0\n"</span>,
+<span class="linenr"> 17: </span>       printf(<span style="color: #e9b96e;">"Usage: %s &lt;ifname&gt;\n"</span>
+<span class="linenr"> 18: </span>               <span style="color: #e9b96e;">"ifname - interface name, which must be a pipe endpoint name,\n"</span>
+<span class="linenr"> 19: </span>               <span style="color: #e9b96e;">"         for example netmap:pipe{0, or netmap:pipe}0\n"</span>,
 <span class="linenr"> 20: </span>               argv[0]);
 <span class="linenr"> 21: </span>}
 <span class="linenr"> 22: </span>
-<span class="linenr"> 23: </span><span class="org-type">void</span> <span class="org-function-name">read_stdin</span>(<span class="org-type">char</span> *<span class="org-variable-name">buf</span>)
+<span class="linenr"> 23: </span><span style="color: #8cc4ff;">void</span> <span style="color: #fce94f;">read_stdin</span>(<span style="color: #8cc4ff;">char</span> *<span style="color: #fcaf3e;">buf</span>)
 <span class="linenr"> 24: </span>{
-<span class="linenr"> 25: </span>    <span class="org-type">int</span> <span class="org-variable-name">n</span> = strlen(buf);
-<span class="linenr"> 26: </span>    <span class="org-keyword">if</span> (n == 0) {
+<span class="linenr"> 25: </span>    <span style="color: #8cc4ff;">int</span> <span style="color: #fcaf3e;">n</span> = strlen(buf);
+<span class="linenr"> 26: </span>    <span style="color: #b4fa70;">if</span> (n == 0) {
 <span class="linenr"> 27: </span>        n = read(STDIN_FILENO, buf, 1024);
-<span class="linenr"> 28: </span>        <span class="org-keyword">if</span> (n &gt; 0) {
-<span class="linenr"> 29: </span>            buf[n] = <span class="org-string">'\0'</span>;
+<span class="linenr"> 28: </span>        <span style="color: #b4fa70;">if</span> (n &gt; 0) {
+<span class="linenr"> 29: </span>            buf[n] = <span style="color: #e9b96e;">'\0'</span>;
 <span class="linenr"> 30: </span>        }
 <span class="linenr"> 31: </span>    }
 <span class="linenr"> 32: </span>}
 <span class="linenr"> 33: </span>
-<span class="linenr"> 34: </span><span class="org-type">void</span> <span class="org-function-name">read_pipe</span>(<span class="org-keyword">struct</span> <span class="org-type">nm_desc</span> *<span class="org-variable-name">nmd</span>, <span class="org-type">char</span> *<span class="org-variable-name">buf</span>)
+<span class="linenr"> 34: </span><span style="color: #8cc4ff;">void</span> <span style="color: #fce94f;">read_pipe</span>(<span style="color: #b4fa70;">struct</span> <span style="color: #8cc4ff;">nm_desc</span> *<span style="color: #fcaf3e;">nmd</span>, <span style="color: #8cc4ff;">char</span> *<span style="color: #fcaf3e;">buf</span>)
 <span class="linenr"> 35: </span>{
-<span class="linenr"> 36: </span>    <span class="org-type">int</span> <span class="org-variable-name">n</span> = strlen(buf);
-<span class="linenr"> 37: </span>    <span class="org-keyword">if</span> (n == 0) {
-<span class="linenr"> 38: </span>        <span class="org-keyword">struct</span> <span class="org-type">nm_pkthdr</span> <span class="org-variable-name">hdr</span> = {0};
-<span class="linenr"> 39: </span>        <span class="org-type">u_char</span>* <span class="org-variable-name">b</span> = nm_nextpkt(nmd, &amp;hdr);
-<span class="linenr"> 40: </span>        <span class="org-keyword">if</span> (b != <span class="org-constant">NULL</span>) {
+<span class="linenr"> 36: </span>    <span style="color: #8cc4ff;">int</span> <span style="color: #fcaf3e;">n</span> = strlen(buf);
+<span class="linenr"> 37: </span>    <span style="color: #b4fa70;">if</span> (n == 0) {
+<span class="linenr"> 38: </span>        <span style="color: #b4fa70;">struct</span> <span style="color: #8cc4ff;">nm_pkthdr</span> <span style="color: #fcaf3e;">hdr</span> = {0};
+<span class="linenr"> 39: </span>        <span style="color: #8cc4ff;">u_char</span>* <span style="color: #fcaf3e;">b</span> = nm_nextpkt(nmd, &amp;hdr);
+<span class="linenr"> 40: </span>        <span style="color: #b4fa70;">if</span> (b != <span style="color: #e9b2e3;">NULL</span>) {
 <span class="linenr"> 41: </span>            n = hdr.len;
 <span class="linenr"> 42: </span>            nm_pkt_copy(b, buf, n);
-<span class="linenr"> 43: </span>            buf[n] = <span class="org-string">'\0'</span>;
+<span class="linenr"> 43: </span>            buf[n] = <span style="color: #e9b96e;">'\0'</span>;
 <span class="linenr"> 44: </span>        }
 <span class="linenr"> 45: </span>    }
 <span class="linenr"> 46: </span>}
-<span class="linenr"> 47: </span><span class="org-type">void</span> <span class="org-function-name">flush_pipe</span>(<span class="org-keyword">struct</span> <span class="org-type">nm_desc</span> *<span class="org-variable-name">nmd</span>, <span class="org-type">char</span> *<span class="org-variable-name">buf</span>)
+<span class="linenr"> 47: </span><span style="color: #8cc4ff;">void</span> <span style="color: #fce94f;">flush_pipe</span>(<span style="color: #b4fa70;">struct</span> <span style="color: #8cc4ff;">nm_desc</span> *<span style="color: #fcaf3e;">nmd</span>, <span style="color: #8cc4ff;">char</span> *<span style="color: #fcaf3e;">buf</span>)
 <span class="linenr"> 48: </span>{
-<span class="linenr"> 49: </span>    <span class="org-type">int</span> <span class="org-variable-name">n</span> = strlen(buf);
-<span class="linenr"> 50: </span>    <span class="org-keyword">if</span> (n &gt; 0 ) {
-<span class="linenr"> 51: </span>        <span class="org-keyword">if</span> (nm_inject(nmd, buf, n) &gt; 0 ) {
-<span class="linenr"> 52: </span>            buf[0] = <span class="org-string">'\0'</span>;
+<span class="linenr"> 49: </span>    <span style="color: #8cc4ff;">int</span> <span style="color: #fcaf3e;">n</span> = strlen(buf);
+<span class="linenr"> 50: </span>    <span style="color: #b4fa70;">if</span> (n &gt; 0 ) {
+<span class="linenr"> 51: </span>        <span style="color: #b4fa70;">if</span> (nm_inject(nmd, buf, n) &gt; 0 ) {
+<span class="linenr"> 52: </span>            buf[0] = <span style="color: #e9b96e;">'\0'</span>;
 <span class="linenr"> 53: </span>        }
 <span class="linenr"> 54: </span>    }
 <span class="linenr"> 55: </span>}
 <span class="linenr"> 56: </span>
-<span class="linenr"> 57: </span><span class="org-type">void</span> <span class="org-function-name">flush_stdout</span>(<span class="org-type">char</span> *<span class="org-variable-name">buf</span>)
+<span class="linenr"> 57: </span><span style="color: #8cc4ff;">void</span> <span style="color: #fce94f;">flush_stdout</span>(<span style="color: #8cc4ff;">char</span> *<span style="color: #fcaf3e;">buf</span>)
 <span class="linenr"> 58: </span>{
-<span class="linenr"> 59: </span>    <span class="org-type">int</span> <span class="org-variable-name">n</span> = strlen(buf);
-<span class="linenr"> 60: </span>    <span class="org-keyword">if</span> (n &gt; 0 ) {
+<span class="linenr"> 59: </span>    <span style="color: #8cc4ff;">int</span> <span style="color: #fcaf3e;">n</span> = strlen(buf);
+<span class="linenr"> 60: </span>    <span style="color: #b4fa70;">if</span> (n &gt; 0 ) {
 <span class="linenr"> 61: </span>        write(STDOUT_FILENO, buf, n);
-<span class="linenr"> 62: </span>        buf[0]=<span class="org-string">'\0'</span>;
+<span class="linenr"> 62: </span>        buf[0]=<span style="color: #e9b96e;">'\0'</span>;
 <span class="linenr"> 63: </span>    }
 <span class="linenr"> 64: </span>}
 <span class="linenr"> 65: </span>
-<span class="linenr"> 66: </span><span class="org-type">int</span> <span class="org-function-name">main</span>(<span class="org-type">int</span> <span class="org-variable-name">argc</span>, <span class="org-type">char</span> **<span class="org-variable-name">argv</span>)
+<span class="linenr"> 66: </span><span style="color: #8cc4ff;">int</span> <span style="color: #fce94f;">main</span>(<span style="color: #8cc4ff;">int</span> <span style="color: #fcaf3e;">argc</span>, <span style="color: #8cc4ff;">char</span> **<span style="color: #fcaf3e;">argv</span>)
 <span class="linenr"> 67: </span>{
-<span class="linenr"> 68: </span>    <span class="org-keyword">if</span> (argc != 2) {
+<span class="linenr"> 68: </span>    <span style="color: #b4fa70;">if</span> (argc != 2) {
 <span class="linenr"> 69: </span>        usage(argv);
-<span class="linenr"> 70: </span>        <span class="org-keyword">return</span> 1;
+<span class="linenr"> 70: </span>        <span style="color: #b4fa70;">return</span> 1;
 <span class="linenr"> 71: </span>    }
-<span class="linenr"> 72: </span>    <span class="org-keyword">const</span> <span class="org-type">char</span>* <span class="org-variable-name">ifname</span> = argv[1];
+<span class="linenr"> 72: </span>    <span style="color: #b4fa70;">const</span> <span style="color: #8cc4ff;">char</span>* <span style="color: #fcaf3e;">ifname</span> = argv[1];
 <span class="linenr"> 73: </span>
-<span class="linenr"> 74: </span>    <span class="org-keyword">struct</span> <span class="org-type">nm_desc</span> *<span class="org-variable-name">nmd</span> = nm_open(ifname, <span class="org-constant">NULL</span>, 0, <span class="org-constant">NULL</span>);
-<span class="linenr"> 75: </span>    <span class="org-keyword">if</span> (nmd == <span class="org-constant">NULL</span>) {
+<span class="linenr"> 74: </span>    <span style="color: #b4fa70;">struct</span> <span style="color: #8cc4ff;">nm_desc</span> *<span style="color: #fcaf3e;">nmd</span> = nm_open(ifname, <span style="color: #e9b2e3;">NULL</span>, 0, <span style="color: #e9b2e3;">NULL</span>);
+<span class="linenr"> 75: </span>    <span style="color: #b4fa70;">if</span> (nmd == <span style="color: #e9b2e3;">NULL</span>) {
 <span class="linenr"> 76: </span>        usage(argv);
-<span class="linenr"> 77: </span>        <span class="org-keyword">return</span> -1;
+<span class="linenr"> 77: </span>        <span style="color: #b4fa70;">return</span> -1;
 <span class="linenr"> 78: </span>    }
-<span class="linenr"> 79: </span>    <span class="org-type">char</span> <span class="org-variable-name">bufi</span>[1024] = {0};
-<span class="linenr"> 80: </span>    <span class="org-type">char</span> <span class="org-variable-name">bufo</span>[1024] = {0};
-<span class="linenr"> 81: </span>    <span class="org-keyword">struct</span> <span class="org-type">pollfd</span> <span class="org-variable-name">pfd</span>[3];
-<span class="linenr"> 82: </span>    <span class="org-comment-delimiter">/* </span><span class="org-comment">stdin </span><span class="org-comment-delimiter">*/</span>
+<span class="linenr"> 79: </span>    <span style="color: #8cc4ff;">char</span> <span style="color: #fcaf3e;">bufi</span>[1024] = {0};
+<span class="linenr"> 80: </span>    <span style="color: #8cc4ff;">char</span> <span style="color: #fcaf3e;">bufo</span>[1024] = {0};
+<span class="linenr"> 81: </span>    <span style="color: #b4fa70;">struct</span> <span style="color: #8cc4ff;">pollfd</span> <span style="color: #fcaf3e;">pfd</span>[3];
+<span class="linenr"> 82: </span>    <span style="color: #73d216;">/* </span><span style="color: #73d216;">stdin </span><span style="color: #73d216;">*/</span>
 <span class="linenr"> 83: </span>    pfd[0].fd = STDIN_FILENO;
 <span class="linenr"> 84: </span>    pfd[0].events = POLLIN | POLLHUP;
-<span class="linenr"> 85: </span>    <span class="org-comment-delimiter">/* </span><span class="org-comment">stdout </span><span class="org-comment-delimiter">*/</span>
+<span class="linenr"> 85: </span>    <span style="color: #73d216;">/* </span><span style="color: #73d216;">stdout </span><span style="color: #73d216;">*/</span>
 <span class="linenr"> 86: </span>    pfd[1].fd = STDOUT_FILENO;
 <span class="linenr"> 87: </span>    pfd[1].events = POLLOUT | POLLHUP;
-<span class="linenr"> 88: </span>    <span class="org-comment-delimiter">/* </span><span class="org-comment">netmap pipe </span><span class="org-comment-delimiter">*/</span>
+<span class="linenr"> 88: </span>    <span style="color: #73d216;">/* </span><span style="color: #73d216;">netmap pipe </span><span style="color: #73d216;">*/</span>
 <span class="linenr"> 89: </span>    pfd[2].fd = nmd-&gt;fd;
 <span class="linenr"> 90: </span>    pfd[2].events = (POLLIN | POLLOUT);
-<span class="linenr"> 91: </span>    <span class="org-keyword">while</span>(poll(pfd, 3, -1) &gt; 0){
-<span class="linenr"> 92: </span>        <span class="org-comment-delimiter">/* </span><span class="org-comment">read from stdin </span><span class="org-comment-delimiter">*/</span>
-<span class="linenr"> 93: </span>        <span class="org-keyword">if</span> (pfd[0].revents &amp; POLLIN) {
+<span class="linenr"> 91: </span>    <span style="color: #b4fa70;">while</span>(poll(pfd, 3, -1) &gt; 0){
+<span class="linenr"> 92: </span>        <span style="color: #73d216;">/* </span><span style="color: #73d216;">read from stdin </span><span style="color: #73d216;">*/</span>
+<span class="linenr"> 93: </span>        <span style="color: #b4fa70;">if</span> (pfd[0].revents &amp; POLLIN) {
 <span class="linenr"> 94: </span>            read_stdin(bufi);
 <span class="linenr"> 95: </span>        }
 <span class="linenr"> 96: </span>
-<span class="linenr"> 97: </span>        <span class="org-comment-delimiter">/* </span><span class="org-comment">write to pipe </span><span class="org-comment-delimiter">*/</span>
-<span class="linenr"> 98: </span>        <span class="org-keyword">if</span> (pfd[2].revents &amp; POLLOUT) {
+<span class="linenr"> 97: </span>        <span style="color: #73d216;">/* </span><span style="color: #73d216;">write to pipe </span><span style="color: #73d216;">*/</span>
+<span class="linenr"> 98: </span>        <span style="color: #b4fa70;">if</span> (pfd[2].revents &amp; POLLOUT) {
 <span class="linenr"> 99: </span>            flush_pipe(nmd, bufi);
 <span class="linenr">100: </span>        }
 <span class="linenr">101: </span>
-<span class="linenr">102: </span>        <span class="org-comment-delimiter">/* </span><span class="org-comment">read from pipe </span><span class="org-comment-delimiter">*/</span>
-<span class="linenr">103: </span>        <span class="org-keyword">if</span> (pfd[2].revents &amp; POLLIN) {
+<span class="linenr">102: </span>        <span style="color: #73d216;">/* </span><span style="color: #73d216;">read from pipe </span><span style="color: #73d216;">*/</span>
+<span class="linenr">103: </span>        <span style="color: #b4fa70;">if</span> (pfd[2].revents &amp; POLLIN) {
 <span class="linenr">104: </span>            read_pipe(nmd, bufo);
 <span class="linenr">105: </span>        }
 <span class="linenr">106: </span>
-<span class="linenr">107: </span>        <span class="org-comment-delimiter">/* </span><span class="org-comment">write to stdout </span><span class="org-comment-delimiter">*/</span>
-<span class="linenr">108: </span>        <span class="org-keyword">if</span> (pfd[1].revents &amp; POLLOUT) {
+<span class="linenr">107: </span>        <span style="color: #73d216;">/* </span><span style="color: #73d216;">write to stdout </span><span style="color: #73d216;">*/</span>
+<span class="linenr">108: </span>        <span style="color: #b4fa70;">if</span> (pfd[1].revents &amp; POLLOUT) {
 <span class="linenr">109: </span>            flush_stdout(bufo);
 <span class="linenr">110: </span>        }
 <span class="linenr">111: </span>
-<span class="linenr">112: </span>        <span class="org-keyword">if</span> (pfd[0].revents &amp; POLLHUP || pfd[1].revents &amp; POLLHUP ) {
+<span class="linenr">112: </span>        <span style="color: #b4fa70;">if</span> (pfd[0].revents &amp; POLLHUP || pfd[1].revents &amp; POLLHUP ) {
 <span class="linenr">113: </span>            flush_pipe(nmd, bufi);
 <span class="linenr">114: </span>            flush_stdout(bufo);
-<span class="linenr">115: </span>            <span class="org-keyword">break</span>;
+<span class="linenr">115: </span>            <span style="color: #b4fa70;">break</span>;
 <span class="linenr">116: </span>        }
 <span class="linenr">117: </span>    }
 <span class="linenr">118: </span>    nm_close(nmd);
-<span class="linenr">119: </span>    <span class="org-keyword">return</span> 0;
+<span class="linenr">119: </span>    <span style="color: #b4fa70;">return</span> 0;
 <span class="linenr">120: </span>}
 <span class="linenr">121: </span>
 </pre>
@@ -548,21 +538,21 @@ Sample code:
 You can use it as chat room:
 </p>
 <div class="org-src-container">
-<pre class="src src-sh"><span class="org-comment-delimiter"># </span><span class="org-comment">One terminal</span>
+<pre class="src src-sh"><span style="color: #73d216;"># </span><span style="color: #73d216;">One terminal</span>
 nmpipe netmap:pipe{0
-<span class="org-comment-delimiter"># </span><span class="org-comment">Another terminal</span>
+<span style="color: #73d216;"># </span><span style="color: #73d216;">Another terminal</span>
 nmpipe netmap:pipe}0
-<span class="org-comment-delimiter"># </span><span class="org-comment">Type anything and watch</span>
+<span style="color: #73d216;"># </span><span style="color: #73d216;">Type anything and watch</span>
 </pre>
 </div>
 <p>
 Or use <code>pv</code> to measure pipe speed:
 </p>
 <div class="org-src-container">
-<pre class="src src-sh"><span class="org-comment-delimiter"># </span><span class="org-comment">one terminal</span>
+<pre class="src src-sh"><span style="color: #73d216;"># </span><span style="color: #73d216;">one terminal</span>
 wget http://ita.ee.lbl.gov/traces/NASA_access_log_Jul95.gz
 zcat NASA_access_log_Jul95.gz | nmpipe netmap:pipe}0
-<span class="org-comment-delimiter"># </span><span class="org-comment">another terminal</span>
+<span style="color: #73d216;"># </span><span style="color: #73d216;">another terminal</span>
 nmpipe netmap:pipe{0 | pv &gt; /dev/null
 </pre>
 </div>
