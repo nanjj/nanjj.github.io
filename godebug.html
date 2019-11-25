@@ -1,39 +1,42 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
-"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2019-11-26 二 00:12 -->
-<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<!-- 2019-11-26 二 00:40 -->
+<meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Go Debug</title>
 <meta name="generator" content="Org mode" />
 <link rel="stylesheet" type="text/css" href="css/org.css" />
 </head>
 <body>
-<div id="content">
+<div id="org-div-home-and-up">
+ <a accesskey="h" href="theindex.html"> INDEX </a>
+ |
+ <a accesskey="H" href="index.html"> HOME </a>
+</div><div id="content">
+<header>
 <h1 class="title">Go Debug</h1>
-<div id="table-of-contents">
+</header><nav id="table-of-contents">
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents">
 <ul>
-<li><a href="#orgd44cc52">Background</a></li>
-<li><a href="#orgece6bf3">Installation</a></li>
-<li><a href="#org770c76b">Code to Debug</a></li>
-<li><a href="#org669d2a0">Debugging Practices</a>
+<li><a href="#org6568b48">Background</a></li>
+<li><a href="#orgb1dc6c7">Installation</a></li>
+<li><a href="#org3021b90">Code to Debug</a></li>
+<li><a href="#orgb1c712f">Debugging Practices</a>
 <ul>
-<li><a href="#org1532b48">Debug a Program</a></li>
-<li><a href="#org13db147">Debug Test Case</a></li>
-<li><a href="#org3aee3e0">Debug a Service</a></li>
+<li><a href="#org76c2e2a">Debug a Program</a></li>
+<li><a href="#orge703766">Debug Test Case</a></li>
+<li><a href="#org3338748">Debug a Service</a></li>
 </ul>
 </li>
 </ul>
 </div>
-</div>
+</nav>
 
-<div id="outline-container-orgd44cc52" class="outline-2">
-<h2 id="orgd44cc52">Background</h2>
-<div class="outline-text-2" id="text-orgd44cc52">
+<div id="outline-container-org6568b48" class="outline-2">
+<h2 id="org6568b48">Background</h2>
+<div class="outline-text-2" id="text-org6568b48">
 <p>
 Go has no its own debugger so it turned to gdb. See <a href="https://golang.org/doc/gdb">Debugging Go
 Code with GDB</a> for details.
@@ -46,9 +49,9 @@ alternative, <a href="https://github.com/derekparker/delve">Delve</a> has its pl
 </div>
 </div>
 
-<div id="outline-container-orgece6bf3" class="outline-2">
-<h2 id="orgece6bf3">Installation</h2>
-<div class="outline-text-2" id="text-orgece6bf3">
+<div id="outline-container-orgb1dc6c7" class="outline-2">
+<h2 id="orgb1dc6c7">Installation</h2>
+<div class="outline-text-2" id="text-orgb1dc6c7">
 <div class="org-src-container">
 <pre class="src src-sh">go get github.com/derekparker/delve/cmd/dlv
 </pre>
@@ -56,9 +59,9 @@ alternative, <a href="https://github.com/derekparker/delve">Delve</a> has its pl
 </div>
 </div>
 
-<div id="outline-container-org770c76b" class="outline-2">
-<h2 id="org770c76b">Code to Debug</h2>
-<div class="outline-text-2" id="text-org770c76b">
+<div id="outline-container-org3021b90" class="outline-2">
+<h2 id="org3021b90">Code to Debug</h2>
+<div class="outline-text-2" id="text-org3021b90">
 <p>
 <code>main.go</code>:
 </p>
@@ -134,9 +137,9 @@ alternative, <a href="https://github.com/derekparker/delve">Delve</a> has its pl
 </div>
 </div>
 
-<div id="outline-container-org669d2a0" class="outline-2">
-<h2 id="org669d2a0">Debugging Practices</h2>
-<div class="outline-text-2" id="text-org669d2a0">
+<div id="outline-container-orgb1c712f" class="outline-2">
+<h2 id="orgb1c712f">Debugging Practices</h2>
+<div class="outline-text-2" id="text-orgb1c712f">
 <p>
 We will learn:
 </p>
@@ -156,9 +159,9 @@ We will learn:
 </ol>
 </div>
 
-<div id="outline-container-org1532b48" class="outline-3">
-<h3 id="org1532b48">Debug a Program</h3>
-<div class="outline-text-3" id="text-org1532b48">
+<div id="outline-container-org76c2e2a" class="outline-3">
+<h3 id="org76c2e2a">Debug a Program</h3>
+<div class="outline-text-3" id="text-org76c2e2a">
 <div class="org-src-container">
 <pre class="src src-sh">$ dlv debug
 Type <span style="color: #e9b96e;">'help'</span> for list of commands.
@@ -182,9 +185,9 @@ Breakpoint 1 set at 0x10b1faf for main.main() ./main.go:9
 </div>
 </div>
 
-<div id="outline-container-org13db147" class="outline-3">
-<h3 id="org13db147">Debug Test Case</h3>
-<div class="outline-text-3" id="text-org13db147">
+<div id="outline-container-orge703766" class="outline-3">
+<h3 id="orge703766">Debug Test Case</h3>
+<div class="outline-text-3" id="text-orge703766">
 <div class="org-src-container">
 <pre class="src src-sh">dlv test
 Type <span style="color: #e9b96e;">'help'</span> for list of commands.
@@ -227,9 +230,9 @@ Breakpoint 2 set at 0x1138101 for _/Users/nanjj/source/nanjj/nanjj.github.io/hel
 </div>
 </div>
 
-<div id="outline-container-org3aee3e0" class="outline-3">
-<h3 id="org3aee3e0">Debug a Service</h3>
-<div class="outline-text-3" id="text-org3aee3e0">
+<div id="outline-container-org3338748" class="outline-3">
+<h3 id="org3338748">Debug a Service</h3>
+<div class="outline-text-3" id="text-org3338748">
 <div class="org-src-container">
 <pre class="src src-sh">$ icp-cland&amp;
 $ ps -ef|grep icp-cland

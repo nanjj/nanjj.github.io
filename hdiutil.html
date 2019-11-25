@@ -1,29 +1,32 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
-"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2019-11-26 二 00:12 -->
-<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<!-- 2019-11-26 二 00:40 -->
+<meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Manipulate Disk Images Under Mac</title>
 <meta name="generator" content="Org mode" />
 <link rel="stylesheet" type="text/css" href="css/org.css" />
 </head>
 <body>
-<div id="content">
+<div id="org-div-home-and-up">
+ <a accesskey="h" href="theindex.html"> INDEX </a>
+ |
+ <a accesskey="H" href="index.html"> HOME </a>
+</div><div id="content">
+<header>
 <h1 class="title">Manipulate Disk Images Under Mac</h1>
-<div id="table-of-contents">
+</header><nav id="table-of-contents">
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents">
 <ul>
-<li><a href="#org03da2da">Create Disk Image</a></li>
-<li><a href="#org3b73af3">Attach Disk Image</a></li>
-<li><a href="#orgebddb4e">Detach Disk Image</a></li>
-<li><a href="#org552588d">Resize Disk Image If needed</a></li>
+<li><a href="#org41677f8">Create Disk Image</a></li>
+<li><a href="#orgdcaca85">Attach Disk Image</a></li>
+<li><a href="#org8f1252f">Detach Disk Image</a></li>
+<li><a href="#org6c8fc2f">Resize Disk Image If needed</a></li>
 </ul>
 </div>
-</div>
+</nav>
 <p>
 By default, file system under Mac is case insensitive. It may cause
 trouble when you work with some projects like Linux Kernel. To solve
@@ -36,9 +39,9 @@ Say we want to create disk image at <code>/usr/local</code>, and attach it to
 <code>/usr/local/src</code>. All operations are executed under <code>/usr/local</code>.
 </p>
 
-<div id="outline-container-org03da2da" class="outline-2">
-<h2 id="org03da2da">Create Disk Image</h2>
-<div class="outline-text-2" id="text-org03da2da">
+<div id="outline-container-org41677f8" class="outline-2">
+<h2 id="org41677f8">Create Disk Image</h2>
+<div class="outline-text-2" id="text-org41677f8">
 <div class="org-src-container">
 <pre class="src src-sh">$ hdiutil create -size 10G src -type SPARSE -fs <span style="color: #e9b96e;">'Case-sensitive Journaled HFS+'</span> -volname src
 </pre>
@@ -51,9 +54,9 @@ journaled file system and the size limit 20G.
 </div>
 </div>
 
-<div id="outline-container-org3b73af3" class="outline-2">
-<h2 id="org3b73af3">Attach Disk Image</h2>
-<div class="outline-text-2" id="text-org3b73af3">
+<div id="outline-container-orgdcaca85" class="outline-2">
+<h2 id="orgdcaca85">Attach Disk Image</h2>
+<div class="outline-text-2" id="text-orgdcaca85">
 <div class="org-src-container">
 <pre class="src src-sh">$ mkdir src
 $ hdiutil attach -mountpoint src src.sparseimage <span style="color: #73d216;">#</span><span style="color: #73d216;">=&gt;</span>
@@ -65,9 +68,9 @@ $ hdiutil attach -mountpoint src src.sparseimage <span style="color: #73d216;">#
 </div>
 </div>
 
-<div id="outline-container-orgebddb4e" class="outline-2">
-<h2 id="orgebddb4e">Detach Disk Image</h2>
-<div class="outline-text-2" id="text-orgebddb4e">
+<div id="outline-container-org8f1252f" class="outline-2">
+<h2 id="org8f1252f">Detach Disk Image</h2>
+<div class="outline-text-2" id="text-org8f1252f">
 <div class="org-src-container">
 <pre class="src src-sh">$ hdiutil detach src <span style="color: #73d216;">#</span><span style="color: #73d216;">=&gt;</span>
 <span style="color: #e9b96e;">"disk4"</span> unmounted.
@@ -77,9 +80,9 @@ $ hdiutil attach -mountpoint src src.sparseimage <span style="color: #73d216;">#
 </div>
 </div>
 
-<div id="outline-container-org552588d" class="outline-2">
-<h2 id="org552588d">Resize Disk Image If needed</h2>
-<div class="outline-text-2" id="text-org552588d">
+<div id="outline-container-org6c8fc2f" class="outline-2">
+<h2 id="org6c8fc2f">Resize Disk Image If needed</h2>
+<div class="outline-text-2" id="text-org6c8fc2f">
 <p>
 If <code>20G</code> is not enough you can resize the image:
 </p>
