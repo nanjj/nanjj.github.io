@@ -1,5 +1,9 @@
 #+TITLE: Manipulate Disk Images Under Mac
+#+DATE: <2019-12-03 二>
 
+How to manipulate disk images under macOS.
+
+* Mac Case Insensitive File System
 By default, file system under Mac is case insensitive. It may cause
 trouble when you work with some projects like Linux Kernel. To solve
 the problem, you can create a disk image with case sensitive file

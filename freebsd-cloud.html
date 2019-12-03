@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2019-11-26 二 00:40 -->
+<!-- 2019-12-03 二 23:31 -->
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>FreeBSD Cloud</title>
@@ -10,7 +10,7 @@
 </head>
 <body>
 <div id="org-div-home-and-up">
- <a accesskey="h" href="theindex.html"> INDEX </a>
+ <a accesskey="h" href="sitemap.html"> SITEMAP </a>
  |
  <a accesskey="H" href="index.html"> HOME </a>
 </div><div id="content">
@@ -20,30 +20,33 @@
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents">
 <ul>
-<li><a href="#org7f13721">Setup CloudInit for FreeBSD Image</a>
+<li><a href="#orgc3a5e3a">Setup CloudInit for FreeBSD Image</a>
 <ul>
-<li><a href="#org3c8172c">Download Image And Convert</a></li>
-<li><a href="#orgdb6d787">Mount Image And Chroot</a></li>
-<li><a href="#org6fd6840">Install Cloud-init</a></li>
-<li><a href="#org6ecc1dc">Umount Image And Convert Back</a></li>
-<li><a href="#org79ea8a2">Boot Instance</a></li>
+<li><a href="#orga6a107e">Download Image And Convert</a></li>
+<li><a href="#orge162ac1">Mount Image And Chroot</a></li>
+<li><a href="#orga0f68c7">Install Cloud-init</a></li>
+<li><a href="#org4cb7da0">Umount Image And Convert Back</a></li>
+<li><a href="#orge7fae91">Boot Instance</a></li>
 </ul>
 </li>
-<li><a href="#orga21b270">Disk Resize Under FreeBSD</a>
+<li><a href="#orgbc20c73">Disk Resize Under FreeBSD</a>
 <ul>
-<li><a href="#orge672985">List Disks</a></li>
-<li><a href="#org929a212">Show and Recover if Needed</a></li>
-<li><a href="#orgbbd6fd9">Resize Partition</a></li>
-<li><a href="#org3213f8b">Grow Filesystem</a></li>
+<li><a href="#orgcd9fc1a">List Disks</a></li>
+<li><a href="#org41cd46d">Show and Recover if Needed</a></li>
+<li><a href="#org418fc14">Resize Partition</a></li>
+<li><a href="#org0d9444d">Grow Filesystem</a></li>
 </ul>
 </li>
 </ul>
 </div>
 </nav>
+<p>
+How to setup cloudinit for freebsd and how to do disk resize under freebsd.
+</p>
 
-<div id="outline-container-org7f13721" class="outline-2">
-<h2 id="org7f13721">Setup CloudInit for FreeBSD Image</h2>
-<div class="outline-text-2" id="text-org7f13721">
+<div id="outline-container-orgc3a5e3a" class="outline-2">
+<h2 id="orgc3a5e3a">Setup CloudInit for FreeBSD Image</h2>
+<div class="outline-text-2" id="text-orgc3a5e3a">
 <p>
 In this guide we will talk about CloudInit Setup on FreeBSD, not
 <code>bsd-cloudinit</code>. It's because <code>bsd-cloudinit</code> is based on
@@ -53,9 +56,9 @@ need to enable <code>CloudInit</code>.
 </p>
 </div>
 
-<div id="outline-container-org3c8172c" class="outline-3">
-<h3 id="org3c8172c">Download Image And Convert</h3>
-<div class="outline-text-3" id="text-org3c8172c">
+<div id="outline-container-orga6a107e" class="outline-3">
+<h3 id="orga6a107e">Download Image And Convert</h3>
+<div class="outline-text-3" id="text-orga6a107e">
 <p>
 We need packages <code>qemu-utils</code>, <code>wget</code>:
 </p>
@@ -81,9 +84,9 @@ qemu-img convert -p -f qcow2 -O raw ${base}.qcow2 ${base}.raw
 </div>
 </div>
 
-<div id="outline-container-orgdb6d787" class="outline-3">
-<h3 id="orgdb6d787">Mount Image And Chroot</h3>
-<div class="outline-text-3" id="text-orgdb6d787">
+<div id="outline-container-orge162ac1" class="outline-3">
+<h3 id="orge162ac1">Mount Image And Chroot</h3>
+<div class="outline-text-3" id="text-orge162ac1">
 <p>
 Attach to device:
 </p>
@@ -103,9 +106,9 @@ chroot /mnt
 </div>
 </div>
 
-<div id="outline-container-org6fd6840" class="outline-3">
-<h3 id="org6fd6840">Install Cloud-init</h3>
-<div class="outline-text-3" id="text-org6fd6840">
+<div id="outline-container-orga0f68c7" class="outline-3">
+<h3 id="orga0f68c7">Install Cloud-init</h3>
+<div class="outline-text-3" id="text-orga0f68c7">
 <p>
 Install <code>cloud-init</code>:
 </p>
@@ -167,9 +170,9 @@ exit
 </div>
 </div>
 
-<div id="outline-container-org6ecc1dc" class="outline-3">
-<h3 id="org6ecc1dc">Umount Image And Convert Back</h3>
-<div class="outline-text-3" id="text-org6ecc1dc">
+<div id="outline-container-org4cb7da0" class="outline-3">
+<h3 id="org4cb7da0">Umount Image And Convert Back</h3>
+<div class="outline-text-3" id="text-org4cb7da0">
 <pre class="example">
 umount /mnt/dev
 rm /mnt/etc/resolv.conf
@@ -180,9 +183,9 @@ qemu-img convert -p -f raw -O qcow2 ${base}.raw ${base}.qcow2
 </div>
 </div>
 
-<div id="outline-container-org79ea8a2" class="outline-3">
-<h3 id="org79ea8a2">Boot Instance</h3>
-<div class="outline-text-3" id="text-org79ea8a2">
+<div id="outline-container-orge7fae91" class="outline-3">
+<h3 id="orge7fae91">Boot Instance</h3>
+<div class="outline-text-3" id="text-orge7fae91">
 <p>
 Once you boot an instance, you can access it via ssh, please notice
 the default user is <code>beastie</code>.
@@ -192,13 +195,13 @@ the default user is <code>beastie</code>.
 </div>
 
 
-<div id="outline-container-orga21b270" class="outline-2">
-<h2 id="orga21b270">Disk Resize Under FreeBSD</h2>
-<div class="outline-text-2" id="text-orga21b270">
+<div id="outline-container-orgbc20c73" class="outline-2">
+<h2 id="orgbc20c73">Disk Resize Under FreeBSD</h2>
+<div class="outline-text-2" id="text-orgbc20c73">
 </div>
-<div id="outline-container-orge672985" class="outline-3">
-<h3 id="orge672985">List Disks</h3>
-<div class="outline-text-3" id="text-orge672985">
+<div id="outline-container-orgcd9fc1a" class="outline-3">
+<h3 id="orgcd9fc1a">List Disks</h3>
+<div class="outline-text-3" id="text-orgcd9fc1a">
 <p>
 First to list the geoms:
 </p>
@@ -213,9 +216,9 @@ state: CORRUPT
 </div>
 </div>
 
-<div id="outline-container-org929a212" class="outline-3">
-<h3 id="org929a212">Show and Recover if Needed</h3>
-<div class="outline-text-3" id="text-org929a212">
+<div id="outline-container-org41cd46d" class="outline-3">
+<h3 id="org41cd46d">Show and Recover if Needed</h3>
+<div class="outline-text-3" id="text-org41cd46d">
 <p>
 Show the Geom:
 </p>
@@ -254,9 +257,9 @@ Apparently the partition 3 should be resized.
 </div>
 </div>
 
-<div id="outline-container-orgbbd6fd9" class="outline-3">
-<h3 id="orgbbd6fd9">Resize Partition</h3>
-<div class="outline-text-3" id="text-orgbbd6fd9">
+<div id="outline-container-org418fc14" class="outline-3">
+<h3 id="org418fc14">Resize Partition</h3>
+<div class="outline-text-3" id="text-org418fc14">
 <p>
 Run resize on partition 3:
 </p>
@@ -272,9 +275,9 @@ gpart show vtbd0
 </div>
 </div>
 
-<div id="outline-container-org3213f8b" class="outline-3">
-<h3 id="org3213f8b">Grow Filesystem</h3>
-<div class="outline-text-3" id="text-org3213f8b">
+<div id="outline-container-org0d9444d" class="outline-3">
+<h3 id="org0d9444d">Grow Filesystem</h3>
+<div class="outline-text-3" id="text-org0d9444d">
 <p>
 According <a href="https://www.freebsd.org/doc/handbook/disks-growing.html">FreeBSD Doc</a>, <code>growfs</code> should be run as below:
 </p>

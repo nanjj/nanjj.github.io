@@ -1,6 +1,8 @@
 #+TITLE: Go Debug
 #+DATE: <2018-07-27 Fri>
 
+How to do go debug.
+
 * Background
 
   Go has no its own debugger so it turned to gdb. See [[https://golang.org/doc/gdb][Debugging Go

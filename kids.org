@@ -1,6 +1,8 @@
 #+TITLE: My Kids
 #+DATE: <2017-12-25 Mon>
 
+Some interesting words from my kids.
+
 * Childhood Statement
 
 ** Dream Fidget Spinner

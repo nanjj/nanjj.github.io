@@ -4,7 +4,7 @@
 #+LINK: Hugo https://gohugo.io/
 #+LINK: Jekyll https://jekyllrb.com/
 
-Now switched from [[Jekyll][Jekyll]], [[Hugo][Hugo]] to Emacs Org Publish.
+Now switched from [[Jekyll][Jekyll]], [[Hugo][Hugo]] to Emacs Org Publish. How to write blog using org-publish.
 
 * Customization
 

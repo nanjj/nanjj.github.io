@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2019-11-26 二 00:40 -->
+<!-- 2019-12-03 二 23:31 -->
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Manipulate Disk Images Under Mac</title>
@@ -10,7 +10,7 @@
 </head>
 <body>
 <div id="org-div-home-and-up">
- <a accesskey="h" href="theindex.html"> INDEX </a>
+ <a accesskey="h" href="sitemap.html"> SITEMAP </a>
  |
  <a accesskey="H" href="index.html"> HOME </a>
 </div><div id="content">
@@ -20,13 +20,21 @@
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents">
 <ul>
-<li><a href="#org41677f8">Create Disk Image</a></li>
-<li><a href="#orgdcaca85">Attach Disk Image</a></li>
-<li><a href="#org8f1252f">Detach Disk Image</a></li>
-<li><a href="#org6c8fc2f">Resize Disk Image If needed</a></li>
+<li><a href="#orgee07ff5">Mac Case Insensitive File System</a></li>
+<li><a href="#org50dfe96">Create Disk Image</a></li>
+<li><a href="#orge41e188">Attach Disk Image</a></li>
+<li><a href="#org59e7369">Detach Disk Image</a></li>
+<li><a href="#org0afdd6e">Resize Disk Image If needed</a></li>
 </ul>
 </div>
 </nav>
+<p>
+How to manipulate disk images under macOS.
+</p>
+
+<div id="outline-container-orgee07ff5" class="outline-2">
+<h2 id="orgee07ff5">Mac Case Insensitive File System</h2>
+<div class="outline-text-2" id="text-orgee07ff5">
 <p>
 By default, file system under Mac is case insensitive. It may cause
 trouble when you work with some projects like Linux Kernel. To solve
@@ -38,10 +46,12 @@ system, and attach to a mount point to use.
 Say we want to create disk image at <code>/usr/local</code>, and attach it to
 <code>/usr/local/src</code>. All operations are executed under <code>/usr/local</code>.
 </p>
+</div>
+</div>
 
-<div id="outline-container-org41677f8" class="outline-2">
-<h2 id="org41677f8">Create Disk Image</h2>
-<div class="outline-text-2" id="text-org41677f8">
+<div id="outline-container-org50dfe96" class="outline-2">
+<h2 id="org50dfe96">Create Disk Image</h2>
+<div class="outline-text-2" id="text-org50dfe96">
 <div class="org-src-container">
 <pre class="src src-sh">$ hdiutil create -size 10G src -type SPARSE -fs <span style="color: #e9b96e;">'Case-sensitive Journaled HFS+'</span> -volname src
 </pre>
@@ -54,9 +64,9 @@ journaled file system and the size limit 20G.
 </div>
 </div>
 
-<div id="outline-container-orgdcaca85" class="outline-2">
-<h2 id="orgdcaca85">Attach Disk Image</h2>
-<div class="outline-text-2" id="text-orgdcaca85">
+<div id="outline-container-orge41e188" class="outline-2">
+<h2 id="orge41e188">Attach Disk Image</h2>
+<div class="outline-text-2" id="text-orge41e188">
 <div class="org-src-container">
 <pre class="src src-sh">$ mkdir src
 $ hdiutil attach -mountpoint src src.sparseimage <span style="color: #73d216;">#</span><span style="color: #73d216;">=&gt;</span>
@@ -68,9 +78,9 @@ $ hdiutil attach -mountpoint src src.sparseimage <span style="color: #73d216;">#
 </div>
 </div>
 
-<div id="outline-container-org8f1252f" class="outline-2">
-<h2 id="org8f1252f">Detach Disk Image</h2>
-<div class="outline-text-2" id="text-org8f1252f">
+<div id="outline-container-org59e7369" class="outline-2">
+<h2 id="org59e7369">Detach Disk Image</h2>
+<div class="outline-text-2" id="text-org59e7369">
 <div class="org-src-container">
 <pre class="src src-sh">$ hdiutil detach src <span style="color: #73d216;">#</span><span style="color: #73d216;">=&gt;</span>
 <span style="color: #e9b96e;">"disk4"</span> unmounted.
@@ -80,9 +90,9 @@ $ hdiutil attach -mountpoint src src.sparseimage <span style="color: #73d216;">#
 </div>
 </div>
 
-<div id="outline-container-org6c8fc2f" class="outline-2">
-<h2 id="org6c8fc2f">Resize Disk Image If needed</h2>
-<div class="outline-text-2" id="text-org6c8fc2f">
+<div id="outline-container-org0afdd6e" class="outline-2">
+<h2 id="org0afdd6e">Resize Disk Image If needed</h2>
+<div class="outline-text-2" id="text-org0afdd6e">
 <p>
 If <code>20G</code> is not enough you can resize the image:
 </p>

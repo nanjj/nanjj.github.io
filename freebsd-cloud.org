@@ -1,6 +1,8 @@
 #+TITLE: FreeBSD Cloud
 #+DATE: <2017-10-27 Fri>
 
+How to setup cloudinit for freebsd and how to do disk resize under freebsd.
+
 * Setup CloudInit for FreeBSD Image
 
 In this guide we will talk about CloudInit Setup on FreeBSD, not

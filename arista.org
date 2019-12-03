@@ -2,6 +2,8 @@
 #+DATE: <2017-12-06 Wed>
 #+index: arista
 
+How to run arista vEOS in OpenStack.
+
 * vEOS Image
 
 ** Download
@@ -330,4 +332,4 @@ Now you can use ssh =ssh admin@192.168.0.15= to login.
 * Tips
 
   1. [[https://eos.arista.com/forum/qeustions-about-some-features-in-veos-that-may-or-may-not-work/][vEOS does not support NAT]]
-html-head-include-default-style nil
+

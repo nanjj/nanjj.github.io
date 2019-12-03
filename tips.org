@@ -1,9 +1,10 @@
 #+title: Tips
 #+date: <2017-12-20 Mon>
-#+index: tips
 #+LINK: ncat https://nmap.org/ncat/
 #+LINK: ncat guide https://nmap.org/ncat/guide/index.html
 #+LINK: nmap https://nmap.org/
+
+Some tips about linux kernel, ssh, qemu, ncat and more.
 
 * Linux Kernel
 
@@ -61,7 +62,6 @@
    #+END_SRC
 
    It takes around 9 minutes on my machine.
-
 
 * Ssh
 
