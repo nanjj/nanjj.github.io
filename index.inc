@@ -42,6 +42,9 @@
 - [2017.10.26] [[file:dummynet.org][Dummynet Usage on Mac]]
 
 	Here some =dummynet= usages on Mac
+- [2019.12.07] [[file:gitlab-ci.org][Gitlab的持续集成]]
+
+	Gitlab持续集成采用订阅模式，这和Github不同。
 - [2017.11.07] [[file:netmap.org][Netmap]]
 
 	[[netmap-page:][Netmap]] is a framework for very fast packet I/O from userspace.
