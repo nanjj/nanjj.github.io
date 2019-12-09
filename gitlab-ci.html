@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2019-12-07 六 23:31 -->
+<!-- 2019-12-10 二 00:23 -->
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Gitlab的持续集成</title>
@@ -20,21 +20,21 @@
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents">
 <ul>
-<li><a href="#org10faa81">Github的持续集成</a></li>
-<li><a href="#org2cb8752">Gitlab如何做的</a></li>
-<li><a href="#org602b8d6">Gitlab Runner的行为</a></li>
+<li><a href="#org35f407e">Github通知机制</a></li>
+<li><a href="#org5aee502">Gitlab订阅模式</a></li>
+<li><a href="#org384eb0c">Gitlab Runner如何工作</a></li>
 </ul>
 </div>
 </nav>
 <p>
-Gitlab持续集成采用订阅模式，这和Github不同。
+Gitlab持续集成采用订阅模式，这和Github的通知机制不同。
 </p>
 
-<div id="outline-container-org10faa81" class="outline-2">
-<h2 id="org10faa81">Github的持续集成</h2>
-<div class="outline-text-2" id="text-org10faa81">
+<div id="outline-container-org35f407e" class="outline-2">
+<h2 id="org35f407e">Github通知机制</h2>
+<div class="outline-text-2" id="text-org35f407e">
 <p>
-Github的持续集成采用通知机制，需要实现一个Webhook来接收Github的通知。
+Github的持续集成采用通知机制。
 </p>
 
 <p>
@@ -48,8 +48,8 @@ Github的持续集成采用通知机制，需要实现一个Webhook来接收Gith
 </figure>
 
 <p>
-这个Webhook是一个服务，Github得能访问访问到这个服务，事情才能完成。
-而且这个服务的安全也得保证。
+持续集成的开发人员需要实现一个Webhook来接收Github的消息通知。这个
+Webhook是一个服务，需要保证安全，保证可调用。
 </p>
 
 <p>
@@ -57,11 +57,11 @@ Gitlab不是这么做的。
 </p>
 </div>
 </div>
-<div id="outline-container-org2cb8752" class="outline-2">
-<h2 id="org2cb8752">Gitlab如何做的</h2>
-<div class="outline-text-2" id="text-org2cb8752">
+<div id="outline-container-org5aee502" class="outline-2">
+<h2 id="org5aee502">Gitlab订阅模式</h2>
+<div class="outline-text-2" id="text-org5aee502">
 <p>
-Gitlaby用订阅的模式来做持续集成。
+Gitlaby用订阅的模式来做持续集成。如下图示：
 </p>
 
 
@@ -71,15 +71,16 @@ Gitlaby用订阅的模式来做持续集成。
 </figure>
 
 <p>
-这样 <code>gitlab runner</code> 可以跑在内网的某台机器，只要该机器http协议能访
-问gitlab就可以。
+这样 <code>gitlab runner</code> 可以是跑在内网的某台机器，只要该机器通过http协
+议能访问gitlab就可以。这种方式对持续集成的开发人员成本较低。但对
+Gitlab服务方，成本较高。Gitlabn能支持多少个Runner挂在上面呢？
 </p>
 </div>
 </div>
 
-<div id="outline-container-org602b8d6" class="outline-2">
-<h2 id="org602b8d6">Gitlab Runner的行为</h2>
-<div class="outline-text-2" id="text-org602b8d6">
+<div id="outline-container-org384eb0c" class="outline-2">
+<h2 id="org384eb0c">Gitlab Runner如何工作</h2>
+<div class="outline-text-2" id="text-org384eb0c">
 <p>
 <code>Gitlab Runner</code> 每3秒访问一下Gitlab看有没有任务，如有任务，扯下来执
 行。如无任务，3秒后见。
@@ -87,7 +88,7 @@ Gitlaby用订阅的模式来做持续集成。
 
 <p>
 <code>Gitlab Runner</code> 后面可以跑docker， kubernetes等。我觉得通过 <code>Gitlab
-   Runner</code> 的shell模式没准可以跑lxd。
+   Runner</code> 的shell模式没准可以跑 <code>lxd</code> 。
 </p>
 </div>
 </div>
