@@ -18,7 +18,7 @@ Gitlab持续集成采用订阅模式，这和Github的通知机制不同。
 			 webhook
 			 end
    #+END_SRC
-
+   
    #+RESULTS:
    [[file:github-ci.png]]
 
