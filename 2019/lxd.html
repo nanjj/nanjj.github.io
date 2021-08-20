@@ -1,0 +1,1077 @@
+<!DOCTYPE HTML>
+<html lang="zh_CN" class="sidebar-visible no-js light">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>LXD Inside - Thatched Cottage</title>
+        <!-- Custom HTML head -->
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff" />
+
+        <link rel="icon" href="../favicon.svg">
+        <link rel="shortcut icon" href="../favicon.png">
+        <link rel="stylesheet" href="../css/variables.css">
+        <link rel="stylesheet" href="../css/general.css">
+        <link rel="stylesheet" href="../css/chrome.css">
+        <link rel="stylesheet" href="../css/print.css" media="print">
+        <!-- Fonts -->
+        <link rel="stylesheet" href="../FontAwesome/css/font-awesome.css">
+        <link rel="stylesheet" href="../fonts/fonts.css">
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="../highlight.css">
+        <link rel="stylesheet" href="../tomorrow-night.css">
+        <link rel="stylesheet" href="../ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+    </head>
+    <body>
+        <!-- Provide site root to javascript -->
+        <script type="text/javascript">
+            var path_to_root = "../";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
+        </script>
+
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script type="text/javascript">
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script type="text/javascript">
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            var html = document.querySelector('html');
+            html.classList.remove('no-js')
+            html.classList.remove('light')
+            html.classList.add(theme);
+            html.classList.add('js');
+        </script>
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script type="text/javascript">
+            var html = document.querySelector('html');
+            var sidebar = 'hidden';
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            }
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <div class="sidebar-scrollbox">
+                <ol class="chapter"><li class="chapter-item affix "><a href="../index.html">Home</a></li><li class="chapter-item expanded "><div>2019</div><a class="toggle"><div>❱</div></a></li><li><ol class="section"><li class="chapter-item "><a href="../2019/gitlab-ci.html">Gitlab CI</a></li><li class="chapter-item "><a href="../2019/hdituil.html">Manipulate Mac Disk Images</a></li><li class="chapter-item expanded "><a href="../2019/lxd.html" class="active">LXD Inside</a></li></ol></li><li class="chapter-item "><div>2018</div><a class="toggle"><div>❱</div></a></li><li><ol class="section"><li class="chapter-item "><a href="../2018/godebug.html">GO Debug</a></li></ol></li><li class="chapter-item "><div>2017</div><a class="toggle"><div>❱</div></a></li><li><ol class="section"><li class="chapter-item "><a href="../2017/my-kids.html">My Kids</a></li><li class="chapter-item "><a href="../2017/tips.html">Some Tips</a></li><li class="chapter-item "><a href="../2017/freebsd-cloud.html">FreeBSD Cloud Init</a></li><li class="chapter-item "><a href="../2017/arista.html">Arista on OpenStack</a></li><li class="chapter-item "><a href="../2017/dummynet.html">Dummynet</a></li><li class="chapter-item "><a href="../2017/org-publish.html">Org Publish</a></li></ol></li></ol>
+            </div>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
+        </nav>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky bordered">
+                    <div class="left-buttons">
+                        <button id="sidebar-toggle" class="icon-button" type="button" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </button>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light (default)</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">Thatched Cottage</h1>
+
+                    <div class="right-buttons">
+                        <a href="../print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script type="text/javascript">
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <h1 id="lxd"><a class="header" href="#lxd">LXD</a></h1>
+<blockquote>
+<p>Created at &lt;2019-01-03 Thu&gt;</p>
+</blockquote>
+<p>LXD setup, usage and more.</p>
+<h2 id="lxd-setup"><a class="header" href="#lxd-setup">LXD Setup</a></h2>
+<p>So easy to setup LXD!</p>
+<p>The existing lxd packages in ubuntu 16.04 are too old to use, which
+need to be purged:</p>
+<pre><code class="language-bash">apt-get -qq purge lxd lxd-client
+snap install lxd
+</code></pre>
+<p><code>lxd</code> is lxd daemon and <code>lxc</code> is the lxd client:</p>
+<pre><code>which lxd #=&gt;
+/snap/bin/lxd
+which lxc #=&gt;
+/snap/bin/lxc
+</code></pre>
+<h2 id="init"><a class="header" href="#init">Init</a></h2>
+<p><code>lxd</code> provides a sub command =init= to init lxd:</p>
+<pre><code>lxd init
+</code></pre>
+<p><code>lxd init</code> can configure <code>lxd</code> run in clustering mode or standalone
+mode.</p>
+<h2 id="snap-and-lxd"><a class="header" href="#snap-and-lxd">Snap and Lxd</a></h2>
+<p>You can use <code>snap</code> to run <code>lxd</code>, or the opposite. Inside <code>lxd</code> you
+can run <code>docker</code>.</p>
+<pre><code>     +----------+       +-----------+       +------------+        +-----------+
+     |          |       |           |       |            |        |           |
+     |    vm    +------&gt;|    snap   +------&gt;|     lxd    +-------&gt;|   docker  |
+     |          |       |           |       |            |        |           |
+     +----------+       +-----------+       +------+-----+        +-----------+
+                              ^                    |
+                              |                    |
+                              +--------------------+
+</code></pre>
+<h2 id="run-lxd-in-snap"><a class="header" href="#run-lxd-in-snap">Run lxd in Snap</a></h2>
+<p>By default ubuntu xenial with lxd and lxd client installed. You can
+check this by running:</p>
+<pre><code class="language-bash">which lxd                       # =&gt; /usr/bin/lxd
+which lxc                       # =&gt; /usr/bin/lxc
+</code></pre>
+<p>The lxd in apt repo is very low. We need to switch to the lxd in snap
+store:</p>
+<pre><code class="language-bash"># Uninstall existing lxd in ubuntu repo.
+apt-get purge -qq lxd lxd-client
+# Install lxd in snap
+snap install lxd
+# Check lxd and lxc
+which lxd                       # =&gt; /snap/bin/lxd
+lxd --version                   # =&gt; 3.3
+which lxc                       # =&gt; /snap/bin/lxc
+lxc --version                   # =&gt; 3.3
+# Init lxd
+lxd init
+# Start lxd
+snap restart lxd
+</code></pre>
+<h2 id="launcn-lxd-container"><a class="header" href="#launcn-lxd-container">Launcn Lxd container</a></h2>
+<p>Now launch a vm like <code>lxc</code> container:</p>
+<pre><code class="language-bash"># List images
+snap image list ubuntu:xenial
+# Launch a container
+lxc launch ubuntu:xenial/amd64
+# List containers
+lxc list
+# exec bash in the container
+lxc exec steady-dingo bash
+# Now you can do anything in the container
+</code></pre>
+<h2 id="run-snap-inside-lxd-container"><a class="header" href="#run-snap-inside-lxd-container">Run snap inside Lxd Container</a></h2>
+<p>Snap as a container, can run <code>lxd</code> and launch <code>lxd</code> container. Inside
+the <code>lxc</code> container, you can run <code>snap</code> container, say to install go
+snap:</p>
+<pre><code class="language-bash">lxc exec steady-dingo bash
+snap install go --classic
+echo 'export GOPATH=/usr/local' &gt;&gt; ~/.bashrc
+apt-get install build-essential
+cat &gt; ~/.netrc &lt;&lt;EOF
+your github toke  n
+EOF
+go get github.ibm.com/nanjj/ncatd
+ncatd --version                 # ncatd version 0.0.1
+</code></pre>
+<h2 id="run-lxd-inside-lxd-container"><a class="header" href="#run-lxd-inside-lxd-container">Run Lxd inside Lxd Container</a></h2>
+<p>Run <code>lxd</code> inside lxd container nesting:</p>
+<pre><code class="language-bash">lxc config set steady-dingo security.nesting true
+lxc exec steady-dingo bash
+apt-get purge -qq lxd lxd-client
+snap install lxd
+lxd init
+lxc launch ubuntu:xenial/amd64
+</code></pre>
+<h2 id="run-docker-inside-lxd-container"><a class="header" href="#run-docker-inside-lxd-container">Run Docker inside Lxd Container</a></h2>
+<p>With <code>security.nesting true</code>, run docker:</p>
+<pre><code class="language-bash">apt-get install docker.io
+docker run hello-world
+</code></pre>
+<h2 id="use-lxd-container-as-a-router"><a class="header" href="#use-lxd-container-as-a-router">Use Lxd Container as a Router</a></h2>
+<pre><code>lxc launch ubuntu:16.04 router #=&gt;
+lxc list #=&gt;
++--------+---------+-----------------------+------+------------+-----------+
+|  NAME  |  STATE  |         IPV4          | IPV6 |    TYPE    | SNAPSHOTS |
++--------+---------+-----------------------+------+------------+-----------+
+| router | RUNNING |  10.149.11.203 (eth0) |      | PERSISTENT |           |
++--------+---------+-----------------------+------+------------+-----------+
+lxc exec router -- bash -i
+# configure vpn if needed
+
+# check ip forward setting
+sysctl net.ipv4.ip_forward #=&gt;
+net.ipv4.ip_forward = 1
+# iptables
+iptables -t nat -A POSTROUTING -s 10.149.11.0/24 ! -d 10.0.2.0/24 -j MASQUERADE
+apt-get update
+apt-get install iptables-persistent
+</code></pre>
+<p>Now you can use this as a router</p>
+<h2 id="clustering-mode"><a class="header" href="#clustering-mode">Clustering Mode</a></h2>
+<p>Lxd clustering mode makes lxd run in multiple nodes. Each node lxd
+is running on is a cluster member. The whole set of the cluster
+members is called a cluster.</p>
+<h3 id="new-cluster"><a class="header" href="#new-cluster">New Cluster</a></h3>
+<pre><code>lxd init
+Would you like to use LXD clustering? (yes/no) [default=no]: yes
+What name should be used to identify this node in the cluster? [default=hypercube01]:
+What IP address or DNS name should be used to reach this node? [default=192.168.0.46]:
+Are you joining an existing cluster? (yes/no) [default=no]:
+Setup password authentication on the cluster? (yes/no) [default=yes]: yes
+Trust password for new clients:
+Again:
+Do you want to configure a new local storage pool? (yes/no) [default=yes]:
+Name of the storage backend to use (btrfs, dir, lvm, zfs) [default=zfs]:
+Create a new ZFS pool? (yes/no) [default=yes]:
+Would you like to use an existing block device? (yes/no) [default=no]:
+Size in GB of the new loop device (1GB minimum) [default=31GB]: 128GB
+Do you want to configure a new remote storage pool? (yes/no) [default=no]:
+Would you like to connect to a MAAS server? (yes/no) [default=no]:
+Would you like to configure LXD to use an existing br...? (yes/no) [default=no]:
+Would you like to create a new Fan overlay network? (yes/no) [default=yes]:
+What subnet should be used as the Fan underlay? [default=auto]:
+Would you like stale cached images to be updated automatically? (yes/no) [default=yes]
+Would you like a YAML &quot;lxd init&quot; preseed to be printed? (yes/no) [default=no]:
+</code></pre>
+<h3 id="join-cluster"><a class="header" href="#join-cluster">Join Cluster</a></h3>
+<pre><code>lxd init
+Would you like to use LXD clustering? (yes/no) [default=no]: yes
+What name should be used to identify this node in the cluster? [default=hypercube06]:
+What IP address or DNS name should be used to reach this node? [default=192.168.0.21]:
+Are you joining an existing cluster? (yes/no) [default=no]: yes
+IP address or FQDN of an existing cluster node: 192.168.0.30
+Cluster fingerprint: 6ab5b519ffbb309cb38b73657299dd9b0b8c6f2bd5b3....
+You can validate this fingerprint by running &quot;lxc info&quot; locally on an existing node.
+Is this the correct fingerprint? (yes/no) [default=no]: yes
+Cluster trust password:
+All existing data is lost when joining a cluster, continue? (yes/no) [default=no] yes
+Choose &quot;size&quot; property for storage pool &quot;local&quot;: 128GB
+Choose &quot;source&quot; property for storage pool &quot;local&quot;:
+Choose &quot;zfs.pool_name&quot; property for storage pool &quot;local&quot;:
+Would you like a YAML &quot;lxd init&quot; preseed to be printed? (yes/no) [default=no]:
+</code></pre>
+<h3 id="list-cluster"><a class="header" href="#list-cluster">List Cluster</a></h3>
+<pre><code>lxc cluster list
+
++-------------+---------------------------+----------+--------+-------------------+
+|    NAME     |            URL            | DATABASE | STATE  |      MESSAGE      |
++-------------+---------------------------+----------+--------+-------------------+
+| hypercube01 | https://192.168.0.46:8443 | YES      | ONLINE | fully operational |
++-------------+---------------------------+----------+--------+-------------------+
+| hypercube02 | https://192.168.0.47:8443 | YES      | ONLINE | fully operational |
++-------------+---------------------------+----------+--------+-------------------+
+| hypercube03 | https://192.168.0.48:8443 | YES      | ONLINE | fully operational |
++-------------+---------------------------+----------+--------+-------------------+
+| hypercube04 | https://192.168.0.51:8443 | NO       | ONLINE | fully operational |
++-------------+---------------------------+----------+--------+-------------------+
+| hypercube05 | https://192.168.0.30:8443 | NO       | ONLINE | fully operational |
++-------------+---------------------------+----------+--------+-------------------+
+| hypercube06 | https://192.168.0.21:8443 | NO       | ONLINE | fully operational |
++-------------+---------------------------+----------+--------+-------------------+
+| hypercube07 | https://192.168.0.26:8443 | NO       | ONLINE | fully operational |
++-------------+---------------------------+----------+--------+-------------------+
+</code></pre>
+<p>It's a 7 nodes lxd cluster with 3 database nodes and 7 service nodes.</p>
+<h2 id="database"><a class="header" href="#database">Database</a></h2>
+<p><a href="https://github.com/lxc/lxd/blob/master/doc/database.md">Lxd
+database</a> is
+based on <a href="https://github.com/CanonicalLtd/dqlite">distributed
+sqlite</a>, which removed lxd's
+dependency on traditional database like postgres or mysql. <a href="https://wiki.ubuntu.com/FanNetworking">Fan
+network</a> introduced lxd a
+simple and fast container network.</p>
+<h3 id="global-and-local"><a class="header" href="#global-and-local">Global and Local</a></h3>
+<p>For each lxd node, there are two type databases: global and
+local. Data in global database is shared by each lxd cluster
+members, while data in local database can only be accessed in local
+node, does not impact others.</p>
+<h3 id="lxd-sql"><a class="header" href="#lxd-sql">Lxd sql</a></h3>
+<pre><code>lxd sql &lt;local|global&gt; &lt;query&gt;  [flags]
+</code></pre>
+<h3 id="global-schemas"><a class="header" href="#global-schemas">Global Schemas</a></h3>
+<p>For example, to list global schemas:</p>
+<pre><code>lxd sql global .schema #=&gt;
+PRAGMA foreign_keys=OFF;
+BEGIN TRANSACTION;
+CREATE TABLE schema (
+    id         INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
+    version    INTEGER NOT NULL,
+    updated_at DATETIME NOT NULL,
+    UNIQUE (version)
+);
+INSERT INTO schema VALUES(1,13,1546788241);
+CREATE TABLE &quot;containers&quot; (
+    id INTEGER primary key AUTOINCREMENT NOT NULL,
+    node_id INTEGER NOT NULL,
+    name TEXT NOT NULL,
+    architecture INTEGER NOT NULL,
+    type INTEGER NOT NULL,
+    ephemeral INTEGER NOT NULL DEFAULT 0,
+    creation_date DATETIME NOT NULL DEFAULT 0,
+    stateful INTEGER NOT NULL DEFAULT 0,
+    last_use_date DATETIME,
+    description TEXT,
+    project_id INTEGER NOT NULL,
+    UNIQUE (project_id, name),
+    FOREIGN KEY (node_id) REFERENCES nodes (id) ON DELETE CASCADE,
+    FOREIGN KEY (project_id) REFERENCES projects (id) ON DELETE CASCADE
+);
+CREATE TABLE &quot;images&quot; (
+    id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
+    fingerprint TEXT NOT NULL,
+    filename TEXT NOT NULL,
+    size INTEGER NOT NULL,
+    public INTEGER NOT NULL DEFAULT 0,
+    architecture INTEGER NOT NULL,
+    creation_date DATETIME,
+    expiry_date DATETIME,
+    upload_date DATETIME NOT NULL,
+    cached INTEGER NOT NULL DEFAULT 0,
+    last_use_date DATETIME,
+    auto_update INTEGER NOT NULL DEFAULT 0,
+    project_id INTEGER NOT NULL,
+    UNIQUE (project_id, fingerprint),
+    FOREIGN KEY (project_id) REFERENCES projects (id) ON DELETE CASCADE
+);
+CREATE TABLE &quot;images_aliases&quot; (
+    id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
+    name TEXT NOT NULL,
+    image_id INTEGER NOT NULL,
+    description TEXT,
+    project_id INTEGER NOT NULL,
+    UNIQUE (project_id, name),
+    FOREIGN KEY (image_id) REFERENCES images (id) ON DELETE CASCADE,
+    FOREIGN KEY (project_id) REFERENCES projects (id) ON DELETE CASCADE
+);
+CREATE TABLE &quot;operations&quot; (
+    id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
+    uuid TEXT NOT NULL,
+    node_id TEXT NOT NULL,
+    type INTEGER NOT NULL DEFAULT 0,
+    project_id INTEGER,
+    UNIQUE (uuid),
+    FOREIGN KEY (node_id) REFERENCES nodes (id) ON DELETE CASCADE,
+    FOREIGN KEY (project_id) REFERENCES projects (id) ON DELETE CASCADE
+);
+CREATE TABLE &quot;profiles&quot; (
+    id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
+    name TEXT NOT NULL,
+    description TEXT,
+    project_id INTEGER NOT NULL,
+    UNIQUE (project_id, name),
+    FOREIGN KEY (project_id) REFERENCES projects (id) ON DELETE CASCADE
+);
+CREATE TABLE &quot;storage_volumes&quot; (
+    id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
+    name TEXT NOT NULL,
+    storage_pool_id INTEGER NOT NULL,
+    node_id INTEGER NOT NULL,
+    type INTEGER NOT NULL,
+    description TEXT,
+    snapshot INTEGER NOT NULL DEFAULT 0,
+    project_id INTEGER NOT NULL,
+    UNIQUE (storage_pool_id, node_id, project_id, name, type),
+    FOREIGN KEY (storage_pool_id) REFERENCES storage_pools (id) ON DELETE CASCADE,
+    FOREIGN KEY (node_id) REFERENCES nodes (id) ON DELETE CASCADE,
+    FOREIGN KEY (project_id) REFERENCES projects (id) ON DELETE CASCADE
+);
+CREATE TABLE certificates (
+    id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
+    fingerprint TEXT NOT NULL,
+    type INTEGER NOT NULL,
+    name TEXT NOT NULL,
+    certificate TEXT NOT NULL,
+    UNIQUE (fingerprint)
+);
+CREATE TABLE config (
+    id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
+    key TEXT NOT NULL,
+    value TEXT,
+    UNIQUE (key)
+);
+CREATE TABLE containers_backups (
+    id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
+    container_id INTEGER NOT NULL,
+    name VARCHAR(255) NOT NULL,
+    creation_date DATETIME,
+    expiry_date DATETIME,
+    container_only INTEGER NOT NULL default 0,
+    optimized_storage INTEGER NOT NULL default 0,
+    FOREIGN KEY (container_id) REFERENCES containers (id) ON DELETE CASCADE,
+    UNIQUE (container_id, name)
+);
+CREATE TABLE containers_config (
+    id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
+    container_id INTEGER NOT NULL,
+    key TEXT NOT NULL,
+    value TEXT,
+    FOREIGN KEY (container_id) REFERENCES containers (id) ON DELETE CASCADE,
+    UNIQUE (container_id, key)
+);
+CREATE TABLE containers_devices (
+    id INTEGER primary key AUTOINCREMENT NOT NULL,
+    container_id INTEGER NOT NULL,
+    name TEXT NOT NULL,
+    type INTEGER NOT NULL default 0,
+    FOREIGN KEY (container_id) REFERENCES containers (id) ON DELETE CASCADE,
+    UNIQUE (container_id, name)
+);
+CREATE TABLE containers_devices_config (
+    id INTEGER primary key AUTOINCREMENT NOT NULL,
+    container_device_id INTEGER NOT NULL,
+    key TEXT NOT NULL,
+    value TEXT,
+    FOREIGN KEY (container_device_id) REFERENCES containers_devices (id) \
+     ON DELETE CASCADE,
+    UNIQUE (container_device_id, key)
+);
+CREATE TABLE containers_profiles (
+    id INTEGER primary key AUTOINCREMENT NOT NULL,
+    container_id INTEGER NOT NULL,
+    profile_id INTEGER NOT NULL,
+    apply_order INTEGER NOT NULL default 0,
+    UNIQUE (container_id, profile_id),
+    FOREIGN KEY (container_id) REFERENCES containers(id) ON DELETE CASCADE,
+    FOREIGN KEY (profile_id) REFERENCES profiles(id) ON DELETE CASCADE
+);
+CREATE TABLE images_nodes (
+    id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
+    image_id INTEGER NOT NULL,
+    node_id INTEGER NOT NULL,
+    UNIQUE (image_id, node_id),
+    FOREIGN KEY (image_id) REFERENCES images (id) ON DELETE CASCADE,
+    FOREIGN KEY (node_id) REFERENCES nodes (id) ON DELETE CASCADE
+);
+CREATE TABLE images_properties (
+    id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
+    image_id INTEGER NOT NULL,
+    type INTEGER NOT NULL,
+    key TEXT NOT NULL,
+    value TEXT,
+    FOREIGN KEY (image_id) REFERENCES images (id) ON DELETE CASCADE
+);
+CREATE TABLE images_source (
+    id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
+    image_id INTEGER NOT NULL,
+    server TEXT NOT NULL,
+    protocol INTEGER NOT NULL,
+    certificate TEXT NOT NULL,
+    alias TEXT NOT NULL,
+    FOREIGN KEY (image_id) REFERENCES images (id) ON DELETE CASCADE
+);
+CREATE TABLE networks (
+    id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
+    name TEXT NOT NULL,
+    description TEXT,
+    state INTEGER NOT NULL DEFAULT 0,
+    UNIQUE (name)
+);
+CREATE TABLE networks_config (
+    id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
+    network_id INTEGER NOT NULL,
+    node_id INTEGER,
+    key TEXT NOT NULL,
+    value TEXT,
+    UNIQUE (network_id, node_id, key),
+    FOREIGN KEY (network_id) REFERENCES networks (id) ON DELETE CASCADE,
+    FOREIGN KEY (node_id) REFERENCES nodes (id) ON DELETE CASCADE
+);
+CREATE TABLE networks_nodes (
+    id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
+    network_id INTEGER NOT NULL,
+    node_id INTEGER NOT NULL,
+    UNIQUE (network_id, node_id),
+    FOREIGN KEY (network_id) REFERENCES networks (id) ON DELETE CASCADE,
+    FOREIGN KEY (node_id) REFERENCES nodes (id) ON DELETE CASCADE
+);
+CREATE TABLE nodes (
+    id INTEGER PRIMARY KEY,
+    name TEXT NOT NULL,
+    description TEXT DEFAULT '',
+    address TEXT NOT NULL,
+    schema INTEGER NOT NULL,
+    api_extensions INTEGER NOT NULL,
+    heartbeat DATETIME DEFAULT CURRENT_TIMESTAMP,
+    pending INTEGER NOT NULL DEFAULT 0,
+    UNIQUE (name),
+    UNIQUE (address)
+);
+CREATE TABLE profiles_config (
+    id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
+    profile_id INTEGER NOT NULL,
+    key TEXT NOT NULL,
+    value TEXT,
+    UNIQUE (profile_id, key),
+    FOREIGN KEY (profile_id) REFERENCES profiles(id) ON DELETE CASCADE
+);
+CREATE TABLE profiles_devices (
+    id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
+    profile_id INTEGER NOT NULL,
+    name TEXT NOT NULL,
+    type INTEGER NOT NULL default 0,
+    UNIQUE (profile_id, name),
+    FOREIGN KEY (profile_id) REFERENCES profiles (id) ON DELETE CASCADE
+);
+CREATE TABLE profiles_devices_config (
+    id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
+    profile_device_id INTEGER NOT NULL,
+    key TEXT NOT NULL,
+    value TEXT,
+    UNIQUE (profile_device_id, key),
+    FOREIGN KEY (profile_device_id) REFERENCES profiles_devices (id) ON DELETE CASCADE
+);
+CREATE TABLE projects (
+    id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
+    name TEXT NOT NULL,
+    description TEXT,
+    UNIQUE (name)
+);
+CREATE TABLE projects_config (
+    id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
+    project_id INTEGER NOT NULL,
+    key TEXT NOT NULL,
+    value TEXT,
+    FOREIGN KEY (project_id) REFERENCES projects (id) ON DELETE CASCADE,
+    UNIQUE (project_id, key)
+);
+CREATE TABLE storage_pools (
+    id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
+    name TEXT NOT NULL,
+    driver TEXT NOT NULL,
+    description TEXT,
+    state INTEGER NOT NULL DEFAULT 0,
+    UNIQUE (name)
+);
+CREATE TABLE storage_pools_config (
+    id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
+    storage_pool_id INTEGER NOT NULL,
+    node_id INTEGER,
+    key TEXT NOT NULL,
+    value TEXT,
+    UNIQUE (storage_pool_id, node_id, key),
+    FOREIGN KEY (storage_pool_id) REFERENCES storage_pools (id) ON DELETE CASCADE,
+    FOREIGN KEY (node_id) REFERENCES nodes (id) ON DELETE CASCADE
+);
+CREATE TABLE storage_pools_nodes (
+    id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
+    storage_pool_id INTEGER NOT NULL,
+    node_id INTEGER NOT NULL,
+    UNIQUE (storage_pool_id, node_id),
+    FOREIGN KEY (storage_pool_id) REFERENCES storage_pools (id) ON DELETE CASCADE,
+    FOREIGN KEY (node_id) REFERENCES nodes (id) ON DELETE CASCADE
+);
+CREATE TABLE storage_volumes_config (
+    id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
+    storage_volume_id INTEGER NOT NULL,
+    key TEXT NOT NULL,
+    value TEXT,
+    UNIQUE (storage_volume_id, key),
+    FOREIGN KEY (storage_volume_id) REFERENCES storage_volumes (id) ON DELETE CASCADE
+);
+COMMIT;
+</code></pre>
+<h3 id="local-schemas"><a class="header" href="#local-schemas">Local Schemas</a></h3>
+<p>To list local database schemas:</p>
+<pre><code>lxd sql local .schema #=&gt;
+PRAGMA foreign_keys=OFF;
+BEGIN TRANSACTION;
+CREATE TABLE schema (
+    id         INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
+    version    INTEGER NOT NULL,
+    updated_at DATETIME NOT NULL,
+    UNIQUE (version)
+);
+INSERT INTO schema VALUES(1,38,1546788240);
+CREATE TABLE config (
+    id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
+    key VARCHAR(255) NOT NULL,
+    value TEXT,
+    UNIQUE (key)
+);
+CREATE TABLE patches (
+    id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
+    name VARCHAR(255) NOT NULL,
+    applied_at DATETIME NOT NULL,
+    UNIQUE (name)
+);
+CREATE TABLE raft_nodes (
+    id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
+    address TEXT NOT NULL,
+    UNIQUE (address)
+);
+COMMIT;
+</code></pre>
+<h3 id="raft-nodes"><a class="header" href="#raft-nodes">Raft Nodes</a></h3>
+<pre><code> lxd sql local 'select * from raft_nodes' #=&gt;
+ +----+-------------------+
+ | id |      address      |
+ +----+-------------------+
+ | 1  | 192.168.0.46:8443 |
+ | 2  | 192.168.0.47:8443 |
+ | 3  | 192.168.0.48:8443 |
+ +----+-------------------+
+</code></pre>
+<p><a href="https://github.com/CanonicalLtd/dqlite">Distributed Sqlite</a> is using raft to sync sqlite db logs.</p>
+<h3 id="cluster-nodes"><a class="header" href="#cluster-nodes">Cluster nodes</a></h3>
+<pre><code>lxd sql global 'select * from nodes'
++----+-------------+-------------------+--------+----------------+
+| id |    name     |      address      | schema | api_extensions |
++----+-------------+-------------------+--------+----------------+
+| 1  | hypercube01 | 192.168.0.46:8443 | 13     | 115            |
+| 2  | hypercube02 | 192.168.0.47:8443 | 13     | 115            |
+| 3  | hypercube03 | 192.168.0.48:8443 | 13     | 115            |
+| 4  | hypercube04 | 192.168.0.51:8443 | 13     | 115            |
+| 5  | hypercube05 | 192.168.0.30:8443 | 13     | 115            |
+| 6  | hypercube06 | 192.168.0.21:8443 | 13     | 115            |
+| 7  | hypercube07 | 192.168.0.26:8443 | 13     | 115            |
++----+-------------+-------------------+--------+----------------+
+</code></pre>
+<h3 id="containers"><a class="header" href="#containers">Containers</a></h3>
+<pre><code>lxd sql global 'select * from containers' #=&gt;
++----+---------+----------------+------------+
+| id | node_id |      name      | project_id |
++----+---------+----------------+------------+
+| 20 | 2       | grafana        | 1          |
+| 30 | 3       | go             | 1          |
+| 32 | 1       | guyujie        | 1          |
+| 33 | 4       | nginx          | 1          |
+| 36 | 1       | lxdui01        | 1          |
+| 38 | 1       | crack-mako     | 1          |
+| 39 | 5       | lxdui02        | 1          |
+| 42 | 6       | fluent-hamster | 1          |
+| 43 | 1       | b2             | 1          |
+| 44 | 2       | b3             | 1          |
++----+---------+----------------+------------+
+</code></pre>
+<p>To select the node with least containers:</p>
+<pre><code>lxd sql global \
+    'select node_id, count(node_id) as node_count from containers
+     group by node_id order by node_count'
+</code></pre>
+<h2 id="network"><a class="header" href="#network">Network</a></h2>
+<p>Lxd can be configured to use <a href="https://wiki.ubuntu.com/FanNetworking">Ubuntu Fan
+Network</a>.</p>
+<p>Say 2 containers A and B:</p>
+<table><thead><tr><th>Container</th><th>IP</th><th>Hyper</th><th>Hyper IP</th></tr></thead><tbody>
+<tr><td>A</td><td>240.0.46.14/8</td><td>hypercube01</td><td>192.168.0.46/16</td></tr>
+<tr><td>B</td><td>240.0.47.99/8</td><td>hypercube02</td><td>192.168.0.47/16</td></tr>
+</tbody></table>
+<p>Now ping B on A:</p>
+<pre><code>ping 240.0.47.99 #=&gt;
+ARP, Request who-has 240.0.47.99 tell 240.0.46.14, length 28
+</code></pre>
+<p>On hypercube01 the arp request being forwarded to hypercube02:</p>
+<pre><code>17:07:29.650323 IP 192.168.0.46.53730 &gt; 192.168.0.47.8472
+ARP, Request who-has 240.0.47.99 tell 240.0.46.14, length 28
+</code></pre>
+<h2 id="operations"><a class="header" href="#operations">Operations</a></h2>
+<h3 id="launch-container"><a class="header" href="#launch-container">Launch Container</a></h3>
+<p><code>lxc launch b --debug</code> will do:</p>
+<ol>
+<li>Get version
+<pre><code>DBUG Connecting to a remote LXD over HTTPs
+DBUG Sending request to LXD method=GET url=https://192.168.0.48:8443/1.0 etag=
+DBUG Got response struct from LXD
+DBUG
+        {
+                &quot;config&quot;: {
+                        &quot;cluster.https_address&quot;: &quot;192.168.0.48:8443&quot;,
+                        &quot;core.https_address&quot;: &quot;192.168.0.48:8443&quot;,
+                        &quot;core.trust_password&quot;: true
+                },
+                &quot;api_extensions&quot;: [...],
+                &quot;api_status&quot;: &quot;stable&quot;,
+                &quot;api_version&quot;: &quot;1.0&quot;,
+                &quot;auth&quot;: &quot;trusted&quot;,
+                &quot;public&quot;: false,
+                &quot;auth_methods&quot;: [
+                        &quot;tls&quot;
+                ],
+                &quot;environment&quot;: {
+                        &quot;addresses&quot;: [
+                                &quot;192.168.0.48:8443&quot;
+                        ],
+                        &quot;architectures&quot;: [
+                                &quot;x86_64&quot;,
+                                &quot;i686&quot;
+                        ],
+                        &quot;certificate&quot;: &quot;...&quot;,
+                        &quot;certificate_fingerprint&quot;: &quot;...&quot;,
+                        &quot;driver&quot;: &quot;lxc&quot;,
+                        &quot;driver_version&quot;: &quot;3.1.0&quot;,
+                        &quot;kernel&quot;: &quot;Linux&quot;,
+                        &quot;kernel_architecture&quot;: &quot;x86_64&quot;,
+                        &quot;kernel_version&quot;: &quot;4.15.0-43-generic&quot;,
+                        &quot;server&quot;: &quot;lxd&quot;,
+                        &quot;server_pid&quot;: 32645,
+                        &quot;server_version&quot;: &quot;3.9&quot;,
+                        &quot;storage&quot;: &quot;zfs&quot;,
+                        &quot;storage_version&quot;: &quot;0.7.5-1ubuntu16.4&quot;,
+                        &quot;server_clustered&quot;: true,
+                        &quot;server_name&quot;: &quot;hypercube03&quot;,
+                        &quot;project&quot;: &quot;default&quot;
+                }
+        }
+</code></pre>
+</li>
+<li>Get image
+<pre><code>Creating the container
+DBUG ... method=GET url=https://192.168.0.48:8443/1.0/images/aliases/b etag=
+DBUG Got response struct from LXD
+DBUG
+        {
+                &quot;description&quot;: &quot;&quot;,
+                &quot;target&quot;: &quot;dcbc8e3e5c2ed9fb21c3d0659a0eee004bd...
+                &quot;name&quot;: &quot;b&quot;
+        }
+DBUG ... method=GET url=https://192.168.0.48:8443/1.0/images/dcbc8e... etag=
+DBUG Got response struct from LXD
+DBUG
+        {
+                &quot;auto_update&quot;: true,
+                &quot;properties&quot;: {
+                        &quot;architecture&quot;: &quot;amd64&quot;,
+                        &quot;description&quot;: &quot;ubuntu 18.04 LTS amd64 (r...
+                        &quot;label&quot;: &quot;release&quot;,
+                        &quot;os&quot;: &quot;ubuntu&quot;,
+                        &quot;release&quot;: &quot;bionic&quot;,
+                        &quot;serial&quot;: &quot;20190114&quot;,
+                        &quot;version&quot;: &quot;18.04&quot;
+                },
+                &quot;public&quot;: false,
+                &quot;aliases&quot;: [
+                        {
+                                &quot;name&quot;: &quot;b&quot;,
+                                &quot;description&quot;: &quot;&quot;
+                        }
+                ],
+                &quot;architecture&quot;: &quot;x86_64&quot;,
+                &quot;cached&quot;: true,
+                &quot;filename&quot;: &quot;ubuntu-18.04-server-cloudimg-amd64-lxd.tar.xz&quot;,
+                &quot;fingerprint&quot;: &quot;dcbc8e3e5c2ed9fb21c3d0...&quot;,
+                &quot;size&quot;: 183468820,
+                &quot;update_source&quot;: {
+                        &quot;alias&quot;: &quot;b&quot;,
+                        &quot;certificate&quot;: &quot;&quot;,
+                        &quot;protocol&quot;: &quot;simplestreams&quot;,
+                        &quot;server&quot;: &quot;https://cloud-images.ubuntu.com/releases&quot;
+                },
+                &quot;created_at&quot;: &quot;2019-01-14T00:00:00Z&quot;,
+                &quot;expires_at&quot;: &quot;2023-04-26T00:00:00Z&quot;,
+                &quot;last_used_at&quot;: &quot;2019-01-18T08:22:28.5476208Z&quot;,
+                &quot;uploaded_at&quot;: &quot;2019-01-15T00:36:47.651093161Z&quot;
+        }
+</code></pre>
+</li>
+<li>Create Container Operation
+<pre><code>DBUG Connected to the websocket
+DBUG ... method=POST url=.../1.0/containers etag=
+DBUG
+        {
+                &quot;architecture&quot;: &quot;&quot;,
+                &quot;config&quot;: {},
+                &quot;devices&quot;: {},
+                &quot;ephemeral&quot;: false,
+                &quot;profiles&quot;: null,
+                &quot;stateful&quot;: false,
+                &quot;description&quot;: &quot;&quot;,
+                &quot;name&quot;: &quot;&quot;,
+                &quot;source&quot;: {
+                        &quot;type&quot;: &quot;image&quot;,
+                        &quot;certificate&quot;: &quot;&quot;,
+                        &quot;fingerprint&quot;: &quot;dcbc8e3e5c2ed9fb21c3d065...&quot;
+                },
+                &quot;instance_type&quot;: &quot;&quot;
+        }
+DBUG Got operation from LXD
+DBUG
+        {
+                &quot;id&quot;: &quot;1de45646-d209-413f-827a-ef7921c3c7f8&quot;,
+                &quot;class&quot;: &quot;task&quot;,
+                &quot;description&quot;: &quot;Creating container&quot;,
+                &quot;created_at&quot;: &quot;2019-01-22T06:13:23.360302136Z&quot;,
+                &quot;updated_at&quot;: &quot;2019-01-22T06:13:23.360302136Z&quot;,
+                &quot;status&quot;: &quot;Running&quot;,
+                &quot;status_code&quot;: 103,
+                &quot;resources&quot;: {
+                        &quot;containers&quot;: [
+                                &quot;/1.0/containers/fluent-hamster&quot;
+                        ]
+                },
+                &quot;metadata&quot;: null,
+                &quot;may_cancel&quot;: false,
+                &quot;err&quot;: &quot;&quot;
+        }
+</code></pre>
+</li>
+<li>Wait Create Operation Done
+<pre><code>DBUG ... method=GET url=.../1.0/operations/1de45646-... etag=
+DBUG Got response struct from LXD
+DBUG
+        {
+                &quot;id&quot;: &quot;1de45646-d209-413f-827a-ef7921c3c7f8&quot;,
+                &quot;class&quot;: &quot;task&quot;,
+                &quot;description&quot;: &quot;Creating container&quot;,
+                &quot;created_at&quot;: &quot;2019-01-22T06:13:23.360302136Z&quot;,
+                &quot;updated_at&quot;: &quot;2019-01-22T06:13:23.360302136Z&quot;,
+                &quot;status&quot;: &quot;Running&quot;,
+                &quot;status_code&quot;: 103,
+                &quot;resources&quot;: {
+                        &quot;containers&quot;: [
+                                &quot;/1.0/containers/fluent-hamster&quot;
+                        ]
+                },
+                &quot;metadata&quot;: null,
+                &quot;may_cancel&quot;: false,
+                &quot;err&quot;: &quot;&quot;
+        }
+Container name is: fluent-hamster
+</code></pre>
+</li>
+<li>Get container
+<pre><code>DBUG[01-22|14:13:37] ... method=GET url=.../1.0/containers/fluent-hamster etag=
+DBUG[01-22|14:13:39] Got response struct from LXD
+DBUG[01-22|14:13:39]
+        {
+                &quot;architecture&quot;: &quot;x86_64&quot;,
+                &quot;config&quot;: {
+                        &quot;image.architecture&quot;: &quot;amd64&quot;,
+                        &quot;image.description&quot;: &quot;ubuntu 18.04 LTS 
+                        &quot;image.label&quot;: &quot;release&quot;,
+                        &quot;image.os&quot;: &quot;ubuntu&quot;,
+                        &quot;image.release&quot;: &quot;bionic&quot;,
+                        &quot;image.serial&quot;: &quot;20190114&quot;,
+                        &quot;image.version&quot;: &quot;18.04&quot;,
+                        &quot;volatile.apply_template&quot;: &quot;create&quot;,
+                        &quot;volatile.base_image&quot;: &quot;dcbc8e3e5c2ed9fb21c3....&quot;,
+                        &quot;volatile.eth0.hwaddr&quot;: &quot;00:16:3e:e3:bf:17&quot;,
+                        &quot;volatile.idmap.base&quot;: &quot;0&quot;,
+                        &quot;volatile.idmap.next&quot;: &quot;[{\&quot;Isuid...
+                        &quot;volatile.last_state.idmap&quot;: &quot;[{\...
+                },
+                &quot;devices&quot;: {},
+                &quot;ephemeral&quot;: false,
+                &quot;profiles&quot;: [
+                        &quot;default&quot;
+                ],
+                &quot;stateful&quot;: false,
+                &quot;description&quot;: &quot;&quot;,
+                &quot;created_at&quot;: &quot;2019-01-22T06:13:29.053538619Z&quot;,
+                &quot;expanded_config&quot;: {
+                        &quot;image.architecture&quot;: &quot;amd64&quot;,
+                        &quot;image.description&quot;: &quot;ubuntu 18.04 LTS 
+                        &quot;image.label&quot;: &quot;release&quot;,
+                        &quot;image.os&quot;: &quot;ubuntu&quot;,
+                        &quot;image.release&quot;: &quot;bionic&quot;,
+                        &quot;image.serial&quot;: &quot;20190114&quot;,
+                        &quot;image.version&quot;: &quot;18.04&quot;,
+                        &quot;volatile.apply_template&quot;: &quot;create&quot;,
+                        &quot;volatile.base_image&quot;: &quot;dcbc8e3e5c2ed9fb21...
+                        &quot;volatile.eth0.hwaddr&quot;: &quot;00:16:3e:e3:bf:17&quot;,
+                        &quot;volatile.idmap.base&quot;: &quot;0&quot;,
+                        &quot;volatile.idmap.next&quot;: &quot;[{\&quot;Isuid\&quot;:true,\&quot;Isgid\...]&quot;,
+                        &quot;volatile.last_state.idmap&quot;: &quot;[{\&quot;Isuid...]&quot;
+                },
+                &quot;expanded_devices&quot;: {
+                        &quot;eth0&quot;: {
+                                &quot;name&quot;: &quot;eth0&quot;,
+                                &quot;nictype&quot;: &quot;bridged&quot;,
+                                &quot;parent&quot;: &quot;lxdfan0&quot;,
+                                &quot;type&quot;: &quot;nic&quot;
+                        },
+                        &quot;root&quot;: {
+                                &quot;path&quot;: &quot;/&quot;,
+                                &quot;pool&quot;: &quot;local&quot;,
+                                &quot;type&quot;: &quot;disk&quot;
+                        }
+                },
+                &quot;name&quot;: &quot;fluent-hamster&quot;,
+                &quot;status&quot;: &quot;Stopped&quot;,
+                &quot;status_code&quot;: 102,
+                &quot;last_used_at&quot;: &quot;1970-01-01T00:00:00Z&quot;,
+                &quot;location&quot;: &quot;hypercube06&quot;
+        }
+</code></pre>
+</li>
+<li>Start Container Operation
+<pre><code>Starting fluent-hamster
+DBUG ... method=PUT url=.../1.0/containers/fluent-hamster/state etag=
+DBUG
+        {
+                &quot;action&quot;: &quot;start&quot;,
+                &quot;timeout&quot;: -1,
+                &quot;force&quot;: false,
+                &quot;stateful&quot;: false
+        }
+DBUG Got operation from LXD
+DBUG
+        {
+                &quot;id&quot;: &quot;46746a23-5873-4755-a0ad-27385370aa39&quot;,
+                &quot;class&quot;: &quot;task&quot;,
+                &quot;description&quot;: &quot;Starting container&quot;,
+                &quot;created_at&quot;: &quot;2019-01-22T06:13:40.232324373Z&quot;,
+                &quot;updated_at&quot;: &quot;2019-01-22T06:13:40.232324373Z&quot;,
+                &quot;status&quot;: &quot;Running&quot;,
+                &quot;status_code&quot;: 103,
+                &quot;resources&quot;: {
+                        &quot;containers&quot;: [
+                                &quot;/1.0/containers/fluent-hamster&quot;
+                        ]
+                },
+                &quot;metadata&quot;: null,
+                &quot;may_cancel&quot;: false,
+                &quot;err&quot;: &quot;&quot;
+        }
+</code></pre>
+</li>
+<li>Start Operation Done
+<pre><code>DBUG[01-22|14:13:40] ... method=GET url=.../1.0/operations/...-27385370aa39 etag=
+DBUG[01-22|14:13:42] Got response struct from LXD
+DBUG[01-22|14:13:42]
+        {
+                &quot;id&quot;: &quot;46746a23-5873-4755-a0ad-27385370aa39&quot;,
+                &quot;class&quot;: &quot;task&quot;,
+                &quot;description&quot;: &quot;Starting container&quot;,
+                &quot;created_at&quot;: &quot;2019-01-22T06:13:40.232324373Z&quot;,
+                &quot;updated_at&quot;: &quot;2019-01-22T06:13:40.232324373Z&quot;,
+                &quot;status&quot;: &quot;Success&quot;,
+                &quot;status_code&quot;: 200,
+                &quot;resources&quot;: {
+                        &quot;containers&quot;: [
+                                &quot;/1.0/containers/fluent-hamster&quot;
+                        ]
+                },
+                &quot;metadata&quot;: null,
+                &quot;may_cancel&quot;: false,
+                &quot;err&quot;: &quot;&quot;
+        }
+</code></pre>
+</li>
+</ol>
+<h2 id="ansible"><a class="header" href="#ansible">Ansible</a></h2>
+<h3 id="lxd-connection"><a class="header" href="#lxd-connection">Lxd connection</a></h3>
+<p>Ansible has a <code>lxd</code> connection, which can be used to manage lxd
+containers.</p>
+<pre><code>[lxdui]
+lxdui01 ansible_host=lxdui01
+lxdui02 ansible_host=lxdui02
+[lxdui:vars]
+ansible_user=root
+ansible_connection=lxd
+</code></pre>
+<p>To ping:</p>
+<pre><code class="language-bash">ansible -m ping lxdui -vvvvv #=&gt;
+
+ansible 2.7.6
+&lt;lxdui01&gt; ESTABLISH LXD CONNECTION FOR USER: root
+&lt;lxdui01&gt; EXEC /bin/sh -c 'echo ~root &amp;&amp; sleep 0'
+&lt;lxdui02&gt; ESTABLISH LXD CONNECTION FOR USER: root
+lxdui02 | SUCCESS =&gt; {
+    &quot;changed&quot;: false,
+    &quot;invocation&quot;: {
+        &quot;module_args&quot;: {
+            &quot;data&quot;: &quot;pong&quot;
+        }
+    },
+    &quot;ping&quot;: &quot;pong&quot;
+}
+lxdui01 | SUCCESS =&gt; {
+    &quot;changed&quot;: false,
+    &quot;invocation&quot;: {
+        &quot;module_args&quot;: {
+            &quot;data&quot;: &quot;pong&quot;
+        }
+    },
+    &quot;ping&quot;: &quot;pong&quot;
+}
+META: ran handlers
+META: ran handlers
+</code></pre>
+<p>It can work without ssh:</p>
+<pre><code>ansible (client) -&gt; lxc (client) -&gt; lxd api(server) -&gt; lxd containers
+</code></pre>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="../2019/hdituil.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+                            <a rel="next" href="../2018/godebug.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="../2019/hdituil.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+                    <a rel="next" href="../2018/godebug.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+            </nav>
+
+        </div>
+
+        <script type="text/javascript">
+            window.playground_copyable = true;
+        </script>
+        <script src="../elasticlunr.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../mark.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../searcher.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../clipboard.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../highlight.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../book.js" type="text/javascript" charset="utf-8"></script>
+
+        <!-- Custom JS scripts -->
+    </body>
+</html>

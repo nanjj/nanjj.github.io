@@ -1,0 +1,464 @@
+<!DOCTYPE HTML>
+<html lang="zh_CN" class="sidebar-visible no-js light">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>Arista on OpenStack - Thatched Cottage</title>
+        <!-- Custom HTML head -->
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff" />
+
+        <link rel="icon" href="../favicon.svg">
+        <link rel="shortcut icon" href="../favicon.png">
+        <link rel="stylesheet" href="../css/variables.css">
+        <link rel="stylesheet" href="../css/general.css">
+        <link rel="stylesheet" href="../css/chrome.css">
+        <link rel="stylesheet" href="../css/print.css" media="print">
+        <!-- Fonts -->
+        <link rel="stylesheet" href="../FontAwesome/css/font-awesome.css">
+        <link rel="stylesheet" href="../fonts/fonts.css">
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="../highlight.css">
+        <link rel="stylesheet" href="../tomorrow-night.css">
+        <link rel="stylesheet" href="../ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+    </head>
+    <body>
+        <!-- Provide site root to javascript -->
+        <script type="text/javascript">
+            var path_to_root = "../";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
+        </script>
+
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script type="text/javascript">
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script type="text/javascript">
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            var html = document.querySelector('html');
+            html.classList.remove('no-js')
+            html.classList.remove('light')
+            html.classList.add(theme);
+            html.classList.add('js');
+        </script>
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script type="text/javascript">
+            var html = document.querySelector('html');
+            var sidebar = 'hidden';
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            }
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <div class="sidebar-scrollbox">
+                <ol class="chapter"><li class="chapter-item affix "><a href="../index.html">Home</a></li><li class="chapter-item "><div>2019</div><a class="toggle"><div>❱</div></a></li><li><ol class="section"><li class="chapter-item "><a href="../2019/gitlab-ci.html">Gitlab CI</a></li><li class="chapter-item "><a href="../2019/hdituil.html">Manipulate Mac Disk Images</a></li><li class="chapter-item "><a href="../2019/lxd.html">LXD Inside</a></li></ol></li><li class="chapter-item "><div>2018</div><a class="toggle"><div>❱</div></a></li><li><ol class="section"><li class="chapter-item "><a href="../2018/godebug.html">GO Debug</a></li></ol></li><li class="chapter-item expanded "><div>2017</div><a class="toggle"><div>❱</div></a></li><li><ol class="section"><li class="chapter-item "><a href="../2017/my-kids.html">My Kids</a></li><li class="chapter-item "><a href="../2017/tips.html">Some Tips</a></li><li class="chapter-item "><a href="../2017/freebsd-cloud.html">FreeBSD Cloud Init</a></li><li class="chapter-item expanded "><a href="../2017/arista.html" class="active">Arista on OpenStack</a></li><li class="chapter-item "><a href="../2017/dummynet.html">Dummynet</a></li><li class="chapter-item "><a href="../2017/org-publish.html">Org Publish</a></li></ol></li></ol>
+            </div>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
+        </nav>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky bordered">
+                    <div class="left-buttons">
+                        <button id="sidebar-toggle" class="icon-button" type="button" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </button>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light (default)</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">Thatched Cottage</h1>
+
+                    <div class="right-buttons">
+                        <a href="../print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script type="text/javascript">
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <h1 id="running-arista-veos-in-openstack"><a class="header" href="#running-arista-veos-in-openstack">Running Arista vEOS in OpenStack</a></h1>
+<blockquote>
+<p>Created at &lt;2017-12-06 Wed&gt;</p>
+</blockquote>
+<p>How to run arista vEOS in OpenStack.</p>
+<h2 id="veos-image"><a class="header" href="#veos-image">vEOS Image</a></h2>
+<h3 id="download"><a class="header" href="#download">Download</a></h3>
+<p>Download below files:</p>
+<ol>
+<li><code>Aboot-veos-8.0.0.iso</code>,</li>
+<li><code>vEOS-lab-4.20.1F.vmdk</code></li>
+</ol>
+<p>from: [[https://www.arista.com/en/support/software-download]]</p>
+<h3 id="upload"><a class="header" href="#upload">Upload</a></h3>
+<p>Upload to OpenStack Glance:</p>
+<pre><code>openstack image create Aboot-veos-8.0.0.iso \
+          --container-format bare \
+          --disk-format iso \
+          --file Aboot-veos-8.0.0.iso
+openstack image create vEOS-lab-4.20.1F.vmdk \
+          --container-format bare \
+          --disk-format vmdk \
+          --file vEOS-lab-4.20.1F.vmdk
+</code></pre>
+<h3 id="list-images"><a class="header" href="#list-images">List images</a></h3>
+<pre><code>openstack image list
+#=&gt;
+| name                  | id                                   | type       |
+|-----------------------|--------------------------------------|------------|
+| Aboot-veos-8.0.0.iso  | 43c78dee-e055-4592-9b81-d66f6a33584d | iso image  |
+| vEOS-lab-4.20.1F.vmdk | ba02703d-6d2b-40a8-bdb7-bf41163d78f7 | vmdk image |
+</code></pre>
+<h2 id="boot-veos-vm"><a class="header" href="#boot-veos-vm">Boot vEOS VM</a></h2>
+<h3 id="prerequisite"><a class="header" href="#prerequisite">Prerequisite</a></h3>
+<p>Before boot VM, make sure:</p>
+<ol>
+<li>OpenStack volume service - cinder is running,</li>
+<li>Disable OpenStack security groups,</li>
+<li>Disable ebtables on hypervisor</li>
+</ol>
+<p>A workaround to disable ebtables:</p>
+<pre><code>ansible -m cron -a 'job=&quot;/sbin/ebtables -F&quot; name=&quot;flush ebtables&quot;' all
+</code></pre>
+<h3 id="boot-vm"><a class="header" href="#boot-vm">Boot VM</a></h3>
+<pre><code>nova boot --flavor m1.medium \
+    --image Aboot-veos-8.0.0.iso \
+    --nic net-id=64304c68-646f-4a2b-8a7a-e8f557c4b94a \
+    --nic net-id=15bfca37-119e-475e-ad0e-fc2e377cac32 \
+    --nic net-id=7c072643-2170-4a46-9dc2-e04f5f427f72 \
+    --block-device \
+    id=ba02703d-6d2b-40a8-bdb7-bf41163d78f7,\
+	source=image,bus=ide,dest=volume,size=4,shutdown=remove \
+    veosvm1
+</code></pre>
+<h3 id="notices"><a class="header" href="#notices">Notices</a></h3>
+<ol>
+<li>The first network is for vEOS management port, the left are for
+vEOS switch ports,</li>
+<li>The id(ba02703d-6d2b-40a8-bdb7-bf41163d78f7) in block device
+option is the image id of glance image vEOS-lab-4.20.1F.vmdk,</li>
+<li>Make sure bus is set to ide</li>
+</ol>
+<h2 id="enable-ssh"><a class="header" href="#enable-ssh">Enable SSH</a></h2>
+<p>Get vm's novnc console:</p>
+<pre><code>nova get-vnc-console veosvm1 novnc
+</code></pre>
+<p>Go to the novnc console to configure network:</p>
+<pre><code>login: admin # default username admin, no password
+&gt; enable
+# configure terminal
+# interface management 1
+# ip address 192.168.0.15 255.255.0.0
+# ip route 0.0.0.0 0.0.0.0 192.168.0.1
+# hostname veosvm1
+# username admin secret 0 admin
+# end
+# copy running-config startup-config
+</code></pre>
+<p>Now you can use ssh <code>ssh admin@192.168.0.15</code> to login.</p>
+<h2 id="netbox-integration"><a class="header" href="#netbox-integration">Netbox Integration</a></h2>
+<h3 id="enable-management-api"><a class="header" href="#enable-management-api">Enable Management Api</a></h3>
+<pre><code>ssh admin@192.168.0.15 # password admin
+&gt; enable
+# config terminal
+# management api http-commands
+# no shutdown
+# no protocol http
+# protocol https
+# end
+# show management api http-commands #=&gt;
+Enabled:            Yes
+HTTPS server:       running, set to use port 443
+HTTP server:        shutdown, set to use port 80
+Local HTTP server:  shutdown, no authentication, set to use port 8080
+Unix Socket server: shutdown, no authentication
+VRFs:               default
+Hits:               75
+Last hit:           36 seconds ago
+Bytes in:           11714
+Bytes out:          178064
+Requests:           60
+Commands:           147
+Duration:           5.294 seconds
+SSL Profile:        none
+FIPS Mode:          No
+QoS DSCP:           0
+Log Level:          none
+CSP Frame Ancestor: None
+TLS Protocols:      1.0 1.1 1.2
+   User        Requests       Bytes in       Bytes out    Last hit
+----------- -------------- -------------- --------------- --------------
+   admin       60             11714          178064       36 seconds ago
+
+URLs
+--------------------------------------
+Management1 : https://192.168.0.15:443
+# copy running-config startup-config
+</code></pre>
+<h3 id="napalm"><a class="header" href="#napalm">Napalm</a></h3>
+<p>So that netbox can talk to vEOS via napalm:</p>
+<pre><code>  +--------------------+             +---------------------+
+  |      netbox        |             |   arista veos       |
+  +--------+-----------+             +------------+--------+
+  |        |           |             |            |        |
+  |        |  napalm   |             | management |        |
+  |        |   (eos)   +-----=------&gt;|   (https)  |        |
+  |        |           |             |            |        |
+  +--------+-----------+             +------------+--------+
+</code></pre>
+<p><img src="napalm.png" alt="" /></p>
+<h2 id="a-clasic-configuration"><a class="header" href="#a-clasic-configuration">A Clasic Configuration</a></h2>
+<h3 id="topology"><a class="header" href="#topology">Topology</a></h3>
+<pre><code>     +-----------------+                  +-----------------+
+     |   arista 0  et2 +------vlan30------+ et2 arista 1    |
+     +-----------------+ 172.16.30.0/24   +-----------------+
+     |                 |                  |                 |
+     | 172.16.10.1/24  |                  | 172.16.20.1/24  |
+     |      et1        |                  |      et1        |
+     +-------+---------+                  +-------+---------+
+             |                                    |
+             |                                    |
+           vlan10                               vlan20
+             |                                    |
+     +-------+---------+                  +-------+---------+
+     |      eth0       |                  |      eth0       |
+     | 172.16.10.6/24  |                  |  172.16.20.7/24 |
+     |                 |                  |                 |
+     +-----------------+                  +-----------------+
+     |      vm 0       |                  |      vm 1       |
+     +-----------------+                  +-----------------+
+</code></pre>
+<p><img src="arista.png" alt="" /></p>
+<h3 id="create-topology"><a class="header" href="#create-topology">Create Topology</a></h3>
+<pre><code class="language-yaml">  ---
+  - name: &quot;Create network vlan10, vlan20, vlan30&quot;
+    hosts: localhost
+    tasks:
+      - name: &quot;ensure networks created.&quot;
+        os_network:
+           name: &quot;{{ item }}&quot;
+           state: present
+        with_items:
+          - vlan10
+          - vlan20
+          - vlan30
+      - name: &quot;ensure vlan subnets created&quot;
+        os_subnet:
+          name: &quot;vlan{{ item }}-subnet&quot;
+          state: &quot;present&quot;
+          network_name: &quot;vlan{{ item }}&quot;
+          cidr: &quot;172.16.{{ item }}.0/24&quot;
+          enable_dhcp: True
+        with_items:
+          - &quot;10&quot;
+          - &quot;20&quot;
+          - &quot;30&quot;
+  - name: &quot;Create arista vms&quot;
+    hosts: localhost
+    tasks:
+     - name: &quot;ensure arista-0 created&quot;
+       shell: |
+         nova show arista-0 &amp;&gt; /dev/null &amp;&amp; exit 0
+         nova boot --flavor m1.small \
+           --image Aboot-veos-8.0.0.iso \
+           --nic net-name=netops \
+           --nic net-name=vlan10,v4-fixed-ip=172.16.10.1 \
+           --nic net-name=vlan30,v4-fixed-ip=172.16.30.3 \
+           --block-device \
+           id=ba02703d-6d2b-40a8-bdb7-bf41163d78f7,\
+		   source=image,bus=ide,dest=volume,size=4,shutdown=remove \
+           arista-0
+     - name: &quot;ensure arista-1 created&quot;
+       shell: |
+         nova show arista-1 &amp;&gt; /dev/null &amp;&amp; exit 0
+         nova boot --flavor m1.small \
+           --image Aboot-veos-8.0.0.iso \
+           --nic net-name=netops \
+           --nic net-name=vlan20,v4-fixed-ip=172.16.20.1 \
+           --nic net-name=vlan30,v4-fixed-ip=172.16.30.4 \
+           --block-device \
+           id=ba02703d-6d2b-40a8-bdb7-bf41163d78f7,\
+		   source=image,bus=ide,dest=volume,size=4,shutdown=remove \
+           arista-1
+  - name: &quot;Create vm&quot;
+    hosts: localhost
+    roles:
+      - role: vm
+        group: vlan10vm
+        network: vlan10
+  - name: &quot;Create vm&quot;
+    hosts: localhost
+    roles:
+      - role: vm
+        group: vlan20vm
+        network: vlan20
+</code></pre>
+<h3 id="configure-arista-0"><a class="header" href="#configure-arista-0">Configure Arista 0</a></h3>
+<pre><code>enable
+config terminal
+
+interface management 1
+ip address 192.168.0.14.16
+
+vlan 10
+vlan 30
+
+interface ethernet 1
+switchport mode access
+switchport access vlan 10
+no shutdown
+
+interface ethernet 2
+switchport mode trunk
+switchport trunk allowed vlan 30
+no shutdown
+
+interface vlan10
+ip address 172.16.10.1/24
+
+interface vlan30
+ip address 172.16.30.3/24
+
+ip routing
+router ospf 10
+network 172.16.10.0/24 area 0
+network 172.16.30.0/24 area 0
+
+end
+</code></pre>
+<h3 id="configure-arista-1"><a class="header" href="#configure-arista-1">Configure Arista 1</a></h3>
+<pre><code class="language-bash">interface management 1
+ip address 192.168.0.26/16
+no shutdown
+
+vlan 20
+vlan 30
+
+interface ethernet 1
+switchport mode access
+switchport access vlan 20
+no shutdown
+
+interface ethernet 2
+switchport mode trunk
+switchport trunk allowed vlan 30
+no shutdown
+
+interface vlan 20
+ip address 172.16.20.1/24
+no shutdown
+
+interface vlan 30
+ip address 172.16.30.4/24
+no shutdown
+
+ip routing
+router ospf 10
+network 172.16.20.0/24 area 0
+network 172.16.30.0/24 area 0
+
+end
+</code></pre>
+<h3 id="test"><a class="header" href="#test">Test</a></h3>
+<p>login vm-0 and ping vm-1.</p>
+<h2 id="tips"><a class="header" href="#tips">Tips</a></h2>
+<ol>
+<li><a href="https://eos.arista.com/forum/qeustions-about-some-features-in-veos-that-may-or-may-not-work/">vEOS does not support NAT</a></li>
+</ol>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="../2017/freebsd-cloud.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+                            <a rel="next" href="../2017/dummynet.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="../2017/freebsd-cloud.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+                    <a rel="next" href="../2017/dummynet.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+            </nav>
+
+        </div>
+
+        <script type="text/javascript">
+            window.playground_copyable = true;
+        </script>
+        <script src="../elasticlunr.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../mark.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../searcher.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../clipboard.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../highlight.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../book.js" type="text/javascript" charset="utf-8"></script>
+
+        <!-- Custom JS scripts -->
+    </body>
+</html>

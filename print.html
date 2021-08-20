@@ -1,0 +1,2068 @@
+<!DOCTYPE HTML>
+<html lang="zh_CN" class="sidebar-visible no-js light">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>Thatched Cottage</title>
+        <meta name="robots" content="noindex" />
+        <!-- Custom HTML head -->
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff" />
+
+        <link rel="icon" href="favicon.svg">
+        <link rel="shortcut icon" href="favicon.png">
+        <link rel="stylesheet" href="css/variables.css">
+        <link rel="stylesheet" href="css/general.css">
+        <link rel="stylesheet" href="css/chrome.css">
+        <link rel="stylesheet" href="css/print.css" media="print">
+        <!-- Fonts -->
+        <link rel="stylesheet" href="FontAwesome/css/font-awesome.css">
+        <link rel="stylesheet" href="fonts/fonts.css">
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="highlight.css">
+        <link rel="stylesheet" href="tomorrow-night.css">
+        <link rel="stylesheet" href="ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+    </head>
+    <body>
+        <!-- Provide site root to javascript -->
+        <script type="text/javascript">
+            var path_to_root = "";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
+        </script>
+
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script type="text/javascript">
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script type="text/javascript">
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            var html = document.querySelector('html');
+            html.classList.remove('no-js')
+            html.classList.remove('light')
+            html.classList.add(theme);
+            html.classList.add('js');
+        </script>
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script type="text/javascript">
+            var html = document.querySelector('html');
+            var sidebar = 'hidden';
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            }
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <div class="sidebar-scrollbox">
+                <ol class="chapter"><li class="chapter-item affix "><a href="index.html">Home</a></li><li class="chapter-item "><div>2019</div><a class="toggle"><div>❱</div></a></li><li><ol class="section"><li class="chapter-item "><a href="2019/gitlab-ci.html">Gitlab CI</a></li><li class="chapter-item "><a href="2019/hdituil.html">Manipulate Mac Disk Images</a></li><li class="chapter-item "><a href="2019/lxd.html">LXD Inside</a></li></ol></li><li class="chapter-item "><div>2018</div><a class="toggle"><div>❱</div></a></li><li><ol class="section"><li class="chapter-item "><a href="2018/godebug.html">GO Debug</a></li></ol></li><li class="chapter-item "><div>2017</div><a class="toggle"><div>❱</div></a></li><li><ol class="section"><li class="chapter-item "><a href="2017/my-kids.html">My Kids</a></li><li class="chapter-item "><a href="2017/tips.html">Some Tips</a></li><li class="chapter-item "><a href="2017/freebsd-cloud.html">FreeBSD Cloud Init</a></li><li class="chapter-item "><a href="2017/arista.html">Arista on OpenStack</a></li><li class="chapter-item "><a href="2017/dummynet.html">Dummynet</a></li><li class="chapter-item "><a href="2017/org-publish.html">Org Publish</a></li></ol></li></ol>
+            </div>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
+        </nav>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky bordered">
+                    <div class="left-buttons">
+                        <button id="sidebar-toggle" class="icon-button" type="button" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </button>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light (default)</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">Thatched Cottage</h1>
+
+                    <div class="right-buttons">
+                        <a href="print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script type="text/javascript">
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <div style="break-before: page; page-break-before: always;"></div><h1 id="gitlab的持续集成"><a class="header" href="#gitlab的持续集成">Gitlab的持续集成</a></h1>
+<blockquote>
+<p>Created at &lt;2019-12-07 六&gt;</p>
+</blockquote>
+<p>Gitlab持续集成采用订阅模式，这和Github的通知机制不同。</p>
+<h2 id="github通知机制"><a class="header" href="#github通知机制">Github通知机制</a></h2>
+<p>Github的持续集成采用通知机制。</p>
+<p>如下图所示：</p>
+<pre><code class="language-mermaid"> graph LR
+	 github[Github]
+	 webhook[Webhook]
+	 github --通知--&gt; webhook
+	 subgraph 持续集成
+		 webhook
+		 end
+</code></pre>
+<p><img src="2019/github-ci.png" alt="" /></p>
+<p>持续集成的开发人员需要实现一个Webhook来接收Github的消息通知。这个
+Webhook是一个服务，需要保证安全，保证可调用。</p>
+<p>Gitlab不是这么做的。</p>
+<h2 id="gitlab订阅模式"><a class="header" href="#gitlab订阅模式">Gitlab订阅模式</a></h2>
+<p>Gitlab用订阅的模式来做持续集成。如下图示：</p>
+<pre><code class="language-mermaid">graph LR
+	gitlab[Gitlab]
+	runner[Gitlab Runner]
+	runner -.订阅.-&gt; gitlab
+	subgraph 持续集成
+	runner
+end
+</code></pre>
+<p><img src="2019/gitlab-ci.png" alt="" /></p>
+<p>这样 <code>gitlab runner</code> 可以是跑在内网的某台机器，只要该机器通过<code>http</code>协
+议能访问gitlab就可以。这种方式对持续集成的开发人员成本较低。但对Gitlab
+服务方，成本较高。Gitlab能支持多少个Runner挂在上面呢？</p>
+<h2 id="gitlab-runner如何工作"><a class="header" href="#gitlab-runner如何工作">Gitlab Runner如何工作</a></h2>
+<p><code>Gitlab Runner</code> 每3秒访问一下Gitlab看有没有任务，如有任务，扯下来执行。
+如无任务，3秒后见。</p>
+<p><code>Gitlab Runner</code> 后面可以跑docker， kubernetes等。我觉得通过 <code>Gitlab Runner</code> 的shell模式可以跑<code>lxd</code> 。</p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="manipulate-disk-images-under-mac"><a class="header" href="#manipulate-disk-images-under-mac">Manipulate Disk Images Under Mac</a></h1>
+<blockquote>
+<p>Created at &lt;2019-12-03 二&gt;</p>
+</blockquote>
+<h2 id="mac-case-insensitive-file-system"><a class="header" href="#mac-case-insensitive-file-system">Mac Case Insensitive File System</a></h2>
+<p>By default, file system under Mac is case insensitive. It may cause
+trouble when you work with some projects like Linux Kernel. To solve
+the problem, you can create a disk image with case sensitive file
+system, and attach to a mount point to use.</p>
+<p>Say we want to create disk image at <code>/usr/local</code>, and attach it to
+<code>/usr/local/src</code>. All operations are executed under <code>/usr/local</code>.</p>
+<h2 id="create-disk-image"><a class="header" href="#create-disk-image">Create Disk Image</a></h2>
+<pre><code class="language-bash">$ hdiutil create -size 10G src -type SPARSE -fs \
+	'Case-sensitive Journaled HFS+' -volname src
+</code></pre>
+<p>Image <code>src.sparseimage</code> will be created, with case sensitive journaled
+file system and the size limit 20G.</p>
+<h2 id="attach-disk-image"><a class="header" href="#attach-disk-image">Attach Disk Image</a></h2>
+<pre><code class="language-bash">$ mkdir src
+$ hdiutil attach -mountpoint src src.sparseimage #=&gt;
+/dev/disk4              GUID_partition_scheme
+/dev/disk4s1            EFI
+/dev/disk4s2            Apple_HFS            /usr/local/src
+</code></pre>
+<h2 id="detach-disk-image"><a class="header" href="#detach-disk-image">Detach Disk Image</a></h2>
+<pre><code>$ hdiutil detach src #=&gt;
+&quot;disk4&quot; unmounted.
+&quot;disk4&quot; ejected.
+</code></pre>
+<h2 id="resize-disk-image-if-needed"><a class="header" href="#resize-disk-image-if-needed">Resize Disk Image If needed</a></h2>
+<p>If <code>20G</code> is not enough you can resize the image:</p>
+<pre><code>$ hdiutil resize -size 20G src.sparseimage
+</code></pre>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="lxd"><a class="header" href="#lxd">LXD</a></h1>
+<blockquote>
+<p>Created at &lt;2019-01-03 Thu&gt;</p>
+</blockquote>
+<p>LXD setup, usage and more.</p>
+<h2 id="lxd-setup"><a class="header" href="#lxd-setup">LXD Setup</a></h2>
+<p>So easy to setup LXD!</p>
+<p>The existing lxd packages in ubuntu 16.04 are too old to use, which
+need to be purged:</p>
+<pre><code class="language-bash">apt-get -qq purge lxd lxd-client
+snap install lxd
+</code></pre>
+<p><code>lxd</code> is lxd daemon and <code>lxc</code> is the lxd client:</p>
+<pre><code>which lxd #=&gt;
+/snap/bin/lxd
+which lxc #=&gt;
+/snap/bin/lxc
+</code></pre>
+<h2 id="init"><a class="header" href="#init">Init</a></h2>
+<p><code>lxd</code> provides a sub command =init= to init lxd:</p>
+<pre><code>lxd init
+</code></pre>
+<p><code>lxd init</code> can configure <code>lxd</code> run in clustering mode or standalone
+mode.</p>
+<h2 id="snap-and-lxd"><a class="header" href="#snap-and-lxd">Snap and Lxd</a></h2>
+<p>You can use <code>snap</code> to run <code>lxd</code>, or the opposite. Inside <code>lxd</code> you
+can run <code>docker</code>.</p>
+<pre><code>     +----------+       +-----------+       +------------+        +-----------+
+     |          |       |           |       |            |        |           |
+     |    vm    +------&gt;|    snap   +------&gt;|     lxd    +-------&gt;|   docker  |
+     |          |       |           |       |            |        |           |
+     +----------+       +-----------+       +------+-----+        +-----------+
+                              ^                    |
+                              |                    |
+                              +--------------------+
+</code></pre>
+<h2 id="run-lxd-in-snap"><a class="header" href="#run-lxd-in-snap">Run lxd in Snap</a></h2>
+<p>By default ubuntu xenial with lxd and lxd client installed. You can
+check this by running:</p>
+<pre><code class="language-bash">which lxd                       # =&gt; /usr/bin/lxd
+which lxc                       # =&gt; /usr/bin/lxc
+</code></pre>
+<p>The lxd in apt repo is very low. We need to switch to the lxd in snap
+store:</p>
+<pre><code class="language-bash"># Uninstall existing lxd in ubuntu repo.
+apt-get purge -qq lxd lxd-client
+# Install lxd in snap
+snap install lxd
+# Check lxd and lxc
+which lxd                       # =&gt; /snap/bin/lxd
+lxd --version                   # =&gt; 3.3
+which lxc                       # =&gt; /snap/bin/lxc
+lxc --version                   # =&gt; 3.3
+# Init lxd
+lxd init
+# Start lxd
+snap restart lxd
+</code></pre>
+<h2 id="launcn-lxd-container"><a class="header" href="#launcn-lxd-container">Launcn Lxd container</a></h2>
+<p>Now launch a vm like <code>lxc</code> container:</p>
+<pre><code class="language-bash"># List images
+snap image list ubuntu:xenial
+# Launch a container
+lxc launch ubuntu:xenial/amd64
+# List containers
+lxc list
+# exec bash in the container
+lxc exec steady-dingo bash
+# Now you can do anything in the container
+</code></pre>
+<h2 id="run-snap-inside-lxd-container"><a class="header" href="#run-snap-inside-lxd-container">Run snap inside Lxd Container</a></h2>
+<p>Snap as a container, can run <code>lxd</code> and launch <code>lxd</code> container. Inside
+the <code>lxc</code> container, you can run <code>snap</code> container, say to install go
+snap:</p>
+<pre><code class="language-bash">lxc exec steady-dingo bash
+snap install go --classic
+echo 'export GOPATH=/usr/local' &gt;&gt; ~/.bashrc
+apt-get install build-essential
+cat &gt; ~/.netrc &lt;&lt;EOF
+your github toke  n
+EOF
+go get github.ibm.com/nanjj/ncatd
+ncatd --version                 # ncatd version 0.0.1
+</code></pre>
+<h2 id="run-lxd-inside-lxd-container"><a class="header" href="#run-lxd-inside-lxd-container">Run Lxd inside Lxd Container</a></h2>
+<p>Run <code>lxd</code> inside lxd container nesting:</p>
+<pre><code class="language-bash">lxc config set steady-dingo security.nesting true
+lxc exec steady-dingo bash
+apt-get purge -qq lxd lxd-client
+snap install lxd
+lxd init
+lxc launch ubuntu:xenial/amd64
+</code></pre>
+<h2 id="run-docker-inside-lxd-container"><a class="header" href="#run-docker-inside-lxd-container">Run Docker inside Lxd Container</a></h2>
+<p>With <code>security.nesting true</code>, run docker:</p>
+<pre><code class="language-bash">apt-get install docker.io
+docker run hello-world
+</code></pre>
+<h2 id="use-lxd-container-as-a-router"><a class="header" href="#use-lxd-container-as-a-router">Use Lxd Container as a Router</a></h2>
+<pre><code>lxc launch ubuntu:16.04 router #=&gt;
+lxc list #=&gt;
++--------+---------+-----------------------+------+------------+-----------+
+|  NAME  |  STATE  |         IPV4          | IPV6 |    TYPE    | SNAPSHOTS |
++--------+---------+-----------------------+------+------------+-----------+
+| router | RUNNING |  10.149.11.203 (eth0) |      | PERSISTENT |           |
++--------+---------+-----------------------+------+------------+-----------+
+lxc exec router -- bash -i
+# configure vpn if needed
+
+# check ip forward setting
+sysctl net.ipv4.ip_forward #=&gt;
+net.ipv4.ip_forward = 1
+# iptables
+iptables -t nat -A POSTROUTING -s 10.149.11.0/24 ! -d 10.0.2.0/24 -j MASQUERADE
+apt-get update
+apt-get install iptables-persistent
+</code></pre>
+<p>Now you can use this as a router</p>
+<h2 id="clustering-mode"><a class="header" href="#clustering-mode">Clustering Mode</a></h2>
+<p>Lxd clustering mode makes lxd run in multiple nodes. Each node lxd
+is running on is a cluster member. The whole set of the cluster
+members is called a cluster.</p>
+<h3 id="new-cluster"><a class="header" href="#new-cluster">New Cluster</a></h3>
+<pre><code>lxd init
+Would you like to use LXD clustering? (yes/no) [default=no]: yes
+What name should be used to identify this node in the cluster? [default=hypercube01]:
+What IP address or DNS name should be used to reach this node? [default=192.168.0.46]:
+Are you joining an existing cluster? (yes/no) [default=no]:
+Setup password authentication on the cluster? (yes/no) [default=yes]: yes
+Trust password for new clients:
+Again:
+Do you want to configure a new local storage pool? (yes/no) [default=yes]:
+Name of the storage backend to use (btrfs, dir, lvm, zfs) [default=zfs]:
+Create a new ZFS pool? (yes/no) [default=yes]:
+Would you like to use an existing block device? (yes/no) [default=no]:
+Size in GB of the new loop device (1GB minimum) [default=31GB]: 128GB
+Do you want to configure a new remote storage pool? (yes/no) [default=no]:
+Would you like to connect to a MAAS server? (yes/no) [default=no]:
+Would you like to configure LXD to use an existing br...? (yes/no) [default=no]:
+Would you like to create a new Fan overlay network? (yes/no) [default=yes]:
+What subnet should be used as the Fan underlay? [default=auto]:
+Would you like stale cached images to be updated automatically? (yes/no) [default=yes]
+Would you like a YAML &quot;lxd init&quot; preseed to be printed? (yes/no) [default=no]:
+</code></pre>
+<h3 id="join-cluster"><a class="header" href="#join-cluster">Join Cluster</a></h3>
+<pre><code>lxd init
+Would you like to use LXD clustering? (yes/no) [default=no]: yes
+What name should be used to identify this node in the cluster? [default=hypercube06]:
+What IP address or DNS name should be used to reach this node? [default=192.168.0.21]:
+Are you joining an existing cluster? (yes/no) [default=no]: yes
+IP address or FQDN of an existing cluster node: 192.168.0.30
+Cluster fingerprint: 6ab5b519ffbb309cb38b73657299dd9b0b8c6f2bd5b3....
+You can validate this fingerprint by running &quot;lxc info&quot; locally on an existing node.
+Is this the correct fingerprint? (yes/no) [default=no]: yes
+Cluster trust password:
+All existing data is lost when joining a cluster, continue? (yes/no) [default=no] yes
+Choose &quot;size&quot; property for storage pool &quot;local&quot;: 128GB
+Choose &quot;source&quot; property for storage pool &quot;local&quot;:
+Choose &quot;zfs.pool_name&quot; property for storage pool &quot;local&quot;:
+Would you like a YAML &quot;lxd init&quot; preseed to be printed? (yes/no) [default=no]:
+</code></pre>
+<h3 id="list-cluster"><a class="header" href="#list-cluster">List Cluster</a></h3>
+<pre><code>lxc cluster list
+
++-------------+---------------------------+----------+--------+-------------------+
+|    NAME     |            URL            | DATABASE | STATE  |      MESSAGE      |
++-------------+---------------------------+----------+--------+-------------------+
+| hypercube01 | https://192.168.0.46:8443 | YES      | ONLINE | fully operational |
++-------------+---------------------------+----------+--------+-------------------+
+| hypercube02 | https://192.168.0.47:8443 | YES      | ONLINE | fully operational |
++-------------+---------------------------+----------+--------+-------------------+
+| hypercube03 | https://192.168.0.48:8443 | YES      | ONLINE | fully operational |
++-------------+---------------------------+----------+--------+-------------------+
+| hypercube04 | https://192.168.0.51:8443 | NO       | ONLINE | fully operational |
++-------------+---------------------------+----------+--------+-------------------+
+| hypercube05 | https://192.168.0.30:8443 | NO       | ONLINE | fully operational |
++-------------+---------------------------+----------+--------+-------------------+
+| hypercube06 | https://192.168.0.21:8443 | NO       | ONLINE | fully operational |
++-------------+---------------------------+----------+--------+-------------------+
+| hypercube07 | https://192.168.0.26:8443 | NO       | ONLINE | fully operational |
++-------------+---------------------------+----------+--------+-------------------+
+</code></pre>
+<p>It's a 7 nodes lxd cluster with 3 database nodes and 7 service nodes.</p>
+<h2 id="database"><a class="header" href="#database">Database</a></h2>
+<p><a href="https://github.com/lxc/lxd/blob/master/doc/database.md">Lxd
+database</a> is
+based on <a href="https://github.com/CanonicalLtd/dqlite">distributed
+sqlite</a>, which removed lxd's
+dependency on traditional database like postgres or mysql. <a href="https://wiki.ubuntu.com/FanNetworking">Fan
+network</a> introduced lxd a
+simple and fast container network.</p>
+<h3 id="global-and-local"><a class="header" href="#global-and-local">Global and Local</a></h3>
+<p>For each lxd node, there are two type databases: global and
+local. Data in global database is shared by each lxd cluster
+members, while data in local database can only be accessed in local
+node, does not impact others.</p>
+<h3 id="lxd-sql"><a class="header" href="#lxd-sql">Lxd sql</a></h3>
+<pre><code>lxd sql &lt;local|global&gt; &lt;query&gt;  [flags]
+</code></pre>
+<h3 id="global-schemas"><a class="header" href="#global-schemas">Global Schemas</a></h3>
+<p>For example, to list global schemas:</p>
+<pre><code>lxd sql global .schema #=&gt;
+PRAGMA foreign_keys=OFF;
+BEGIN TRANSACTION;
+CREATE TABLE schema (
+    id         INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
+    version    INTEGER NOT NULL,
+    updated_at DATETIME NOT NULL,
+    UNIQUE (version)
+);
+INSERT INTO schema VALUES(1,13,1546788241);
+CREATE TABLE &quot;containers&quot; (
+    id INTEGER primary key AUTOINCREMENT NOT NULL,
+    node_id INTEGER NOT NULL,
+    name TEXT NOT NULL,
+    architecture INTEGER NOT NULL,
+    type INTEGER NOT NULL,
+    ephemeral INTEGER NOT NULL DEFAULT 0,
+    creation_date DATETIME NOT NULL DEFAULT 0,
+    stateful INTEGER NOT NULL DEFAULT 0,
+    last_use_date DATETIME,
+    description TEXT,
+    project_id INTEGER NOT NULL,
+    UNIQUE (project_id, name),
+    FOREIGN KEY (node_id) REFERENCES nodes (id) ON DELETE CASCADE,
+    FOREIGN KEY (project_id) REFERENCES projects (id) ON DELETE CASCADE
+);
+CREATE TABLE &quot;images&quot; (
+    id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
+    fingerprint TEXT NOT NULL,
+    filename TEXT NOT NULL,
+    size INTEGER NOT NULL,
+    public INTEGER NOT NULL DEFAULT 0,
+    architecture INTEGER NOT NULL,
+    creation_date DATETIME,
+    expiry_date DATETIME,
+    upload_date DATETIME NOT NULL,
+    cached INTEGER NOT NULL DEFAULT 0,
+    last_use_date DATETIME,
+    auto_update INTEGER NOT NULL DEFAULT 0,
+    project_id INTEGER NOT NULL,
+    UNIQUE (project_id, fingerprint),
+    FOREIGN KEY (project_id) REFERENCES projects (id) ON DELETE CASCADE
+);
+CREATE TABLE &quot;images_aliases&quot; (
+    id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
+    name TEXT NOT NULL,
+    image_id INTEGER NOT NULL,
+    description TEXT,
+    project_id INTEGER NOT NULL,
+    UNIQUE (project_id, name),
+    FOREIGN KEY (image_id) REFERENCES images (id) ON DELETE CASCADE,
+    FOREIGN KEY (project_id) REFERENCES projects (id) ON DELETE CASCADE
+);
+CREATE TABLE &quot;operations&quot; (
+    id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
+    uuid TEXT NOT NULL,
+    node_id TEXT NOT NULL,
+    type INTEGER NOT NULL DEFAULT 0,
+    project_id INTEGER,
+    UNIQUE (uuid),
+    FOREIGN KEY (node_id) REFERENCES nodes (id) ON DELETE CASCADE,
+    FOREIGN KEY (project_id) REFERENCES projects (id) ON DELETE CASCADE
+);
+CREATE TABLE &quot;profiles&quot; (
+    id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
+    name TEXT NOT NULL,
+    description TEXT,
+    project_id INTEGER NOT NULL,
+    UNIQUE (project_id, name),
+    FOREIGN KEY (project_id) REFERENCES projects (id) ON DELETE CASCADE
+);
+CREATE TABLE &quot;storage_volumes&quot; (
+    id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
+    name TEXT NOT NULL,
+    storage_pool_id INTEGER NOT NULL,
+    node_id INTEGER NOT NULL,
+    type INTEGER NOT NULL,
+    description TEXT,
+    snapshot INTEGER NOT NULL DEFAULT 0,
+    project_id INTEGER NOT NULL,
+    UNIQUE (storage_pool_id, node_id, project_id, name, type),
+    FOREIGN KEY (storage_pool_id) REFERENCES storage_pools (id) ON DELETE CASCADE,
+    FOREIGN KEY (node_id) REFERENCES nodes (id) ON DELETE CASCADE,
+    FOREIGN KEY (project_id) REFERENCES projects (id) ON DELETE CASCADE
+);
+CREATE TABLE certificates (
+    id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
+    fingerprint TEXT NOT NULL,
+    type INTEGER NOT NULL,
+    name TEXT NOT NULL,
+    certificate TEXT NOT NULL,
+    UNIQUE (fingerprint)
+);
+CREATE TABLE config (
+    id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
+    key TEXT NOT NULL,
+    value TEXT,
+    UNIQUE (key)
+);
+CREATE TABLE containers_backups (
+    id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
+    container_id INTEGER NOT NULL,
+    name VARCHAR(255) NOT NULL,
+    creation_date DATETIME,
+    expiry_date DATETIME,
+    container_only INTEGER NOT NULL default 0,
+    optimized_storage INTEGER NOT NULL default 0,
+    FOREIGN KEY (container_id) REFERENCES containers (id) ON DELETE CASCADE,
+    UNIQUE (container_id, name)
+);
+CREATE TABLE containers_config (
+    id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
+    container_id INTEGER NOT NULL,
+    key TEXT NOT NULL,
+    value TEXT,
+    FOREIGN KEY (container_id) REFERENCES containers (id) ON DELETE CASCADE,
+    UNIQUE (container_id, key)
+);
+CREATE TABLE containers_devices (
+    id INTEGER primary key AUTOINCREMENT NOT NULL,
+    container_id INTEGER NOT NULL,
+    name TEXT NOT NULL,
+    type INTEGER NOT NULL default 0,
+    FOREIGN KEY (container_id) REFERENCES containers (id) ON DELETE CASCADE,
+    UNIQUE (container_id, name)
+);
+CREATE TABLE containers_devices_config (
+    id INTEGER primary key AUTOINCREMENT NOT NULL,
+    container_device_id INTEGER NOT NULL,
+    key TEXT NOT NULL,
+    value TEXT,
+    FOREIGN KEY (container_device_id) REFERENCES containers_devices (id) \
+     ON DELETE CASCADE,
+    UNIQUE (container_device_id, key)
+);
+CREATE TABLE containers_profiles (
+    id INTEGER primary key AUTOINCREMENT NOT NULL,
+    container_id INTEGER NOT NULL,
+    profile_id INTEGER NOT NULL,
+    apply_order INTEGER NOT NULL default 0,
+    UNIQUE (container_id, profile_id),
+    FOREIGN KEY (container_id) REFERENCES containers(id) ON DELETE CASCADE,
+    FOREIGN KEY (profile_id) REFERENCES profiles(id) ON DELETE CASCADE
+);
+CREATE TABLE images_nodes (
+    id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
+    image_id INTEGER NOT NULL,
+    node_id INTEGER NOT NULL,
+    UNIQUE (image_id, node_id),
+    FOREIGN KEY (image_id) REFERENCES images (id) ON DELETE CASCADE,
+    FOREIGN KEY (node_id) REFERENCES nodes (id) ON DELETE CASCADE
+);
+CREATE TABLE images_properties (
+    id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
+    image_id INTEGER NOT NULL,
+    type INTEGER NOT NULL,
+    key TEXT NOT NULL,
+    value TEXT,
+    FOREIGN KEY (image_id) REFERENCES images (id) ON DELETE CASCADE
+);
+CREATE TABLE images_source (
+    id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
+    image_id INTEGER NOT NULL,
+    server TEXT NOT NULL,
+    protocol INTEGER NOT NULL,
+    certificate TEXT NOT NULL,
+    alias TEXT NOT NULL,
+    FOREIGN KEY (image_id) REFERENCES images (id) ON DELETE CASCADE
+);
+CREATE TABLE networks (
+    id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
+    name TEXT NOT NULL,
+    description TEXT,
+    state INTEGER NOT NULL DEFAULT 0,
+    UNIQUE (name)
+);
+CREATE TABLE networks_config (
+    id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
+    network_id INTEGER NOT NULL,
+    node_id INTEGER,
+    key TEXT NOT NULL,
+    value TEXT,
+    UNIQUE (network_id, node_id, key),
+    FOREIGN KEY (network_id) REFERENCES networks (id) ON DELETE CASCADE,
+    FOREIGN KEY (node_id) REFERENCES nodes (id) ON DELETE CASCADE
+);
+CREATE TABLE networks_nodes (
+    id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
+    network_id INTEGER NOT NULL,
+    node_id INTEGER NOT NULL,
+    UNIQUE (network_id, node_id),
+    FOREIGN KEY (network_id) REFERENCES networks (id) ON DELETE CASCADE,
+    FOREIGN KEY (node_id) REFERENCES nodes (id) ON DELETE CASCADE
+);
+CREATE TABLE nodes (
+    id INTEGER PRIMARY KEY,
+    name TEXT NOT NULL,
+    description TEXT DEFAULT '',
+    address TEXT NOT NULL,
+    schema INTEGER NOT NULL,
+    api_extensions INTEGER NOT NULL,
+    heartbeat DATETIME DEFAULT CURRENT_TIMESTAMP,
+    pending INTEGER NOT NULL DEFAULT 0,
+    UNIQUE (name),
+    UNIQUE (address)
+);
+CREATE TABLE profiles_config (
+    id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
+    profile_id INTEGER NOT NULL,
+    key TEXT NOT NULL,
+    value TEXT,
+    UNIQUE (profile_id, key),
+    FOREIGN KEY (profile_id) REFERENCES profiles(id) ON DELETE CASCADE
+);
+CREATE TABLE profiles_devices (
+    id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
+    profile_id INTEGER NOT NULL,
+    name TEXT NOT NULL,
+    type INTEGER NOT NULL default 0,
+    UNIQUE (profile_id, name),
+    FOREIGN KEY (profile_id) REFERENCES profiles (id) ON DELETE CASCADE
+);
+CREATE TABLE profiles_devices_config (
+    id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
+    profile_device_id INTEGER NOT NULL,
+    key TEXT NOT NULL,
+    value TEXT,
+    UNIQUE (profile_device_id, key),
+    FOREIGN KEY (profile_device_id) REFERENCES profiles_devices (id) ON DELETE CASCADE
+);
+CREATE TABLE projects (
+    id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
+    name TEXT NOT NULL,
+    description TEXT,
+    UNIQUE (name)
+);
+CREATE TABLE projects_config (
+    id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
+    project_id INTEGER NOT NULL,
+    key TEXT NOT NULL,
+    value TEXT,
+    FOREIGN KEY (project_id) REFERENCES projects (id) ON DELETE CASCADE,
+    UNIQUE (project_id, key)
+);
+CREATE TABLE storage_pools (
+    id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
+    name TEXT NOT NULL,
+    driver TEXT NOT NULL,
+    description TEXT,
+    state INTEGER NOT NULL DEFAULT 0,
+    UNIQUE (name)
+);
+CREATE TABLE storage_pools_config (
+    id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
+    storage_pool_id INTEGER NOT NULL,
+    node_id INTEGER,
+    key TEXT NOT NULL,
+    value TEXT,
+    UNIQUE (storage_pool_id, node_id, key),
+    FOREIGN KEY (storage_pool_id) REFERENCES storage_pools (id) ON DELETE CASCADE,
+    FOREIGN KEY (node_id) REFERENCES nodes (id) ON DELETE CASCADE
+);
+CREATE TABLE storage_pools_nodes (
+    id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
+    storage_pool_id INTEGER NOT NULL,
+    node_id INTEGER NOT NULL,
+    UNIQUE (storage_pool_id, node_id),
+    FOREIGN KEY (storage_pool_id) REFERENCES storage_pools (id) ON DELETE CASCADE,
+    FOREIGN KEY (node_id) REFERENCES nodes (id) ON DELETE CASCADE
+);
+CREATE TABLE storage_volumes_config (
+    id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
+    storage_volume_id INTEGER NOT NULL,
+    key TEXT NOT NULL,
+    value TEXT,
+    UNIQUE (storage_volume_id, key),
+    FOREIGN KEY (storage_volume_id) REFERENCES storage_volumes (id) ON DELETE CASCADE
+);
+COMMIT;
+</code></pre>
+<h3 id="local-schemas"><a class="header" href="#local-schemas">Local Schemas</a></h3>
+<p>To list local database schemas:</p>
+<pre><code>lxd sql local .schema #=&gt;
+PRAGMA foreign_keys=OFF;
+BEGIN TRANSACTION;
+CREATE TABLE schema (
+    id         INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
+    version    INTEGER NOT NULL,
+    updated_at DATETIME NOT NULL,
+    UNIQUE (version)
+);
+INSERT INTO schema VALUES(1,38,1546788240);
+CREATE TABLE config (
+    id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
+    key VARCHAR(255) NOT NULL,
+    value TEXT,
+    UNIQUE (key)
+);
+CREATE TABLE patches (
+    id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
+    name VARCHAR(255) NOT NULL,
+    applied_at DATETIME NOT NULL,
+    UNIQUE (name)
+);
+CREATE TABLE raft_nodes (
+    id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
+    address TEXT NOT NULL,
+    UNIQUE (address)
+);
+COMMIT;
+</code></pre>
+<h3 id="raft-nodes"><a class="header" href="#raft-nodes">Raft Nodes</a></h3>
+<pre><code> lxd sql local 'select * from raft_nodes' #=&gt;
+ +----+-------------------+
+ | id |      address      |
+ +----+-------------------+
+ | 1  | 192.168.0.46:8443 |
+ | 2  | 192.168.0.47:8443 |
+ | 3  | 192.168.0.48:8443 |
+ +----+-------------------+
+</code></pre>
+<p><a href="https://github.com/CanonicalLtd/dqlite">Distributed Sqlite</a> is using raft to sync sqlite db logs.</p>
+<h3 id="cluster-nodes"><a class="header" href="#cluster-nodes">Cluster nodes</a></h3>
+<pre><code>lxd sql global 'select * from nodes'
++----+-------------+-------------------+--------+----------------+
+| id |    name     |      address      | schema | api_extensions |
++----+-------------+-------------------+--------+----------------+
+| 1  | hypercube01 | 192.168.0.46:8443 | 13     | 115            |
+| 2  | hypercube02 | 192.168.0.47:8443 | 13     | 115            |
+| 3  | hypercube03 | 192.168.0.48:8443 | 13     | 115            |
+| 4  | hypercube04 | 192.168.0.51:8443 | 13     | 115            |
+| 5  | hypercube05 | 192.168.0.30:8443 | 13     | 115            |
+| 6  | hypercube06 | 192.168.0.21:8443 | 13     | 115            |
+| 7  | hypercube07 | 192.168.0.26:8443 | 13     | 115            |
++----+-------------+-------------------+--------+----------------+
+</code></pre>
+<h3 id="containers"><a class="header" href="#containers">Containers</a></h3>
+<pre><code>lxd sql global 'select * from containers' #=&gt;
++----+---------+----------------+------------+
+| id | node_id |      name      | project_id |
++----+---------+----------------+------------+
+| 20 | 2       | grafana        | 1          |
+| 30 | 3       | go             | 1          |
+| 32 | 1       | guyujie        | 1          |
+| 33 | 4       | nginx          | 1          |
+| 36 | 1       | lxdui01        | 1          |
+| 38 | 1       | crack-mako     | 1          |
+| 39 | 5       | lxdui02        | 1          |
+| 42 | 6       | fluent-hamster | 1          |
+| 43 | 1       | b2             | 1          |
+| 44 | 2       | b3             | 1          |
++----+---------+----------------+------------+
+</code></pre>
+<p>To select the node with least containers:</p>
+<pre><code>lxd sql global \
+    'select node_id, count(node_id) as node_count from containers
+     group by node_id order by node_count'
+</code></pre>
+<h2 id="network"><a class="header" href="#network">Network</a></h2>
+<p>Lxd can be configured to use <a href="https://wiki.ubuntu.com/FanNetworking">Ubuntu Fan
+Network</a>.</p>
+<p>Say 2 containers A and B:</p>
+<table><thead><tr><th>Container</th><th>IP</th><th>Hyper</th><th>Hyper IP</th></tr></thead><tbody>
+<tr><td>A</td><td>240.0.46.14/8</td><td>hypercube01</td><td>192.168.0.46/16</td></tr>
+<tr><td>B</td><td>240.0.47.99/8</td><td>hypercube02</td><td>192.168.0.47/16</td></tr>
+</tbody></table>
+<p>Now ping B on A:</p>
+<pre><code>ping 240.0.47.99 #=&gt;
+ARP, Request who-has 240.0.47.99 tell 240.0.46.14, length 28
+</code></pre>
+<p>On hypercube01 the arp request being forwarded to hypercube02:</p>
+<pre><code>17:07:29.650323 IP 192.168.0.46.53730 &gt; 192.168.0.47.8472
+ARP, Request who-has 240.0.47.99 tell 240.0.46.14, length 28
+</code></pre>
+<h2 id="operations"><a class="header" href="#operations">Operations</a></h2>
+<h3 id="launch-container"><a class="header" href="#launch-container">Launch Container</a></h3>
+<p><code>lxc launch b --debug</code> will do:</p>
+<ol>
+<li>Get version
+<pre><code>DBUG Connecting to a remote LXD over HTTPs
+DBUG Sending request to LXD method=GET url=https://192.168.0.48:8443/1.0 etag=
+DBUG Got response struct from LXD
+DBUG
+        {
+                &quot;config&quot;: {
+                        &quot;cluster.https_address&quot;: &quot;192.168.0.48:8443&quot;,
+                        &quot;core.https_address&quot;: &quot;192.168.0.48:8443&quot;,
+                        &quot;core.trust_password&quot;: true
+                },
+                &quot;api_extensions&quot;: [...],
+                &quot;api_status&quot;: &quot;stable&quot;,
+                &quot;api_version&quot;: &quot;1.0&quot;,
+                &quot;auth&quot;: &quot;trusted&quot;,
+                &quot;public&quot;: false,
+                &quot;auth_methods&quot;: [
+                        &quot;tls&quot;
+                ],
+                &quot;environment&quot;: {
+                        &quot;addresses&quot;: [
+                                &quot;192.168.0.48:8443&quot;
+                        ],
+                        &quot;architectures&quot;: [
+                                &quot;x86_64&quot;,
+                                &quot;i686&quot;
+                        ],
+                        &quot;certificate&quot;: &quot;...&quot;,
+                        &quot;certificate_fingerprint&quot;: &quot;...&quot;,
+                        &quot;driver&quot;: &quot;lxc&quot;,
+                        &quot;driver_version&quot;: &quot;3.1.0&quot;,
+                        &quot;kernel&quot;: &quot;Linux&quot;,
+                        &quot;kernel_architecture&quot;: &quot;x86_64&quot;,
+                        &quot;kernel_version&quot;: &quot;4.15.0-43-generic&quot;,
+                        &quot;server&quot;: &quot;lxd&quot;,
+                        &quot;server_pid&quot;: 32645,
+                        &quot;server_version&quot;: &quot;3.9&quot;,
+                        &quot;storage&quot;: &quot;zfs&quot;,
+                        &quot;storage_version&quot;: &quot;0.7.5-1ubuntu16.4&quot;,
+                        &quot;server_clustered&quot;: true,
+                        &quot;server_name&quot;: &quot;hypercube03&quot;,
+                        &quot;project&quot;: &quot;default&quot;
+                }
+        }
+</code></pre>
+</li>
+<li>Get image
+<pre><code>Creating the container
+DBUG ... method=GET url=https://192.168.0.48:8443/1.0/images/aliases/b etag=
+DBUG Got response struct from LXD
+DBUG
+        {
+                &quot;description&quot;: &quot;&quot;,
+                &quot;target&quot;: &quot;dcbc8e3e5c2ed9fb21c3d0659a0eee004bd...
+                &quot;name&quot;: &quot;b&quot;
+        }
+DBUG ... method=GET url=https://192.168.0.48:8443/1.0/images/dcbc8e... etag=
+DBUG Got response struct from LXD
+DBUG
+        {
+                &quot;auto_update&quot;: true,
+                &quot;properties&quot;: {
+                        &quot;architecture&quot;: &quot;amd64&quot;,
+                        &quot;description&quot;: &quot;ubuntu 18.04 LTS amd64 (r...
+                        &quot;label&quot;: &quot;release&quot;,
+                        &quot;os&quot;: &quot;ubuntu&quot;,
+                        &quot;release&quot;: &quot;bionic&quot;,
+                        &quot;serial&quot;: &quot;20190114&quot;,
+                        &quot;version&quot;: &quot;18.04&quot;
+                },
+                &quot;public&quot;: false,
+                &quot;aliases&quot;: [
+                        {
+                                &quot;name&quot;: &quot;b&quot;,
+                                &quot;description&quot;: &quot;&quot;
+                        }
+                ],
+                &quot;architecture&quot;: &quot;x86_64&quot;,
+                &quot;cached&quot;: true,
+                &quot;filename&quot;: &quot;ubuntu-18.04-server-cloudimg-amd64-lxd.tar.xz&quot;,
+                &quot;fingerprint&quot;: &quot;dcbc8e3e5c2ed9fb21c3d0...&quot;,
+                &quot;size&quot;: 183468820,
+                &quot;update_source&quot;: {
+                        &quot;alias&quot;: &quot;b&quot;,
+                        &quot;certificate&quot;: &quot;&quot;,
+                        &quot;protocol&quot;: &quot;simplestreams&quot;,
+                        &quot;server&quot;: &quot;https://cloud-images.ubuntu.com/releases&quot;
+                },
+                &quot;created_at&quot;: &quot;2019-01-14T00:00:00Z&quot;,
+                &quot;expires_at&quot;: &quot;2023-04-26T00:00:00Z&quot;,
+                &quot;last_used_at&quot;: &quot;2019-01-18T08:22:28.5476208Z&quot;,
+                &quot;uploaded_at&quot;: &quot;2019-01-15T00:36:47.651093161Z&quot;
+        }
+</code></pre>
+</li>
+<li>Create Container Operation
+<pre><code>DBUG Connected to the websocket
+DBUG ... method=POST url=.../1.0/containers etag=
+DBUG
+        {
+                &quot;architecture&quot;: &quot;&quot;,
+                &quot;config&quot;: {},
+                &quot;devices&quot;: {},
+                &quot;ephemeral&quot;: false,
+                &quot;profiles&quot;: null,
+                &quot;stateful&quot;: false,
+                &quot;description&quot;: &quot;&quot;,
+                &quot;name&quot;: &quot;&quot;,
+                &quot;source&quot;: {
+                        &quot;type&quot;: &quot;image&quot;,
+                        &quot;certificate&quot;: &quot;&quot;,
+                        &quot;fingerprint&quot;: &quot;dcbc8e3e5c2ed9fb21c3d065...&quot;
+                },
+                &quot;instance_type&quot;: &quot;&quot;
+        }
+DBUG Got operation from LXD
+DBUG
+        {
+                &quot;id&quot;: &quot;1de45646-d209-413f-827a-ef7921c3c7f8&quot;,
+                &quot;class&quot;: &quot;task&quot;,
+                &quot;description&quot;: &quot;Creating container&quot;,
+                &quot;created_at&quot;: &quot;2019-01-22T06:13:23.360302136Z&quot;,
+                &quot;updated_at&quot;: &quot;2019-01-22T06:13:23.360302136Z&quot;,
+                &quot;status&quot;: &quot;Running&quot;,
+                &quot;status_code&quot;: 103,
+                &quot;resources&quot;: {
+                        &quot;containers&quot;: [
+                                &quot;/1.0/containers/fluent-hamster&quot;
+                        ]
+                },
+                &quot;metadata&quot;: null,
+                &quot;may_cancel&quot;: false,
+                &quot;err&quot;: &quot;&quot;
+        }
+</code></pre>
+</li>
+<li>Wait Create Operation Done
+<pre><code>DBUG ... method=GET url=.../1.0/operations/1de45646-... etag=
+DBUG Got response struct from LXD
+DBUG
+        {
+                &quot;id&quot;: &quot;1de45646-d209-413f-827a-ef7921c3c7f8&quot;,
+                &quot;class&quot;: &quot;task&quot;,
+                &quot;description&quot;: &quot;Creating container&quot;,
+                &quot;created_at&quot;: &quot;2019-01-22T06:13:23.360302136Z&quot;,
+                &quot;updated_at&quot;: &quot;2019-01-22T06:13:23.360302136Z&quot;,
+                &quot;status&quot;: &quot;Running&quot;,
+                &quot;status_code&quot;: 103,
+                &quot;resources&quot;: {
+                        &quot;containers&quot;: [
+                                &quot;/1.0/containers/fluent-hamster&quot;
+                        ]
+                },
+                &quot;metadata&quot;: null,
+                &quot;may_cancel&quot;: false,
+                &quot;err&quot;: &quot;&quot;
+        }
+Container name is: fluent-hamster
+</code></pre>
+</li>
+<li>Get container
+<pre><code>DBUG[01-22|14:13:37] ... method=GET url=.../1.0/containers/fluent-hamster etag=
+DBUG[01-22|14:13:39] Got response struct from LXD
+DBUG[01-22|14:13:39]
+        {
+                &quot;architecture&quot;: &quot;x86_64&quot;,
+                &quot;config&quot;: {
+                        &quot;image.architecture&quot;: &quot;amd64&quot;,
+                        &quot;image.description&quot;: &quot;ubuntu 18.04 LTS 
+                        &quot;image.label&quot;: &quot;release&quot;,
+                        &quot;image.os&quot;: &quot;ubuntu&quot;,
+                        &quot;image.release&quot;: &quot;bionic&quot;,
+                        &quot;image.serial&quot;: &quot;20190114&quot;,
+                        &quot;image.version&quot;: &quot;18.04&quot;,
+                        &quot;volatile.apply_template&quot;: &quot;create&quot;,
+                        &quot;volatile.base_image&quot;: &quot;dcbc8e3e5c2ed9fb21c3....&quot;,
+                        &quot;volatile.eth0.hwaddr&quot;: &quot;00:16:3e:e3:bf:17&quot;,
+                        &quot;volatile.idmap.base&quot;: &quot;0&quot;,
+                        &quot;volatile.idmap.next&quot;: &quot;[{\&quot;Isuid...
+                        &quot;volatile.last_state.idmap&quot;: &quot;[{\...
+                },
+                &quot;devices&quot;: {},
+                &quot;ephemeral&quot;: false,
+                &quot;profiles&quot;: [
+                        &quot;default&quot;
+                ],
+                &quot;stateful&quot;: false,
+                &quot;description&quot;: &quot;&quot;,
+                &quot;created_at&quot;: &quot;2019-01-22T06:13:29.053538619Z&quot;,
+                &quot;expanded_config&quot;: {
+                        &quot;image.architecture&quot;: &quot;amd64&quot;,
+                        &quot;image.description&quot;: &quot;ubuntu 18.04 LTS 
+                        &quot;image.label&quot;: &quot;release&quot;,
+                        &quot;image.os&quot;: &quot;ubuntu&quot;,
+                        &quot;image.release&quot;: &quot;bionic&quot;,
+                        &quot;image.serial&quot;: &quot;20190114&quot;,
+                        &quot;image.version&quot;: &quot;18.04&quot;,
+                        &quot;volatile.apply_template&quot;: &quot;create&quot;,
+                        &quot;volatile.base_image&quot;: &quot;dcbc8e3e5c2ed9fb21...
+                        &quot;volatile.eth0.hwaddr&quot;: &quot;00:16:3e:e3:bf:17&quot;,
+                        &quot;volatile.idmap.base&quot;: &quot;0&quot;,
+                        &quot;volatile.idmap.next&quot;: &quot;[{\&quot;Isuid\&quot;:true,\&quot;Isgid\...]&quot;,
+                        &quot;volatile.last_state.idmap&quot;: &quot;[{\&quot;Isuid...]&quot;
+                },
+                &quot;expanded_devices&quot;: {
+                        &quot;eth0&quot;: {
+                                &quot;name&quot;: &quot;eth0&quot;,
+                                &quot;nictype&quot;: &quot;bridged&quot;,
+                                &quot;parent&quot;: &quot;lxdfan0&quot;,
+                                &quot;type&quot;: &quot;nic&quot;
+                        },
+                        &quot;root&quot;: {
+                                &quot;path&quot;: &quot;/&quot;,
+                                &quot;pool&quot;: &quot;local&quot;,
+                                &quot;type&quot;: &quot;disk&quot;
+                        }
+                },
+                &quot;name&quot;: &quot;fluent-hamster&quot;,
+                &quot;status&quot;: &quot;Stopped&quot;,
+                &quot;status_code&quot;: 102,
+                &quot;last_used_at&quot;: &quot;1970-01-01T00:00:00Z&quot;,
+                &quot;location&quot;: &quot;hypercube06&quot;
+        }
+</code></pre>
+</li>
+<li>Start Container Operation
+<pre><code>Starting fluent-hamster
+DBUG ... method=PUT url=.../1.0/containers/fluent-hamster/state etag=
+DBUG
+        {
+                &quot;action&quot;: &quot;start&quot;,
+                &quot;timeout&quot;: -1,
+                &quot;force&quot;: false,
+                &quot;stateful&quot;: false
+        }
+DBUG Got operation from LXD
+DBUG
+        {
+                &quot;id&quot;: &quot;46746a23-5873-4755-a0ad-27385370aa39&quot;,
+                &quot;class&quot;: &quot;task&quot;,
+                &quot;description&quot;: &quot;Starting container&quot;,
+                &quot;created_at&quot;: &quot;2019-01-22T06:13:40.232324373Z&quot;,
+                &quot;updated_at&quot;: &quot;2019-01-22T06:13:40.232324373Z&quot;,
+                &quot;status&quot;: &quot;Running&quot;,
+                &quot;status_code&quot;: 103,
+                &quot;resources&quot;: {
+                        &quot;containers&quot;: [
+                                &quot;/1.0/containers/fluent-hamster&quot;
+                        ]
+                },
+                &quot;metadata&quot;: null,
+                &quot;may_cancel&quot;: false,
+                &quot;err&quot;: &quot;&quot;
+        }
+</code></pre>
+</li>
+<li>Start Operation Done
+<pre><code>DBUG[01-22|14:13:40] ... method=GET url=.../1.0/operations/...-27385370aa39 etag=
+DBUG[01-22|14:13:42] Got response struct from LXD
+DBUG[01-22|14:13:42]
+        {
+                &quot;id&quot;: &quot;46746a23-5873-4755-a0ad-27385370aa39&quot;,
+                &quot;class&quot;: &quot;task&quot;,
+                &quot;description&quot;: &quot;Starting container&quot;,
+                &quot;created_at&quot;: &quot;2019-01-22T06:13:40.232324373Z&quot;,
+                &quot;updated_at&quot;: &quot;2019-01-22T06:13:40.232324373Z&quot;,
+                &quot;status&quot;: &quot;Success&quot;,
+                &quot;status_code&quot;: 200,
+                &quot;resources&quot;: {
+                        &quot;containers&quot;: [
+                                &quot;/1.0/containers/fluent-hamster&quot;
+                        ]
+                },
+                &quot;metadata&quot;: null,
+                &quot;may_cancel&quot;: false,
+                &quot;err&quot;: &quot;&quot;
+        }
+</code></pre>
+</li>
+</ol>
+<h2 id="ansible"><a class="header" href="#ansible">Ansible</a></h2>
+<h3 id="lxd-connection"><a class="header" href="#lxd-connection">Lxd connection</a></h3>
+<p>Ansible has a <code>lxd</code> connection, which can be used to manage lxd
+containers.</p>
+<pre><code>[lxdui]
+lxdui01 ansible_host=lxdui01
+lxdui02 ansible_host=lxdui02
+[lxdui:vars]
+ansible_user=root
+ansible_connection=lxd
+</code></pre>
+<p>To ping:</p>
+<pre><code class="language-bash">ansible -m ping lxdui -vvvvv #=&gt;
+
+ansible 2.7.6
+&lt;lxdui01&gt; ESTABLISH LXD CONNECTION FOR USER: root
+&lt;lxdui01&gt; EXEC /bin/sh -c 'echo ~root &amp;&amp; sleep 0'
+&lt;lxdui02&gt; ESTABLISH LXD CONNECTION FOR USER: root
+lxdui02 | SUCCESS =&gt; {
+    &quot;changed&quot;: false,
+    &quot;invocation&quot;: {
+        &quot;module_args&quot;: {
+            &quot;data&quot;: &quot;pong&quot;
+        }
+    },
+    &quot;ping&quot;: &quot;pong&quot;
+}
+lxdui01 | SUCCESS =&gt; {
+    &quot;changed&quot;: false,
+    &quot;invocation&quot;: {
+        &quot;module_args&quot;: {
+            &quot;data&quot;: &quot;pong&quot;
+        }
+    },
+    &quot;ping&quot;: &quot;pong&quot;
+}
+META: ran handlers
+META: ran handlers
+</code></pre>
+<p>It can work without ssh:</p>
+<pre><code>ansible (client) -&gt; lxc (client) -&gt; lxd api(server) -&gt; lxd containers
+</code></pre>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="go-debug"><a class="header" href="#go-debug">Go Debug</a></h1>
+<blockquote>
+<p>Created at &lt;2018-07-27 Fri&gt;</p>
+</blockquote>
+<p>How to do go debug.</p>
+<h2 id="background"><a class="header" href="#background">Background</a></h2>
+<p>Go has no its own debugger so it turned to gdb. See <a href="https://golang.org/doc/gdb">Debugging Go Code
+with GDB</a> for details.</p>
+<p>But GDB does not understand Go programs well. As a better alternative,
+<a href="https://github.com/derekparker/delve">Delve</a> has its place.</p>
+<h2 id="installation"><a class="header" href="#installation">Installation</a></h2>
+<pre><code>go get github.com/derekparker/delve/cmd/dlv
+</code></pre>
+<h2 id="code-to-debug"><a class="header" href="#code-to-debug">Code to Debug</a></h2>
+<p><code>main.go</code>:</p>
+<pre><code class="language-go">package main
+
+import (
+    &quot;fmt&quot;
+
+    &quot;golang.org/x/sync/errgroup&quot;
+)
+
+func main() {
+    hello()
+}
+
+var Printf = fmt.Printf
+
+func hello() {
+    g := &amp;errgroup.Group{}
+    for i := 0; i &lt; 10; i++ {
+        g.Go(func() error {
+            Printf(&quot;goroutine %02d\n&quot;, i)
+            return nil
+        })
+    }
+    g.Wait()
+}
+</code></pre>
+<p><code>main_test.go</code>:</p>
+<pre><code class="language-go">package main
+
+import (
+    &quot;fmt&quot;
+    &quot;reflect&quot;
+    &quot;testing&quot;
+)
+
+func TestHello(t *testing.T) {
+    lines := make([]string, 10)
+    Printf = func(format string, a ...interface{}) (n int, err error) {
+        i := a[0].(int)
+        lines[i] = fmt.Sprintf(format, a...)
+        return len(lines[i]), nil
+    }
+    hello()
+    want := []string{
+        &quot;goroutine 00\n&quot;,
+        &quot;goroutine 01\n&quot;,
+        &quot;goroutine 02\n&quot;,
+        &quot;goroutine 03\n&quot;,
+        &quot;goroutine 04\n&quot;,
+        &quot;goroutine 05\n&quot;,
+        &quot;goroutine 06\n&quot;,
+        &quot;goroutine 07\n&quot;,
+        &quot;goroutine 08\n&quot;,
+        &quot;goroutine 09\n&quot;,
+    }
+    if !reflect.DeepEqual(want, lines) {
+        t.Fatal(want, lines)
+    }
+}
+</code></pre>
+<h2 id="debugging-practices"><a class="header" href="#debugging-practices">Debugging Practices</a></h2>
+<p>We will learn:</p>
+<ol>
+<li>How to set breakpoints
+<ol>
+<li><code>break main.main</code>,</li>
+<li><code>break TestHello</code>,</li>
+<li><code>break db.go:27</code>,</li>
+</ol>
+</li>
+<li>How to switch goroutines
+<ol>
+<li><code>goroutines</code> to list goroutines,</li>
+<li><code>goroutine 18</code> to switch goroutine</li>
+</ol>
+</li>
+<li>How to debug a service</li>
+</ol>
+<h2 id="debug-a-program"><a class="header" href="#debug-a-program">Debug a Program</a></h2>
+<pre><code class="language-bash">$ dlv debug
+Type 'help' for list of commands.
+(dlv) break main.main
+Breakpoint 1 set at 0x10b1faf for main.main() ./main.go:9
+(dlv) continue
+&gt; main.main() ./main.go:9 (hits goroutine(1):1 total:1) (PC: 0x10b1faf)
+     4:         &quot;fmt&quot;
+     5:
+     6:         &quot;golang.org/x/sync/errgroup&quot;
+     7: )
+     8:
+=&gt;   9: func main() {
+    10:         hello()
+    11: }
+    12:
+    13: var Printf = fmt.Printf
+    14:
+</code></pre>
+<h2 id="debug-test-case"><a class="header" href="#debug-test-case">Debug Test Case</a></h2>
+<pre><code class="language-bash">dlv test
+Type 'help' for list of commands.
+(dlv) break TestHello
+Breakpoint 1 set at 0x1137b4b for _/...TestHello() ./main_test.go:9
+(dlv) continue
+&gt; _.../hello.TestHello() ./main_test.go:9 (hits goroutine(5):1 total:1) (PC: 0x1137b4b)
+     4:         &quot;fmt&quot;
+     5:         &quot;reflect&quot;
+     6:         &quot;testing&quot;
+     7: )
+     8:
+=&gt;   9: func TestHello(t *testing.T) {
+    10:         lines := make([]string, 10)
+    11:         Printf = func(format string, a ...interface{}) (n int, err error) {
+    12:                 i := a[0].(int)
+    13:                 lines[i] = fmt.Sprintf(format, a...)
+    14:                 return len(lines[i]), nil
+(dlv) break 12
+Breakpoint 2 set at 0x1138101 for _.../hello.TestHello.func1() ./main_test.go:12
+(dlv) continue
+&gt; _...hello.TestHello.func1() ./main_test.go:12 
+(hits goroutine(15):1 total:1) (PC: 0x1138101)
+     7: )
+     8:
+     9: func TestHello(t *testing.T) {
+    10:         lines := make([]string, 10)
+    11:         Printf = func(format string, a ...interface{}) (n int, err error) {
+=&gt;  12:                 i := a[0].(int)
+    13:                 lines[i] = fmt.Sprintf(format, a...)
+    14:                 return len(lines[i]), nil
+    15:         }
+    16:         hello()
+    17:         want := []string{
+(dlv) print a
+[]interface {} len: 1, cap: 1, [
+        10,
+]
+</code></pre>
+<h2 id="debug-a-service"><a class="header" href="#debug-a-service">Debug a Service</a></h2>
+<pre><code class="language-bash">$ icp-cland&amp;
+$ ps -ef|grep icp-cland
+501 89630  3744   0  2:44PM ttys002    0:00.34 icp-cland
+$ dlv attach 89630
+Type 'help' for list of commands.
+(dlv) break github..../cland/icp-cland/icp/service/admin/db.go:27
+Breakpoint 1 set at 0x47c771e for github...
+(dlv) continue
+&gt; github..../cland/icp-cland/icp/...
+Warning: debugging optimized function
+    22:         *logging.Tracer
+    23: }
+    24:
+    25: func (dba *dbAdmin) Purge(ctx context.Context,
+    26:         req *dbs.PurgeRequest) (rep *dbs.PurgeReply, err error) {
+=&gt;  27:         sp, ctx, logger := dba.StartSpanFromContext(ctx, &quot;DBAdminPurge&quot;)
+    28:         defer sp.Finish()
+    29:         rep = &amp;dbs.PurgeReply{}
+    30:         filter := req.GetFilter()
+    31:         var purged int64
+    32:         purged, err = model.Purge(filter)
+</code></pre>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="my-kids"><a class="header" href="#my-kids">My Kids</a></h1>
+<blockquote>
+<p>Created at &lt;2017-12-25 Mon&gt;</p>
+</blockquote>
+<p>Here some interesting words from my kids:</p>
+<ol>
+<li>Dream Fidget Spinner</li>
+</ol>
+<pre><code>      __      &quot;I saw a fidget spinner in my dream.
+     (O )      I bit it and found it's as sweet as chocolate.&quot;
+    _/:D\_     -- Nan Yi, Dec 20 2017                         
+   (O/¯\O )                                                   
+    ¯   ¯¯
+</code></pre>
+<ol start="2">
+<li>Dislike Magic Pen</li>
+</ol>
+<pre><code>
+   &quot;Today a little girl gave me
+    a magic pen, but I dislike  /\
+    it. I thought a long time  /  \
+    how to switch it out.     |    |
+    Finally a little boy    --:'''':--
+    exchanged it with his     :'_' :
+    car. Look,                _:&quot;&quot;:\___
+    this       ' '      ____.' :::     '._
+    one.&quot;     . *=====&lt;&lt;=)           \    :
+               .  '      '-'-'\_      /'._.'
+    -- Nan Yi, Nov 10 2017      \====:_ &quot;&quot;
+                               .'     \\
+                              :       :
+                             /   :    \
+                            :   .      '.
+            ,. _            :  : :      :
+         '-'    ).          :__:-:__.;--'
+       (        '  )        '-'   '-'
+    ( -   .00.   - _
+   (    .'  _ )     )
+   '-  ()_.\,\,   -
+</code></pre>
+<ol start="3">
+<li>A Little Dragonfly</li>
+</ol>
+<pre><code>   ( '\___      \_  (^)  _/      ___/' )
+    \ , ' \____   \ / \ /   ____/ ' , /
+     \__ ' , ' \___{~V~}___/ ' , ' __/
+    ____\_________ {&lt;!&gt;} _________/____
+   / , ' , ' , ' ,`{&lt;!&gt;}~, ' , ' , ' , \
+   \_____________ /{&lt;!&gt;}\______________/
+                    \./
+                    (~) &quot;Today I saw
+                    (~)  a dragonfly
+                    (~)  in our kindergarten.
+                    (~)  I said little dragonfly,
+                    (~)  how did you come here?&quot;
+                    (~)
+                    ,0,  -- Nan Yi, July 10 2016
+                     &quot;
+</code></pre>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="tips"><a class="header" href="#tips">Tips</a></h1>
+<blockquote>
+<p>Created at &lt;2017-12-20 Mon&gt;</p>
+</blockquote>
+<p>Some tips about linux kernel, ssh, qemu, ncat and more.</p>
+<h2 id="linux-kernel"><a class="header" href="#linux-kernel">Linux Kernel</a></h2>
+<p>Kernel building takes too long time. We can speed up the process via:</p>
+<ol>
+<li>Enable <code>tmpfs</code> to build in memory,</li>
+<li>Enable <code>ccache</code> to avoid unnecessary recompile,</li>
+<li>Enable <code>distcc</code> to build on multiple machines.</li>
+</ol>
+<h3 id="mount-tmpfs"><a class="header" href="#mount-tmpfs">Mount tmpfs</a></h3>
+<pre><code>   mkdir src .ccache
+   mount -t tmpfs -o size=30G,mode=0755 tmpfs src
+   mount -t tmpfs -o size=10G,mode=0755 tmpfs .ccache
+</code></pre>
+<p>Speed up kernel building via <code>ccache</code> and <code>distcc</code>:</p>
+<h3 id="enable-ccache"><a class="header" href="#enable-ccache">Enable ccache</a></h3>
+<pre><code>apt-get install ccache
+</code></pre>
+<h3 id="enable-distcc"><a class="header" href="#enable-distcc">Enable distcc</a></h3>
+<pre><code>apt-get install distcc
+echo 10.113.111.160 10.113.111.187 &gt;&gt; /etc/distcc/hosts
+</code></pre>
+<p>On <code>10.113.111.160</code> and  <code>10.113.111.187</code>:</p>
+<pre><code>apt-get install distcc
+cat &gt; /etc/default/distcc &lt;&lt;EOF
+STARTDISTCC=&quot;true&quot;
+ALLOWEDNETS=&quot;10.113.111.152&quot;    # master build ip
+LISTENER=&quot;10.113.111.187&quot;       # local ip
+EOF
+systemctl restart distcc
+</code></pre>
+<h3 id="build"><a class="header" href="#build">Build</a></h3>
+<p>Build ubuntu kernel <code>Ubuntu-4.4.0-102.125</code> as below:</p>
+<pre><code class="language-bash">cd src
+git clone git://kernel.ubuntu.com/ubuntu/ubuntu-xenial
+cd ubuntu-xenial
+git checkout Ubuntu-4.4.0-102.125
+sed 's/CONFIG_VIRTIO_NET=y/CONFIG_VIRTIO_NET=m/g'
+export PATH=/usr/lib/ccache:$PATH
+export CCACHE_PREFIX=&quot;distcc&quot;
+fakeroot debian/rules clean
+fakeroot debian/rules binary
+</code></pre>
+<p>It takes around 9 minutes on my machine.</p>
+<h2 id="ssh"><a class="header" href="#ssh">Ssh</a></h2>
+<p><a href="https://blog.scottlowe.org/2015/12/11/using-ssh-multiplexing/">Using SSH Multiplexing</a>:</p>
+<pre><code>ControlMaster auto
+ControlPath ~/.ssh/sockets/%r@%h-%p
+ControlPersist 600
+</code></pre>
+<h2 id="qemu"><a class="header" href="#qemu">QEMU</a></h2>
+<ol>
+<li>which nic models qemu supports?
+<pre><code>qemu-system-x86_64 -net nic,model=?  #=&gt;
+qemu: Supported NIC models: ne2k_pci,i82551,i82557b,i82559er,...
+</code></pre>
+</li>
+<li>Quit qemu <code>C-A C</code>.</li>
+</ol>
+<h2 id="ncat"><a class="header" href="#ncat">Ncat</a></h2>
+<p>[Ncat] is a general-purpose command-line tool for reading,
+writing,redirecting, and encrypting data across a network. It is along
+with <a href="https://nmap.org/">nmap</a>, but not so famous.</p>
+<h3 id="install"><a class="header" href="#install">Install</a></h3>
+<p>To install ncat just install nmap, Ubuntu:</p>
+<pre><code>apt-get install nmap
+</code></pre>
+<p>Mac:</p>
+<pre><code>brew install nmap
+</code></pre>
+<h3 id="use-ncat-to-transfer-files"><a class="header" href="#use-ncat-to-transfer-files">Use Ncat to Transfer Files</a></h3>
+<ol>
+<li>
+<p>Transfer Single File</p>
+<pre><code># on machine A
+ncat -p 80 -l --send-only &lt; file
+# on machine B
+ncat &lt;machine A ip&gt; 80 --recv-only &gt; file
+</code></pre>
+</li>
+<li>
+<p>Transfer Multiple Files</p>
+<pre><code># on machine A
+for file in *.deb; do
+    echo $file | ncat -p 80 -l --send-only
+    ncat -p 80 -l --send-only &lt; $file
+done
+# on machine B
+while true; do
+    file=$(ncat &lt;machine A ip&gt; 80 --recv-only) || break
+    echo $file
+    ncat &lt;machine A ip&gt; 80 --recv-only &gt; $file
+done
+</code></pre>
+</li>
+</ol>
+<h3 id="http-proxy"><a class="header" href="#http-proxy">Http Proxy</a></h3>
+<p>Ncat can act as a http proxy server, which</p>
+<p>Run:</p>
+<pre><code>ncat -l -p 8888 --proxy-type http --allow 127.0.0.1
+</code></pre>
+<p>Test it(on the machine running ncat):</p>
+<pre><code>export https_proxy=http://127.0.0.1:8888
+curl https://www.google.com
+</code></pre>
+<p>Jump over the wall via ssh:</p>
+<pre><code>ssh -L 127.0.0.1:8888:127.0.0.1:8888 &lt;your machine outside the wall&gt;
+</code></pre>
+<p>Test it again(on the machine running <code>ssh -L</code>):</p>
+<pre><code>export http_proxy=http://127.0.0.1:8888
+curl http://www.google.com
+</code></pre>
+<p>Http request will go through your local port 8888, encrypted and jump
+over the wall, go to your target machine local port 8888, via ncat to
+access the world. It's safe, simple, stable and fast.</p>
+<h3 id="proxy-ssh"><a class="header" href="#proxy-ssh">Proxy Ssh</a></h3>
+<p>Ncat http proxy mode support =CONNECT= method also. So it can be used
+as a ssh proxy:</p>
+<pre><code>ssh -o &quot;ProxyCommand=ncat --proxy 127.0.0.1:8888 %h %p&quot; user@host
+</code></pre>
+<p>Ssh traffic will go to your local port 8888, ssh will forward it to
+your jumpbox, which ncat is running there, to visit all the machines
+running behind the jumpbox. In this way, you can keep your ssh keys in
+your local, no need to copy anywhere in order to access your machines.</p>
+<p>You can put it to your <code>~/.ssh/config</code>:</p>
+<pre><code>Host: host
+Hostname: host
+ProxyCommand: ncat --proxy 127.0.0.1:8888 %h %p
+</code></pre>
+<h3 id="proxy-ansible"><a class="header" href="#proxy-ansible">Proxy Ansible</a></h3>
+<p>You can run ansible with below configuration in your inventory:</p>
+<pre><code>[all:vars]
+ansible_ssh_common_args='-o ProxyCommand=&quot;ncat --proxy 127.0.0.1:8888 %h %p&quot;'
+</code></pre>
+<h2 id="permission-bits"><a class="header" href="#permission-bits">Permission Bits</a></h2>
+<ol>
+<li>
+<p>Read, write and execute permissions</p>
+<table><thead><tr><th>Permission</th><th>Octal</th><th>Description</th></tr></thead><tbody>
+<tr><td>rwx</td><td>7</td><td>Read, write and execute</td></tr>
+<tr><td>rw-</td><td>6</td><td>Read and write</td></tr>
+<tr><td>r-x</td><td>5</td><td>Read and execute</td></tr>
+<tr><td>r--</td><td>4</td><td>Read</td></tr>
+<tr><td>-wx</td><td>3</td><td>Write and execute</td></tr>
+<tr><td>-w-</td><td>2</td><td>Write</td></tr>
+<tr><td>--x</td><td>1</td><td>Execute</td></tr>
+<tr><td>---</td><td>0</td><td>no permissions</td></tr>
+</tbody></table>
+</li>
+<li>
+<p>User, group and others</p>
+<table><thead><tr><th>Permission</th><th>Octal</th><th>Field</th></tr></thead><tbody>
+<tr><td>rwx------</td><td>0700</td><td>User</td></tr>
+<tr><td>---rwx---</td><td>0070</td><td>Group</td></tr>
+<tr><td>------rwx</td><td>0007</td><td>All Others</td></tr>
+</tbody></table>
+</li>
+</ol>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="freebsd-cloud-init"><a class="header" href="#freebsd-cloud-init">FreeBSD Cloud Init</a></h1>
+<blockquote>
+<p>Created at &lt;2017-10-27 Fri&gt;</p>
+</blockquote>
+<p>How to setup cloudinit for freebsd and how to do disk resize under
+freebsd.</p>
+<h2 id="setup-cloudinit-for-freebsd-image"><a class="header" href="#setup-cloudinit-for-freebsd-image">Setup CloudInit for FreeBSD Image</a></h2>
+<p>In this guide we will talk about <code>CloudInit</code> Setup on FreeBSD, not
+<code>bsd-cloudinit</code>. It's because <code>bsd-cloudinit</code> is based on
+<code>cloudbaseinit</code>, which has no support on <code>ConfigDrive</code>, while our
+OpenStack cloud supports only <code>ConfigDrive</code>. So for freebsd image we
+need to enable <code>CloudInit</code>.</p>
+<h2 id="download-image-and-convert"><a class="header" href="#download-image-and-convert">Download Image And Convert</a></h2>
+<p>We need packages <code>qemu-utils</code>, <code>wget</code>:</p>
+<pre><code>pkg install qemu-utils wget
+</code></pre>
+<p>And download freebsd base image:</p>
+<pre><code>base=FreeBSD-11.1-RELEASE-amd64
+release=releases/VM-IMAGES/11.1-RELEASE/amd64/Latest
+wget https://download.freebsd.org/ftp/$release/${base}.qcow2.xz
+</code></pre>
+<p>Unzip and convert to raw:</p>
+<pre><code>unxz ${base}.qcow2.xz
+qemu-img convert -p -f qcow2 -O raw ${base}.qcow2 ${base}.raw
+</code></pre>
+<h2 id="mount-image-and-chroot"><a class="header" href="#mount-image-and-chroot">Mount Image And Chroot</a></h2>
+<p>Attach to device:</p>
+<pre><code>mdconfig -a -t vnode -u 0 -f ${base}.raw
+</code></pre>
+<p>Mount last partition:</p>
+<pre><code>mount /dev/md0p3 /mnt
+mount -t devfs devfs /mnt/dev
+cp /etc/resolv.conf /mnt/etc
+chroot /mnt
+</code></pre>
+<h2 id="install-cloud-init"><a class="header" href="#install-cloud-init">Install Cloud-init</a></h2>
+<p>Install <code>cloud-init</code>:</p>
+<pre><code>pkg install py27-cloud-init
+</code></pre>
+<p>Enable services:</p>
+<pre><code>cat &gt;&gt; /etc/rc.conf &lt;&lt; EOF
+cloudinit_enable=&quot;YES&quot;
+sshd_enable=&quot;YES&quot;
+EOF
+</code></pre>
+<p>Cloudinit call <code>blkid</code> to select config drive. But <code>blkid</code> doesn't
+work for FreeBSD filesytem. Now work around <code>blkid</code> as below:</p>
+<pre><code>cat &gt; /usr/bin/blkid &lt;&lt; EOF
+#!/bin/sh
+[ -e /dev/iso9660/config-2 ] || exit 1
+echo /dev/iso9660/config-2
+EOF
+chmod a+x /usr/bin/blkid
+</code></pre>
+<p>Mount for cd9660 on FreeBSD does not support <code>-o sync</code>. Patch
+cloudinit <code>mount</code>:</p>
+<pre><code>cd /usr/local/lib/python2.7/site-packages/cloudinit
+patch -p1 &lt;&lt; EOF
+--- a/util.py   2017-10-27 07:14:55.968737000 +0000
++++ b/util.py   2017-10-27 07:15:03.481245000 +0000
+@@ -1364,6 +1364,7 @@
+         if mtypes is None:
+             mtypes = [&quot;auto&quot;]
+     elif platsys.endswith(&quot;bsd&quot;):
++        sync = False
+         if mtypes is None:
+             mtypes = ['ufs', 'cd9660', 'vfat']
+         for index, mtype in enumerate(mtypes):
+EOF
+</code></pre>
+<p>Cleanup and exit:</p>
+<pre><code>set history = 0
+exit
+</code></pre>
+<h2 id="umount-image-and-convert-back"><a class="header" href="#umount-image-and-convert-back">Umount Image And Convert Back</a></h2>
+<pre><code>umount /mnt/dev
+rm /mnt/etc/resolv.conf
+umount /mnt
+mdconfig -d -u 0
+qemu-img convert -p -f raw -O qcow2 ${base}.raw ${base}.qcow2
+</code></pre>
+<h2 id="boot-instance"><a class="header" href="#boot-instance">Boot Instance</a></h2>
+<p>Once you boot an instance, you can access it via ssh, please notice
+the default user is <code>beastie</code>.</p>
+<h2 id="disk-resize-under-freebsd"><a class="header" href="#disk-resize-under-freebsd">Disk Resize Under FreeBSD</a></h2>
+<p>First to list the geoms:</p>
+<pre><code>gpart list
+=&gt;
+Geom name: vtbd0
+modified: false
+state: CORRUPT
+</code></pre>
+<p>Show the Geom:</p>
+<pre><code>gpart show vtbd0
+=&gt;       3  44040315  vtbd0  GPT  (40G) [CORRUPT]
+         3       118      1  freebsd-boot  (59K)
+       121   2097152      2  freebsd-swap  (1.0G)
+   2097273  41943040      3  freebsd-ufs  (20G)
+  44040313         5         - free -  (2.5K)
+</code></pre>
+<p>If the <code>state</code> shows <code>CORRUPT</code>, we need to recover it:</p>
+<pre><code>gpart recover vtbd0
+vtbd0 recovered
+</code></pre>
+<p>Show again and the <code>CORRUPT</code> mark disappeared:</p>
+<pre><code>gpart show vtbd0
+=&gt;       3  83886069  vtbd0  GPT  (40G)
+         3       118      1  freebsd-boot  (59K)
+       121   2097152      2  freebsd-swap  (1.0G)
+   2097273  41943040      3  freebsd-ufs  (20G)
+  44040313  39845759         - free -  (19G)
+</code></pre>
+<p>Apparently the partition 3 should be resized.</p>
+<p>Run resize on partition 3:</p>
+<pre><code>gpart resize -i 3 -a 4k vtbd0
+vtbd0p3 resized
+gpart show vtbd0
+=&gt;       3  83886069  vtbd0  GPT  (40G)
+         3       118      1  freebsd-boot  (59K)
+       121   2097152      2  freebsd-swap  (1.0G)
+   2097273  81788799      3  freebsd-ufs  (39G)
+</code></pre>
+<p>According <a href="https://www.freebsd.org/doc/handbook/disks-growing.html">FreeBSD Doc</a>, <code>growfs</code> should be run as below:</p>
+<pre><code>growfs /dev/vtbd0p3
+</code></pre>
+<p>But it doesn't work with below error reported:</p>
+<pre><code>growfs: /dev/vtbd0p3: Operation not permitted
+</code></pre>
+<p>A workaround is to run <code>service growfs onestart</code>:</p>
+<pre><code>service growfs onestart
+Growing root partition to fill device
+vtbd0 recovering is not needed
+vtbd0p3 resized
+super-block backups (for fsck_ffs -b #) at:
+ 42314112, 43596352, 44878592, 46160832, 47443072, ...
+ 56418752, 57700992, 58983232, 60265472, 61547712, ...
+ 70523392, 71805632, 73087872, 74370112, 75652352, ...
+</code></pre>
+<p>After that I run <code>shutdown -r now</code>, the VM hang at:</p>
+<pre><code>run_interrupt_driven_hooks: still waiting after 60 seconds for xpt_config
+run_interrupt_driven_hooks: still waiting after 120 seconds for xpt_config
+</code></pre>
+<p>After force restarted it's bootable again.</p>
+<p>Looks FreeBSD image is not polished well for cloud using.</p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="running-arista-veos-in-openstack"><a class="header" href="#running-arista-veos-in-openstack">Running Arista vEOS in OpenStack</a></h1>
+<blockquote>
+<p>Created at &lt;2017-12-06 Wed&gt;</p>
+</blockquote>
+<p>How to run arista vEOS in OpenStack.</p>
+<h2 id="veos-image"><a class="header" href="#veos-image">vEOS Image</a></h2>
+<h3 id="download"><a class="header" href="#download">Download</a></h3>
+<p>Download below files:</p>
+<ol>
+<li><code>Aboot-veos-8.0.0.iso</code>,</li>
+<li><code>vEOS-lab-4.20.1F.vmdk</code></li>
+</ol>
+<p>from: [[https://www.arista.com/en/support/software-download]]</p>
+<h3 id="upload"><a class="header" href="#upload">Upload</a></h3>
+<p>Upload to OpenStack Glance:</p>
+<pre><code>openstack image create Aboot-veos-8.0.0.iso \
+          --container-format bare \
+          --disk-format iso \
+          --file Aboot-veos-8.0.0.iso
+openstack image create vEOS-lab-4.20.1F.vmdk \
+          --container-format bare \
+          --disk-format vmdk \
+          --file vEOS-lab-4.20.1F.vmdk
+</code></pre>
+<h3 id="list-images"><a class="header" href="#list-images">List images</a></h3>
+<pre><code>openstack image list
+#=&gt;
+| name                  | id                                   | type       |
+|-----------------------|--------------------------------------|------------|
+| Aboot-veos-8.0.0.iso  | 43c78dee-e055-4592-9b81-d66f6a33584d | iso image  |
+| vEOS-lab-4.20.1F.vmdk | ba02703d-6d2b-40a8-bdb7-bf41163d78f7 | vmdk image |
+</code></pre>
+<h2 id="boot-veos-vm"><a class="header" href="#boot-veos-vm">Boot vEOS VM</a></h2>
+<h3 id="prerequisite"><a class="header" href="#prerequisite">Prerequisite</a></h3>
+<p>Before boot VM, make sure:</p>
+<ol>
+<li>OpenStack volume service - cinder is running,</li>
+<li>Disable OpenStack security groups,</li>
+<li>Disable ebtables on hypervisor</li>
+</ol>
+<p>A workaround to disable ebtables:</p>
+<pre><code>ansible -m cron -a 'job=&quot;/sbin/ebtables -F&quot; name=&quot;flush ebtables&quot;' all
+</code></pre>
+<h3 id="boot-vm"><a class="header" href="#boot-vm">Boot VM</a></h3>
+<pre><code>nova boot --flavor m1.medium \
+    --image Aboot-veos-8.0.0.iso \
+    --nic net-id=64304c68-646f-4a2b-8a7a-e8f557c4b94a \
+    --nic net-id=15bfca37-119e-475e-ad0e-fc2e377cac32 \
+    --nic net-id=7c072643-2170-4a46-9dc2-e04f5f427f72 \
+    --block-device \
+    id=ba02703d-6d2b-40a8-bdb7-bf41163d78f7,\
+	source=image,bus=ide,dest=volume,size=4,shutdown=remove \
+    veosvm1
+</code></pre>
+<h3 id="notices"><a class="header" href="#notices">Notices</a></h3>
+<ol>
+<li>The first network is for vEOS management port, the left are for
+vEOS switch ports,</li>
+<li>The id(ba02703d-6d2b-40a8-bdb7-bf41163d78f7) in block device
+option is the image id of glance image vEOS-lab-4.20.1F.vmdk,</li>
+<li>Make sure bus is set to ide</li>
+</ol>
+<h2 id="enable-ssh"><a class="header" href="#enable-ssh">Enable SSH</a></h2>
+<p>Get vm's novnc console:</p>
+<pre><code>nova get-vnc-console veosvm1 novnc
+</code></pre>
+<p>Go to the novnc console to configure network:</p>
+<pre><code>login: admin # default username admin, no password
+&gt; enable
+# configure terminal
+# interface management 1
+# ip address 192.168.0.15 255.255.0.0
+# ip route 0.0.0.0 0.0.0.0 192.168.0.1
+# hostname veosvm1
+# username admin secret 0 admin
+# end
+# copy running-config startup-config
+</code></pre>
+<p>Now you can use ssh <code>ssh admin@192.168.0.15</code> to login.</p>
+<h2 id="netbox-integration"><a class="header" href="#netbox-integration">Netbox Integration</a></h2>
+<h3 id="enable-management-api"><a class="header" href="#enable-management-api">Enable Management Api</a></h3>
+<pre><code>ssh admin@192.168.0.15 # password admin
+&gt; enable
+# config terminal
+# management api http-commands
+# no shutdown
+# no protocol http
+# protocol https
+# end
+# show management api http-commands #=&gt;
+Enabled:            Yes
+HTTPS server:       running, set to use port 443
+HTTP server:        shutdown, set to use port 80
+Local HTTP server:  shutdown, no authentication, set to use port 8080
+Unix Socket server: shutdown, no authentication
+VRFs:               default
+Hits:               75
+Last hit:           36 seconds ago
+Bytes in:           11714
+Bytes out:          178064
+Requests:           60
+Commands:           147
+Duration:           5.294 seconds
+SSL Profile:        none
+FIPS Mode:          No
+QoS DSCP:           0
+Log Level:          none
+CSP Frame Ancestor: None
+TLS Protocols:      1.0 1.1 1.2
+   User        Requests       Bytes in       Bytes out    Last hit
+----------- -------------- -------------- --------------- --------------
+   admin       60             11714          178064       36 seconds ago
+
+URLs
+--------------------------------------
+Management1 : https://192.168.0.15:443
+# copy running-config startup-config
+</code></pre>
+<h3 id="napalm"><a class="header" href="#napalm">Napalm</a></h3>
+<p>So that netbox can talk to vEOS via napalm:</p>
+<pre><code>  +--------------------+             +---------------------+
+  |      netbox        |             |   arista veos       |
+  +--------+-----------+             +------------+--------+
+  |        |           |             |            |        |
+  |        |  napalm   |             | management |        |
+  |        |   (eos)   +-----=------&gt;|   (https)  |        |
+  |        |           |             |            |        |
+  +--------+-----------+             +------------+--------+
+</code></pre>
+<p><img src="2017/napalm.png" alt="" /></p>
+<h2 id="a-clasic-configuration"><a class="header" href="#a-clasic-configuration">A Clasic Configuration</a></h2>
+<h3 id="topology"><a class="header" href="#topology">Topology</a></h3>
+<pre><code>     +-----------------+                  +-----------------+
+     |   arista 0  et2 +------vlan30------+ et2 arista 1    |
+     +-----------------+ 172.16.30.0/24   +-----------------+
+     |                 |                  |                 |
+     | 172.16.10.1/24  |                  | 172.16.20.1/24  |
+     |      et1        |                  |      et1        |
+     +-------+---------+                  +-------+---------+
+             |                                    |
+             |                                    |
+           vlan10                               vlan20
+             |                                    |
+     +-------+---------+                  +-------+---------+
+     |      eth0       |                  |      eth0       |
+     | 172.16.10.6/24  |                  |  172.16.20.7/24 |
+     |                 |                  |                 |
+     +-----------------+                  +-----------------+
+     |      vm 0       |                  |      vm 1       |
+     +-----------------+                  +-----------------+
+</code></pre>
+<p><img src="2017/arista.png" alt="" /></p>
+<h3 id="create-topology"><a class="header" href="#create-topology">Create Topology</a></h3>
+<pre><code class="language-yaml">  ---
+  - name: &quot;Create network vlan10, vlan20, vlan30&quot;
+    hosts: localhost
+    tasks:
+      - name: &quot;ensure networks created.&quot;
+        os_network:
+           name: &quot;{{ item }}&quot;
+           state: present
+        with_items:
+          - vlan10
+          - vlan20
+          - vlan30
+      - name: &quot;ensure vlan subnets created&quot;
+        os_subnet:
+          name: &quot;vlan{{ item }}-subnet&quot;
+          state: &quot;present&quot;
+          network_name: &quot;vlan{{ item }}&quot;
+          cidr: &quot;172.16.{{ item }}.0/24&quot;
+          enable_dhcp: True
+        with_items:
+          - &quot;10&quot;
+          - &quot;20&quot;
+          - &quot;30&quot;
+  - name: &quot;Create arista vms&quot;
+    hosts: localhost
+    tasks:
+     - name: &quot;ensure arista-0 created&quot;
+       shell: |
+         nova show arista-0 &amp;&gt; /dev/null &amp;&amp; exit 0
+         nova boot --flavor m1.small \
+           --image Aboot-veos-8.0.0.iso \
+           --nic net-name=netops \
+           --nic net-name=vlan10,v4-fixed-ip=172.16.10.1 \
+           --nic net-name=vlan30,v4-fixed-ip=172.16.30.3 \
+           --block-device \
+           id=ba02703d-6d2b-40a8-bdb7-bf41163d78f7,\
+		   source=image,bus=ide,dest=volume,size=4,shutdown=remove \
+           arista-0
+     - name: &quot;ensure arista-1 created&quot;
+       shell: |
+         nova show arista-1 &amp;&gt; /dev/null &amp;&amp; exit 0
+         nova boot --flavor m1.small \
+           --image Aboot-veos-8.0.0.iso \
+           --nic net-name=netops \
+           --nic net-name=vlan20,v4-fixed-ip=172.16.20.1 \
+           --nic net-name=vlan30,v4-fixed-ip=172.16.30.4 \
+           --block-device \
+           id=ba02703d-6d2b-40a8-bdb7-bf41163d78f7,\
+		   source=image,bus=ide,dest=volume,size=4,shutdown=remove \
+           arista-1
+  - name: &quot;Create vm&quot;
+    hosts: localhost
+    roles:
+      - role: vm
+        group: vlan10vm
+        network: vlan10
+  - name: &quot;Create vm&quot;
+    hosts: localhost
+    roles:
+      - role: vm
+        group: vlan20vm
+        network: vlan20
+</code></pre>
+<h3 id="configure-arista-0"><a class="header" href="#configure-arista-0">Configure Arista 0</a></h3>
+<pre><code>enable
+config terminal
+
+interface management 1
+ip address 192.168.0.14.16
+
+vlan 10
+vlan 30
+
+interface ethernet 1
+switchport mode access
+switchport access vlan 10
+no shutdown
+
+interface ethernet 2
+switchport mode trunk
+switchport trunk allowed vlan 30
+no shutdown
+
+interface vlan10
+ip address 172.16.10.1/24
+
+interface vlan30
+ip address 172.16.30.3/24
+
+ip routing
+router ospf 10
+network 172.16.10.0/24 area 0
+network 172.16.30.0/24 area 0
+
+end
+</code></pre>
+<h3 id="configure-arista-1"><a class="header" href="#configure-arista-1">Configure Arista 1</a></h3>
+<pre><code class="language-bash">interface management 1
+ip address 192.168.0.26/16
+no shutdown
+
+vlan 20
+vlan 30
+
+interface ethernet 1
+switchport mode access
+switchport access vlan 20
+no shutdown
+
+interface ethernet 2
+switchport mode trunk
+switchport trunk allowed vlan 30
+no shutdown
+
+interface vlan 20
+ip address 172.16.20.1/24
+no shutdown
+
+interface vlan 30
+ip address 172.16.30.4/24
+no shutdown
+
+ip routing
+router ospf 10
+network 172.16.20.0/24 area 0
+network 172.16.30.0/24 area 0
+
+end
+</code></pre>
+<h3 id="test"><a class="header" href="#test">Test</a></h3>
+<p>login vm-0 and ping vm-1.</p>
+<h2 id="tips-1"><a class="header" href="#tips-1">Tips</a></h2>
+<ol>
+<li><a href="https://eos.arista.com/forum/qeustions-about-some-features-in-veos-that-may-or-may-not-work/">vEOS does not support NAT</a></li>
+</ol>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="dummynet-usage-on-mac"><a class="header" href="#dummynet-usage-on-mac">Dummynet Usage on Mac</a></h1>
+<blockquote>
+<p>Created at &lt;2017-10-26 Thu&gt;</p>
+</blockquote>
+<p>Here some <code>dummynet</code> usages on Mac.</p>
+<h2 id="configure-bandwidth"><a class="header" href="#configure-bandwidth">Configure Bandwidth</a></h2>
+<ol>
+<li>
+<p>Create pipe with bandwidth, redirect packets to the pipe</p>
+<pre><code>sudo dnctl pipe 1 config bw 1Kbit/s
+echo &quot;dummynet out proto tcp from any to wordpress.org pipe 1&quot; |sudo pfctl -f -
+</code></pre>
+</li>
+<li>
+<p>Enable if not</p>
+<pre><code>sudo pfctl -e
+</code></pre>
+</li>
+<li>
+<p>do download and watch the speed</p>
+<pre><code>wget -O /dev/null wordpress.org/latest.zip #=&gt;
+... 3.02KB/s ...
+</code></pre>
+</li>
+<li>
+<p>Adjust the bandwitch on fly and watch the speed</p>
+<pre><code>sudo dnctl pipe 1 config bw 10Kbit/s #=&gt;
+... 61.0KB/s ...
+</code></pre>
+</li>
+<li>
+<p>Reset and disable</p>
+<pre><code>sudo pfctl -f /etc/pf.conf
+sudo pfctl -d
+</code></pre>
+</li>
+</ol>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="publish-github-pages-via-org-mode"><a class="header" href="#publish-github-pages-via-org-mode">Publish Github Pages via Org Mode</a></h1>
+<blockquote>
+<p>Created at &lt;2017-10-24 Fri 12:30&gt;
+[Google]: http://www.google.com/search?q=%s
+[Hugo]: https://gohugo.io/
+[Jekyll]: https://jekyllrb.com/</p>
+</blockquote>
+<p>Now switched from [Jekyll], [Hugo] to Emacs Org Publish. How to write
+blog using org-publish.</p>
+<h2 id="customization"><a class="header" href="#customization">Customization</a></h2>
+<p>First we need to customize variable <code>org-publish-project-alist</code>:</p>
+<pre><code class="language-lisp">(&quot;blog&quot;
+ :base-directory &quot;.&quot;
+ :publishing-directory &quot;.&quot;
+ :base-extension &quot;org&quot;
+ :recursive t
+ :publishing-function org-html-publish-to-html
+ :headline-levels 4
+ :auto-preamble t
+ :section-numbers nil
+ :makeindex nil
+ :html-head-include-scripts nil
+ :html-head-include-default-style nil
+ :auto-sitemap t
+ :sitemap-filename &quot;index.org&quot;
+ :sitemap-title &quot;Thatched Cottage&quot;
+ :sitemap-sort-files anti-chronologically
+ :sitemap-format-entry org-publish-sitemap-time-entry
+ :html-postamble nil)
+</code></pre>
+<p>My <code>sitemap-format-entry</code>, add timestamp before the sitemap entry:</p>
+<pre><code>(defun org-publish-sitemap-time-entry (entry style project)
+  (format &quot;%s %s&quot;
+          (format-time-string
+           &quot;[%Y-%m-%d %a %H:%s]&quot;
+           (org-publish-find-date entry project))
+          (org-publish-sitemap-default-entry entry style project)))
+</code></pre>
+<p>Set <code>org-html-head</code> to(<code>customize-variable org-html-head</code>) to use my</p>
+<p><code>org.css</code>:</p>
+<pre><code>&lt;link rel=&quot;stylesheet&quot; type=&quot;text/css&quot; href=&quot;css/org.css&quot; /&gt;
+</code></pre>
+<h2 id="the-project"><a class="header" href="#the-project">The Project</a></h2>
+<pre><code>.
+├── .git
+├── .nojekyll
+├── README.md
+├── css
+│   ├── DroidSans.ttf
+│   ├── DroidSansMono.ttf
+│   ├── DroidSerif.ttf
+│   ├── fonts.css
+│   └── org.css
+├── dummynet.html
+├── dummynet.org
+├── growfs.html
+├── growfs.org
+├── hdiutil.html
+├── hdiutil.org
+├── index.html
+├── index.org
+├── org-publish.html
+└── org-publish.org
+</code></pre>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+            </nav>
+
+        </div>
+
+        <script type="text/javascript">
+            window.playground_copyable = true;
+        </script>
+        <script src="elasticlunr.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="mark.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="searcher.js" type="text/javascript" charset="utf-8"></script>
+        <script src="clipboard.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="highlight.js" type="text/javascript" charset="utf-8"></script>
+        <script src="book.js" type="text/javascript" charset="utf-8"></script>
+
+        <!-- Custom JS scripts -->
+        <script type="text/javascript">
+        window.addEventListener('load', function() {
+            window.setTimeout(window.print, 100);
+        });
+        </script>
+    </body>
+</html>

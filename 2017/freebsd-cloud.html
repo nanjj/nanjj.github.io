@@ -1,0 +1,320 @@
+<!DOCTYPE HTML>
+<html lang="zh_CN" class="sidebar-visible no-js light">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>FreeBSD Cloud Init - Thatched Cottage</title>
+        <!-- Custom HTML head -->
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff" />
+
+        <link rel="icon" href="../favicon.svg">
+        <link rel="shortcut icon" href="../favicon.png">
+        <link rel="stylesheet" href="../css/variables.css">
+        <link rel="stylesheet" href="../css/general.css">
+        <link rel="stylesheet" href="../css/chrome.css">
+        <link rel="stylesheet" href="../css/print.css" media="print">
+        <!-- Fonts -->
+        <link rel="stylesheet" href="../FontAwesome/css/font-awesome.css">
+        <link rel="stylesheet" href="../fonts/fonts.css">
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="../highlight.css">
+        <link rel="stylesheet" href="../tomorrow-night.css">
+        <link rel="stylesheet" href="../ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+    </head>
+    <body>
+        <!-- Provide site root to javascript -->
+        <script type="text/javascript">
+            var path_to_root = "../";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
+        </script>
+
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script type="text/javascript">
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script type="text/javascript">
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            var html = document.querySelector('html');
+            html.classList.remove('no-js')
+            html.classList.remove('light')
+            html.classList.add(theme);
+            html.classList.add('js');
+        </script>
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script type="text/javascript">
+            var html = document.querySelector('html');
+            var sidebar = 'hidden';
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            }
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <div class="sidebar-scrollbox">
+                <ol class="chapter"><li class="chapter-item affix "><a href="../index.html">Home</a></li><li class="chapter-item "><div>2019</div><a class="toggle"><div>❱</div></a></li><li><ol class="section"><li class="chapter-item "><a href="../2019/gitlab-ci.html">Gitlab CI</a></li><li class="chapter-item "><a href="../2019/hdituil.html">Manipulate Mac Disk Images</a></li><li class="chapter-item "><a href="../2019/lxd.html">LXD Inside</a></li></ol></li><li class="chapter-item "><div>2018</div><a class="toggle"><div>❱</div></a></li><li><ol class="section"><li class="chapter-item "><a href="../2018/godebug.html">GO Debug</a></li></ol></li><li class="chapter-item expanded "><div>2017</div><a class="toggle"><div>❱</div></a></li><li><ol class="section"><li class="chapter-item "><a href="../2017/my-kids.html">My Kids</a></li><li class="chapter-item "><a href="../2017/tips.html">Some Tips</a></li><li class="chapter-item expanded "><a href="../2017/freebsd-cloud.html" class="active">FreeBSD Cloud Init</a></li><li class="chapter-item "><a href="../2017/arista.html">Arista on OpenStack</a></li><li class="chapter-item "><a href="../2017/dummynet.html">Dummynet</a></li><li class="chapter-item "><a href="../2017/org-publish.html">Org Publish</a></li></ol></li></ol>
+            </div>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
+        </nav>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky bordered">
+                    <div class="left-buttons">
+                        <button id="sidebar-toggle" class="icon-button" type="button" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </button>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light (default)</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">Thatched Cottage</h1>
+
+                    <div class="right-buttons">
+                        <a href="../print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script type="text/javascript">
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <h1 id="freebsd-cloud-init"><a class="header" href="#freebsd-cloud-init">FreeBSD Cloud Init</a></h1>
+<blockquote>
+<p>Created at &lt;2017-10-27 Fri&gt;</p>
+</blockquote>
+<p>How to setup cloudinit for freebsd and how to do disk resize under
+freebsd.</p>
+<h2 id="setup-cloudinit-for-freebsd-image"><a class="header" href="#setup-cloudinit-for-freebsd-image">Setup CloudInit for FreeBSD Image</a></h2>
+<p>In this guide we will talk about <code>CloudInit</code> Setup on FreeBSD, not
+<code>bsd-cloudinit</code>. It's because <code>bsd-cloudinit</code> is based on
+<code>cloudbaseinit</code>, which has no support on <code>ConfigDrive</code>, while our
+OpenStack cloud supports only <code>ConfigDrive</code>. So for freebsd image we
+need to enable <code>CloudInit</code>.</p>
+<h2 id="download-image-and-convert"><a class="header" href="#download-image-and-convert">Download Image And Convert</a></h2>
+<p>We need packages <code>qemu-utils</code>, <code>wget</code>:</p>
+<pre><code>pkg install qemu-utils wget
+</code></pre>
+<p>And download freebsd base image:</p>
+<pre><code>base=FreeBSD-11.1-RELEASE-amd64
+release=releases/VM-IMAGES/11.1-RELEASE/amd64/Latest
+wget https://download.freebsd.org/ftp/$release/${base}.qcow2.xz
+</code></pre>
+<p>Unzip and convert to raw:</p>
+<pre><code>unxz ${base}.qcow2.xz
+qemu-img convert -p -f qcow2 -O raw ${base}.qcow2 ${base}.raw
+</code></pre>
+<h2 id="mount-image-and-chroot"><a class="header" href="#mount-image-and-chroot">Mount Image And Chroot</a></h2>
+<p>Attach to device:</p>
+<pre><code>mdconfig -a -t vnode -u 0 -f ${base}.raw
+</code></pre>
+<p>Mount last partition:</p>
+<pre><code>mount /dev/md0p3 /mnt
+mount -t devfs devfs /mnt/dev
+cp /etc/resolv.conf /mnt/etc
+chroot /mnt
+</code></pre>
+<h2 id="install-cloud-init"><a class="header" href="#install-cloud-init">Install Cloud-init</a></h2>
+<p>Install <code>cloud-init</code>:</p>
+<pre><code>pkg install py27-cloud-init
+</code></pre>
+<p>Enable services:</p>
+<pre><code>cat &gt;&gt; /etc/rc.conf &lt;&lt; EOF
+cloudinit_enable=&quot;YES&quot;
+sshd_enable=&quot;YES&quot;
+EOF
+</code></pre>
+<p>Cloudinit call <code>blkid</code> to select config drive. But <code>blkid</code> doesn't
+work for FreeBSD filesytem. Now work around <code>blkid</code> as below:</p>
+<pre><code>cat &gt; /usr/bin/blkid &lt;&lt; EOF
+#!/bin/sh
+[ -e /dev/iso9660/config-2 ] || exit 1
+echo /dev/iso9660/config-2
+EOF
+chmod a+x /usr/bin/blkid
+</code></pre>
+<p>Mount for cd9660 on FreeBSD does not support <code>-o sync</code>. Patch
+cloudinit <code>mount</code>:</p>
+<pre><code>cd /usr/local/lib/python2.7/site-packages/cloudinit
+patch -p1 &lt;&lt; EOF
+--- a/util.py   2017-10-27 07:14:55.968737000 +0000
++++ b/util.py   2017-10-27 07:15:03.481245000 +0000
+@@ -1364,6 +1364,7 @@
+         if mtypes is None:
+             mtypes = [&quot;auto&quot;]
+     elif platsys.endswith(&quot;bsd&quot;):
++        sync = False
+         if mtypes is None:
+             mtypes = ['ufs', 'cd9660', 'vfat']
+         for index, mtype in enumerate(mtypes):
+EOF
+</code></pre>
+<p>Cleanup and exit:</p>
+<pre><code>set history = 0
+exit
+</code></pre>
+<h2 id="umount-image-and-convert-back"><a class="header" href="#umount-image-and-convert-back">Umount Image And Convert Back</a></h2>
+<pre><code>umount /mnt/dev
+rm /mnt/etc/resolv.conf
+umount /mnt
+mdconfig -d -u 0
+qemu-img convert -p -f raw -O qcow2 ${base}.raw ${base}.qcow2
+</code></pre>
+<h2 id="boot-instance"><a class="header" href="#boot-instance">Boot Instance</a></h2>
+<p>Once you boot an instance, you can access it via ssh, please notice
+the default user is <code>beastie</code>.</p>
+<h2 id="disk-resize-under-freebsd"><a class="header" href="#disk-resize-under-freebsd">Disk Resize Under FreeBSD</a></h2>
+<p>First to list the geoms:</p>
+<pre><code>gpart list
+=&gt;
+Geom name: vtbd0
+modified: false
+state: CORRUPT
+</code></pre>
+<p>Show the Geom:</p>
+<pre><code>gpart show vtbd0
+=&gt;       3  44040315  vtbd0  GPT  (40G) [CORRUPT]
+         3       118      1  freebsd-boot  (59K)
+       121   2097152      2  freebsd-swap  (1.0G)
+   2097273  41943040      3  freebsd-ufs  (20G)
+  44040313         5         - free -  (2.5K)
+</code></pre>
+<p>If the <code>state</code> shows <code>CORRUPT</code>, we need to recover it:</p>
+<pre><code>gpart recover vtbd0
+vtbd0 recovered
+</code></pre>
+<p>Show again and the <code>CORRUPT</code> mark disappeared:</p>
+<pre><code>gpart show vtbd0
+=&gt;       3  83886069  vtbd0  GPT  (40G)
+         3       118      1  freebsd-boot  (59K)
+       121   2097152      2  freebsd-swap  (1.0G)
+   2097273  41943040      3  freebsd-ufs  (20G)
+  44040313  39845759         - free -  (19G)
+</code></pre>
+<p>Apparently the partition 3 should be resized.</p>
+<p>Run resize on partition 3:</p>
+<pre><code>gpart resize -i 3 -a 4k vtbd0
+vtbd0p3 resized
+gpart show vtbd0
+=&gt;       3  83886069  vtbd0  GPT  (40G)
+         3       118      1  freebsd-boot  (59K)
+       121   2097152      2  freebsd-swap  (1.0G)
+   2097273  81788799      3  freebsd-ufs  (39G)
+</code></pre>
+<p>According <a href="https://www.freebsd.org/doc/handbook/disks-growing.html">FreeBSD Doc</a>, <code>growfs</code> should be run as below:</p>
+<pre><code>growfs /dev/vtbd0p3
+</code></pre>
+<p>But it doesn't work with below error reported:</p>
+<pre><code>growfs: /dev/vtbd0p3: Operation not permitted
+</code></pre>
+<p>A workaround is to run <code>service growfs onestart</code>:</p>
+<pre><code>service growfs onestart
+Growing root partition to fill device
+vtbd0 recovering is not needed
+vtbd0p3 resized
+super-block backups (for fsck_ffs -b #) at:
+ 42314112, 43596352, 44878592, 46160832, 47443072, ...
+ 56418752, 57700992, 58983232, 60265472, 61547712, ...
+ 70523392, 71805632, 73087872, 74370112, 75652352, ...
+</code></pre>
+<p>After that I run <code>shutdown -r now</code>, the VM hang at:</p>
+<pre><code>run_interrupt_driven_hooks: still waiting after 60 seconds for xpt_config
+run_interrupt_driven_hooks: still waiting after 120 seconds for xpt_config
+</code></pre>
+<p>After force restarted it's bootable again.</p>
+<p>Looks FreeBSD image is not polished well for cloud using.</p>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="../2017/tips.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+                            <a rel="next" href="../2017/arista.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="../2017/tips.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+                    <a rel="next" href="../2017/arista.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+            </nav>
+
+        </div>
+
+        <script type="text/javascript">
+            window.playground_copyable = true;
+        </script>
+        <script src="../elasticlunr.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../mark.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../searcher.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../clipboard.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../highlight.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../book.js" type="text/javascript" charset="utf-8"></script>
+
+        <!-- Custom JS scripts -->
+    </body>
+</html>

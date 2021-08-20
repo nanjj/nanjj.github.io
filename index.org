@@ -1,3 +1,0 @@
-#+TITLE: Thatched Cottage
-#+OPTIONS: toc:nil
-#+INCLUDE: "index.inc"

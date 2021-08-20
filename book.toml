@@ -1,0 +1,12 @@
+[book]
+authors = ["JUN JIE NAN"]
+language = "zh_CN"
+multilingual = false
+src = "src"
+title = "Thatched Cottage"
+[output.html]
+no-section-label = true
+
+[output.html.fold]
+enable = true
+level = 0
