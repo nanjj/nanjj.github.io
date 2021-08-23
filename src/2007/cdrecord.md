@@ -1,6 +1,8 @@
 # cdrecord的故事汇
 > Thursday, 26 April 2007
 
+![Jorg Schilling](jorg_schilling.jpg)
+
 在这个晚春的早上, 写一写cdrecord的故事, 也许对大家有些警示.
 
 cdrecord, 主要用于刻盘, 刻CD, DVD.
