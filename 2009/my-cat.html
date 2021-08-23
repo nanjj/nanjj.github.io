@@ -1,0 +1,188 @@
+<!DOCTYPE HTML>
+<html lang="zh_CN" class="sidebar-visible no-js light">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>我的猫 - Thatched Cottage</title>
+        <!-- Custom HTML head -->
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff" />
+
+        <link rel="icon" href="../favicon.svg">
+        <link rel="shortcut icon" href="../favicon.png">
+        <link rel="stylesheet" href="../css/variables.css">
+        <link rel="stylesheet" href="../css/general.css">
+        <link rel="stylesheet" href="../css/chrome.css">
+        <link rel="stylesheet" href="../css/print.css" media="print">
+        <!-- Fonts -->
+        <link rel="stylesheet" href="../FontAwesome/css/font-awesome.css">
+        <link rel="stylesheet" href="../fonts/fonts.css">
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="../highlight.css">
+        <link rel="stylesheet" href="../tomorrow-night.css">
+        <link rel="stylesheet" href="../ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+        <!-- MathJax -->
+        <script async type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    </head>
+    <body>
+        <!-- Provide site root to javascript -->
+        <script type="text/javascript">
+            var path_to_root = "../";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
+        </script>
+
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script type="text/javascript">
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script type="text/javascript">
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            var html = document.querySelector('html');
+            html.classList.remove('no-js')
+            html.classList.remove('light')
+            html.classList.add(theme);
+            html.classList.add('js');
+        </script>
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script type="text/javascript">
+            var html = document.querySelector('html');
+            var sidebar = 'hidden';
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            }
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <div class="sidebar-scrollbox">
+                <ol class="chapter"><li class="chapter-item affix "><a href="../2021/rust.html">Home</a></li><li class="chapter-item "><a href="../2019/index.html">2019</a><a class="toggle"><div>❱</div></a></li><li><ol class="section"><li class="chapter-item "><a href="../2019/hdituil.html">Manipulate Mac Disk Images</a></li><li class="chapter-item "><a href="../2019/lxd.html">LXD Inside</a></li></ol></li><li class="chapter-item "><a href="../2018/index.html">2018</a></li><li class="chapter-item "><a href="../2017/index.html">2017</a><a class="toggle"><div>❱</div></a></li><li><ol class="section"><li class="chapter-item "><a href="../2017/tips.html">Some Tips</a></li><li class="chapter-item "><a href="../2017/freebsd-cloud.html">FreeBSD Cloud Init</a></li><li class="chapter-item "><a href="../2017/arista.html">Arista on OpenStack</a></li><li class="chapter-item "><a href="../2017/dummynet.html">Dummynet</a></li><li class="chapter-item "><a href="../2017/org-publish.html">Org Publish</a></li></ol></li><li class="chapter-item "><a href="../2013/index.html">2013</a></li><li class="chapter-item "><a href="../2011/index.html">2011</a><a class="toggle"><div>❱</div></a></li><li><ol class="section"><li class="chapter-item "><a href="../2011/love-long-hair.html">我爱长发飘飘</a></li></ol></li><li class="chapter-item "><a href="../2010/index.html">2010</a><a class="toggle"><div>❱</div></a></li><li><ol class="section"><li class="chapter-item "><a href="../2010/maolin.html">毛与林集团的斗争</a></li><li class="chapter-item "><a href="../2010/moving-forward.html">勇往直前</a></li><li class="chapter-item "><a href="../2010/iconv.html">繁简转换</a></li><li class="chapter-item "><a href="../2010/possible.html">侧反</a></li><li class="chapter-item "><a href="../2010/eyed3.html">eyeD3</a></li><li class="chapter-item "><a href="../2010/liaozhai.html">聊斋</a></li><li class="chapter-item "><a href="../2010/sudden.html">突然想起</a></li><li class="chapter-item "><a href="../2010/my-orchid.html">兰花</a></li><li class="chapter-item "><a href="../2010/salt.html">微薄之盐</a></li><li class="chapter-item "><a href="../2010/snowing-day.html">最中意的雪天</a></li><li class="chapter-item "><a href="../2010/weekend.html">周末了</a></li><li class="chapter-item "><a href="../2010/yefusword.html">野夫的文字</a></li><li class="chapter-item "><a href="../2010/gonggong.html">共工</a></li><li class="chapter-item "><a href="../2010/grass.html">草在结它的种子</a></li><li class="chapter-item "><a href="../2010/old-friend.html">故人</a></li><li class="chapter-item "><a href="../2010/pigeon.html">鸽子</a></li><li class="chapter-item "><a href="../2010/talking-death.html">民不聊生</a></li><li class="chapter-item "><a href="../2010/system.html">系统程序员成长计划</a></li><li class="chapter-item "><a href="../2010/speech-script.html">演讲稿</a></li><li class="chapter-item "><a href="../2010/hushiswords.html">胡适三句话</a></li><li class="chapter-item "><a href="../2010/my-narcissus.html">水仙</a></li><li class="chapter-item "><a href="../2010/my-cousin.html">表哥</a></li><li class="chapter-item "><a href="../2010/dreaming-back-song.html">关于梦回宋朝</a></li><li class="chapter-item "><a href="../2010/sutong.html">苏童河岸</a></li></ol></li><li class="chapter-item expanded "><a href="../2009/index.html">2009</a><a class="toggle"><div>❱</div></a></li><li><ol class="section"><li class="chapter-item "><a href="../2009/cicada.html">所谓蝉</a></li><li class="chapter-item "><a href="../2009/our-ancestor.html">我们的祖先</a></li><li class="chapter-item "><a href="../2009/dostoevsky.html">陀思妥耶夫斯基</a></li><li class="chapter-item "><a href="../2009/stories.html">故事汇</a></li><li class="chapter-item "><a href="../2009/that-year.html">那一年</a></li><li class="chapter-item "><a href="../2009/marriage.html">婚姻</a></li><li class="chapter-item "><a href="../2009/lev.html">托尔斯泰与米兰昆德拉</a></li><li class="chapter-item "><a href="../2009/sound-power.html">声音与力量</a></li><li class="chapter-item "><a href="../2009/telling-story.html">叙事</a></li><li class="chapter-item "><a href="../2009/xuanyuan.html">轩辕</a></li><li class="chapter-item "><a href="../2009/cat-trust.html">猫信</a></li><li class="chapter-item "><a href="../2009/relats.html">范德瓦尔斯力</a></li><li class="chapter-item "><a href="../2009/who.html">谁是谁</a></li><li class="chapter-item expanded "><a href="../2009/my-cat.html" class="active">我的猫</a></li><li class="chapter-item "><a href="../2009/my-group.html">我的团长我的团</a></li><li class="chapter-item "><a href="../2009/cat-not-easy.html">猫不易</a></li><li class="chapter-item "><a href="../2009/about-two.html">关于二</a></li><li class="chapter-item "><a href="../2009/to-lev.html">致列夫·托尔斯泰</a></li><li class="chapter-item "><a href="../2009/my-vine.html">我的葡萄树</a></li></ol></li><li class="chapter-item "><a href="../2008/index.html">2008</a><a class="toggle"><div>❱</div></a></li><li><ol class="section"><li class="chapter-item "><a href="../2008/archimedes.html">阿基米德</a></li><li class="chapter-item "><a href="../2008/elder.html">父辈</a></li><li class="chapter-item "><a href="../2008/meaning-of-love.html">爱情的意义</a></li><li class="chapter-item "><a href="../2008/a-friend.html">一个朋友</a></li><li class="chapter-item "><a href="../2008/read-zhuangzi.html">读庄子</a></li><li class="chapter-item "><a href="../2008/villages.html">村庄</a></li><li class="chapter-item "><a href="../2008/black-white-iron.html">黑白铁</a></li></ol></li><li class="chapter-item "><a href="../2007/index.html">2007</a><a class="toggle"><div>❱</div></a></li><li><ol class="section"><li class="chapter-item "><a href="../2007/hunduns-death-faqs.html">混沌之死问题集锦</a></li><li class="chapter-item "><a href="../2007/hunduns-death.html">混沌之死</a></li><li class="chapter-item "><a href="../2007/emacs-ghost.html">Emacs里的有幽灵</a></li><li class="chapter-item "><a href="../2007/a-remote-friend.html">记远方的一个朋友</a></li><li class="chapter-item "><a href="../2007/suolinnang.html">锁麟囊</a></li><li class="chapter-item "><a href="../2007/chunguimeng.html">春闺梦</a></li><li class="chapter-item "><a href="../2007/knocking-stone.html">碰碑</a></li><li class="chapter-item "><a href="../2007/laozis-stories.html">老子的故事汇</a></li><li class="chapter-item "><a href="../2007/cdrecord.html">cdrecord的故事汇</a></li><li class="chapter-item "><a href="../2007/life-too-short.html">手工测试生命太短</a></li></ol></li></ol>
+            </div>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
+        </nav>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky bordered">
+                    <div class="left-buttons">
+                        <button id="sidebar-toggle" class="icon-button" type="button" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </button>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light (default)</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">Thatched Cottage</h1>
+
+                    <div class="right-buttons">
+                        <a href="../print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script type="text/javascript">
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <h1 id="我的猫"><a class="header" href="#我的猫">我的猫</a></h1>
+<blockquote>
+<p>Thursday, 26 March 2009</p>
+<p>My Cat</p>
+</blockquote>
+<p>正睡的舒服呢，被叫起来拍照，有些不大高兴。</p>
+<p><img src="mycat01.jpg" alt="Sleepy Cat" /></p>
+<p>后来干脆不睡了，起来看电视去了。</p>
+<p><img src="mycat02.jpg" alt="" /></p>
+<p>凤凰台的军事观察</p>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="../2009/who.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+                            <a rel="next" href="../2009/my-group.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="../2009/who.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+                    <a rel="next" href="../2009/my-group.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+            </nav>
+
+        </div>
+
+        <script type="text/javascript">
+            window.playground_copyable = true;
+        </script>
+        <script src="../elasticlunr.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../mark.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../searcher.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../clipboard.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../highlight.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../book.js" type="text/javascript" charset="utf-8"></script>
+
+        <!-- Custom JS scripts -->
+    </body>
+</html>

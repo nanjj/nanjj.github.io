@@ -1,0 +1,286 @@
+<!DOCTYPE HTML>
+<html lang="zh_CN" class="sidebar-visible no-js light">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>谁是谁 - Thatched Cottage</title>
+        <!-- Custom HTML head -->
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff" />
+
+        <link rel="icon" href="../favicon.svg">
+        <link rel="shortcut icon" href="../favicon.png">
+        <link rel="stylesheet" href="../css/variables.css">
+        <link rel="stylesheet" href="../css/general.css">
+        <link rel="stylesheet" href="../css/chrome.css">
+        <link rel="stylesheet" href="../css/print.css" media="print">
+        <!-- Fonts -->
+        <link rel="stylesheet" href="../FontAwesome/css/font-awesome.css">
+        <link rel="stylesheet" href="../fonts/fonts.css">
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="../highlight.css">
+        <link rel="stylesheet" href="../tomorrow-night.css">
+        <link rel="stylesheet" href="../ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+        <!-- MathJax -->
+        <script async type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    </head>
+    <body>
+        <!-- Provide site root to javascript -->
+        <script type="text/javascript">
+            var path_to_root = "../";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
+        </script>
+
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script type="text/javascript">
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script type="text/javascript">
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            var html = document.querySelector('html');
+            html.classList.remove('no-js')
+            html.classList.remove('light')
+            html.classList.add(theme);
+            html.classList.add('js');
+        </script>
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script type="text/javascript">
+            var html = document.querySelector('html');
+            var sidebar = 'hidden';
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            }
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <div class="sidebar-scrollbox">
+                <ol class="chapter"><li class="chapter-item affix "><a href="../2021/rust.html">Home</a></li><li class="chapter-item "><a href="../2019/index.html">2019</a><a class="toggle"><div>❱</div></a></li><li><ol class="section"><li class="chapter-item "><a href="../2019/hdituil.html">Manipulate Mac Disk Images</a></li><li class="chapter-item "><a href="../2019/lxd.html">LXD Inside</a></li></ol></li><li class="chapter-item "><a href="../2018/index.html">2018</a></li><li class="chapter-item "><a href="../2017/index.html">2017</a><a class="toggle"><div>❱</div></a></li><li><ol class="section"><li class="chapter-item "><a href="../2017/tips.html">Some Tips</a></li><li class="chapter-item "><a href="../2017/freebsd-cloud.html">FreeBSD Cloud Init</a></li><li class="chapter-item "><a href="../2017/arista.html">Arista on OpenStack</a></li><li class="chapter-item "><a href="../2017/dummynet.html">Dummynet</a></li><li class="chapter-item "><a href="../2017/org-publish.html">Org Publish</a></li></ol></li><li class="chapter-item "><a href="../2013/index.html">2013</a></li><li class="chapter-item "><a href="../2011/index.html">2011</a><a class="toggle"><div>❱</div></a></li><li><ol class="section"><li class="chapter-item "><a href="../2011/love-long-hair.html">我爱长发飘飘</a></li></ol></li><li class="chapter-item "><a href="../2010/index.html">2010</a><a class="toggle"><div>❱</div></a></li><li><ol class="section"><li class="chapter-item "><a href="../2010/maolin.html">毛与林集团的斗争</a></li><li class="chapter-item "><a href="../2010/moving-forward.html">勇往直前</a></li><li class="chapter-item "><a href="../2010/iconv.html">繁简转换</a></li><li class="chapter-item "><a href="../2010/possible.html">侧反</a></li><li class="chapter-item "><a href="../2010/eyed3.html">eyeD3</a></li><li class="chapter-item "><a href="../2010/liaozhai.html">聊斋</a></li><li class="chapter-item "><a href="../2010/sudden.html">突然想起</a></li><li class="chapter-item "><a href="../2010/my-orchid.html">兰花</a></li><li class="chapter-item "><a href="../2010/salt.html">微薄之盐</a></li><li class="chapter-item "><a href="../2010/snowing-day.html">最中意的雪天</a></li><li class="chapter-item "><a href="../2010/weekend.html">周末了</a></li><li class="chapter-item "><a href="../2010/yefusword.html">野夫的文字</a></li><li class="chapter-item "><a href="../2010/gonggong.html">共工</a></li><li class="chapter-item "><a href="../2010/grass.html">草在结它的种子</a></li><li class="chapter-item "><a href="../2010/old-friend.html">故人</a></li><li class="chapter-item "><a href="../2010/pigeon.html">鸽子</a></li><li class="chapter-item "><a href="../2010/talking-death.html">民不聊生</a></li><li class="chapter-item "><a href="../2010/system.html">系统程序员成长计划</a></li><li class="chapter-item "><a href="../2010/speech-script.html">演讲稿</a></li><li class="chapter-item "><a href="../2010/hushiswords.html">胡适三句话</a></li><li class="chapter-item "><a href="../2010/my-narcissus.html">水仙</a></li><li class="chapter-item "><a href="../2010/my-cousin.html">表哥</a></li><li class="chapter-item "><a href="../2010/dreaming-back-song.html">关于梦回宋朝</a></li><li class="chapter-item "><a href="../2010/sutong.html">苏童河岸</a></li></ol></li><li class="chapter-item expanded "><a href="../2009/index.html">2009</a><a class="toggle"><div>❱</div></a></li><li><ol class="section"><li class="chapter-item "><a href="../2009/cicada.html">所谓蝉</a></li><li class="chapter-item "><a href="../2009/our-ancestor.html">我们的祖先</a></li><li class="chapter-item "><a href="../2009/dostoevsky.html">陀思妥耶夫斯基</a></li><li class="chapter-item "><a href="../2009/stories.html">故事汇</a></li><li class="chapter-item "><a href="../2009/that-year.html">那一年</a></li><li class="chapter-item "><a href="../2009/marriage.html">婚姻</a></li><li class="chapter-item "><a href="../2009/lev.html">托尔斯泰与米兰昆德拉</a></li><li class="chapter-item "><a href="../2009/sound-power.html">声音与力量</a></li><li class="chapter-item "><a href="../2009/telling-story.html">叙事</a></li><li class="chapter-item "><a href="../2009/xuanyuan.html">轩辕</a></li><li class="chapter-item "><a href="../2009/cat-trust.html">猫信</a></li><li class="chapter-item "><a href="../2009/relats.html">范德瓦尔斯力</a></li><li class="chapter-item expanded "><a href="../2009/who.html" class="active">谁是谁</a></li><li class="chapter-item "><a href="../2009/my-cat.html">我的猫</a></li><li class="chapter-item "><a href="../2009/my-group.html">我的团长我的团</a></li><li class="chapter-item "><a href="../2009/cat-not-easy.html">猫不易</a></li><li class="chapter-item "><a href="../2009/about-two.html">关于二</a></li><li class="chapter-item "><a href="../2009/to-lev.html">致列夫·托尔斯泰</a></li><li class="chapter-item "><a href="../2009/my-vine.html">我的葡萄树</a></li></ol></li><li class="chapter-item "><a href="../2008/index.html">2008</a><a class="toggle"><div>❱</div></a></li><li><ol class="section"><li class="chapter-item "><a href="../2008/archimedes.html">阿基米德</a></li><li class="chapter-item "><a href="../2008/elder.html">父辈</a></li><li class="chapter-item "><a href="../2008/meaning-of-love.html">爱情的意义</a></li><li class="chapter-item "><a href="../2008/a-friend.html">一个朋友</a></li><li class="chapter-item "><a href="../2008/read-zhuangzi.html">读庄子</a></li><li class="chapter-item "><a href="../2008/villages.html">村庄</a></li><li class="chapter-item "><a href="../2008/black-white-iron.html">黑白铁</a></li></ol></li><li class="chapter-item "><a href="../2007/index.html">2007</a><a class="toggle"><div>❱</div></a></li><li><ol class="section"><li class="chapter-item "><a href="../2007/hunduns-death-faqs.html">混沌之死问题集锦</a></li><li class="chapter-item "><a href="../2007/hunduns-death.html">混沌之死</a></li><li class="chapter-item "><a href="../2007/emacs-ghost.html">Emacs里的有幽灵</a></li><li class="chapter-item "><a href="../2007/a-remote-friend.html">记远方的一个朋友</a></li><li class="chapter-item "><a href="../2007/suolinnang.html">锁麟囊</a></li><li class="chapter-item "><a href="../2007/chunguimeng.html">春闺梦</a></li><li class="chapter-item "><a href="../2007/knocking-stone.html">碰碑</a></li><li class="chapter-item "><a href="../2007/laozis-stories.html">老子的故事汇</a></li><li class="chapter-item "><a href="../2007/cdrecord.html">cdrecord的故事汇</a></li><li class="chapter-item "><a href="../2007/life-too-short.html">手工测试生命太短</a></li></ol></li></ol>
+            </div>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
+        </nav>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky bordered">
+                    <div class="left-buttons">
+                        <button id="sidebar-toggle" class="icon-button" type="button" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </button>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light (default)</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">Thatched Cottage</h1>
+
+                    <div class="right-buttons">
+                        <a href="../print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script type="text/javascript">
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <h1 id="谁是谁"><a class="header" href="#谁是谁">谁是谁</a></h1>
+<blockquote>
+<p>Thursday, 14 May 2009</p>
+</blockquote>
+<p>多年后重新回到这个主题，发现自己对这个主题还是这么痴迷；我已经不大记得
+我写过的了。</p>
+<p>我还发现虽然我忘记了这个主题，但我写的其他东西还是暗暗地围绕着这个，好
+像行星对恒星的跟随。</p>
+<p>因此我决定还是回来。我会把这个主题继续写下去。</p>
+<h2 id="之一"><a class="header" href="#之一">之一</a></h2>
+<p>相传释迦牟尼(前565-前486， 或前624-前544， 或前623-543)活了约80岁， 大
+致与孔子(前551－前479)同时。 释迦牟尼在未出家之前， 是天竺北部迦毗罗卫
+国的太子， 名悉达多。</p>
+<p>迦毗罗卫国土地约长20公里， 宽16公里， 面积约312平方公里。 比北京的昌平
+区略小(昌平352平方公里)。 悉达多的父亲是这里的国王， 也就是净饭王。</p>
+<p>净饭王在当时的天竺属于第二种姓刹帝利。 刹帝利相当于中国诸侯的概念。 刹
+帝利之间互相杀伐， 抢夺资源。 从迦毗罗卫国的国土面积看， 净饭王是比较
+弱小的刹帝利。 第一种姓婆罗门， 以宗教为职业， 虔修出世。 修行的方法多
+达96种， 即所谓96&quot;外道&quot;。</p>
+<p>下面是今天的练习题:</p>
+<p>假如必须选一种方式修行， 你选择下列哪个?</p>
+<p>A 自饿， B 赴火， C 自坠， D 寂默， E 持鸡狗戒</p>
+<h2 id="之二"><a class="header" href="#之二">之二</a></h2>
+<p>解答一下上节的习题。 这96种修行方式的共同的特点， 是把人置于非常的状态，
+以产生非常的感受。 比如自饿， 人饥饿的时候容易产生幻觉， 比如眼冒金星
+什么的; 快饿死的状态至今仍很神秘。 自坠的感受应该相当于蹦极， 有兴趣的
+同学可以体验一下。 着重谈一下持鸡狗戒。 鸡晚上常单腿站立， 而狗是吃
+shit的。 持鸡狗戒就是金鸡独立， 学狗吃屎。 据说吃多了就会觉得很爽。 现
+代社会鸡有了其他含义， 持鸡狗戒也可以改为站街吃屎。 相比而言， 寂默是
+比较让人容易接受的。 寂默还不是能让人如此美丽么?</p>
+<p>活在释迦摩尼时代的天竺太悲惨了， 甚至都不如死了。 不仅社会底层的首陀罗
+如此， 社会高层的婆罗门也如此。 人刚一出生就想着如何逃脱这个悲苦的人世。
+自杀率很高。 相比较孔子的时代要好很多。 诗三百， 子皆琴而歌之。 诗经就
+是孔子的歌词谱。 曲子没怎么记下来。 孔子能弹唱三百多首歌， 搁现在有二
+十多张专辑， 演唱会不插电能唱一整天。 当然当时孔子的歌迷也是不少的。
+很多歌迷也想嫁给孔子。 或者发生一夜情， 比如卫南子夫人......孔子的时代
+虽然打仗， 但生活还是美好的， 不是谁谁都想自杀。 翻遍东周列国志， 少见
+自杀， 更没有成批自杀的。 天竺人却生活在水深火热中。 估计释迦摩尼时天
+竺人困苦程度和商纣王晚期的时候差不多。</p>
+<p>释迦摩尼是净饭王的儿子。 他出生不久妈妈离世了。 之后姨妈嫁过来， 就抚
+养他。 释迦摩尼虽然只是小的刹帝利， 但受的是婆罗门的教育。 长大后文的
+武的， 都拿的起放得下。 通过比武招亲， 力挫各国王子， 娶到了绝世佳人耶
+输陀罗公主。 金庸小说对比武招亲多有描写， 想了解更多细节的可参见天龙八
+部一书。</p>
+<p>子降母亡的事， 多发生在医疗水平比较低， 卫生条件差的地区。 生孩子容易
+感染病菌， 治疗不利很可能丧命。 当时天竺的医疗水平跟中国同时代比， 差
+的不是一点半点。 那时中国的医疗已经成体系， 由&quot;扁鹊见蔡桓公&quot;可窥一斑。
+而天竺比较擅长医治的疾病是食物中毒， 治疗的基本思想就是灌大便以引起病
+人呕吐， 把脏东西吐出来(相当于现在的洗胃)。 产生了一味药叫黄龙汤。 实
+际就是粪汤。 这味药基本到处用。 能治很多病， 因为更多的病是食物中毒。
+食物中毒多和天竺安葬方式还有关系。 尸体烧焦了扔河里， 同时还喝河里的水。</p>
+<p>释迦摩尼共有两个妻子， 另一位叫够毗耶太子妃。 够毗耶太子妃是宝女。</p>
+<p>下面是今天的习题:</p>
+<p>假如把扁鹊放到释迦摩尼时代的天竺， 他会如何治疗食物中毒?</p>
+<h2 id="之三"><a class="header" href="#之三">之三</a></h2>
+<p>说一下扁鹊吧。扁鹊治病讲究防病，料病在先，把疾病消灭在萌芽状态，而不是
+等病入膏肓。因此扁鹊如果在2500年前的天竺，一定会想办法解决天竺的公共环
+境卫生问题，改变落后的水葬习俗，换天竺一片碧海蓝天。</p>
+<p>扁鹊很直的一个人。扁鹊的时代也是中国巫术盛行的时代。很多愚昧的人仍然被
+巫师愚弄。扁鹊旗帜鲜明的表明观点，信巫术的就别找我了，不为信巫术的人看
+病。信医不信巫。陈晓旭的死让我很伤感。我想起了扁鹊，我们一位伟大的祖先。
+很多炎黄子孙拜倒在释迦摩尼的脚下，想起来就脸发烧。</p>
+<p>史记上说巫医派人刺杀了扁鹊。扁鹊就这么死了。他身后的人，一步一步开创了
+中医事业。方舟子说中医是巫医，是没有良心的。也许他不知道扁鹊，这个为中
+医献身的人，就死于医和巫的抗争。</p>
+<p>和之后有名的中医一样，扁鹊是全科的大夫。孩子生病多的地方，扁鹊就拿出儿
+科的牌子；妇女生病多的地方，扁鹊就拿出妇科的牌子。扁鹊就喜欢四处行医。
+我们之所以活到现在，也许我们祖先就曾得到扁鹊的救治。</p>
+<p>史记记载，扁鹊见的是齐桓候，而韩非子里说扁鹊见的是蔡桓公。还有有扁鹊出
+现的历史竟然有将近400年。我想扁鹊不可能活400岁。这只是反应了老百姓对扁
+鹊的爱戴。老百姓希望扁鹊成仙。这样他们，还有他们的子孙，总能找到扁鹊，
+看自己的病。这也是老子讲的”死而不亡者寿“的道理吧。</p>
+<p>悲痛中不留习题了。</p>
+<h2 id="之四"><a class="header" href="#之四">之四</a></h2>
+<blockquote>
+<p>Thursday, 14 May 2009</p>
+</blockquote>
+<pre><code>昔为舍长时， 方伎未可录。
+一遇长桑君， 古今皆叹服。
+天地为至仁， 既死不能复。
+先生妙药石， 起虢效何速！
+日月为至明， 覆盆不能烛。
+先生具正眼， 毫厘窥肺腹。
+谁知造物者， 祸福相倚伏。
+平生活人手， 反受庸医辱。
+千年庙前水， 犹学上池绿。
+再拜乞一杯， 洗我胸中俗。
+</code></pre>
+<p>这首诗赞扬的就是扁鹊。在古代，一舍大约合现在30里。扁鹊当舍长的时候，管
+大约30里的地面。没有净饭王管的地面大；扁鹊也没有做出特别突出的成绩。他
+的成绩是在从医之后。</p>
+<p>想必净饭王在迦毗罗卫国，能吃到干净的饭。在水里乱漂尸体的国度，吃到干净
+的饭，也是很不容易的事。净饭王是一个宽厚仁慈的国君，受到全国臣民爱戴。
+一舍之地的小地界，也不会有太多的臣民。净饭王与摩耶王后之间的感情非常好，
+但结婚多年都没有生育儿女。净饭王为没有王位继承人而十分苦恼。直到净饭王
+年已50岁，摩耶王后45岁的时候，才第一次怀孕。</p>
+<p>佛经上说，魔耶王后的这次怀孕，是由于睡眠时梦见一头六牙白色大象腾空而来，
+从右肋进入王后的腹中。于是乎悉达多出生的时候，也是由右肋出生的。悉达多
+出生的第七天，魔耶皇后就死去了。</p>
+<p>这也许都是实情。魔耶皇后45岁怀孕，就算搁现在也是高龄产妇。顺产的可能性
+微乎其微，只能实施剖腹产。腹部的刀口都划到了右肋，那得多大的口子？因此
+初步推测，魔耶王后七天后死于失血过多。</p>
+<p>那一头6牙白象呢？一头大象除了前面2根长长牙齿，还有上下左右各6个共24个
+臼齿。但这个24个臼齿并不是同时长出。同时长出的牙齿是上下左右各1个共4个；
+等这4个臼齿用坏了，再长出下4个。最后一个臼齿长出的时候大象一般都60岁了。
+因此6牙白象还是很科学的说法。有兴趣的同学可以到动物园仔细数数。</p>
+<p>下面是今天的习题：</p>
+<p>既然每一头大象都有6个牙齿，佛经里出于什么原因对牙齿的数目进行强调？</p>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="../2009/relats.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+                            <a rel="next" href="../2009/my-cat.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="../2009/relats.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+                    <a rel="next" href="../2009/my-cat.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+            </nav>
+
+        </div>
+
+        <script type="text/javascript">
+            window.playground_copyable = true;
+        </script>
+        <script src="../elasticlunr.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../mark.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../searcher.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../clipboard.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../highlight.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../book.js" type="text/javascript" charset="utf-8"></script>
+
+        <!-- Custom JS scripts -->
+    </body>
+</html>

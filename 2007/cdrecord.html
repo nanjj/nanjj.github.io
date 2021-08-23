@@ -1,0 +1,321 @@
+<!DOCTYPE HTML>
+<html lang="zh_CN" class="sidebar-visible no-js light">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>cdrecord的故事汇 - Thatched Cottage</title>
+        <!-- Custom HTML head -->
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff" />
+
+        <link rel="icon" href="../favicon.svg">
+        <link rel="shortcut icon" href="../favicon.png">
+        <link rel="stylesheet" href="../css/variables.css">
+        <link rel="stylesheet" href="../css/general.css">
+        <link rel="stylesheet" href="../css/chrome.css">
+        <link rel="stylesheet" href="../css/print.css" media="print">
+        <!-- Fonts -->
+        <link rel="stylesheet" href="../FontAwesome/css/font-awesome.css">
+        <link rel="stylesheet" href="../fonts/fonts.css">
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="../highlight.css">
+        <link rel="stylesheet" href="../tomorrow-night.css">
+        <link rel="stylesheet" href="../ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+        <!-- MathJax -->
+        <script async type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    </head>
+    <body>
+        <!-- Provide site root to javascript -->
+        <script type="text/javascript">
+            var path_to_root = "../";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
+        </script>
+
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script type="text/javascript">
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script type="text/javascript">
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            var html = document.querySelector('html');
+            html.classList.remove('no-js')
+            html.classList.remove('light')
+            html.classList.add(theme);
+            html.classList.add('js');
+        </script>
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script type="text/javascript">
+            var html = document.querySelector('html');
+            var sidebar = 'hidden';
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            }
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <div class="sidebar-scrollbox">
+                <ol class="chapter"><li class="chapter-item affix "><a href="../2021/rust.html">Home</a></li><li class="chapter-item "><a href="../2019/index.html">2019</a><a class="toggle"><div>❱</div></a></li><li><ol class="section"><li class="chapter-item "><a href="../2019/hdituil.html">Manipulate Mac Disk Images</a></li><li class="chapter-item "><a href="../2019/lxd.html">LXD Inside</a></li></ol></li><li class="chapter-item "><a href="../2018/index.html">2018</a></li><li class="chapter-item "><a href="../2017/index.html">2017</a><a class="toggle"><div>❱</div></a></li><li><ol class="section"><li class="chapter-item "><a href="../2017/tips.html">Some Tips</a></li><li class="chapter-item "><a href="../2017/freebsd-cloud.html">FreeBSD Cloud Init</a></li><li class="chapter-item "><a href="../2017/arista.html">Arista on OpenStack</a></li><li class="chapter-item "><a href="../2017/dummynet.html">Dummynet</a></li><li class="chapter-item "><a href="../2017/org-publish.html">Org Publish</a></li></ol></li><li class="chapter-item "><a href="../2013/index.html">2013</a></li><li class="chapter-item "><a href="../2011/index.html">2011</a><a class="toggle"><div>❱</div></a></li><li><ol class="section"><li class="chapter-item "><a href="../2011/love-long-hair.html">我爱长发飘飘</a></li></ol></li><li class="chapter-item "><a href="../2010/index.html">2010</a><a class="toggle"><div>❱</div></a></li><li><ol class="section"><li class="chapter-item "><a href="../2010/maolin.html">毛与林集团的斗争</a></li><li class="chapter-item "><a href="../2010/moving-forward.html">勇往直前</a></li><li class="chapter-item "><a href="../2010/iconv.html">繁简转换</a></li><li class="chapter-item "><a href="../2010/possible.html">侧反</a></li><li class="chapter-item "><a href="../2010/eyed3.html">eyeD3</a></li><li class="chapter-item "><a href="../2010/liaozhai.html">聊斋</a></li><li class="chapter-item "><a href="../2010/sudden.html">突然想起</a></li><li class="chapter-item "><a href="../2010/my-orchid.html">兰花</a></li><li class="chapter-item "><a href="../2010/salt.html">微薄之盐</a></li><li class="chapter-item "><a href="../2010/snowing-day.html">最中意的雪天</a></li><li class="chapter-item "><a href="../2010/weekend.html">周末了</a></li><li class="chapter-item "><a href="../2010/yefusword.html">野夫的文字</a></li><li class="chapter-item "><a href="../2010/gonggong.html">共工</a></li><li class="chapter-item "><a href="../2010/grass.html">草在结它的种子</a></li><li class="chapter-item "><a href="../2010/old-friend.html">故人</a></li><li class="chapter-item "><a href="../2010/pigeon.html">鸽子</a></li><li class="chapter-item "><a href="../2010/talking-death.html">民不聊生</a></li><li class="chapter-item "><a href="../2010/system.html">系统程序员成长计划</a></li><li class="chapter-item "><a href="../2010/speech-script.html">演讲稿</a></li><li class="chapter-item "><a href="../2010/hushiswords.html">胡适三句话</a></li><li class="chapter-item "><a href="../2010/my-narcissus.html">水仙</a></li><li class="chapter-item "><a href="../2010/my-cousin.html">表哥</a></li><li class="chapter-item "><a href="../2010/dreaming-back-song.html">关于梦回宋朝</a></li><li class="chapter-item "><a href="../2010/sutong.html">苏童河岸</a></li></ol></li><li class="chapter-item "><a href="../2009/index.html">2009</a><a class="toggle"><div>❱</div></a></li><li><ol class="section"><li class="chapter-item "><a href="../2009/cicada.html">所谓蝉</a></li><li class="chapter-item "><a href="../2009/our-ancestor.html">我们的祖先</a></li><li class="chapter-item "><a href="../2009/dostoevsky.html">陀思妥耶夫斯基</a></li><li class="chapter-item "><a href="../2009/stories.html">故事汇</a></li><li class="chapter-item "><a href="../2009/that-year.html">那一年</a></li><li class="chapter-item "><a href="../2009/marriage.html">婚姻</a></li><li class="chapter-item "><a href="../2009/lev.html">托尔斯泰与米兰昆德拉</a></li><li class="chapter-item "><a href="../2009/sound-power.html">声音与力量</a></li><li class="chapter-item "><a href="../2009/telling-story.html">叙事</a></li><li class="chapter-item "><a href="../2009/xuanyuan.html">轩辕</a></li><li class="chapter-item "><a href="../2009/cat-trust.html">猫信</a></li><li class="chapter-item "><a href="../2009/relats.html">范德瓦尔斯力</a></li><li class="chapter-item "><a href="../2009/who.html">谁是谁</a></li><li class="chapter-item "><a href="../2009/my-cat.html">我的猫</a></li><li class="chapter-item "><a href="../2009/my-group.html">我的团长我的团</a></li><li class="chapter-item "><a href="../2009/cat-not-easy.html">猫不易</a></li><li class="chapter-item "><a href="../2009/about-two.html">关于二</a></li><li class="chapter-item "><a href="../2009/to-lev.html">致列夫·托尔斯泰</a></li><li class="chapter-item "><a href="../2009/my-vine.html">我的葡萄树</a></li></ol></li><li class="chapter-item "><a href="../2008/index.html">2008</a><a class="toggle"><div>❱</div></a></li><li><ol class="section"><li class="chapter-item "><a href="../2008/archimedes.html">阿基米德</a></li><li class="chapter-item "><a href="../2008/elder.html">父辈</a></li><li class="chapter-item "><a href="../2008/meaning-of-love.html">爱情的意义</a></li><li class="chapter-item "><a href="../2008/a-friend.html">一个朋友</a></li><li class="chapter-item "><a href="../2008/read-zhuangzi.html">读庄子</a></li><li class="chapter-item "><a href="../2008/villages.html">村庄</a></li><li class="chapter-item "><a href="../2008/black-white-iron.html">黑白铁</a></li></ol></li><li class="chapter-item expanded "><a href="../2007/index.html">2007</a><a class="toggle"><div>❱</div></a></li><li><ol class="section"><li class="chapter-item "><a href="../2007/hunduns-death-faqs.html">混沌之死问题集锦</a></li><li class="chapter-item "><a href="../2007/hunduns-death.html">混沌之死</a></li><li class="chapter-item "><a href="../2007/emacs-ghost.html">Emacs里的有幽灵</a></li><li class="chapter-item "><a href="../2007/a-remote-friend.html">记远方的一个朋友</a></li><li class="chapter-item "><a href="../2007/suolinnang.html">锁麟囊</a></li><li class="chapter-item "><a href="../2007/chunguimeng.html">春闺梦</a></li><li class="chapter-item "><a href="../2007/knocking-stone.html">碰碑</a></li><li class="chapter-item "><a href="../2007/laozis-stories.html">老子的故事汇</a></li><li class="chapter-item expanded "><a href="../2007/cdrecord.html" class="active">cdrecord的故事汇</a></li><li class="chapter-item "><a href="../2007/life-too-short.html">手工测试生命太短</a></li></ol></li></ol>
+            </div>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
+        </nav>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky bordered">
+                    <div class="left-buttons">
+                        <button id="sidebar-toggle" class="icon-button" type="button" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </button>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light (default)</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">Thatched Cottage</h1>
+
+                    <div class="right-buttons">
+                        <a href="../print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script type="text/javascript">
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <h1 id="cdrecord的故事汇"><a class="header" href="#cdrecord的故事汇">cdrecord的故事汇</a></h1>
+<blockquote>
+<p>Thursday, 26 April 2007</p>
+</blockquote>
+<p><img src="jorg_schilling.jpg" alt="Jorg Schilling" /></p>
+<p>在这个晚春的早上, 写一写cdrecord的故事, 也许对大家有些警示.</p>
+<p>cdrecord, 主要用于刻盘, 刻CD, DVD.</p>
+<p>这个软件有很长的历史, 作者是Jorg Schilling.</p>
+<p>开始, 作者把cdrecord的CD刻录部分开源, 在GPL协议之下, 但DVD刻录的源码不
+在GPL下而是可以用于个人目的, 全免费. 但商业目的不行. 不久一些GPL的小战
+士就看出了矛盾, 因为DVD刻录部分和CD部分不可分. CD在GPL下按GPL, DVD也应
+该.</p>
+<p>但Jorg这个傻子, 愣不承认这个逻辑:)</p>
+<p>他人在德国, 还不承认美国的法律, 而且他所谓商业的应用应付费, 根本不提供
+任何的付费渠道写信问他他也没有, 他的电话也保密的紧, 别人给他钱他骂别人,
+他说我不是奴隶, 你给我钱我就做工,用户有问题问他他骂别人傻瓜. 骂骂咧咧.</p>
+<pre><code>用户, 其他的程序员, 商业公司也离不开他这个东西
+后来商业公司不管那么多了
+直接在CDrecord上加个界面, 出来卖钱
+也没见这个傻蛋告谁
+大部分的商业刻录软件都基于cdrecord的源码
+他也不查
+继续在那骂人
+GPL的年轻斗士们
+觉得Jorge的行为侮辱了GPL
+faint的不得了
+跳着高的跟Jorg对骂
+Jorg也跟着骂
+不管不顾的
+说妈的我这辈子也不去美国
+你Y美国法律管不了我
+我只服德国和欧盟的法律
+就这么个人
+混球似的
+
+但那些自由软件的老人们
+却深深理解Jorg的心 :-)
+
+很早cdrecord就进了debian的release
+进debian的发行版很不易的
+比如mplayer到现在也没进去
+每年申请人都不批准
+不管你多好你代码不干净我就不要
+
+GPL的小孩们要把Jorge开除出自由软件门
+老人们就不干了
+说小孩滚蛋
+人Jorg刻光盘的时候, 你们这帮小孩还是液体呢
+
+后来把Jorg灌醉了
+德国人也挺好酒的
+变了另一个项目, 好说歹说
+说了些好话
+http://www.cdrkit.org/
+变 成了cdrkit. 
+管项目的挺靠谱的. 
+比Jorg平和多了. 
+那样还少得罪些人. 
+现在的linux用户牛多了. 
+用你的程序就跟多给作者脸似的. 
+也不管作者是否挨饿. 
+cdrkit是debian的那些老人开的. 
+这两年的事. 
+算cdrecord的一个正统.
+</code></pre>
+<p>cdrkit, like the programs from which it was derived, is distributed as
+free software under the terms of the GNU GPL version 2. (Note, this is
+not &quot;version 2 or later&quot; as you see in many software projects.) 括号里
+的很像Jorg的做派. 那么的较真儿. 孩子似的.</p>
+<p>对bug的态度:</p>
+<pre><code>Cdrecord has even more options than ls.
+
+There should be a recover option to make disks usable, that have been
+written during a power failure.
+</code></pre>
+<p>文档写的象狗屎, 语法都不通有时候, 跟其他人也不怎么玩, 就在那傻坐着. 基
+本不懂法律. 还想让法律保护自己.</p>
+<p>最近两天在cygwin下用了cdrecord, 根本也没有毛病, 很好用</p>
+<ul>
+<li>呵呵，疯子就是牛</li>
+</ul>
+<pre><code>cdrecord -vv -dev=cd isoname
+他不疯
+在德国挺正常的
+因为德国
+基本就是地球的疯人院
+地球的大脑
+地球的大脑都在德国
+- 我现在电脑的内存也是1.5G了。呵呵
+足够了
+空着也没啥用
+我经常空着
+- 我现在在自己机器上倒几百m的东西没啥问题：）
+一般如果我发现我机器用了多于1G的内存
+我就要想想我是不是没用脑子做事
+因为我发现很多猪头电脑都用的挺恨的, 跑着无意义的程序;
+
+很多cdrecord的变种, 一运行就说:
+这是cdrecord的变种, 如果出错的话, 别去烦原作者,找我好了
+Jorg就喜欢这样的
+</code></pre>
+<p>另一件事,
+也反应出对bug的态度</p>
+<p>The cause for the compilation problems is a bug in the Linux kernel
+include files. It is a bad idea to try to &quot;fix&quot; correct code instead
+of fixing the bugs.</p>
+<p>After 2 years, the bug in the Linux kernel has been fixed in
+2.6.8. Unfortunately Linux-2.6.8.1 started to break CD/DVD writing in
+suid root applications by breaking interfaces :-(</p>
+<p>前因是在2.6.8.1上没法编译</p>
+<p>于是一个就做了个patch</p>
+<p>这样就可以编译过了.</p>
+<p>但Jorg不同意这么做. 谁的bug谁fix. kernel怎么着? 中央有错也得改.</p>
+<pre><code>/*
+* You are not allowed to modify or remove the following code.
+* I am sorry that I am forced to do things like this, but defective
+* versions of cdrecord cause a lot of work load to me and it seems
+* to be impossible to otherwise convince SuSE to cooperate.
+* As people contact me and bother me with the related problems,
+* it is obvious that SuSE is violating subsection 6 in the preamble of
+* the GPL.
+*
+* Note that although the SuSE test is effective only for SuSE, the
+* intention to have non bastardized versions out is not limited
+* to SuSE. It is bad to see that in special in the &quot;Linux&quot; business,
+* companies prefer a model with many proprietary differing programs
+* instead of cooperating with the program authors.
+*/
+</code></pre>
+<p>这一段. 孩子似的, 乱写乱画. 感想都写进代码里. 当日记用. 其实找律师比较
+靠谱, 还能得到钱.</p>
+<p>Jorg的粉丝可都是死硬派, 一个顶一个</p>
+<p>I'll give you a fucking break alright, you prick.</p>
+<p>Quoting you: &quot;Jorg Schilling has not provided a very good program
+based on the lack of help you can find for it on the internet. You
+should do a better job.&quot;</p>
+<p>My point was that your criticism of Jorg went too far. &quot;You should do
+a better job&quot;? Give ME a fucking break. You lost all hope of getting
+any help, especially from me you dickhead. . 这个shock56, 抢着要当Jorg
+的粉丝, 但另一个粉丝TheKepper说, 瞧你那德行, 你丫不配之后shock56说了,
+我俩的事你别瞎掺和. 人Jorg都同意我当粉丝了, 你干嘛拦着? TheKeeper说,
+人Jorg太善了, 我就看不了你这鸡贼乱欺侮. 他俩对骂了许久. 那大约是2003年
+间的事.</p>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="../2007/laozis-stories.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+                            <a rel="next" href="../2007/life-too-short.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="../2007/laozis-stories.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+                    <a rel="next" href="../2007/life-too-short.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+            </nav>
+
+        </div>
+
+        <script type="text/javascript">
+            window.playground_copyable = true;
+        </script>
+        <script src="../elasticlunr.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../mark.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../searcher.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../clipboard.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../highlight.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../book.js" type="text/javascript" charset="utf-8"></script>
+
+        <!-- Custom JS scripts -->
+    </body>
+</html>
