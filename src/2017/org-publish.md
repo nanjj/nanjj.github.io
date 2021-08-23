@@ -2,10 +2,6 @@
 
 `<2017-10-24 Fri 12:30>`
 
-[Google]: http://www.google.com/search?q=%s
-[Hugo]: https://gohugo.io/
-[Jekyll]: https://jekyllrb.com/
-
 Now switched from [Jekyll], [Hugo] to Emacs Org Publish. How to write
 blog using org-publish.
 
@@ -76,3 +72,7 @@ Set `org-html-head` to(`customize-variable org-html-head`) to use my
 ├── org-publish.html
 └── org-publish.org
 ```
+
+[Google]: http://www.google.com/search?q=%s
+[Hugo]: https://gohugo.io/
+[Jekyll]: https://jekyllrb.com/
