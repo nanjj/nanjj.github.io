@@ -81,3 +81,5 @@
   - [碰碑](2007/knocking-stone.md)
   - [老子的故事汇](2007/laozis-stories.md)
   - [cdrecord的故事汇](2007/cdrecord.md)
+  - [手工测试生命太短](2007/life-too-short.md)
+
