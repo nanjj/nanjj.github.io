@@ -6,6 +6,7 @@ src = "src"
 title = "Thatched Cottage"
 [output.html]
 no-section-label = true
+mathjax-support = true
 
 [output.html.fold]
 enable = true
