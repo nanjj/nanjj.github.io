@@ -1,6 +1,6 @@
 # 突然想起
 
-> Sunday, 19 September 2010
+`Sunday, 19 September 2010`
 
 突然，想起一个长得像林致炫的同学。白白净净，尖尖的下巴。
 

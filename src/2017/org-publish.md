@@ -1,6 +1,7 @@
 # Publish Github Pages via Org Mode
 
-> Created at <2017-10-24 Fri 12:30>
+`<2017-10-24 Fri 12:30>`
+
 [Google]: http://www.google.com/search?q=%s
 [Hugo]: https://gohugo.io/
 [Jekyll]: https://jekyllrb.com/

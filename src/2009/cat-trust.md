@@ -1,5 +1,5 @@
 # 猫信
-> Thursday, 18 June 2009
+`Thursday, 18 June 2009`
 > Cat Trust
 
 现在对我最信任的，就是我的小猫：）

@@ -1,6 +1,6 @@
 # 父辈
 
-> Wednesday, 3 December 2008
+`Wednesday, 3 December 2008`
 >
 > The So Called Elder
 

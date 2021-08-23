@@ -1,5 +1,5 @@
 # 胡适三句话
-> Thursday, 6 May 2010
+`Thursday, 6 May 2010`
 
 胡适说的三句话:
 

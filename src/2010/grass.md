@@ -1,5 +1,5 @@
 # 草在结它的种子
-> Friday, 11 June 2010
+`Friday, 11 June 2010`
 
 ```
 Grass is growing its seeds

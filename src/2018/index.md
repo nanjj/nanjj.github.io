@@ -1,6 +1,6 @@
 # Go Debug
 
-> Created at <2018-07-27 Fri>
+`<2018-07-27 Fri>`
 
 How to do go debug.
 

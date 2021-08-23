@@ -1,6 +1,6 @@
 # 我的团长我的团
 
-> Friday, 20 March 2009
+`Friday, 20 March 2009`
 >
 > My Group Leader and My Group
 

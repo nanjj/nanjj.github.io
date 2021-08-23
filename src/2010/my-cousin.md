@@ -1,6 +1,6 @@
 # 表哥
 
-> Thursday, 4 March 2010
+`Thursday, 4 March 2010`
 >
 > 父亲所写，我的表叔
 >

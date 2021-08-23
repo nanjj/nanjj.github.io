@@ -1,5 +1,5 @@
 # 周末了
-> Friday, 27 August 2010
+`Friday, 27 August 2010`
 
 ```
 周末了

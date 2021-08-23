@@ -1,6 +1,6 @@
 # eyeD3
 
-> Friday, 5 November 2010
+`Friday, 5 November 2010`
 
 `eyeD3`是一个ID3编辑器，基于命令行，修改mp3的tag信息。类似的工具有
 `mp3info`, `id3v2`等。但这个是我遇到唯一能够工作的。

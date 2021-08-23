@@ -1,5 +1,5 @@
 # 测试驱动学习模式
-> Tuesday, 11 December 2007
+`Tuesday, 11 December 2007`
 
 学习本身也需要学习（Study itself also needs to be studied），而且学习
 本身的学习，还是一个永不停止的过程，永远也没有个完结。这也恰恰是学习自

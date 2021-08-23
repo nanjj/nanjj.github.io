@@ -1,6 +1,6 @@
 # 一个朋友
 
-> Saturday, 8 November 2008
+`Saturday, 8 November 2008`
 
 
 在中镇(Middle Town)有我一个朋友，叫约翰。

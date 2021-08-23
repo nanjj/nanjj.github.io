@@ -1,6 +1,6 @@
 # Manipulate Disk Images Under Mac
 
-> Created at <2019-12-03 二>
+`<2019-12-03 二>`
 
 ## Mac Case Insensitive File System
 

@@ -1,5 +1,5 @@
 # 声音与力量
-> Friday, 3 July 2009
+`Friday, 3 July 2009`
 > Sound and Power
 
 正在读北大钱理群的两本书：《我的精神自传》和《心灵的探寻》

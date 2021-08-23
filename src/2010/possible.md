@@ -1,6 +1,6 @@
 # 侧反
 
-> Wednesday, 10 November 2010
+`Wednesday, 10 November 2010`
 
 这里要讲的只是一种可能性，但并非微乎其微。
 

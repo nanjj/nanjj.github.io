@@ -1,5 +1,5 @@
 # 陀思妥耶夫斯基
-> Thursday, 1 October 2009
+`Thursday, 1 October 2009`
 
 刚看了他的《卡拉马佐夫兄弟》。
 

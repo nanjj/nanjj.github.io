@@ -1,6 +1,6 @@
 # 阿基米德
 
-> Thursday, 4 December 2008
+`Thursday, 4 December 2008`
 >
 > Archimedes
 

@@ -138,6 +138,7 @@
                 <div id="content" class="content">
                     <main>
                         <h1 id="rust再学习"><a class="header" href="#rust再学习">Rust再学习</a></h1>
+<p><code>&lt;2021-08-24 二&gt;，雨夜</code></p>
 <h2 id="缘起"><a class="header" href="#缘起">缘起</a></h2>
 <p>几年前我曾经学习过<a href="https://rust-lang.org/">Rust</a>。其时，我发现<a href="https://rust-lang.org/">Rust</a>编译速度很慢，语法有些烧脑。
 于是浅尝辄止一下<a href="https://rust-lang.org/">Rust</a>，很快就转向了<a href="https://golang.org/">Go</a>语言，并深深迷恋。不知为何，当
@@ -169,12 +170,8 @@ Classpath的设计，叫GOPATH，是线性的。而Java也渐渐引入OSGI的设
 信，有恍若隔世的感觉。过去自己的想法甚至能解当今的困惑。细细思索，倍感
 神奇。</p>
 <p>由此打算重拾写作，为将来的自己，提供一点寻找初心的线索。</p>
-<hr />
-<p>写于：<code>&lt;2021-08-24 二&gt;</code></p>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="gitlab的持续集成"><a class="header" href="#gitlab的持续集成">Gitlab的持续集成</a></h1>
-<blockquote>
-<p>Created at &lt;2019-12-07 六&gt;</p>
-</blockquote>
+<p><code>&lt;2019-12-07 六&gt;</code></p>
 <p>Gitlab持续集成采用订阅模式，这和Github的通知机制不同。</p>
 <h2 id="github通知机制"><a class="header" href="#github通知机制">Github通知机制</a></h2>
 <p>Github的持续集成采用通知机制。</p>
@@ -210,9 +207,7 @@ end
 如无任务，3秒后见。</p>
 <p><code>Gitlab Runner</code> 后面可以跑docker， kubernetes等。我觉得通过 <code>Gitlab Runner</code> 的shell模式可以跑<code>lxd</code> 。</p>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="manipulate-disk-images-under-mac"><a class="header" href="#manipulate-disk-images-under-mac">Manipulate Disk Images Under Mac</a></h1>
-<blockquote>
-<p>Created at &lt;2019-12-03 二&gt;</p>
-</blockquote>
+<p><code>&lt;2019-12-03 二&gt;</code></p>
 <h2 id="mac-case-insensitive-file-system"><a class="header" href="#mac-case-insensitive-file-system">Mac Case Insensitive File System</a></h2>
 <p>By default, file system under Mac is case insensitive. It may cause
 trouble when you work with some projects like Linux Kernel. To solve
@@ -243,9 +238,7 @@ $ hdiutil attach -mountpoint src src.sparseimage #=&gt;
 <pre><code>$ hdiutil resize -size 20G src.sparseimage
 </code></pre>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="lxd"><a class="header" href="#lxd">LXD</a></h1>
-<blockquote>
-<p>Created at &lt;2019-01-03 Thu&gt;</p>
-</blockquote>
+<p><code>&lt;2019-01-03 Thu&gt;</code></p>
 <p>LXD setup, usage and more.</p>
 <h2 id="lxd-setup"><a class="header" href="#lxd-setup">LXD Setup</a></h2>
 <p>So easy to setup LXD!</p>
@@ -1144,9 +1137,7 @@ META: ran handlers
 <pre><code>ansible (client) -&gt; lxc (client) -&gt; lxd api(server) -&gt; lxd containers
 </code></pre>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="go-debug"><a class="header" href="#go-debug">Go Debug</a></h1>
-<blockquote>
-<p>Created at &lt;2018-07-27 Fri&gt;</p>
-</blockquote>
+<p><code>&lt;2018-07-27 Fri&gt;</code></p>
 <p>How to do go debug.</p>
 <h2 id="background"><a class="header" href="#background">Background</a></h2>
 <p>Go has no its own debugger so it turned to gdb. See <a href="https://golang.org/doc/gdb">Debugging Go Code
@@ -1317,9 +1308,7 @@ Warning: debugging optimized function
     32:         purged, err = model.Purge(filter)
 </code></pre>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="my-kids"><a class="header" href="#my-kids">My Kids</a></h1>
-<blockquote>
-<p>Created at &lt;2017-12-25 Mon&gt;</p>
-</blockquote>
+<p><code>&lt;2017-12-25 Mon&gt;</code></p>
 <p>Here some interesting words from my kids:</p>
 <ol>
 <li>Dream Fidget Spinner</li>
@@ -1376,9 +1365,7 @@ Warning: debugging optimized function
                      &quot;
 </code></pre>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="tips"><a class="header" href="#tips">Tips</a></h1>
-<blockquote>
-<p>Created at &lt;2017-12-20 Mon&gt;</p>
-</blockquote>
+<p><code>&lt;2017-12-20 Mon&gt;</code></p>
 <p>Some tips about linux kernel, ssh, qemu, ncat and more.</p>
 <h2 id="linux-kernel"><a class="header" href="#linux-kernel">Linux Kernel</a></h2>
 <p>Kernel building takes too long time. We can speed up the process via:</p>
@@ -1537,9 +1524,7 @@ ansible_ssh_common_args='-o ProxyCommand=&quot;ncat --proxy 127.0.0.1:8888 %h %p
 </li>
 </ol>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="freebsd-cloud-init"><a class="header" href="#freebsd-cloud-init">FreeBSD Cloud Init</a></h1>
-<blockquote>
-<p>Created at &lt;2017-10-27 Fri&gt;</p>
-</blockquote>
+<p><code>&lt;2017-10-27 Fri&gt;</code></p>
 <p>How to setup cloudinit for freebsd and how to do disk resize under
 freebsd.</p>
 <h2 id="setup-cloudinit-for-freebsd-image"><a class="header" href="#setup-cloudinit-for-freebsd-image">Setup CloudInit for FreeBSD Image</a></h2>
@@ -1681,9 +1666,7 @@ run_interrupt_driven_hooks: still waiting after 120 seconds for xpt_config
 <p>After force restarted it's bootable again.</p>
 <p>Looks FreeBSD image is not polished well for cloud using.</p>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="running-arista-veos-in-openstack"><a class="header" href="#running-arista-veos-in-openstack">Running Arista vEOS in OpenStack</a></h1>
-<blockquote>
-<p>Created at &lt;2017-12-06 Wed&gt;</p>
-</blockquote>
+<p><code>&lt;2017-12-06 Wed&gt;</code></p>
 <p>How to run arista vEOS in OpenStack.</p>
 <h2 id="veos-image"><a class="header" href="#veos-image">vEOS Image</a></h2>
 <h3 id="download"><a class="header" href="#download">Download</a></h3>
@@ -1969,9 +1952,7 @@ end
 <li><a href="https://eos.arista.com/forum/qeustions-about-some-features-in-veos-that-may-or-may-not-work/">vEOS does not support NAT</a></li>
 </ol>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="dummynet-usage-on-mac"><a class="header" href="#dummynet-usage-on-mac">Dummynet Usage on Mac</a></h1>
-<blockquote>
-<p>Created at &lt;2017-10-26 Thu&gt;</p>
-</blockquote>
+<p><code>&lt;2017-10-26 Thu&gt;</code></p>
 <p>Here some <code>dummynet</code> usages on Mac.</p>
 <h2 id="configure-bandwidth"><a class="header" href="#configure-bandwidth">Configure Bandwidth</a></h2>
 <ol>
@@ -2006,13 +1987,8 @@ sudo pfctl -d
 </li>
 </ol>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="publish-github-pages-via-org-mode"><a class="header" href="#publish-github-pages-via-org-mode">Publish Github Pages via Org Mode</a></h1>
-<blockquote>
-<p>Created at &lt;2017-10-24 Fri 12:30&gt;
-[Google]: http://www.google.com/search?q=%s
-[Hugo]: https://gohugo.io/
-[Jekyll]: https://jekyllrb.com/</p>
-</blockquote>
-<p>Now switched from [Jekyll], [Hugo] to Emacs Org Publish. How to write
+<p><code>&lt;2017-10-24 Fri 12:30&gt;</code></p>
+<p>Now switched from <a href="https://jekyllrb.com/">Jekyll</a>, <a href="https://gohugo.io/">Hugo</a> to Emacs Org Publish. How to write
 blog using org-publish.</p>
 <h2 id="customization"><a class="header" href="#customization">Customization</a></h2>
 <p>First we need to customize variable <code>org-publish-project-alist</code>:</p>
@@ -2070,9 +2046,7 @@ blog using org-publish.</p>
 └── org-publish.org
 </code></pre>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="青春"><a class="header" href="#青春">青春</a></h1>
-<blockquote>
-<p>写于：Thursday, 21 November 2013</p>
-</blockquote>
+<p><code>Thursday, 21 November 2013</code></p>
 <p>高中就遇到她。一直到现在都觉得她最好看。那时她座位在我前面。她数学可以，
 我的更好一些。</p>
 <p>有次大家一起聊天，说到了什么，她把牙摘下来了，下了我一跳，摩托车撞掉的，
@@ -2106,9 +2080,7 @@ blog using org-publish.</p>
 它记录了我国多少耻辱和灾难，如今国家兴旺，人民生活安康。咱们要争取多活
 几年。</p>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="我爱长发飘飘"><a class="header" href="#我爱长发飘飘">我爱长发飘飘</a></h1>
-<blockquote>
-<p>Friday, 13 May 2011</p>
-</blockquote>
+<p><code>Friday, 13 May 2011</code></p>
 <p>我特别喜欢这部电影。喜欢非非（韦玮饰）明亮、清澈的眼睛。北京女孩的性格
 让我心醉，那么明朗干净，宛如北京秋天的天空。</p>
 <p>如果重拍绝对找不到这么干净的人。谁呢？韦玮现在应该三十出头，事业不事业
@@ -2131,9 +2103,7 @@ blog using org-publish.</p>
 <p>我们是外乡人。北京对我是个陌生的城市。但哪里又是熟悉的呢？一如我们都是
 第一次来到这个陌生的世界。还好一些有趣的人在，给所有外乡人一个停留。</p>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="my-2010"><a class="header" href="#my-2010">My 2010</a></h1>
-<blockquote>
-<p>Saturday, 11 December 2010</p>
-</blockquote>
+<p><code>Saturday, 11 December 2010</code></p>
 <h2 id="一"><a class="header" href="#一">一</a></h2>
 <p>——听说今年你deliver了一个知识产权完全自有的产品，对你的意义非常重大，
 能跟大家说一下吗？</p>
@@ -2189,9 +2159,7 @@ blog using org-publish.</p>
 <p>比如这两个保险公司的理赔流程，就可以整合在一起嘛，不用用户跑来跑去了</p>
 <p>——是</p>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="毛泽东与林彪反革命集团的斗争"><a class="header" href="#毛泽东与林彪反革命集团的斗争">毛泽东与林彪反革命集团的斗争</a></h1>
-<blockquote>
-<p>Tuesday, 21 December 2010</p>
-</blockquote>
+<p><code>Tuesday, 21 December 2010</code></p>
 <p>汪东兴回忆之《毛泽东与林彪反革命集团的斗争》，我认为在文学上简直无与伦
 比。有一个莫名其妙的开头，就好像人类的起源，没人知道原因；之后就像开动
 火车一样，咣当当，咣当当；不断重复而又不完全相同，就像历史的车轮一样，
@@ -2204,9 +2172,7 @@ blog using org-publish.</p>
 大地，没有声息但有的人能听到空中弥漫的灵魂的歌唱。</p>
 <p>一篇真正的史诗啊！</p>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="勇往直前"><a class="header" href="#勇往直前">勇往直前</a></h1>
-<blockquote>
-<p>Wednesday, 24 November 2010</p>
-</blockquote>
+<p><code>Wednesday, 24 November 2010</code></p>
 <p>1999年，杨虎城之孙杨瀚在夏威夷见到张学良的时候，发现老人没有激动，甚至
 有些许冷淡。每个人孤独地穿行在时间的迷雾里。</p>
 <p>有人看到了原因，不得不死；有人看到了结局，不得不走。有人眼睛为胸中愤怒
@@ -2215,9 +2181,7 @@ blog using org-publish.</p>
 房间，歇歇脚抽根烟；于是天又黑了。</p>
 <p>时间只有一个方向。</p>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="繁简转换"><a class="header" href="#繁简转换">繁简转换</a></h1>
-<blockquote>
-<p>Monday, 15 November 2010</p>
-</blockquote>
+<p><code>Monday, 15 November 2010</code></p>
 <p>繁简转换并没有尽善尽美的解决方案，按单字转换有98%的准确率，剩下那2%，
 需要分词了。分词本身就没有100%正确的算法了。</p>
 <p>基于iconv可以这么做：</p>
@@ -2236,9 +2200,7 @@ blog using org-publish.</p>
 <p>据说也支持分词但我没试出来。还提供php的库支持。那用<code>JNI</code>集成到Java里也
 不难，至少在Linux下是这样。</p>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="侧反"><a class="header" href="#侧反">侧反</a></h1>
-<blockquote>
-<p>Wednesday, 10 November 2010</p>
-</blockquote>
+<p><code>Wednesday, 10 November 2010</code></p>
 <p>这里要讲的只是一种可能性，但并非微乎其微。</p>
 <p>在还没有变胖，还在系篮球队做替补，跟着帅气十足的篮球队长当跟班的时候，
 有一个不算漂亮的女生，在学生会。她高中谈恋爱，追男朋友到大学，入学没几
@@ -2252,9 +2214,7 @@ blog using org-publish.</p>
 <p>半个月后他俩恋爱了。</p>
 <p>这说明人有很多侧面吧。</p>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="eyed3"><a class="header" href="#eyed3">eyeD3</a></h1>
-<blockquote>
-<p>Friday, 5 November 2010</p>
-</blockquote>
+<p><code>Friday, 5 November 2010</code></p>
 <p><code>eyeD3</code>是一个ID3编辑器，基于命令行，修改mp3的tag信息。类似的工具有
 <code>mp3info</code>, <code>id3v2</code>等。但这个是我遇到唯一能够工作的。</p>
 <p>这里头的原因还是由于<code>ID3 Tag</code>的标准太乱，著名的有1.x和2.x，其中1.x不支
@@ -2265,9 +2225,7 @@ Cedric Tefft说自己太懒，不愿趟这个混水。因此mp3info只是停留�
 其文档比较详细。看一下就知道如何用了。</p>
 <p>eye的发音和I一致，因此<code>eyeD3 ~= ID3</code>， id3已经被别的应用程序占了名字。</p>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="聊斋"><a class="header" href="#聊斋">聊斋</a></h1>
-<blockquote>
-<p>Wednesday, 27 October 2010</p>
-</blockquote>
+<p><code>Wednesday, 27 October 2010</code></p>
 <p>大体可以看懂《聊斋志异》的原文。很喜欢这么洗练的文字，也许是中国人的缘
 故吧。</p>
 <p>中国的文字，简练而庸俗；就算是哀怨的句子，写的时候也期许在情理中。海子
@@ -2313,9 +2271,7 @@ Cedric Tefft说自己太懒，不愿趟这个混水。因此mp3info只是停留�
 <p>神话激发，也考验个人的想象力，给世界增添颜色；世界需要这别样的颜色，现
 在灰的很，间或血的红，只这两种很无趣。</p>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="突然想起"><a class="header" href="#突然想起">突然想起</a></h1>
-<blockquote>
-<p>Sunday, 19 September 2010</p>
-</blockquote>
+<p><code>Sunday, 19 September 2010</code></p>
 <p>突然，想起一个长得像林致炫的同学。白白净净，尖尖的下巴。</p>
 <p>那一年，他从杭州来到京城，同行的还有他的同事，一个漂亮女孩。同学们让他
 给介绍介绍，他让我们放正经些。他们是来参加一个中学物理竞赛。后来还得了
@@ -2338,21 +2294,15 @@ Cedric Tefft说自己太懒，不愿趟这个混水。因此mp3info只是停留�
 <p>他跑到京城来找自信，就不能算勇敢了。那纯洁呢？永恒呢？还有爱情呢？</p>
 <p>可又有谁勇敢呢？都只是活着的吧？</p>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="兰花"><a class="header" href="#兰花">兰花</a></h1>
-<blockquote>
-<p>Monday, 6 September 2010</p>
-</blockquote>
+<p><code>Monday, 6 September 2010</code></p>
 <p><img src="2010/my-orchid.jpg" alt="My Orchid" /></p>
 <p>还没开</p>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="洪启九月微薄之盐"><a class="header" href="#洪启九月微薄之盐">洪启九月·微薄之盐</a></h1>
-<blockquote>
-<p>Friday, 3 September 2010</p>
-</blockquote>
+<p><code>Friday, 3 September 2010</code></p>
 <p><img src="2010/salt.jpg" alt="Salt" /></p>
 <p>我站在你妈妈看不到的地方等着你</p>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="最中意的雪天"><a class="header" href="#最中意的雪天">最中意的雪天</a></h1>
-<blockquote>
-<p>Friday, 27 August 2010</p>
-</blockquote>
+<p><code>Friday, 27 August 2010</code></p>
 <pre><code>听一听窦唯《我最中意的雪天》
 那么的干净
 能嗅出空气里的炊烟味道
@@ -2363,9 +2313,7 @@ Cedric Tefft说自己太懒，不愿趟这个混水。因此mp3info只是停留�
 禁不住而打的冷颤
 </code></pre>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="周末了"><a class="header" href="#周末了">周末了</a></h1>
-<blockquote>
-<p>Friday, 27 August 2010</p>
-</blockquote>
+<p><code>Friday, 27 August 2010</code></p>
 <pre><code>周末了
 有人无事
 有人在病中
@@ -2373,9 +2321,7 @@ Cedric Tefft说自己太懒，不愿趟这个混水。因此mp3info只是停留�
 有人打长途
 </code></pre>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="野夫的文字"><a class="header" href="#野夫的文字">野夫的文字</a></h1>
-<blockquote>
-<p>Wednesday, 23 June 2010</p>
-</blockquote>
+<p><code>Wednesday, 23 June 2010</code></p>
 <p>在看野夫的《父亲的战争》。</p>
 <p>野夫好文字，时常让人会意一笑。野夫的好文字不是一般的好，他语言不单运用
 的好，他语言里有创造，所谓&quot;平地扣饼，对面拿贼&quot;。他的选词，用字绝不能用
@@ -2389,9 +2335,7 @@ Cedric Tefft说自己太懒，不愿趟这个混水。因此mp3info只是停留�
 但让人抓狂，却也是和谐的：存在的表达，表达的存在，等等等吧。这只是个起
 头，后话很长。</p>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="共工"><a class="header" href="#共工">共工</a></h1>
-<blockquote>
-<p>Tuesday, 22 June 2010</p>
-</blockquote>
+<p><code>Tuesday, 22 June 2010</code></p>
 <blockquote>
 <p>Try not to become a man of success, but rather a man of value.</p>
 <p>--Albert Einstein</p>
@@ -2409,9 +2353,7 @@ Cedric Tefft说自己太懒，不愿趟这个混水。因此mp3info只是停留�
 <p>作为一个犹太人，爱因斯坦最终发现了质能转换方程式。原子弹造出来后扔到了
 日本。</p>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="草在结它的种子"><a class="header" href="#草在结它的种子">草在结它的种子</a></h1>
-<blockquote>
-<p>Friday, 11 June 2010</p>
-</blockquote>
+<p><code>Friday, 11 June 2010</code></p>
 <pre><code>Grass is growing its seeds
 Wind shaking its leaves
 We standing, no speaking
@@ -2424,9 +2366,7 @@ Already very good
 就十分美好
 </code></pre>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="故人"><a class="header" href="#故人">故人</a></h1>
-<blockquote>
-<p>Friday, 11 June 2010</p>
-</blockquote>
+<p><code>Friday, 11 June 2010</code></p>
 <p>今天下楼的时候，遇到一个十年前一个熟识的人。那时候他从联想出来创业。我
 们3个在他那里打工。他这个老板待人很宽厚。公司初建，常加班到深夜。他领
 着我们吃午饭、吃晚饭。他吃饭比较快，常见他笑咪咪地看着我们吃。年轻人海
@@ -2435,9 +2375,7 @@ Already very good
 话过去，他的记忆也模糊，说是不是叫牟其中。听着好熟。后来想起了名字，就
 打电话过去。他还是有些不确定，我也怀疑了。</p>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="鸽子"><a class="header" href="#鸽子">鸽子</a></h1>
-<blockquote>
-<p>Saturday, 5 June 2010</p>
-</blockquote>
+<p><code>Saturday, 5 June 2010</code></p>
 <p>近些天，后窗台上经常见到几只鸽子。它们咕咕叫，玩一会儿就到别处去，再回
 来，在窗台上歇歇脚。</p>
 <p>不知它们一直这样，还是之前我把自己搞得很忙，一直没有注意到。我的葡萄在
@@ -2525,17 +2463,13 @@ Already very good
 她面对的是一个异教徒吗？这个异教徒外表庄严内心虚弱，不信一切不堪一击；
 嘲笑众生也嘲笑自己；而且也并不懂得什么是爱。</p>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="民不聊生"><a class="header" href="#民不聊生">民不聊生</a></h1>
-<blockquote>
-<p>Sunday, 30 May 2010</p>
-</blockquote>
+<p><code>Sunday, 30 May 2010</code></p>
 <p>今天明白了民不聊生，真直白；但让人不寒而栗。</p>
 <p>当老百姓不聊生计的时候，他们就聊死计；如今富士康的连跳，就是一条死计。</p>
 <p>草民不再讨论如何好好地活下去，失去了活下去的希望。</p>
 <p>真恐怖，转眼就到了这个境地；也是刚知道，这就是民不聊生啊。</p>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="系统程序员成长计划"><a class="header" href="#系统程序员成长计划">系统程序员成长计划</a></h1>
-<blockquote>
-<p>Thursday, 13 May 2010</p>
-</blockquote>
+<p><code>Thursday, 13 May 2010</code></p>
 <p>购入《系统程序员成长计划》。</p>
 <p>昨天晚上看了第0章和第1章，打算停下来把里面布置的题做做再往下看。如小李
 大王（弯曲评论陈怀临给作者李先静的别称）所言，多写多练，不要偷懒：）</p>
@@ -2548,9 +2482,7 @@ Already very good
 懂。而且好像不是太&quot;聪明&quot;的人读起来效果更要好些。建议被书名吓着的同学不
 要怕，赶紧购入：）</p>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="演讲稿"><a class="header" href="#演讲稿">演讲稿</a></h1>
-<blockquote>
-<p>Wednesday, 12 May 2010</p>
-</blockquote>
+<p><code>Wednesday, 12 May 2010</code></p>
 <p>他们去开的是什么会？</p>
 <p>有一个金发女郎去纽约的笑话不知你们听过没有。说，金发女郎去纽约，买的经
 济舱的票，她却非要坐在头等舱。机组人员怎么劝，她都不听。后来机长来了，
@@ -2592,9 +2524,7 @@ Already very good
 要做到100分。把精力多花在更有意义的事情上，也可以使自己更心情愉快。</p>
 <p>就这些吧，谢谢大家！</p>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="胡适三句话"><a class="header" href="#胡适三句话">胡适三句话</a></h1>
-<blockquote>
-<p>Thursday, 6 May 2010</p>
-</blockquote>
+<p><code>Thursday, 6 May 2010</code></p>
 <p>胡适说的三句话:</p>
 <blockquote>
 <p>宁鸣而死，不默而生。</p>
@@ -2607,14 +2537,13 @@ Already very good
 </blockquote>
 <p>环环相扣，弥漫着道德和智慧不分彼此的美感，印证了苏格拉底关于<code>美德既知 识</code>的伟大论断。</p>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="水仙"><a class="header" href="#水仙">水仙</a></h1>
-<blockquote>
-<p>Tuesday, 20 April 2010</p>
-</blockquote>
+<p><code>Tuesday, 20 April 2010</code></p>
 <p><img src="2010/my-narcissus.jpg" alt="My Narcissus" /></p>
 <p>我的水仙终于开了，在这个永难忘记的春天。</p>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="表哥"><a class="header" href="#表哥">表哥</a></h1>
+<p><code>Thursday, 4 March 2010</code>
+&gt;</p>
 <blockquote>
-<p>Thursday, 4 March 2010</p>
 <p>父亲所写，我的表叔</p>
 </blockquote>
 <p>初春的正月初六，我伙同我的堂兄弟们一同去了我姑家见到了我的表哥。表哥上
@@ -2630,9 +2559,7 @@ Already very good
 一个破纸箱当牌桌，每人找了一块砖坐下，就这样他们嘻嘻哈哈开始了打牌，打
 牌使他们消除了寂寞，带来了快乐，送走了寒冷，迎来了初春。</p>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="关于梦回宋朝"><a class="header" href="#关于梦回宋朝">关于梦回宋朝</a></h1>
-<blockquote>
-<p>Saturday, 23 January 2010</p>
-</blockquote>
+<p><code>Saturday, 23 January 2010</code></p>
 <p>《梦回宋朝》出来了，很开心。
 当当：<a href="http://product.dangdang.com/product.aspx?product_id=20767694">http://product.dangdang.com/product.aspx?product_id=20767694</a>
 卓越：<a href="http://www.amazon.cn/mn/detailApp?asin=B0034KYX0Q">http://www.amazon.cn/mn/detailApp?asin=B0034KYX0Q</a></p>
@@ -2658,9 +2585,7 @@ Already very good
 <p>因此这里再次感谢《梦回宋朝》，总算有些新鲜的空气进来，给为污浊空气包围
 的我们透透气。太闷了！</p>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="苏童河岸"><a class="header" href="#苏童河岸">苏童河岸</a></h1>
-<blockquote>
-<p>Friday, 1 January 2010</p>
-</blockquote>
+<p><code>Friday, 1 January 2010</code></p>
 <p>苏童《河岸》这本书很差劲。底封王干讲这本超越了苏童之前的几部著作；我很
 怀疑王干的文学鉴赏力，当然也可能王干太忙没认真读过苏童的东西。</p>
 <p>《河岸》没有任何超越，某种程度上彰显了苏童才力在走下坡路；我相信在创作
@@ -2674,9 +2599,7 @@ Already very good
 <p>他们怎么就不能加把劲呢？也写出点像样的东西来呢？他们在想什么？他们想了
 吗？</p>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="单翅鸟"><a class="header" href="#单翅鸟">单翅鸟</a></h1>
-<blockquote>
-<p>Friday, 4 December 2009</p>
-</blockquote>
+<p><code>Friday, 4 December 2009</code></p>
 <p>单翅鸟为什么还飞呢？</p>
 <p>非常喜欢海子的这首诗，也时常以同样的问题问自己。</p>
 <pre><code>单翅鸟为什么要飞呢
@@ -2687,9 +2610,7 @@ Already very good
 </code></pre>
 <p>为什么要飞呢？我想这是生命最有趣的地方。</p>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="所谓蝉"><a class="header" href="#所谓蝉">所谓蝉</a></h1>
-<blockquote>
-<p>Sunday, 22 November 2009</p>
-</blockquote>
+<p><code>Sunday, 22 November 2009</code></p>
 <p>存在，有吗？还只是空？</p>
 <p>如果存在没有，那我们就应该感觉不到，而我们感觉到了，因此存在有，或者说
 非空。小乘。</p>
@@ -2711,9 +2632,7 @@ Already very good
 <p>这也是我在那个把否定玩到登峰造极的哲学里所没有看到的。</p>
 <p>我一下子明白我为什么不喜欢这个东西了。</p>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="我们的祖先"><a class="header" href="#我们的祖先">我们的祖先</a></h1>
-<blockquote>
-<p>Sunday, 1 November 2009</p>
-</blockquote>
+<p><code>Sunday, 1 November 2009</code></p>
 <p>刚读过卡尔维诺的《我们的祖先》。卡尔维诺他们的祖先有三个：</p>
 <ol>
 <li>分成两半的子爵，</li>
@@ -2725,9 +2644,7 @@ Already very good
 <p>阮一峰收集的一些电子版： <a href="http://www.ruanyifeng.com/calvino">http://www.ruanyifeng.com/calvino</a>。舍不得花
 钱买书的同学可以看一眼。</p>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="陀思妥耶夫斯基"><a class="header" href="#陀思妥耶夫斯基">陀思妥耶夫斯基</a></h1>
-<blockquote>
-<p>Thursday, 1 October 2009</p>
-</blockquote>
+<p><code>Thursday, 1 October 2009</code></p>
 <p>刚看了他的《卡拉马佐夫兄弟》。</p>
 <p>读这两本书之前，觉得列夫·托尔斯泰最了不起。读之后这个想法改变了。</p>
 <p>列夫·托尔斯泰，堪称人类的良心；但人类的良心只是陀思妥耶夫斯基关心的一
@@ -2740,9 +2657,7 @@ Already very good
 将之记录下来。</p>
 </blockquote>
 <h2 id="天空"><a class="header" href="#天空">天空</a></h2>
-<blockquote>
-<p>Tuesday, 1 September 2009</p>
-</blockquote>
+<p><code>Tuesday, 1 September 2009</code></p>
 <p>我从小在北京，父母却在青海，很少见到他们。在我七岁的时候，父母怕我跟他
 们不亲，就把我带在身边了。我们住在一个很大的厂子里，几乎除了火葬场，什
 么都有。我也在厂办学校上学。高考那一年，我考了全省第十，这意味着我可以
@@ -2757,9 +2672,7 @@ Already very good
 进入了我理想的学校、理想的专业。我永远也忘不了那天星星的夜晚，一家人走
 在无人的路上，如此地欢欣。</p>
 <h2 id="孩子"><a class="header" href="#孩子">孩子</a></h2>
-<blockquote>
-<p>Tuesday, 1 September 2009</p>
-</blockquote>
+<p><code>Tuesday, 1 September 2009</code></p>
 <p>有一次，我女儿病了。烧得很厉害，我领她到医院打了针。我给她买了一个她想
 要很久的玩具。她说爸爸，是不是我表现的很坚强，你才给我买的？我的眼泪一
 下子就下来了。</p>
@@ -2768,9 +2681,7 @@ Already very good
 她。在这个世界上，我们做父母的，不鼓励孩子，支持孩子，帮助孩子，还会有
 谁鼓励、支持、帮助他们呢？</p>
 <h2 id="弟弟"><a class="header" href="#弟弟">弟弟</a></h2>
-<blockquote>
-<p>Sunday, 30 August 2009</p>
-</blockquote>
+<p><code>Sunday, 30 August 2009</code></p>
 <p>上高中的时候，学校伙食不好，稀汤寡水的，没什么油水。有一天我弟弟来看我，
 带了酱牛肉，还有几样其他平常不吃的菜。我在食堂打了两碗米饭，一碗推给弟
 弟，一碗自己吃。真香啊。这时候发现弟弟根本没有吃菜。“怎么不吃呢？” “你
@@ -2778,9 +2689,7 @@ Already very good
 <p>我在弟弟很大才意识到我有个弟弟。他像个透明的影子在我左右，我视他为无物，
 他却深爱着我这个所谓的哥哥。我一阵哽噎，什么饭菜也咽不下。</p>
 <h2 id="哥哥"><a class="header" href="#哥哥">哥哥</a></h2>
-<blockquote>
-<p>Sunday, 30 August 2009</p>
-</blockquote>
+<p><code>Sunday, 30 August 2009</code></p>
 <p>我父亲教育孩子的方法比较粗暴。基本上操起什么棍子腰带就打。大哥和我都挨
 了不少打。我性格还温和些，大哥脾气比较硬，自小打多狠都不叫，也�泪。他
 们俩平时基本上没话，仇人似的。</p>
@@ -2788,9 +2697,7 @@ Already very good
 流不止。从没见他那么流泪。大哥说父亲临去的时候说最后悔的是对孩子太严厉；
 去了，心里空落落的。</p>
 <h2 id="爱人"><a class="header" href="#爱人">爱人</a></h2>
-<blockquote>
-<p>Sunday, 30 August 2009</p>
-</blockquote>
+<p><code>Sunday, 30 August 2009</code></p>
 <p>那是前年吧。在经历了将近七年的爱情长跑后，我决定与男朋友分手。头天晚上
 打了分手的电话，第二天我去上班。他打了我好几次电话，但我不接。中午他发
 短信说他已经从上海赶过来了，现在楼下。我忙到八九点，从后门溜回家，为了
@@ -2801,9 +2708,7 @@ Already very good
 <p>我们最终走到了一起。我们没有完全属于自己的房子，没有车；但我们一样很幸
 福。我们知道彼此珍惜。爱情是直鱼钩上挂的鱼饵。希望多一些，也可以多一些。</p>
 <h2 id="父亲"><a class="header" href="#父亲">父亲</a></h2>
-<blockquote>
-<p>Sunday, 30 August 2009</p>
-</blockquote>
+<p><code>Sunday, 30 August 2009</code></p>
 <p>父亲是位军人，母亲是随军的教师。他们常年漂泊在外，很少照顾我。我小时候
 因此也和他们不亲。他们注意到这一点，就把我带着一起漂泊；频繁转学。</p>
 <p>中学冬天有段时间在哈尔滨。一次推窗户，玻璃碎了，砍下来把手割断了。还好
@@ -2813,9 +2718,7 @@ Already very good
 见到首长最惊慌，最手足无措的一次。</p>
 <p>后来我跟爱人约定，无论爸说什么，做什么，都是对的。不要争辩。</p>
 <h2 id="母亲"><a class="header" href="#母亲">母亲</a></h2>
-<blockquote>
-<p>Sunday, 30 August 2009</p>
-</blockquote>
+<p><code>Sunday, 30 August 2009</code></p>
 <p>我父亲去的早。母亲和我相依为命。我在外面上学，每半年才能回去一次。在一
 起的时候，母亲一边忙着自己手头的活，一边有一搭没一搭聊着身边的事。我们
 表面都很平静。我的内心却深受打动。</p>
@@ -2823,9 +2726,7 @@ Already very good
 有了自己的打算。</p>
 <p>在涉及到家庭、亲情、爱情的事上，如何投入都不为过。</p>
 <h2 id="婆婆"><a class="header" href="#婆婆">婆婆</a></h2>
-<blockquote>
-<p>Sunday, 30 August 2009</p>
-</blockquote>
+<p><code>Sunday, 30 August 2009</code></p>
 <p>一下生了两个孩子，一家人都很高兴，婆婆也来照顾我们。一天，接到电话讲在
 老家的公公病的很重，婆婆说我先回去几天，孩子你们先看着。</p>
 <p>婆婆走了我们才知道自己并不会照顾孩子。才一天，就有一个病了。我作为一个
@@ -2835,17 +2736,16 @@ Already very good
 我是个母亲，我的眼中也不应该只有孩子。老公在边上不停地埋怨我，我也很内
 疚。眼泪哗哗地流。虽然第一次做母亲，眼中也不应该只有孩子。</p>
 <h2 id="表舅"><a class="header" href="#表舅">表舅</a></h2>
-<blockquote>
-<p>Sunday, 30 August 2009</p>
-</blockquote>
+<p><code>Sunday, 30 August 2009</code></p>
 <p>我已经3年没有去看过表舅。他住在养老院里。我刚一进门他就认出了我。牵着
 我的手他说，兰兰你来啦？我鼻子酸的厉害。小时候表舅是我的玩伴，有好吃的
 都留着给我。我长大了但表舅一直没有。表舅是有智力障碍的人。</p>
 <p>我一直以为他理解不了那么多。现在看来我错了。至少他知道什么是爱，而我并
 不清楚。</p>
 <h2 id="爷爷"><a class="header" href="#爷爷">爷爷</a></h2>
+<p><code>Monday, 24 August 2009</code>
+&gt;</p>
 <blockquote>
-<p>Monday, 24 August 2009</p>
 <p>按：爷爷已于2020年3月去世，疫情原因，我不在身边。</p>
 </blockquote>
 <p>你小时候挨过打吗？如果你有孩子，你会打孩子吗？</p>
@@ -2862,9 +2762,9 @@ Already very good
 <p>我爸爸也不打孩子。因此同处贫穷中，我过得也比其他孩子幸福些。</p>
 <p>如果我有孩子，我会打吗？</p>
 <h2 id="不吝赞扬"><a class="header" href="#不吝赞扬">不吝赞扬</a></h2>
+<p><code>Thursday, 2 July 2009</code></p>
 <blockquote>
-<p>Thursday, 2 July 2009
-Dont Delay Your Praise</p>
+<p>Dont Delay Your Praise</p>
 </blockquote>
 <p>几年前，我在一个很Nice的小组长手下工作。任谁提的任务，小组长都接受；组
 员忙的四脚朝天。和我一起忙碌的，还有另一个新招的Vendor。他技术很不错，
@@ -2883,9 +2783,7 @@ Dont Delay Your Praise</p>
 自己都对自己厌弃。</p>
 <p>及时而真诚地赞美他人吧！驱走人心头的阴霾，换来光明一片!</p>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="那一年"><a class="header" href="#那一年">那一年</a></h1>
-<blockquote>
-<p>Wednesday, 12 August 2009</p>
-</blockquote>
+<p><code>Wednesday, 12 August 2009</code></p>
 <p>那一年，老大领着我们在荒野里闲逛。不晓得吃什么，喝什么，只记得脚踩在野
 雪上，咯吱咯吱的声音；还有冷风的吟唱，热风哄、哄的哼；我们走的没有方向，
 基本上就是跟着老大走，老大也是随便走的。时间太久远，根本不像这个世纪或
@@ -2944,9 +2842,7 @@ Dont Delay Your Praise</p>
 终没有再见那只极瘦的鸟。我们思念它，像思念我们的厄运，思念我们的前世今
 生。</p>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="婚姻"><a class="header" href="#婚姻">婚姻</a></h1>
-<blockquote>
-<p>Saturday, 8 August 2009</p>
-</blockquote>
+<p><code>Saturday, 8 August 2009</code></p>
 <p>上帝保佑一下他，成为一个好丈夫，成为一个好父亲。</p>
 <p>天空只可置身不可经过。内心只可审视不可到达。</p>
 <p>立秋的第二天，天渐高远，雨洗出天空的瓦蓝。风催着落叶，叶子说走了，树枝
@@ -2962,18 +2858,18 @@ Dont Delay Your Praise</p>
 保了亿万年的平安。内心只可审视不可到达。木星可真不容易，舍了心的保护咱
 们，咱们的心可不是让天狗吃了？就像天空只可置身不可经过。</p>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="托尔斯泰与米兰昆德拉"><a class="header" href="#托尔斯泰与米兰昆德拉">托尔斯泰与米兰昆德拉</a></h1>
+<p><code>Saturday, 1 August 2009</code></p>
 <blockquote>
-<p>Saturday, 1 August 2009
-Lev Tolstoy and Milan Kundera</p>
+<p>Lev Tolstoy and Milan Kundera</p>
 </blockquote>
 <p>听到的。没记住讲述者的名字。</p>
 <p>列夫·托尔斯泰总是用温和的态度，善良的心介入各种尽管很尖锐的矛盾；而米
 兰·昆德拉则以对立的、尖锐的态度进入。米兰·昆德拉很有力度，但缺少托尔斯
 泰的厚度。</p>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="声音与力量"><a class="header" href="#声音与力量">声音与力量</a></h1>
+<p><code>Friday, 3 July 2009</code></p>
 <blockquote>
-<p>Friday, 3 July 2009
-Sound and Power</p>
+<p>Sound and Power</p>
 </blockquote>
 <p>正在读北大钱理群的两本书：《我的精神自传》和《心灵的探寻》</p>
 <p>钱理群的想法有一种笨拙而锋利的力量。这力量像是来自大地的深层，看似沉闷
@@ -2992,9 +2888,7 @@ Sound and Power</p>
 因此建议有条件的同学读一下钱理群，读一下王蒙的老子，他们才是真正有力的
 主儿。</p>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="叙事"><a class="header" href="#叙事">叙事</a></h1>
-<blockquote>
-<p>Tuesday, 30 June 2009</p>
-</blockquote>
+<p><code>Tuesday, 30 June 2009</code></p>
 <p>一天，下着大雨，我骑着单车，浇的透湿。前面是红灯，边上有个小女孩，也许
 是在哭泣。雨下得很大，看不大清。</p>
 <p>她提着一个大包，她说她钱花光了，或者丢了；她鼓着嘴，像是跟命运赌气。我
@@ -3003,9 +2897,7 @@ Sound and Power</p>
 <p>绿灯了。</p>
 <p>雨下成了细细的树林。风来就斜一下。</p>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="轩辕"><a class="header" href="#轩辕">轩辕</a></h1>
-<blockquote>
-<p>Sunday, 21 June 2009</p>
-</blockquote>
+<p><code>Sunday, 21 June 2009</code></p>
 <p>那一年的二月二，世上有了轩辕黄帝。黄帝、炎帝还有蚩尤好像都是石头缝里蹦
 出来的，没人知道他们的父亲是谁。那时候还是母系氏族到父系氏族的过渡时期。
 父亲是谁母亲都糊涂着呢。可又有什么关系呢？父亲只是种子的主人，而收获是
@@ -3159,9 +3051,9 @@ Sound and Power</p>
 分需要八刀，这来自切瓜的经验；而合说说就好了。漫长的历史里他说了很多很
 多，我们这个最伟大也最卑贱的民族越滚越大。</p>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="猫信"><a class="header" href="#猫信">猫信</a></h1>
+<p><code>Thursday, 18 June 2009</code></p>
 <blockquote>
-<p>Thursday, 18 June 2009
-Cat Trust</p>
+<p>Cat Trust</p>
 </blockquote>
 <p>现在对我最信任的，就是我的小猫：）</p>
 <p>我单手拎着它的四只脚走来走去，它也继续做它的事：有时东张西望，有时舔身
@@ -3178,9 +3070,7 @@ Cat Trust</p>
 <p>如今看它那么坦然地躺在那睡觉，安祥得如空气一般，就知道它好福气，不是我
 们一般人类所能比的。</p>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="范德瓦尔斯力"><a class="header" href="#范德瓦尔斯力">范德瓦尔斯力</a></h1>
-<blockquote>
-<p>Tuesday, 19 May 2009</p>
-</blockquote>
+<p><code>Tuesday, 19 May 2009</code></p>
 <p>导师说，夫妻之间，范德瓦尔斯力在起着作用。</p>
 <p>当你们离的较远，是相互吸引的；而你们离的太近，是相互排斥的。</p>
 <p>如果离的太远了，这个力的存在可以忽略不计的。</p>
@@ -3190,9 +3080,7 @@ Cat Trust</p>
 <p>“我觉得这样就可以了，不过还有更好的方法。”他说。</p>
 <p>他们说着说着就过去了很多年。生活存活在话语里。</p>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="谁是谁"><a class="header" href="#谁是谁">谁是谁</a></h1>
-<blockquote>
-<p>Thursday, 14 May 2009</p>
-</blockquote>
+<p><code>Thursday, 14 May 2009</code></p>
 <p>多年后重新回到这个主题，发现自己对这个主题还是这么痴迷；我已经不大记得
 我写过的了。</p>
 <p>我还发现虽然我忘记了这个主题，但我写的其他东西还是暗暗地围绕着这个，好
@@ -3298,8 +3186,9 @@ shit的。 持鸡狗戒就是金鸡独立， 学狗吃屎。 据说吃多了就�
 <p>下面是今天的习题：</p>
 <p>既然每一头大象都有6个牙齿，佛经里出于什么原因对牙齿的数目进行强调？</p>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="我的猫"><a class="header" href="#我的猫">我的猫</a></h1>
+<p><code>Thursday, 26 March 2009</code>
+&gt;</p>
 <blockquote>
-<p>Thursday, 26 March 2009</p>
 <p>My Cat</p>
 </blockquote>
 <p>正睡的舒服呢，被叫起来拍照，有些不大高兴。</p>
@@ -3308,8 +3197,9 @@ shit的。 持鸡狗戒就是金鸡独立， 学狗吃屎。 据说吃多了就�
 <p><img src="2009/mycat02.jpg" alt="" /></p>
 <p>凤凰台的军事观察</p>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="我的团长我的团"><a class="header" href="#我的团长我的团">我的团长我的团</a></h1>
+<p><code>Friday, 20 March 2009</code>
+&gt;</p>
 <blockquote>
-<p>Friday, 20 March 2009</p>
 <p>My Group Leader and My Group</p>
 </blockquote>
 <p>拷问我们民族灵魂的一部作品。庄严而戏谑，圣洁而肮脏；充斥着神性和不羁。
@@ -3329,9 +3219,7 @@ shit的。 持鸡狗戒就是金鸡独立， 学狗吃屎。 据说吃多了就�
 紧呢？有什么关系呢？我们就这么糊了八突地过吧，我们这个让人恨的发狂，也
 爱的发狂的民族。</p>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="猫不易"><a class="header" href="#猫不易">猫不易</a></h1>
-<blockquote>
-<p>Tuesday, 10 March 2009</p>
-</blockquote>
+<p><code>Tuesday, 10 March 2009</code></p>
 <p>So Difficult to be a Human's Cat</p>
 <p>给人作猫可真不容易！</p>
 <p>我的小猫，从上周五吐到了这周一，喝口水都吐。上周末两天，我Transfer到了
@@ -3362,8 +3250,9 @@ shit的。 持鸡狗戒就是金鸡独立， 学狗吃屎。 据说吃多了就�
 不会说话的宠物治病。慎独。没可能揭穿的时候，还那么有良心；这时的良心才
 是真的良。</p>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="关于二"><a class="header" href="#关于二">关于二</a></h1>
+<p><code>Tuesday, 3 March 2009</code>
+&gt;</p>
 <blockquote>
-<p>Tuesday, 3 March 2009</p>
 <p>About Two</p>
 </blockquote>
 <p>让二来得更猛烈些吧:-)</p>
@@ -3374,8 +3263,9 @@ shit的。 持鸡狗戒就是金鸡独立， 学狗吃屎。 据说吃多了就�
 <p>《易经》里有句话：见群龙无首，吉。如果每个人都很二，那是很好的兆头啊。
 这是我的理解了：）</p>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="致列夫托尔斯泰"><a class="header" href="#致列夫托尔斯泰">致列夫·托尔斯泰</a></h1>
+<p><code>Monday, 19 January 2009</code>
+&gt;</p>
 <blockquote>
-<p>Monday, 19 January 2009</p>
 <p>To Lev Tolstoy</p>
 </blockquote>
 <p>他让安德烈离开之前，与娜塔莎重逢。他让娜塔莎得到宽恕，让比埃尔爱上娜塔
@@ -3392,8 +3282,9 @@ shit的。 持鸡狗戒就是金鸡独立， 学狗吃屎。 据说吃多了就�
 ——《慈航》，昌耀
 </code></pre>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="我的葡萄树"><a class="header" href="#我的葡萄树">我的葡萄树</a></h1>
+<p><code>Sunday, 11 January 2009</code>
+&gt;</p>
 <blockquote>
-<p>Sunday, 11 January 2009</p>
 <p>My Vine</p>
 </blockquote>
 <p>我的葡萄树结了六串葡萄，绿色的。也是在2009年刚开始的那几天才发现的。</p>
@@ -3409,8 +3300,8 @@ shit的。 持鸡狗戒就是金鸡独立， 学狗吃屎。 据说吃多了就�
 <p>于是在这新年之后，春节之前，我再三叮嘱我的葡萄树，一定不要太劳累，要不
 然我不吃。</p>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="白鲸"><a class="header" href="#白鲸">白鲸</a></h1>
+<p><code>Monday, 22 December 2008</code></p>
 <blockquote>
-<p>Monday, 22 December 2008</p>
 <p>Moby Dick</p>
 </blockquote>
 <p>一斧头一斧头当场就劈出来这么一个野蛮而厚重的家伙。边劈边聊，跟砍柴的似
@@ -3428,8 +3319,9 @@ shit的。 持鸡狗戒就是金鸡独立， 学狗吃屎。 据说吃多了就�
 式舞的密不透风，水泼不进；一飘身就不见了；诸般灵异说说都觉得臊得慌。就
 描吧，单薄的灵魂只配贴在纸上。</p>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="阿基米德"><a class="header" href="#阿基米德">阿基米德</a></h1>
+<p><code>Thursday, 4 December 2008</code>
+&gt;</p>
 <blockquote>
-<p>Thursday, 4 December 2008</p>
 <p>Archimedes</p>
 </blockquote>
 <p>阿基米德说，给我一支点，我就可以撬起地球。</p>
@@ -3455,8 +3347,9 @@ shit的。 持鸡狗戒就是金鸡独立， 学狗吃屎。 据说吃多了就�
 却只能置身宇宙之外，努力地撬遥远的一个宇宙里的，也许最不出名的一颗小小
 的蓝色星球，的幽魂。</p>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="父辈"><a class="header" href="#父辈">父辈</a></h1>
+<p><code>Wednesday, 3 December 2008</code>
+&gt;</p>
 <blockquote>
-<p>Wednesday, 3 December 2008</p>
 <p>The So Called Elder</p>
 </blockquote>
 <p>比较喜欢的东西，最好要有个内核，精神上的。不喜欢像于丹那样的，东一下西
@@ -3469,8 +3362,8 @@ shit的。 持鸡狗戒就是金鸡独立， 学狗吃屎。 据说吃多了就�
 爱多了。人俄国人打的饱嗝，透着酒气；冬天里闻到，恶心归恶心，也还知道对
 面的人是活生生的。不像我们，形体上的温驯，遮掩精神上的野蛮。</p>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="爱情的意义"><a class="header" href="#爱情的意义">爱情的意义</a></h1>
+<p><code>Saturday, 22 November 2008</code></p>
 <blockquote>
-<p>Saturday, 22 November 2008</p>
 <p>The Meaning of Love</p>
 </blockquote>
 <p>在我上大学的时候，有一个晚上，十一点多了，我下了晚自习，正在往宿舍走的
@@ -3577,9 +3470,7 @@ shit的。 持鸡狗戒就是金鸡独立， 学狗吃屎。 据说吃多了就�
 <p>有时候也想起那头小鹿，哀求的眼光蒙着一层水气。于是就告诫自己要争气，别
 活得跟团屎似的，让自己的爱人一点办法都没有无可奈何还要去求别的人。</p>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="一个朋友"><a class="header" href="#一个朋友">一个朋友</a></h1>
-<blockquote>
-<p>Saturday, 8 November 2008</p>
-</blockquote>
+<p><code>Saturday, 8 November 2008</code></p>
 <p>在中镇(Middle Town)有我一个朋友，叫约翰。</p>
 <p>中镇在大西洋边上。直通通趟过去，就到欧洲了。那里是富人的天堂，遍地豪宅
 和酒馆。也是夏季旅游的圣地。不过冬天由于太冷，很少人去。富人们大多不在，
@@ -3630,9 +3521,7 @@ fix girl friend, fix everything)。 女人没有自修理的能力，而且只�
 们，跨千年去见庄子；胡子长得盘在腰上；眼睛慢慢变灰变红；忧忧扰扰假装洒
 脱像一个蛆虫。才发现约翰他们文明的高深了。</p>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="读庄子"><a class="header" href="#读庄子">读庄子</a></h1>
-<blockquote>
-<p>Sunday, 12 October 2008</p>
-</blockquote>
+<p><code>Sunday, 12 October 2008</code></p>
 <p>正在读《庄子全译》。译注者张耿光，主要研究汉语的。其所加的注释大都是语
 言层面的。至于关乎思想的，评的很少。因此这是一本很好的书。</p>
 <p>不知鲲在北冥好好的，怎么忽然要去南冥。北冥和南冥之间，想是没有水路相同
@@ -3644,9 +3533,7 @@ fix girl friend, fix everything)。 女人没有自修理的能力，而且只�
 是使斧子的；个把小时就能砍一副，枯木头的。肯定是不结实的，因此要在北冥
 涨水的时候起飞；这样掉下来不至于头扎进泥里。</p>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="村庄"><a class="header" href="#村庄">村庄</a></h1>
-<blockquote>
-<p>Sunday, 5 October 2008</p>
-</blockquote>
+<p><code>Sunday, 5 October 2008</code></p>
 <pre><code>无言的村庄，黄土埋没的村庄
 坐落在圣人或盗贼出没的地方
 
@@ -3676,9 +3563,7 @@ fix girl friend, fix everything)。 女人没有自修理的能力，而且只�
 天也苍苍
 </code></pre>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="黑白铁"><a class="header" href="#黑白铁">黑白铁</a></h1>
-<blockquote>
-<p>Saturday, 8 March 2008</p>
-</blockquote>
+<p><code>Saturday, 8 March 2008</code></p>
 <pre><code>还在她很小的时候，一天，妈妈带给她一只小猫眯
 她们玩了一整天，捉迷藏，做游戏
 
@@ -3694,9 +3579,7 @@ fix girl friend, fix everything)。 女人没有自修理的能力，而且只�
 妈妈也没说什么，走进自己的房间
 </code></pre>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="测试驱动学习模式"><a class="header" href="#测试驱动学习模式">测试驱动学习模式</a></h1>
-<blockquote>
-<p>Tuesday, 11 December 2007</p>
-</blockquote>
+<p><code>Tuesday, 11 December 2007</code></p>
 <p>学习本身也需要学习（Study itself also needs to be studied），而且学习
 本身的学习，还是一个永不停止的过程，永远也没有个完结。这也恰恰是学习自
 身学习的特点。</p>
@@ -3796,9 +3679,7 @@ fix girl friend, fix everything)。 女人没有自修理的能力，而且只�
 得清晰可验证之前，对其不加理会。因此街边的程序员可以暂时地走在测试驱动
 学习模式的道路上。</p>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="混沌之死问题集锦"><a class="header" href="#混沌之死问题集锦">混沌之死问题集锦</a></h1>
-<blockquote>
-<p>Wednesday, 22 August 2007</p>
-</blockquote>
+<p><code>Wednesday, 22 August 2007</code></p>
 <h2 id="q1"><a class="header" href="#q1">Q1:</a></h2>
 <p>不过，这个原文“南海之帝为儵 北海之帝为忽，中央之帝为浑沌。儵与忽时相
 与遇于浑沌之地，浑沌待之甚善。儵与忽谋报浑沌之德，曰：人皆有七窍以视
@@ -3845,9 +3726,7 @@ fix girl friend, fix everything)。 女人没有自修理的能力，而且只�
 以用这个数学思想来思考倏忽的由来。次从数学上来讲，倏忽揭示的是时间 的
 流动特性。</p>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="混沌之死"><a class="header" href="#混沌之死">混沌之死</a></h1>
-<blockquote>
-<p>Tuesday, 21 August 2007</p>
-</blockquote>
+<p><code>Tuesday, 21 August 2007</code></p>
 <p>宇宙里的第一个神，名字叫混沌。混沌这个神，据山海经的说法，是火红的，没
 有五官七窍，混沌一团。那时候还没有时间，不能问那个时刻之前的事。和绝对
 温度相似，降到了绝对零度，什么都不动了，万物静止。时间也是如此，绝对时
@@ -3920,9 +3799,7 @@ fix girl friend, fix everything)。 女人没有自修理的能力，而且只�
 德经里，讲述了这个过程：一生二，二生三，三生万物。一、二、三简单的数字，
 包含多少神人的血泪。</p>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="emacs里的有幽灵"><a class="header" href="#emacs里的有幽灵">Emacs里的有幽灵</a></h1>
-<blockquote>
-<p>Tuesday, 21 August 2007</p>
-</blockquote>
+<p><code>Tuesday, 21 August 2007</code></p>
 <p>一个是黑色的，一个是白色的。每一句话他们都仔细读过并相互讨论，他们肯定
 理解键入的每一句话，不管这句话是用汉语、英语、Java、C、Ruby、Perl还是
 Python写成，他们全明白。他们只是不怎么发言。他们沉默的时候并不代表他们
@@ -3933,9 +3810,7 @@ Python写成，他们全明白。他们只是不怎么发言。他们沉默的�
 抖一下，有时候出来一颗豆子，有时候出来一颗谷子，有时候什么也出不来，就
 碰一下，发出啵的声音。</p>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="记远方的一个朋友"><a class="header" href="#记远方的一个朋友">记远方的一个朋友</a></h1>
-<blockquote>
-<p>Thursday, 26 July 2007</p>
-</blockquote>
+<p><code>Thursday, 26 July 2007</code></p>
 <p>我们是在工作中认识的。没见过面，只是在线上聊一聊。他比我大得多。我的一
 个东西要发在他那里，流程复杂，慢慢也熟了。我做技术，看到流程复杂一点，
 就快晕掉。他帮我挡着，提醒我该做这个该做那个；帮我看文档，一点一点的看。
@@ -3950,9 +3825,7 @@ Python写成，他们全明白。他们只是不怎么发言。他们沉默的�
 有一个将死的人，而且这个器官还和他不能有排斥。他应该是华人，在遥远的异
 国，我猜想很难找到正好合适的器官。他就这么的等。乐观的让人心碎。</p>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="锁麟囊"><a class="header" href="#锁麟囊">锁麟囊</a></h1>
-<blockquote>
-<p>Monday, 18 June 2007</p>
-</blockquote>
+<p><code>Monday, 18 June 2007</code></p>
 <p>锁麟囊是讲金钱观的。春秋亭外风雨暴，何处悲声破寂寥。慑人心魄。一代京剧
 圣手翁偶虹的作品。“偶虹偶虹，红起红收”。翁先生早岁编“红莲寺”，四十年后
 编“红灯记”收手。翁先生最珍视的是“鸳鸯泪”，解放后改名为“周仁献嫂”，也许
@@ -3976,9 +3849,7 @@ Python写成，他们全明白。他们只是不怎么发言。他们沉默的�
 涯》、《翁偶虹剧作选》。</p>
 </blockquote>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="春闺梦"><a class="header" href="#春闺梦">春闺梦</a></h1>
-<blockquote>
-<p>Monday, 18 June 2007</p>
-</blockquote>
+<p><code>Monday, 18 June 2007</code></p>
 <p>春闺梦反战的一个戏。古人里最怜惜老百姓的莫过杜甫。春闺梦唱的是老杜的心
 里话。 新婚别+兵车行。历史朝代放到了汉朝。实际说的是民国军阀乱打那一阵，
 老百姓都烦死了。啥都不为就为个活命。这些都是程砚秋想表达的。</p>
@@ -4023,9 +3894,7 @@ Python写成，他们全明白。他们只是不怎么发言。他们沉默的�
 </code></pre>
 <p>春闺梦的名字取自陈陶诗“可怜无定河边骨,犹是春闺梦里人”。</p>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="碰碑"><a class="header" href="#碰碑">碰碑</a></h1>
-<blockquote>
-<p>Sunday, 17 June 2007</p>
-</blockquote>
+<p><code>Sunday, 17 June 2007</code></p>
 <p>李陵碑，呀呀呸。李陵是汉朝的大将，投降了匈奴。汉武帝要杀他全家。司马
 迁说，李陵投降不对，但在当时的情境下，可以宽恕，不必杀他全家。汉武帝不
 听，还宫了司马迁。司马迁就去写史记去了。之后苏武出使匈奴，匈奴劝降不成，
@@ -4073,9 +3942,7 @@ Python写成，他们全明白。他们只是不怎么发言。他们沉默的�
 <p>我估计她内心也不这么想, 也是这帮没文化的读者给逼的. 没办法, 只能这么写,
 要不然人家长不屌. 家长觉得孩子喜欢上于丹, 那以后就好管了.</p>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="cdrecord的故事汇"><a class="header" href="#cdrecord的故事汇">cdrecord的故事汇</a></h1>
-<blockquote>
-<p>Thursday, 26 April 2007</p>
-</blockquote>
+<p><code>Thursday, 26 April 2007</code></p>
 <p><img src="2007/jorg_schilling.jpg" alt="Jorg Schilling" /></p>
 <p>在这个晚春的早上, 写一写cdrecord的故事, 也许对大家有些警示.</p>
 <p>cdrecord, 主要用于刻盘, 刻CD, DVD.</p>
@@ -4216,8 +4083,9 @@ any help, especially from me you dickhead. . 这个shock56, 抢着要当Jorg
 人Jorg太善了, 我就看不了你这鸡贼乱欺侮. 他俩对骂了许久. 那大约是2003年
 间的事.</p>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="手工测试生命太短"><a class="header" href="#手工测试生命太短">手工测试生命太短</a></h1>
+<p><code>Wednesday, 28 February 2007</code>
+&gt;</p>
 <blockquote>
-<p>Wednesday, 28 February 2007</p>
 <p>Life is too Short for Manual Testing</p>
 </blockquote>
 <p>对做手工测试而言, 生命太短.</p>

@@ -1,5 +1,6 @@
 # Dummynet Usage on Mac
-> Created at <2017-10-26 Thu>
+
+`<2017-10-26 Thu>`
 
 [PfOnMacOSX]: https://pleiades.ucsc.edu/hyades/PF_on_Mac_OS_X
 [DummynetRevisited]: http://info.iet.unipi.it/~luigi/papers/20091201-dummynet.pdf

@@ -1,6 +1,6 @@
 # 关于梦回宋朝
 
-> Saturday, 23 January 2010
+`Saturday, 23 January 2010`
 
 《梦回宋朝》出来了，很开心。
 当当：<http://product.dangdang.com/product.aspx?product_id=20767694>

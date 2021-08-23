@@ -1,7 +1,7 @@
 
 # My Kids
 
-> Created at <2017-12-25 Mon>
+`<2017-12-25 Mon>`
 
 Here some interesting words from my kids:
 

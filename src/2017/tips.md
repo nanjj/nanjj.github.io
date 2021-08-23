@@ -1,6 +1,6 @@
 # Tips
 
-> Created at <2017-12-20 Mon>
+`<2017-12-20 Mon>`
 
 [cat]: https://nmap.org/ncat/
 [ncat guide]: https://nmap.org/ncat/guide/index.html

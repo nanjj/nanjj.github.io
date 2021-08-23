@@ -1,6 +1,6 @@
 # 聊斋
 
-> Wednesday, 27 October 2010
+`Wednesday, 27 October 2010`
 
 大体可以看懂《聊斋志异》的原文。很喜欢这么洗练的文字，也许是中国人的缘
 故吧。

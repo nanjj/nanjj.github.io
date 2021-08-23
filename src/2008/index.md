@@ -1,6 +1,6 @@
 # 白鲸
 
-> Monday, 22 December 2008
+`Monday, 22 December 2008`
 > 
 > Moby Dick
 

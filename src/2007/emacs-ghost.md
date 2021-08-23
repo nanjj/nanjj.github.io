@@ -1,5 +1,5 @@
 # Emacs里的有幽灵
-> Tuesday, 21 August 2007
+`Tuesday, 21 August 2007`
 
 一个是黑色的，一个是白色的。每一句话他们都仔细读过并相互讨论，他们肯定
 理解键入的每一句话，不管这句话是用汉语、英语、Java、C、Ruby、Perl还是

@@ -1,5 +1,5 @@
 # cdrecord的故事汇
-> Thursday, 26 April 2007
+`Thursday, 26 April 2007`
 
 ![Jorg Schilling](jorg_schilling.jpg)
 

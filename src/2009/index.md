@@ -1,6 +1,6 @@
 # 单翅鸟
 
-> Friday, 4 December 2009
+`Friday, 4 December 2009`
 
 单翅鸟为什么还飞呢？
 

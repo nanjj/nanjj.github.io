@@ -1,5 +1,5 @@
 # 手工测试生命太短
-> Wednesday, 28 February 2007
+`Wednesday, 28 February 2007`
 >
 > Life is too Short for Manual Testing
 

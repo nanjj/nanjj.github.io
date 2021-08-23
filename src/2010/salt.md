@@ -1,6 +1,6 @@
 # 洪启九月·微薄之盐
 
-> Friday, 3 September 2010
+`Friday, 3 September 2010`
 
 ![Salt](salt.jpg)
 
