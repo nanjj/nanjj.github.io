@@ -4,4 +4,6 @@ build: clean
 	mdbook build
 clean:
 	mdbook clean
+serve:
+	mdbook serve
 
