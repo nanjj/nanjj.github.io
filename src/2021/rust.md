@@ -28,6 +28,7 @@ Mod`多成功，只能算不失败罢了：中间走了弯路，最终也没有�
 2. [Workspace], [Package], [Crate], [Module]依次搞清楚，
 3. [Unit Testing]如何写，
 4. [Rust Doc]以及[mdBook]
+
 最后才慢慢看[Rust]的语法：
 1. [Common Programming Concepts],
 2. [Ownership], [Smart Pointers],
