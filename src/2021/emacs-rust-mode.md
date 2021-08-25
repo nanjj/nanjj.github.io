@@ -30,12 +30,12 @@ package-install cargo
 cargo install cargo-edit
 ```
 
-至此，语法加亮，代码规整，常见命令支持都有了。还差一个代码补齐和跳转。
-这两者能力由Emacs的LSP能力补足。
+至此，语法加亮，代码规整，常见命令支持都有了。还差一个代码补齐和跳转，
+由Emacs的LSP能力补足。
 
 ## LSP的选择
 
-Emacs下LSP(Launguage Server Protocol)有两个选择:
+Emacs下LSP(Language Server Protocol)有两个选择:
 1. [LSP],
 2. [Eglot]
 
