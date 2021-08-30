@@ -1,6 +1,7 @@
 # Summary
-[Home](2021/emacs-rust-mode.md)
-- [2021](2021/rust.md)
+[Home](2021/euler.md)
+- [2021](2021/emacs-rust-mode.md)
+  - [Rust再学习](2021/rust.md)
 - [2019](2019/index.md)
   - [Manipulate Mac Disk Images](2019/hdituil.md)
   - [LXD Inside](2019/lxd.md)
