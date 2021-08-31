@@ -4,6 +4,7 @@ language = "zh_CN"
 multilingual = false
 src = "src"
 title = "Thatched Cottage"
+
 [output.html]
 no-section-label = true
 mathjax-support = true
