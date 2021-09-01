@@ -1,1 +1,6 @@
 book
+*.lock
+
+# Added by cargo
+
+/target
