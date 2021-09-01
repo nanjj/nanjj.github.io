@@ -11,13 +11,12 @@ use std::{
 fn process() -> Result<(), Error> {
     let (_ctx, mut book) = CmdPreprocessor::parse_input(io::stdin())?;
     book.for_each_mut(|section: &mut BookItem| {
-        if let BookItem::Chapter(ref ch) = *section {
+        if let BookItem::Chapter(ch) = section {
             if ch.name == "Home" {
                 if let Some(ref path) = ch.path {
                     let mut cpath = PathBuf::from(path);
                     cpath.set_extension("html");
                     if let Some(ref idxuri) = cpath.to_str() {
-                        eprintln!("Get Home {}", idxuri);
                         let file = File::create("src/index.html").unwrap();
                         let mut writer = BufWriter::new(&file);
                         write!(
