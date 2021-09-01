@@ -1,32 +1,31 @@
-use mdbook::book::BookItem;
-use mdbook::errors::Error;
-use mdbook::preprocess::CmdPreprocessor;
+use mdbook::{book::BookItem, errors::Error, preprocess::CmdPreprocessor};
 use serde_json;
 
-use std::fs::File;
-use std::io;
-use std::io::prelude::*;
-// use std::fmt::Write;
-use std::path::Path;
+use std::{
+    fs::File,
+    io,
+    io::{BufWriter, Write},
+    path::PathBuf,
+};
 
 fn process() -> Result<(), Error> {
     let (_ctx, mut book) = CmdPreprocessor::parse_input(io::stdin())?;
     book.for_each_mut(|section: &mut BookItem| {
-        if let BookItem::Chapter(ref mut ch) = *section {
+        if let BookItem::Chapter(ref ch) = *section {
             if ch.name == "Home" {
-                if let Some(ref mut path) = ch.path {
-                    eprintln!("Get Home {:?}", path);
-                    let idxpath = Path::new("src/index.html");
-                    let idxdisplay = idxpath.display();
-                    let mut idxfile = match File::create(&idxpath) {
-                        Err(why) => panic!("couldn't create {}: {}", idxdisplay, why),
-                        Ok(idxfile) => idxfile,
-                    };
-                    match idxfile.write_all(
-                        "<head><meta http-equiv=\"refresh\" content=\"0;url=\"></head>".as_bytes(),
-                    ) {
-                        Err(why) => panic!("couldn't write to {}: {}", idxdisplay, why),
-                        Ok(_) => (),
+                if let Some(ref path) = ch.path {
+                    let mut cpath = PathBuf::from(path);
+                    cpath.set_extension("html");
+                    if let Some(ref idxuri) = cpath.to_str() {
+                        eprintln!("Get Home {}", idxuri);
+                        let file = File::create("src/index.html").unwrap();
+                        let mut writer = BufWriter::new(&file);
+                        write!(
+                            &mut writer,
+                            "<head><meta http-equiv=\"refresh\" content=\"0;url={}\"></head>",
+                            idxuri
+                        )
+                        .unwrap();
                     }
                 }
             }
@@ -37,5 +36,5 @@ fn process() -> Result<(), Error> {
 }
 
 fn main() {
-    let _res = process();
+    let _ = process();
 }
