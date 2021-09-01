@@ -1,6 +1,10 @@
-use mdbook::{book::BookItem, errors::Error, preprocess::CmdPreprocessor};
-use serde_json;
-
+use filetime::FileTime;
+use mdbook::{
+    book::{BookItem, BookItem::Chapter},
+    errors::Error,
+    preprocess::CmdPreprocessor,
+};
+use serde_json::to_writer;
 use std::{
     fs::{metadata, File},
     io,
@@ -8,10 +12,8 @@ use std::{
     path::PathBuf,
 };
 
-use filetime::FileTime;
-
 fn handle(section: &mut BookItem) -> Result<(), Error> {
-    if let BookItem::Chapter(ref ch) = *section {
+    if let Chapter(ref ch) = *section {
         if ch.name == "Home" {
             if let Some(ref path) = ch.path {
                 let mut cpath = PathBuf::from(path);
@@ -44,10 +46,10 @@ fn handle(section: &mut BookItem) -> Result<(), Error> {
 fn process() -> Result<(), Error> {
     let (_ctx, mut book) = CmdPreprocessor::parse_input(io::stdin())?;
     book.for_each_mut(|section: &mut BookItem| handle(section).unwrap());
-    serde_json::to_writer(io::stdout(), &book)?;
+    to_writer(io::stdout(), &book)?;
     Ok(())
 }
 
 fn main() {
-    let _ = process();
+    process().unwrap();
 }
