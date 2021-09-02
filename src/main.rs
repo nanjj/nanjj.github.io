@@ -32,12 +32,14 @@ fn handle(ctx: &PreprocessorContext, section: &mut BookItem) -> Result<(), Error
         if ch.name == "Home" {
             if let Some(ref path) = ch.path {
                 let ref src = ctx.config.book.src;
-                if let Ok(true) = newer_than(src.join(path), src.join("index.html")) {
-                    write_index_html(
-                        src.join("index.html"),
-                        path.with_extension("html").to_str().unwrap(),
-                    )?;
+                let res = newer_than(src.join(path), src.join("index.html"));
+                if let Ok(false) = res {
+                    return Ok(());
                 }
+                write_index_html(
+                    src.join("index.html"),
+                    path.with_extension("html").to_str().unwrap(),
+                )?;
             }
         }
     }
@@ -52,7 +54,7 @@ fn process() -> Result<(), Error> {
 }
 
 fn main() {
-    process().unwrap();
+    process().unwrap_or_default();
 }
 
 #[cfg(test)]
