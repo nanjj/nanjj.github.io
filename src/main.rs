@@ -11,7 +11,7 @@ use std::{
     path::Path,
 };
 
-fn newer_than<P: AsRef<Path>>(p1: P, p2: P) -> Result<bool, Error> {
+fn modified<P: AsRef<Path>>(p1: P, p2: P) -> Result<bool, Error> {
     Ok(FileTime::from_last_modification_time(&metadata(p1)?)
         > FileTime::from_last_modification_time(&metadata(p2)?))
 }
@@ -32,7 +32,7 @@ fn handle(ctx: &PreprocessorContext, section: &mut BookItem) -> Result<(), Error
         if ch.name == "Home" {
             if let Some(ref path) = ch.path {
                 let ref src = ctx.config.book.src;
-                let res = newer_than(src.join(path), src.join("index.html"));
+                let res = modified(src.join(path), src.join("index.html"));
                 if let Ok(false) = res {
                     return Ok(());
                 }
@@ -46,7 +46,7 @@ fn handle(ctx: &PreprocessorContext, section: &mut BookItem) -> Result<(), Error
     Ok(())
 }
 
-fn process() -> Result<(), Error> {
+fn run() -> Result<(), Error> {
     let (ctx, mut book) = CmdPreprocessor::parse_input(stdin())?;
     book.for_each_mut(|section: &mut BookItem| handle(&ctx, section).unwrap());
     to_writer(stdout(), &book)?;
@@ -54,7 +54,7 @@ fn process() -> Result<(), Error> {
 }
 
 fn main() {
-    process().unwrap_or_default();
+    run().unwrap_or_default();
 }
 
 #[cfg(test)]
@@ -64,8 +64,8 @@ mod tests {
     use std::io::Read;
     #[test]
     fn test_newer_than() {
-        assert!(newer_than(Path::new("not-exists-1"), Path::new("not-exists-2")).is_err());
-        let res = newer_than(Path::new("index.html"), Path::new("index.html"));
+        assert!(modified(Path::new("not-exists-1"), Path::new("not-exists-2")).is_err());
+        let res = modified(Path::new("index.html"), Path::new("index.html"));
         assert!(res.is_ok());
         assert_eq!(false, res.unwrap());
     }
@@ -78,7 +78,6 @@ mod tests {
         assert!(res.is_ok());
         let mut file = File::open(index).unwrap();
         let mut s = String::new();
-        // file.read_to_string(&mut s).unwrap();
         let size = Read::read_to_string(&mut file, &mut s).unwrap();
         assert_eq!(72, size);
         assert_eq!(
