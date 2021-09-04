@@ -9,12 +9,7 @@
 
 以下是本博客的`book.toml`配置：
 ```
-{{#include ../../book.toml}}
-```
-
-可以看到我写的预处理插件配置为：
-```
-[preprocessor.blog]
+{{#include ../../book.toml:8}}
 ```
 
 这样[Mdbook]会通过标准输入发配置上下文和书的内容给`mdbook-blog`，
