@@ -1,0 +1,30 @@
+[tasks.all]
+script = [
+	   "rm book/*.rs",
+	   "cp -rf book/* ."
+]
+dependencies = ["build"]
+
+[tasks.build]
+command = "mdbook"
+args = ["build"]
+dependencies = ["clean"]
+
+[tasks.clean]
+command = "mdbook"
+args = ["clean"]
+
+[tasks.serve]
+command = "mdbook"
+args = ["serve"]
+
+# all: build
+# 	rm book/*.rs
+# 	cp -rf book/* .
+# build: clean
+# 	mdbook build
+# clean:
+# 	mdbook clean
+# serve:
+# 	mdbook serve
+
