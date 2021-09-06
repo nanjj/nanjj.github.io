@@ -142,35 +142,33 @@
 <h2 id="github通知机制"><a class="header" href="#github通知机制">Github通知机制</a></h2>
 <p>Github的持续集成采用通知机制。</p>
 <p>如下图所示：</p>
-<pre><code class="language-mermaid"> graph LR
+<pre class="mermaid"> graph LR
 	 github[Github]
 	 webhook[Webhook]
 	 github --通知--&gt; webhook
 	 subgraph 持续集成
 		 webhook
 		 end
-</code></pre>
+</pre>
 <p><img src="github-ci.png" alt="" /></p>
 <p>持续集成的开发人员需要实现一个Webhook来接收Github的消息通知。这个
 Webhook是一个服务，需要保证安全，保证可调用。</p>
 <p>Gitlab不是这么做的。</p>
 <h2 id="gitlab订阅模式"><a class="header" href="#gitlab订阅模式">Gitlab订阅模式</a></h2>
 <p>Gitlab用订阅的模式来做持续集成。如下图示：</p>
-<pre><code class="language-mermaid">graph LR
+<pre class="mermaid">graph LR
 	gitlab[Gitlab]
 	runner[Gitlab Runner]
 	runner -.订阅.-&gt; gitlab
 	subgraph 持续集成
 	runner
 end
-</code></pre>
+</pre>
 <p><img src="gitlab-ci.png" alt="" /></p>
-<p>这样 <code>gitlab runner</code> 可以是跑在内网的某台机器，只要该机器通过<code>http</code>协
-议能访问gitlab就可以。这种方式对持续集成的开发人员成本较低。但对Gitlab
+<p>这样 <code>gitlab runner</code> 可以是跑在内网的某台机器，只要该机器通过<code>http</code>协议能访问gitlab就可以。这种方式对持续集成的开发人员成本较低。但对Gitlab
 服务方，成本较高。Gitlab能支持多少个Runner挂在上面呢？</p>
 <h2 id="gitlab-runner如何工作"><a class="header" href="#gitlab-runner如何工作">Gitlab Runner如何工作</a></h2>
-<p><code>Gitlab Runner</code> 每3秒访问一下Gitlab看有没有任务，如有任务，扯下来执行。
-如无任务，3秒后见。</p>
+<p><code>Gitlab Runner</code> 每3秒访问一下Gitlab看有没有任务，如有任务，扯下来执行。如无任务，3秒后见。</p>
 <p><code>Gitlab Runner</code> 后面可以跑docker， kubernetes等。我觉得通过 <code>Gitlab Runner</code> 的shell模式可以跑<code>lxd</code> 。</p>
 
                     </main>

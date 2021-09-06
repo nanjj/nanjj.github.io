@@ -139,31 +139,11 @@
                         <h1 id="mdbook预处理插件"><a class="header" href="#mdbook预处理插件">Mdbook预处理插件</a></h1>
 <p>我学了点<a href="https://kaisery.github.io/trpl-zh-cn/">Rust</a>语言，用<a href="https://kaisery.github.io/trpl-zh-cn/">Rust</a>语言写了个<a href="https://rust-lang.github.io/mdBook/">Mdbook</a>预处理插件。</p>
 <h2 id="预处理插件"><a class="header" href="#预处理插件">预处理插件</a></h2>
-<p><a href="https://rust-lang.github.io/mdBook/">Mdbook</a>预处理插件是一个可执行程序，<a href="https://rust-lang.github.io/mdBook/">Mdbook</a>做预处理时会把markdown内容
-以及配置通过标准输入发给它，它做预处理，把结果输出到标准输出。</p>
+<p><a href="https://rust-lang.github.io/mdBook/">Mdbook</a>预处理插件是一个可执行程序，<a href="https://rust-lang.github.io/mdBook/">Mdbook</a>做预处理时会把markdown内容以及配置通过标准输入发给它，它做预处理，把结果输出到标准输出。</p>
 <p>以下是本博客的<code>book.toml</code>配置：</p>
-<pre><code>[book]
-authors = [&quot;JUN JIE NAN&quot;]
-language = &quot;zh_CN&quot;
-multilingual = false
-src = &quot;src&quot;
-title = &quot;Thatched Cottage&quot;
-
-[preprocessor.blog]
-
-[output.html]
-no-section-label = true
-mathjax-support = true
-
-[output.html.fold]
-enable = true
-level = 0
-</code></pre>
-<p>可以看到我写的预处理插件配置为：</p>
 <pre><code>[preprocessor.blog]
 </code></pre>
-<p>这样<a href="https://rust-lang.github.io/mdBook/">Mdbook</a>会通过标准输入发配置上下文和书的内容给<code>mdbook-blog</code>，
-<code>mdbook-blog</code>做预处理，把结果打到标准输出。</p>
+<p>这样<a href="https://rust-lang.github.io/mdBook/">Mdbook</a>会通过标准输入发配置上下文和书的内容给<code>mdbook-blog</code>，<code>mdbook-blog</code>做预处理，把结果打到标准输出。</p>
 <p>因此我需要写这个<code>mdbook-blog</code>,<code>Cargo.toml</code>:</p>
 <pre><code>[package]
 name = &quot;mdbook-blog&quot;
@@ -267,27 +247,19 @@ mod tests {
 }
 </code></pre>
 <h2 id="a-hrefhttpsrust-langgithubiomdbookmdbooka与博客"><a class="header" href="#a-hrefhttpsrust-langgithubiomdbookmdbooka与博客"><a href="https://rust-lang.github.io/mdBook/">Mdbook</a>与博客</a></h2>
-<p><a href="https://rust-lang.github.io/mdBook/">Mdbook</a>为写书而有，并非为博客所写。我把我的博客架构在<a href="https://rust-lang.github.io/mdBook/">Mdbook</a>上也就是
-图省事。博客需要有一个首页，一般的首页是把最新几篇摘要生成一个列表放在
-那。我这个插件是把首页重定向到最新一篇。这实现简单，而且用起来还不错。</p>
+<p><a href="https://rust-lang.github.io/mdBook/">Mdbook</a>为写书而有，并非为博客所写。我把我的博客架构在<a href="https://rust-lang.github.io/mdBook/">Mdbook</a>上也就是图省事。博客需要有一个首页，一般的首页是把最新几篇摘要生成一个列表放在那。我这个插件是把首页重定向到最新一篇。这实现简单，而且用起来还不错。</p>
 <h2 id="a-hrefhttpskaiserygithubiotrpl-zh-cnrusta的学习"><a class="header" href="#a-hrefhttpskaiserygithubiotrpl-zh-cnrusta的学习"><a href="https://kaisery.github.io/trpl-zh-cn/">Rust</a>的学习</a></h2>
 <p>这个<a href="https://rust-lang.github.io/mdBook/">Mdbook</a>插件是我用<a href="https://kaisery.github.io/trpl-zh-cn/">Rust</a>写的第一个程序。通过这个程序的编写，我对
-<a href="https://kaisery.github.io/trpl-zh-cn/">Rust</a>的包结构，模块组织，基本语法以及错误处理有了点认识。另外着重看了
-下<a href="https://kaisery.github.io/trpl-zh-cn/">Rust</a>的<a href="https://doc.rust-lang.org/book/ch11-00-testing.html">自动测试</a>。</p>
+<a href="https://kaisery.github.io/trpl-zh-cn/">Rust</a>的包结构，模块组织，基本语法以及错误处理有了点认识。另外着重看了下<a href="https://kaisery.github.io/trpl-zh-cn/">Rust</a>的<a href="https://doc.rust-lang.org/book/ch11-00-testing.html">自动测试</a>。</p>
 <p><a href="https://kaisery.github.io/trpl-zh-cn/">Rust</a>把自动测试分为3类:</p>
 <ol>
 <li>单元测试，</li>
 <li>文档测试，</li>
 <li>集成测试。</li>
 </ol>
-<p>其中文档测试是其他语言所不具备的。写在文档里的例子，在<code>cargo test</code>的时
-候也会被执行。</p>
-<p>单元测试如何做，敏捷开发界有许多争议，比如私有方法是否要覆盖之类。但单
-元测试是否要做，大概是没有争议的。<a href="https://kaisery.github.io/trpl-zh-cn/">Rust</a>选了比较实际的路线，把选择权给
-了开发。</p>
-<p>集成测试其实就是接口测试，只测对外暴露的接口。<code>libs</code>集成测试没问题，
-<code>binary</code>没有对外接口，咋做呢？<a href="https://kaisery.github.io/trpl-zh-cn/">Rust</a>给了个方案，同时后<code>src/main.rs</code>和
-<code>src/libs.rs</code>，让<code>binary</code>也可以成为<code>libs</code>，这样问题就解决了。</p>
+<p>其中文档测试是其他语言所不具备的。写在文档里的例子，在<code>cargo test</code>的时候也会被执行。</p>
+<p>单元测试如何做，敏捷开发界有许多争议，比如私有方法是否要覆盖之类。但单元测试是否要做，大概是没有争议的。<a href="https://kaisery.github.io/trpl-zh-cn/">Rust</a>选了比较实际的路线，把选择权给了开发。</p>
+<p>集成测试其实就是接口测试，只测对外暴露的接口。<code>libs</code>集成测试没问题，<code>binary</code>没有对外接口，咋做呢？<a href="https://kaisery.github.io/trpl-zh-cn/">Rust</a>给了个方案，同时后<code>src/main.rs</code>和<code>src/libs.rs</code>，让<code>binary</code>也可以成为<code>libs</code>，这样问题就解决了。</p>
 <p>综合其上，三种测试统称为自动测试。一个遗留问题是代码覆盖率，不知如何做。</p>
 
                     </main>

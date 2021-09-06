@@ -713,7 +713,8 @@ ARP, Request who-has 240.0.47.99 tell 240.0.46.14, length 28
 <h3 id="launch-container"><a class="header" href="#launch-container">Launch Container</a></h3>
 <p><code>lxc launch b --debug</code> will do:</p>
 <ol>
-<li>Get version
+<li>
+<p>Get version</p>
 <pre><code>DBUG Connecting to a remote LXD over HTTPs
 DBUG Sending request to LXD method=GET url=https://192.168.0.48:8443/1.0 etag=
 DBUG Got response struct from LXD
@@ -759,7 +760,8 @@ DBUG
         }
 </code></pre>
 </li>
-<li>Get image
+<li>
+<p>Get image</p>
 <pre><code>Creating the container
 DBUG ... method=GET url=https://192.168.0.48:8443/1.0/images/aliases/b etag=
 DBUG Got response struct from LXD
@@ -808,7 +810,8 @@ DBUG
         }
 </code></pre>
 </li>
-<li>Create Container Operation
+<li>
+<p>Create Container Operation</p>
 <pre><code>DBUG Connected to the websocket
 DBUG ... method=POST url=.../1.0/containers etag=
 DBUG
@@ -849,7 +852,8 @@ DBUG
         }
 </code></pre>
 </li>
-<li>Wait Create Operation Done
+<li>
+<p>Wait Create Operation Done</p>
 <pre><code>DBUG ... method=GET url=.../1.0/operations/1de45646-... etag=
 DBUG Got response struct from LXD
 DBUG
@@ -873,7 +877,8 @@ DBUG
 Container name is: fluent-hamster
 </code></pre>
 </li>
-<li>Get container
+<li>
+<p>Get container</p>
 <pre><code>DBUG[01-22|14:13:37] ... method=GET url=.../1.0/containers/fluent-hamster etag=
 DBUG[01-22|14:13:39] Got response struct from LXD
 DBUG[01-22|14:13:39]
@@ -938,7 +943,8 @@ DBUG[01-22|14:13:39]
         }
 </code></pre>
 </li>
-<li>Start Container Operation
+<li>
+<p>Start Container Operation</p>
 <pre><code>Starting fluent-hamster
 DBUG ... method=PUT url=.../1.0/containers/fluent-hamster/state etag=
 DBUG
@@ -969,7 +975,8 @@ DBUG
         }
 </code></pre>
 </li>
-<li>Start Operation Done
+<li>
+<p>Start Operation Done</p>
 <pre><code>DBUG[01-22|14:13:40] ... method=GET url=.../1.0/operations/...-27385370aa39 etag=
 DBUG[01-22|14:13:42] Got response struct from LXD
 DBUG[01-22|14:13:42]
