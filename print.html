@@ -142,7 +142,7 @@
 <h2 id="预处理插件"><a class="header" href="#预处理插件">预处理插件</a></h2>
 <p><a href="https://rust-lang.github.io/mdBook/">Mdbook</a>预处理插件是一个可执行程序，<a href="https://rust-lang.github.io/mdBook/">Mdbook</a>做预处理时会把markdown内容以及配置通过标准输入发给它，它做预处理，把结果输出到标准输出。</p>
 <p>以下是本博客的<code>book.toml</code>配置：</p>
-<pre><code>[preprocessor.blog]
+<pre><code>[preprocessor.fix-cjk-spacing]
 </code></pre>
 <p>这样<a href="https://rust-lang.github.io/mdBook/">Mdbook</a>会通过标准输入发配置上下文和书的内容给<code>mdbook-blog</code>，<code>mdbook-blog</code>做预处理，把结果打到标准输出。</p>
 <p>因此我需要写这个<code>mdbook-blog</code>,<code>Cargo.toml</code>:</p>
@@ -152,15 +152,20 @@ version = &quot;0.1.0&quot;
 edition = &quot;2018&quot;
 
 [dependencies]
+anyhow = &quot;1.0.43&quot;
+chrono = &quot;0.4.19&quot;
 filetime = &quot;0.2.15&quot;
 mdbook = &quot;0.4.12&quot;
 serde_json = &quot;1.0.67&quot;
 </code></pre>
 <p>实现在<code>src/main.rs</code>:</p>
-<pre><code>use filetime::FileTime;
+<pre><code>use anyhow::Result;
+use chrono::{prelude::DateTime, Local};
+use filetime::FileTime;
+use std::time::{Duration, UNIX_EPOCH};
+
 use mdbook::{
     book::{BookItem, BookItem::Chapter},
-    errors::Error,
     preprocess::{CmdPreprocessor, PreprocessorContext},
 };
 use serde_json::to_writer;
@@ -170,12 +175,41 @@ use std::{
     path::Path,
 };
 
-fn modified&lt;P: AsRef&lt;Path&gt;&gt;(p1: P, p2: P) -&gt; Result&lt;bool, Error&gt; {
+fn modified&lt;P: AsRef&lt;Path&gt;&gt;(p1: P, p2: P) -&gt; Result&lt;bool&gt; {
     Ok(FileTime::from_last_modification_time(&amp;metadata(p1)?)
         &gt; FileTime::from_last_modification_time(&amp;metadata(p2)?))
 }
 
-fn write_index_html&lt;P: AsRef&lt;Path&gt;&gt;(index: P, target: &amp;str) -&gt; Result&lt;(), Error&gt; {
+fn creation_time&lt;P: AsRef&lt;Path&gt;&gt;(p: P) -&gt; Result&lt;String&gt; {
+    if let Some(mtime) = FileTime::from_creation_time(&amp;metadata(p)?) {
+        let seconds: u64 = mtime.seconds() as u64;
+        let d = UNIX_EPOCH + Duration::from_secs(seconds);
+        let datetime = DateTime::&lt;Local&gt;::from(d);
+        Ok(format!(&quot;{}&quot;, datetime.format(&quot;%Y-%m-%d %H:%M:%S&quot;)))
+    } else {
+        Ok(String::from(&quot;&quot;))
+    }
+}
+
+fn insert_timestamp(content: &amp;str, timestamp: &amp;str) -&gt; Result&lt;String&gt; {
+    let mut s = String::new();
+    let mut lines = content.lines();
+    let line1 = lines.next().unwrap_or(&quot;&quot;);
+    s.push_str(line1);
+    s.push('\n');
+    let line2 = lines.next().unwrap_or(&quot;&quot;);
+    if line2 != &quot;&quot; &amp;&amp; line1 != &quot;&quot; {
+        if !line2.contains(&quot;`&quot;) {
+            s.push_str(&amp;format!(&quot;`{}`&quot;, timestamp));
+            s.push('\n');
+        }
+    }
+    s.push_str(line1);
+    s.push('\n');
+    Ok(s)
+}
+
+fn write_index_html&lt;P: AsRef&lt;Path&gt;&gt;(index: P, target: &amp;str) -&gt; Result&lt;()&gt; {
     let file = File::create(index)?;
     let mut writer = BufWriter::new(&amp;file);
     write!(
@@ -186,11 +220,14 @@ fn write_index_html&lt;P: AsRef&lt;Path&gt;&gt;(index: P, target: &amp;str) -&gt
     Ok(())
 }
 
-fn handle(ctx: &amp;PreprocessorContext, section: &amp;mut BookItem) -&gt; Result&lt;(), Error&gt; {
-    if let Chapter(ref ch) = *section {
-        if ch.name == &quot;Home&quot; {
-            if let Some(ref path) = ch.path {
-                let ref src = ctx.config.book.src;
+fn handle(ctx: &amp;PreprocessorContext, section: &amp;mut BookItem) -&gt; Result&lt;()&gt; {
+    if let Chapter(ref mut ch) = *section {
+        let ref src = ctx.config.book.src;
+        if let Some(ref path) = ch.path {
+            let created_at = creation_time(src.join(path))?;
+            let timestamp = format!(&quot;{}&quot;, created_at);
+            ch.content = insert_timestamp(&amp;ch.content, &amp;timestamp)?;
+            if ch.name == &quot;Home&quot; {
                 let res = modified(src.join(path), src.join(&quot;index.html&quot;));
                 if let Ok(false) = res {
                     return Ok(());
@@ -205,7 +242,7 @@ fn handle(ctx: &amp;PreprocessorContext, section: &amp;mut BookItem) -&gt; Resul
     Ok(())
 }
 
-fn run() -&gt; Result&lt;(), Error&gt; {
+fn run() -&gt; Result&lt;()&gt; {
     let (ctx, mut book) = CmdPreprocessor::parse_input(stdin())?;
     book.for_each_mut(|section: &amp;mut BookItem| handle(&amp;ctx, section).unwrap());
     to_writer(stdout(), &amp;book)?;
@@ -244,6 +281,12 @@ mod tests {
             s
         );
         remove_file(index).unwrap();
+    }
+    #[test]
+    fn test_insert_timestamp() {
+        let text = &quot;hello\nworld\n!&quot;;
+        let res = insert_timestamp(text, &quot;timestamp&quot;).unwrap();
+        assert_eq!(&quot;hello\n`timestamp`\n!&quot;, res);
     }
 }
 </code></pre>
