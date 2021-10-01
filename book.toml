@@ -5,6 +5,7 @@ multilingual = false
 src = "src"
 title = "Thatched Cottage"
 
+[preprocessor.blog]
 [preprocessor.fix-cjk-spacing]
 [preprocessor.mermaid]
 

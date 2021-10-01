@@ -1,5 +1,6 @@
 use anyhow::Result;
 use chrono::{prelude::DateTime, Local};
+use clap::{App, Arg, SubCommand};
 use filetime::FileTime;
 use std::time::{Duration, UNIX_EPOCH};
 
@@ -12,6 +13,7 @@ use std::{
     fs::{metadata, File},
     io::{stdin, stdout, BufWriter, Write},
     path::Path,
+    process,
 };
 
 fn modified<P: AsRef<Path>>(p1: P, p2: P) -> Result<bool> {
@@ -19,32 +21,42 @@ fn modified<P: AsRef<Path>>(p1: P, p2: P) -> Result<bool> {
         > FileTime::from_last_modification_time(&metadata(p2)?))
 }
 
-fn creation_time<P: AsRef<Path>>(p: P) -> Result<String> {
-    if let Some(mtime) = FileTime::from_creation_time(&metadata(p)?) {
-        let seconds: u64 = mtime.seconds() as u64;
-        let d = UNIX_EPOCH + Duration::from_secs(seconds);
-        let datetime = DateTime::<Local>::from(d);
-        Ok(format!("{}", datetime.format("%Y-%m-%d %H:%M:%S")))
-    } else {
-        Ok(String::from(""))
-    }
+fn last_modification_time<P: AsRef<Path>>(p: P) -> Result<String> {
+    let dt = DateTime::<Local>::from(
+        UNIX_EPOCH
+            + Duration::from_secs(
+                FileTime::from_last_modification_time(&metadata(p)?).seconds() as u64,
+            ),
+    );
+    Ok(format!("{}", dt.format("%Y-%m-%d, %A, %_I%p")))
 }
 
 fn insert_timestamp(content: &str, timestamp: &str) -> Result<String> {
     let mut s = String::new();
     let mut lines = content.lines();
-    let line1 = lines.next().unwrap_or("");
-    s.push_str(line1);
-    s.push('\n');
-    let line2 = lines.next().unwrap_or("");
-    if line2 != "" && line1 != "" {
-        if !line2.contains("`") {
-            s.push_str(&format!("`{}`", timestamp));
-            s.push('\n');
+    let line1 = loop {
+        if let Some(line) = lines.next() {
+            if line != "" {
+                break line;
+            }
         }
+    };
+    let line2 = loop {
+        if let Some(line) = lines.next() {
+            if line != "" {
+                break line;
+            }
+        }
+    };
+    s.push_str(&format!("{}\n\n", line1));
+    if !line2.contains("`") {
+        s.push_str(&format!("`{}`\n\n", timestamp));
     }
-    s.push_str(line1);
-    s.push('\n');
+    s.push_str(&format!("{}\n", line2));
+    while let Some(line) = lines.next() {
+        s.push_str(line);
+        s.push('\n');
+    }
     Ok(s)
 }
 
@@ -63,7 +75,7 @@ fn handle(ctx: &PreprocessorContext, section: &mut BookItem) -> Result<()> {
     if let Chapter(ref mut ch) = *section {
         let ref src = ctx.config.book.src;
         if let Some(ref path) = ch.path {
-            let created_at = creation_time(src.join(path))?;
+            let created_at = last_modification_time(src.join(path))?;
             let timestamp = format!("{}", created_at);
             ch.content = insert_timestamp(&ch.content, &timestamp)?;
             if ch.name == "Home" {
@@ -89,6 +101,21 @@ fn run() -> Result<()> {
 }
 
 fn main() {
+    let matches = App::new("mdbook-blog")
+        .about("A mdbook preprocessor for blog")
+        .subcommand(
+            SubCommand::with_name("supports")
+                .arg(Arg::with_name("renderer").required(true))
+                .about("check whether a renderer is supported"),
+        )
+        .get_matches();
+    if let Some(supports) = matches.subcommand_matches("supports") {
+        let renderer = supports.value_of("renderer").expect("Required argument");
+        if renderer != "" {
+            process::exit(0);
+        }
+        process::exit(1);
+    }
     run().unwrap_or_default();
 }
 
@@ -99,8 +126,8 @@ mod tests {
     use std::io::Read;
     #[test]
     fn test_newer_than() {
-        assert!(modified(Path::new("not-exists-1"), Path::new("not-exists-2")).is_err());
-        let res = modified(Path::new("index.html"), Path::new("index.html"));
+        assert!(modified("not-exists-1", "not-exists-2").is_err());
+        let res = modified("src/main.rs", "src/main.rs");
         assert!(res.is_ok());
         assert_eq!(false, res.unwrap());
     }
@@ -123,8 +150,14 @@ mod tests {
     }
     #[test]
     fn test_insert_timestamp() {
-        let text = "hello\nworld\n!";
+        let text = "hello\nworld!";
         let res = insert_timestamp(text, "timestamp").unwrap();
-        assert_eq!("hello\n`timestamp`\n!", res);
+        assert_eq!("hello\n\n`timestamp`\n\nworld!\n", res);
+    }
+
+    #[test]
+    fn test_creation_time() {
+        let ctime = last_modification_time("src/main.rs");
+        assert_ne!(String::from(""), ctime.unwrap());
     }
 }

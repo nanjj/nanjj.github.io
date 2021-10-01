@@ -138,11 +138,12 @@
                 <div id="content" class="content">
                     <main>
                         <h1 id="mdbook预处理插件"><a class="header" href="#mdbook预处理插件">Mdbook预处理插件</a></h1>
+<p><code>2021-09-06, Monday, 11PM</code></p>
 <p>我学了点<a href="https://kaisery.github.io/trpl-zh-cn/">Rust</a>语言，用<a href="https://kaisery.github.io/trpl-zh-cn/">Rust</a>语言写了个<a href="https://rust-lang.github.io/mdBook/">Mdbook</a>预处理插件。</p>
 <h2 id="预处理插件"><a class="header" href="#预处理插件">预处理插件</a></h2>
 <p><a href="https://rust-lang.github.io/mdBook/">Mdbook</a>预处理插件是一个可执行程序，<a href="https://rust-lang.github.io/mdBook/">Mdbook</a>做预处理时会把markdown内容以及配置通过标准输入发给它，它做预处理，把结果输出到标准输出。</p>
 <p>以下是本博客的<code>book.toml</code>配置：</p>
-<pre><code>[preprocessor.fix-cjk-spacing]
+<pre><code>[preprocessor.blog]
 </code></pre>
 <p>这样<a href="https://rust-lang.github.io/mdBook/">Mdbook</a>会通过标准输入发配置上下文和书的内容给<code>mdbook-blog</code>，<code>mdbook-blog</code>做预处理，把结果打到标准输出。</p>
 <p>因此我需要写这个<code>mdbook-blog</code>,<code>Cargo.toml</code>:</p>
@@ -154,6 +155,7 @@ edition = &quot;2018&quot;
 [dependencies]
 anyhow = &quot;1.0.43&quot;
 chrono = &quot;0.4.19&quot;
+clap = &quot;2.33.3&quot;
 filetime = &quot;0.2.15&quot;
 mdbook = &quot;0.4.12&quot;
 serde_json = &quot;1.0.67&quot;
@@ -161,6 +163,7 @@ serde_json = &quot;1.0.67&quot;
 <p>实现在<code>src/main.rs</code>:</p>
 <pre><code>use anyhow::Result;
 use chrono::{prelude::DateTime, Local};
+use clap::{App, Arg, SubCommand};
 use filetime::FileTime;
 use std::time::{Duration, UNIX_EPOCH};
 
@@ -173,6 +176,7 @@ use std::{
     fs::{metadata, File},
     io::{stdin, stdout, BufWriter, Write},
     path::Path,
+    process,
 };
 
 fn modified&lt;P: AsRef&lt;Path&gt;&gt;(p1: P, p2: P) -&gt; Result&lt;bool&gt; {
@@ -180,32 +184,42 @@ fn modified&lt;P: AsRef&lt;Path&gt;&gt;(p1: P, p2: P) -&gt; Result&lt;bool&gt; {
         &gt; FileTime::from_last_modification_time(&amp;metadata(p2)?))
 }
 
-fn creation_time&lt;P: AsRef&lt;Path&gt;&gt;(p: P) -&gt; Result&lt;String&gt; {
-    if let Some(mtime) = FileTime::from_creation_time(&amp;metadata(p)?) {
-        let seconds: u64 = mtime.seconds() as u64;
-        let d = UNIX_EPOCH + Duration::from_secs(seconds);
-        let datetime = DateTime::&lt;Local&gt;::from(d);
-        Ok(format!(&quot;{}&quot;, datetime.format(&quot;%Y-%m-%d %H:%M:%S&quot;)))
-    } else {
-        Ok(String::from(&quot;&quot;))
-    }
+fn last_modification_time&lt;P: AsRef&lt;Path&gt;&gt;(p: P) -&gt; Result&lt;String&gt; {
+    let dt = DateTime::&lt;Local&gt;::from(
+        UNIX_EPOCH
+            + Duration::from_secs(
+                FileTime::from_last_modification_time(&amp;metadata(p)?).seconds() as u64,
+            ),
+    );
+    Ok(format!(&quot;{}&quot;, dt.format(&quot;%Y-%m-%d, %A, %_I%p&quot;)))
 }
 
 fn insert_timestamp(content: &amp;str, timestamp: &amp;str) -&gt; Result&lt;String&gt; {
     let mut s = String::new();
     let mut lines = content.lines();
-    let line1 = lines.next().unwrap_or(&quot;&quot;);
-    s.push_str(line1);
-    s.push('\n');
-    let line2 = lines.next().unwrap_or(&quot;&quot;);
-    if line2 != &quot;&quot; &amp;&amp; line1 != &quot;&quot; {
-        if !line2.contains(&quot;`&quot;) {
-            s.push_str(&amp;format!(&quot;`{}`&quot;, timestamp));
-            s.push('\n');
+    let line1 = loop {
+        if let Some(line) = lines.next() {
+            if line != &quot;&quot; {
+                break line;
+            }
         }
+    };
+    let line2 = loop {
+        if let Some(line) = lines.next() {
+            if line != &quot;&quot; {
+                break line;
+            }
+        }
+    };
+    s.push_str(&amp;format!(&quot;{}\n\n&quot;, line1));
+    if !line2.contains(&quot;`&quot;) {
+        s.push_str(&amp;format!(&quot;`{}`\n\n&quot;, timestamp));
     }
-    s.push_str(line1);
-    s.push('\n');
+    s.push_str(&amp;format!(&quot;{}\n&quot;, line2));
+    while let Some(line) = lines.next() {
+        s.push_str(line);
+        s.push('\n');
+    }
     Ok(s)
 }
 
@@ -224,7 +238,7 @@ fn handle(ctx: &amp;PreprocessorContext, section: &amp;mut BookItem) -&gt; Resul
     if let Chapter(ref mut ch) = *section {
         let ref src = ctx.config.book.src;
         if let Some(ref path) = ch.path {
-            let created_at = creation_time(src.join(path))?;
+            let created_at = last_modification_time(src.join(path))?;
             let timestamp = format!(&quot;{}&quot;, created_at);
             ch.content = insert_timestamp(&amp;ch.content, &amp;timestamp)?;
             if ch.name == &quot;Home&quot; {
@@ -250,6 +264,21 @@ fn run() -&gt; Result&lt;()&gt; {
 }
 
 fn main() {
+    let matches = App::new(&quot;mdbook-blog&quot;)
+        .about(&quot;A mdbook preprocessor for blog&quot;)
+        .subcommand(
+            SubCommand::with_name(&quot;supports&quot;)
+                .arg(Arg::with_name(&quot;renderer&quot;).required(true))
+                .about(&quot;check whether a renderer is supported&quot;),
+        )
+        .get_matches();
+    if let Some(supports) = matches.subcommand_matches(&quot;supports&quot;) {
+        let renderer = supports.value_of(&quot;renderer&quot;).expect(&quot;Required argument&quot;);
+        if renderer != &quot;&quot; {
+            process::exit(0);
+        }
+        process::exit(1);
+    }
     run().unwrap_or_default();
 }
 
@@ -260,8 +289,8 @@ mod tests {
     use std::io::Read;
     #[test]
     fn test_newer_than() {
-        assert!(modified(Path::new(&quot;not-exists-1&quot;), Path::new(&quot;not-exists-2&quot;)).is_err());
-        let res = modified(Path::new(&quot;index.html&quot;), Path::new(&quot;index.html&quot;));
+        assert!(modified(&quot;not-exists-1&quot;, &quot;not-exists-2&quot;).is_err());
+        let res = modified(&quot;src/main.rs&quot;, &quot;src/main.rs&quot;);
         assert!(res.is_ok());
         assert_eq!(false, res.unwrap());
     }
@@ -284,9 +313,15 @@ mod tests {
     }
     #[test]
     fn test_insert_timestamp() {
-        let text = &quot;hello\nworld\n!&quot;;
+        let text = &quot;hello\nworld!&quot;;
         let res = insert_timestamp(text, &quot;timestamp&quot;).unwrap();
-        assert_eq!(&quot;hello\n`timestamp`\n!&quot;, res);
+        assert_eq!(&quot;hello\n\n`timestamp`\n\nworld!\n&quot;, res);
+    }
+
+    #[test]
+    fn test_creation_time() {
+        let ctime = last_modification_time(&quot;src/main.rs&quot;);
+        assert_ne!(String::from(&quot;&quot;), ctime.unwrap());
     }
 }
 </code></pre>
@@ -306,6 +341,7 @@ mod tests {
 <p>集成测试其实就是接口测试，只测对外暴露的接口。<code>libs</code>集成测试没问题，<code>binary</code>没有对外接口，咋做呢？<a href="https://kaisery.github.io/trpl-zh-cn/">Rust</a>给了个方案，同时后<code>src/main.rs</code>和<code>src/libs.rs</code>，让<code>binary</code>也可以成为<code>libs</code>，这样问题就解决了。</p>
 <p>综合其上，三种测试统称为自动测试。一个遗留问题是代码覆盖率，不知如何做。</p>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="欧拉"><a class="header" href="#欧拉">欧拉</a></h1>
+<p><code>2021-09-02, Thursday, 10PM</code></p>
 <p>在读莫里斯·克莱因的《古今数学思想》，终于读到欧拉（Leonhard Euler ，
 1707年4月15日～1783年9月18日）。</p>
 <p><img src="2021/euler.jpg" alt="Euler" /></p>
@@ -2297,6 +2333,7 @@ blog using org-publish.</p>
 <p>忘记说了啥。那时不爱说话。看得出她不快乐。他们高考后就散了。那是最后一次见面。</p>
 <p>多少年了。</p>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="春游"><a class="header" href="#春游">春游</a></h1>
+<p><code>2021-08-23, Monday, 11PM</code></p>
 <blockquote>
 <p>我们楼下江老太太八十了，特有文化，很多方面都是我的老师。不过电脑方面，我懂的比她多一些，就做了她的老师。</p>
 <p>现在她会打字，会用QQ和别人聊天，会使用Word简单的一些功能。今天她发了第一篇博客，这是她学电脑最大成就了，具有里程碑的意义。作为“老师”我也很高兴，转发一下。</p>
@@ -2637,6 +2674,7 @@ Already very good
 <p>列夫·托尔斯泰，堪称人类的良心；但人类的良心只是陀思妥耶夫斯基关心的一部分，他还研究人类的灵魂和血肉。</p>
 <p>没有其他的人像俄罗斯人的灵魂（如果他们有的话）更赤裸裸，血肉那么野蛮热烈。也感谢上帝把陀思妥耶夫斯基注定为俄罗斯人。</p>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="故事汇"><a class="header" href="#故事汇">故事汇</a></h1>
+<p><code>2021-08-24, Tuesday,  2AM</code></p>
 <blockquote>
 <p>按：这是一次卡耐基培训，同学们以第一人称叙述的故事，我以书记的身份，将之记录下来。</p>
 </blockquote>
@@ -3313,6 +3351,7 @@ Python写成，他们全明白。他们只是不怎么发言。他们沉默的�
 <p><code>Sunday, 17 June 2007</code></p>
 <p>李陵碑，呀呀呸。李陵是汉朝的大将，投降了匈奴。汉武帝要杀他全家。司马迁说，李陵投降不对，但在当时的情境下，可以宽恕，不必杀他全家。汉武帝不听，还宫了司马迁。司马迁就去写史记去了。之后苏武出使匈奴，匈奴劝降不成，就留苏武牧羊。苏武在匈奴期间，李陵常和他聊天。苏武最终返回了汉邦。王朔说，李陵当时被围在荒山上，弹尽粮绝，三千人眼看要饿死，这时候匈奴来劝降，李陵开了投降的条件，第一就是不许杀害我的将士，让他们安全回去；还有不正面和故邦为敌等。匈奴都答应了。把那三千人放回去了。司马迁记载最后只有几百人回去。也许其他人不愿回去，也许饿死了。但司马迁说可以宽恕的话，牵涉非常宏大的主题。当很多人的生命和忠的思想有冲突，如何选择？李陵做出了他的选择。司马迁基本认可这种选择。杨继业不认可。 杨继业的儿子要么死了，要么下落不明；为宋王几乎付出了一切；也面临饿死荒山的命运。他唯一的想法也许是青史留名。看到李陵碑，唯一的希望也破灭了。他选择了自杀。死之前有很多的抱怨。他碰死在李陵碑上。死之后仰面慢慢倒下。观众鼓掌。这幕戏就结束了。</p>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="老子的故事汇"><a class="header" href="#老子的故事汇">老子的故事汇</a></h1>
+<p><code>2021-08-23, Monday, 11PM</code></p>
 <p>正经TWR的论调, 于丹的风格, 中国最不缺的就是这个, 相当于俗话说吧.</p>
 <p>这种道理容易讲嘛, 调查研究也不用. 卢梭有一本书, 爱米尔, 也叫论教育, 三本, 讲一个小孩爱弥尔从0岁到成人的教育, 可以想见写着有多难, 多么不讨巧.
 人都讨论天堂啊, 罪恶啊这些呢. 谁说这个? 也没那么风雅. 但花几年写出来怎么也是个物件. 哪像这些人. 描眉似的. 本质的问题根本不碰, 也实际没能力碰.
