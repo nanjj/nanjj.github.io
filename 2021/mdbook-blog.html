@@ -196,20 +196,15 @@ fn last_modification_time&lt;P: AsRef&lt;Path&gt;&gt;(p: P) -&gt; Result&lt;Stri
 fn insert_timestamp(content: &amp;str, timestamp: &amp;str) -&gt; Result&lt;String&gt; {
     let mut s = String::new();
     let mut lines = content.lines();
-    let line1 = loop {
+    let mut next_line = || loop {
         if let Some(line) = lines.next() {
             if line != &quot;&quot; {
                 break line;
             }
         }
     };
-    let line2 = loop {
-        if let Some(line) = lines.next() {
-            if line != &quot;&quot; {
-                break line;
-            }
-        }
-    };
+    let line1 = next_line();
+    let line2 = next_line();
     s.push_str(&amp;format!(&quot;{}\n\n&quot;, line1));
     if !line2.contains(&quot;`&quot;) {
         s.push_str(&amp;format!(&quot;`{}`\n\n&quot;, timestamp));
@@ -305,7 +300,8 @@ mod tests {
         let size = Read::read_to_string(&amp;mut file, &amp;mut s).unwrap();
         assert_eq!(72, size);
         assert_eq!(
-            &quot;&lt;head&gt;&lt;meta http-equiv=\&quot;refresh\&quot; content=\&quot;0;url=2021/euler.html\&quot;&gt;&lt;/head&gt;&quot;,
+            &quot;&lt;head&gt;&lt;meta http-equiv=\&quot;refresh\&quot; content=\&quot;\
+			 0;url=2021/euler.html\&quot;&gt;&lt;/head&gt;&quot;,
             s
         );
         remove_file(index).unwrap();
