@@ -1,18 +1,22 @@
-[tasks.all]
-dependencies = ["release"]
-
-[tasks.release]
-script = [
-	   "rm book/*.rs",
-	   "cp -rf book/* ."
-]
-dependencies = ["build"]
+[tasks.install]
+command="cargo"
+args = ["install", "--path", "."]
 
 [tasks.build]
+dependencies = ["bookcopy"]
+
+[tasks.bookcopy]
+script = [
+	   "rm -rf book/*.rs",
+	   "cp -rf book/* ."
+]
+dependencies = ["bookbuild"]
+
+[tasks.bookbuild]
 command = "mdbook"
 args = ["build"]
-dependencies = ["clean"]
+dependencies = ["install", "bookclean"]
 
-[tasks.clean]
+[tasks.bookclean]
 command = "mdbook"
 args = ["clean"]
