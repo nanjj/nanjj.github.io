@@ -202,6 +202,9 @@ fn insert_timestamp(content: &amp;str, timestamp: &amp;str) -&gt; Result&lt;Stri
             if line != &quot;&quot; {
                 break line;
             }
+            continue;
+        } else {
+            break &quot;&quot;;
         }
     };
     let line1 = next_line();

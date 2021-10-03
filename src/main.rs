@@ -39,6 +39,9 @@ fn insert_timestamp(content: &str, timestamp: &str) -> Result<String> {
             if line != "" {
                 break line;
             }
+            continue;
+        } else {
+            break "";
         }
     };
     let line1 = next_line();
