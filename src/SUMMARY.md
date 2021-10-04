@@ -1,6 +1,7 @@
 # Summary
-[Home](2021/mdbook-blog.md)
-- [2021](2021/euler.md)
+[Home](2021/math-general-education.md)
+- [2021](2021/mdbook-blog.md)
+  - [欧拉](2021/euler.md)
   - [Emacs Rust Mode](2021/emacs-rust-mode.md)
   - [Rust再学习](2021/rust.md)
 - [2019](2019/index.md)
