@@ -138,14 +138,33 @@
                 <div id="content" class="content">
                     <main>
                         <h1 id="牛吃草问题"><a class="header" href="#牛吃草问题">牛吃草问题</a></h1>
-<p><code>2021-10-14, Thursday,  6PM</code></p>
-<h2 id="牛吃草问题-1"><a class="header" href="#牛吃草问题-1">牛吃草问题</a></h2>
+<p><code>2021-10-16, Saturday, 12PM</code></p>
+<h2 id="问题"><a class="header" href="#问题">问题</a></h2>
 <p>我在吴军《数学通识》上看到这道题，据说是牛顿出的，如下：</p>
 <blockquote>
 <p>牧场上有一片青草，每天都生长得一样快。这片青草供给10头牛吃，可以吃22
 天；供给16头牛吃，可以吃10天。如果供给25头牛吃，可以吃多少天？</p>
 </blockquote>
 <p>我算出的答案是<code>5.5</code>天。</p>
+<h2 id="解答"><a class="header" href="#解答">解答</a></h2>
+<p>我们以牛的每天食量（\(1\)头牛\(1\)天所吃草的量）为草的计量单位，记为牛。设牧场原有草的量为\(x\)牛，草生长速度为\(y\)牛每天，\(25\)
+头牛可以吃\(z\)天，则有：$$\begin{cases} \begin{align} x + 22\times
+y = 10\times22 \qquad (1) \\ x + 10 \times y = 16\times 10 \qquad
+(2) \\ x + z \times y = 25 \times z \qquad (3) \\ \end{align}
+\end{cases} $$</p>
+<p>由\((1)\)和\((2)\)可得：
+$$\begin{align}
+x = 110 \\
+y = 5
+\end{align}
+$$</p>
+<p>带入\((3)\)，得到：
+$$ z = 5.5 $$</p>
+<p>也就是\(25\)头牛可以吃\(5.5\)天。</p>
+<h2 id="解析"><a class="header" href="#解析">解析</a></h2>
+<p>这道题困难之处在于合理选择草的计量单位。我们选一头牛一天食量为草的计量单位，记为牛。至于一头牛一天吃多少公斤草，本题至始至终并不能给出答案。但我们知道一头牛一天吃一牛的草，牧场一天长5牛的草，牧场原有110牛的草。牧场的草够25头牛吃5天半。这些都是可以计算得到的。</p>
+<p>这很像牧民所出的题。一块牧场，10头牛来，吃了22天，草没了；同一块牧场，
+16头牛来，吃了10天，草没了；那我有25头牛，如果来这块牧场，又能吃几天呢？仔细算算，才能吃五天半，那干脆别来了，否则一个星期不到，就得转牧场，太麻烦了。</p>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="数学通识教育"><a class="header" href="#数学通识教育">数学通识教育</a></h1>
 <p><code>2021-10-05 雨夜， 河北安平</code></p>
 <h2 id="尊重"><a class="header" href="#尊重">尊重</a></h2>
@@ -202,7 +221,7 @@
 <h2 id="数学通识"><a class="header" href="#数学通识">数学通识</a></h2>
 <p>吴军在《数学通识》里总结到，微积分之前，数学处理静态的内容，微积分之后，数学渐次处理动态内容；概率论和统计学之前，数学处理确定性问题，概率论和统计学之后，数学渐渐处理不确定性问题。我因为他总结的很透彻。因此在京东上定了纸质版的《数学通识》，打算节后把《古今数学思想》放下，把《数学通识》仔细读读。</p>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="mdbook预处理插件"><a class="header" href="#mdbook预处理插件">Mdbook预处理插件</a></h1>
-<p><code>2021-09-04, Saturday, 10AM</code></p>
+<p><code>2021-09-06, Monday, 11PM</code></p>
 <p>我学了点<a href="https://kaisery.github.io/trpl-zh-cn/">Rust</a>语言，用<a href="https://kaisery.github.io/trpl-zh-cn/">Rust</a>语言写了个<a href="https://rust-lang.github.io/mdBook/">Mdbook</a>预处理插件。</p>
 <h2 id="预处理插件"><a class="header" href="#预处理插件">预处理插件</a></h2>
 <p><a href="https://rust-lang.github.io/mdBook/">Mdbook</a>预处理插件是一个可执行程序，<a href="https://rust-lang.github.io/mdBook/">Mdbook</a>做预处理时会把markdown内容以及配置通过标准输入发给它，它做预处理，把结果输出到标准输出。</p>
@@ -404,7 +423,7 @@ mod tests {
 <p>集成测试其实就是接口测试，只测对外暴露的接口。<code>libs</code>集成测试没问题，<code>binary</code>没有对外接口，咋做呢？<a href="https://kaisery.github.io/trpl-zh-cn/">Rust</a>给了个方案，同时后<code>src/main.rs</code>和<code>src/libs.rs</code>，让<code>binary</code>也可以成为<code>libs</code>，这样问题就解决了。</p>
 <p>综合其上，三种测试统称为自动测试。一个遗留问题是代码覆盖率，不知如何做。</p>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="欧拉"><a class="header" href="#欧拉">欧拉</a></h1>
-<p><code>2021-09-02, Thursday,  6PM</code></p>
+<p><code>2021-09-02, Thursday, 10PM</code></p>
 <p>在读莫里斯·克莱因的《古今数学思想》，终于读到欧拉（Leonhard Euler ，
 1707年4月15日～1783年9月18日）。</p>
 <p><img src="2021/euler.jpg" alt="Euler" /></p>
@@ -2396,7 +2415,7 @@ blog using org-publish.</p>
 <p>忘记说了啥。那时不爱说话。看得出她不快乐。他们高考后就散了。那是最后一次见面。</p>
 <p>多少年了。</p>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="春游"><a class="header" href="#春游">春游</a></h1>
-<p><code>2021-08-23, Monday, 10AM</code></p>
+<p><code>2021-08-23, Monday, 11PM</code></p>
 <blockquote>
 <p>我们楼下江老太太八十了，特有文化，很多方面都是我的老师。不过电脑方面，我懂的比她多一些，就做了她的老师。</p>
 <p>现在她会打字，会用QQ和别人聊天，会使用Word简单的一些功能。今天她发了第一篇博客，这是她学电脑最大成就了，具有里程碑的意义。作为“老师”我也很高兴，转发一下。</p>
@@ -2737,7 +2756,7 @@ Already very good
 <p>列夫·托尔斯泰，堪称人类的良心；但人类的良心只是陀思妥耶夫斯基关心的一部分，他还研究人类的灵魂和血肉。</p>
 <p>没有其他的人像俄罗斯人的灵魂（如果他们有的话）更赤裸裸，血肉那么野蛮热烈。也感谢上帝把陀思妥耶夫斯基注定为俄罗斯人。</p>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="故事汇"><a class="header" href="#故事汇">故事汇</a></h1>
-<p><code>2021-08-24, Tuesday, 11AM</code></p>
+<p><code>2021-08-24, Tuesday,  2AM</code></p>
 <blockquote>
 <p>按：这是一次卡耐基培训，同学们以第一人称叙述的故事，我以书记的身份，将之记录下来。</p>
 </blockquote>
@@ -3414,7 +3433,7 @@ Python写成，他们全明白。他们只是不怎么发言。他们沉默的�
 <p><code>Sunday, 17 June 2007</code></p>
 <p>李陵碑，呀呀呸。李陵是汉朝的大将，投降了匈奴。汉武帝要杀他全家。司马迁说，李陵投降不对，但在当时的情境下，可以宽恕，不必杀他全家。汉武帝不听，还宫了司马迁。司马迁就去写史记去了。之后苏武出使匈奴，匈奴劝降不成，就留苏武牧羊。苏武在匈奴期间，李陵常和他聊天。苏武最终返回了汉邦。王朔说，李陵当时被围在荒山上，弹尽粮绝，三千人眼看要饿死，这时候匈奴来劝降，李陵开了投降的条件，第一就是不许杀害我的将士，让他们安全回去；还有不正面和故邦为敌等。匈奴都答应了。把那三千人放回去了。司马迁记载最后只有几百人回去。也许其他人不愿回去，也许饿死了。但司马迁说可以宽恕的话，牵涉非常宏大的主题。当很多人的生命和忠的思想有冲突，如何选择？李陵做出了他的选择。司马迁基本认可这种选择。杨继业不认可。 杨继业的儿子要么死了，要么下落不明；为宋王几乎付出了一切；也面临饿死荒山的命运。他唯一的想法也许是青史留名。看到李陵碑，唯一的希望也破灭了。他选择了自杀。死之前有很多的抱怨。他碰死在李陵碑上。死之后仰面慢慢倒下。观众鼓掌。这幕戏就结束了。</p>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="老子的故事汇"><a class="header" href="#老子的故事汇">老子的故事汇</a></h1>
-<p><code>2021-08-23, Monday,  8PM</code></p>
+<p><code>2021-08-23, Monday, 11PM</code></p>
 <p>正经TWR的论调, 于丹的风格, 中国最不缺的就是这个, 相当于俗话说吧.</p>
 <p>这种道理容易讲嘛, 调查研究也不用. 卢梭有一本书, 爱米尔, 也叫论教育, 三本, 讲一个小孩爱弥尔从0岁到成人的教育, 可以想见写着有多难, 多么不讨巧.
 人都讨论天堂啊, 罪恶啊这些呢. 谁说这个? 也没那么风雅. 但花几年写出来怎么也是个物件. 哪像这些人. 描眉似的. 本质的问题根本不碰, 也实际没能力碰.
