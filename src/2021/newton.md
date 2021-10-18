@@ -13,10 +13,10 @@
 
 我们以牛的每天食量（\\(1\\)头牛\\(1\\)天所吃草的量）为草的计量单位，记
 为牛。设牧场原有草的量为\\(x\\)牛，草生长速度为\\(y\\)牛每天，\\(25\\)
-头牛可以吃\\(z\\)天，则有：$$\begin{cases} \begin{align} x + 22\times
-y = 10\times22 \qquad (1) \\\\ x + 10 \times y = 16\times 10 \qquad
-(2) \\\\ x + z \times y = 25 \times z \qquad (3) \\\\ \end{align}
-\end{cases} $$
+头牛可以吃\\(z\\)天，由草存量加上草增长量等于牛吃的草总量，有：
+$$\begin{cases} \begin{align} x + 22\times y = 10\times22 \qquad (1)
+\\\\ x + 10 \times y = 16\times 10 \qquad (2) \\\\ x + z \times y = 25
+\times z \qquad (3) \\\\ \end{align} \end{cases} $$
 
 由\\((1)\\)和\\((2)\\)可得：
 $$\begin{align}
