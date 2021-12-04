@@ -1,6 +1,7 @@
 # Summary
-[Home](2021/newton.md)
-- [2021](2021/math-general-education.md)
+[Home](2021/recall-whole-life.md)
+- [2021](2021/newton.md)
+  - [数学通识教育](2021/math-general-education.md)
   - [Mdbook博客](2021/mdbook-blog.md)
   - [欧拉](2021/euler.md)
   - [Emacs Rust Mode](2021/emacs-rust-mode.md)
