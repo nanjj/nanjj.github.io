@@ -3,7 +3,7 @@ authors = ["JUN JIE NAN"]
 language = "zh_CN"
 multilingual = false
 src = "src"
-title = "Thatched Cottage"
+title = ""
 
 [preprocessor.blog]
 [preprocessor.fix-cjk-spacing]
