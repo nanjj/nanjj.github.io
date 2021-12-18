@@ -1,5 +1,3 @@
-# Running Arista vEOS in OpenStack
-
 `<2017-12-06 Wed>`
 
 How to run arista vEOS in OpenStack.

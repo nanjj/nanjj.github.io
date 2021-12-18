@@ -1,5 +1,3 @@
-# Go Debug
-
 `<2018-07-27 Fri>`
 
 How to do go debug.

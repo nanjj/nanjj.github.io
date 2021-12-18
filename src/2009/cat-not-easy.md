@@ -1,4 +1,3 @@
-# 猫不易
 `Tuesday, 10 March 2009`
 
 So Difficult to be a Human's Cat

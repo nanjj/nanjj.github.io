@@ -1,5 +1,3 @@
-# FreeBSD Cloud Init
-
 `<2017-10-27 Fri>`
 
 How to setup cloudinit for freebsd and how to do disk resize under

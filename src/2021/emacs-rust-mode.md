@@ -1,4 +1,3 @@
-# Emacs Rust Mode
 `2021-08-25 夜，晴`
 
 在Emacs下，[Rust]开发有两个选择：

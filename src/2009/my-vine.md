@@ -1,4 +1,3 @@
-# 我的葡萄树
 `Sunday, 11 January 2009`
 >
 > My Vine

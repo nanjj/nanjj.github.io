@@ -1,6 +1,3 @@
-
-# My Kids
-
 `<2017-12-25 Mon>`
 
 Here some interesting words from my kids:

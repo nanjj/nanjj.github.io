@@ -1,5 +1,3 @@
-# 爱情的意义
-
 `Saturday, 22 November 2008`
 > 
 > The Meaning of Love

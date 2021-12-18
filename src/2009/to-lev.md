@@ -1,4 +1,3 @@
-# 致列夫·托尔斯泰
 `Monday, 19 January 2009`
 >
 > To Lev Tolstoy

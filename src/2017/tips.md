@@ -1,5 +1,3 @@
-# Tips
-
 `<2017-12-20 Mon>`
 
 [cat]: https://nmap.org/ncat/

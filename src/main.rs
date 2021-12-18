@@ -45,12 +45,10 @@ fn insert_timestamp(content: &str, timestamp: &str) -> Result<String> {
         }
     };
     let line1 = next_line();
-    let line2 = next_line();
-    s.push_str(&format!("{}\n\n", line1));
-    if !line2.contains("`") {
+    if !line1.contains("`") {
         s.push_str(&format!("`{}`\n\n", timestamp));
     }
-    s.push_str(&format!("{}\n", line2));
+    s.push_str(&format!("{}\n", line1));
     while let Some(line) = lines.next() {
         s.push_str(line);
         s.push('\n');
@@ -151,7 +149,7 @@ mod tests {
     fn test_insert_timestamp() {
         let text = "hello\nworld!";
         let res = insert_timestamp(text, "timestamp").unwrap();
-        assert_eq!("hello\n\n`timestamp`\n\nworld!\n", res);
+        assert_eq!("`timestamp`\n\nhello\nworld!\n", res);
     }
 
     #[test]

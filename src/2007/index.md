@@ -1,4 +1,3 @@
-# 测试驱动学习模式
 `Tuesday, 11 December 2007`
 
 学习本身也需要学习（Study itself also needs to be studied），而且学习

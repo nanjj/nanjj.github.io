@@ -1,5 +1,3 @@
-# 共工
-
 `Tuesday, 22 June 2010`
 
 > Try not to become a man of success, but rather a man of value.

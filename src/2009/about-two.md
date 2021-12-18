@@ -1,4 +1,3 @@
-# 关于二
 `Tuesday, 3 March 2009`
 >
 > About Two

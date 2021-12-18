@@ -1,5 +1,3 @@
-# Dummynet Usage on Mac
-
 `<2017-10-26 Thu>`
 
 [PfOnMacOSX]: https://pleiades.ucsc.edu/hyades/PF_on_Mac_OS_X

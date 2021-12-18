@@ -1,4 +1,3 @@
-# 托尔斯泰与米兰昆德拉
 `Saturday, 1 August 2009`
 > Lev Tolstoy and Milan Kundera
 

@@ -1,4 +1,3 @@
-# 声音与力量
 `Friday, 3 July 2009`
 > Sound and Power
 

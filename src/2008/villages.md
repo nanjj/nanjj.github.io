@@ -1,4 +1,3 @@
-# 村庄
 `Sunday, 5 October 2008`
 
 ```

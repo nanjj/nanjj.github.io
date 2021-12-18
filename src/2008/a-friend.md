@@ -1,5 +1,3 @@
-# 一个朋友
-
 `Saturday, 8 November 2008`
 
 

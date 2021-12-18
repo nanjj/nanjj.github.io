@@ -1,4 +1,3 @@
-# 黑白铁
 `Saturday, 8 March 2008`
 
 ```

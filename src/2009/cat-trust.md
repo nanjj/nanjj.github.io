@@ -1,4 +1,3 @@
-# 猫信
 `Thursday, 18 June 2009`
 > Cat Trust
 

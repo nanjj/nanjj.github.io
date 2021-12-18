@@ -1,5 +1,3 @@
-# LXD
-
 `<2019-01-03 Thu>`
 
 LXD setup, usage and more.

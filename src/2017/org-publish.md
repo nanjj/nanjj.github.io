@@ -1,5 +1,3 @@
-# Publish Github Pages via Org Mode
-
 `<2017-10-24 Fri 12:30>`
 
 Now switched from [Jekyll], [Hugo] to Emacs Org Publish. How to write
