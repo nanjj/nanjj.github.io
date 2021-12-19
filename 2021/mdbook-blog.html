@@ -4,7 +4,10 @@
         <!-- Book generated using mdBook -->
         <meta charset="UTF-8">
         <title>Mdbook预处理插件</title>
+
+
         <!-- Custom HTML head -->
+
         <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -16,15 +19,18 @@
         <link rel="stylesheet" href="../css/general.css">
         <link rel="stylesheet" href="../css/chrome.css">
         <link rel="stylesheet" href="../css/print.css" media="print">
+
         <!-- Fonts -->
         <link rel="stylesheet" href="../FontAwesome/css/font-awesome.css">
         <link rel="stylesheet" href="../fonts/fonts.css">
+
         <!-- Highlight.js Stylesheets -->
         <link rel="stylesheet" href="../highlight.css">
         <link rel="stylesheet" href="../tomorrow-night.css">
         <link rel="stylesheet" href="../ayu-highlight.css">
 
         <!-- Custom theme stylesheets -->
+
         <!-- MathJax -->
         <script async type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
     </head>
@@ -112,6 +118,7 @@
                         <a href="../print.html" title="Print this book" aria-label="Print this book">
                             <i id="print-button" class="fa fa-print"></i>
                         </a>
+
                     </div>
                 </div>
 
@@ -125,6 +132,7 @@
                         </ul>
                     </div>
                 </div>
+
                 <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
                 <script type="text/javascript">
                     document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
@@ -320,9 +328,9 @@ mod tests {
     }
 }
 </code></pre>
-<h2 id="a-hrefhttpsrust-langgithubiomdbookmdbooka与博客"><a class="header" href="#a-hrefhttpsrust-langgithubiomdbookmdbooka与博客"><a href="https://rust-lang.github.io/mdBook/">Mdbook</a>与博客</a></h2>
+<h2 id="mdbook与博客"><a class="header" href="#mdbook与博客"><a href="https://rust-lang.github.io/mdBook/">Mdbook</a>与博客</a></h2>
 <p><a href="https://rust-lang.github.io/mdBook/">Mdbook</a>为写书而有，并非为博客所写。我把我的博客架构在<a href="https://rust-lang.github.io/mdBook/">Mdbook</a>上也就是图省事。博客需要有一个首页，一般的首页是把最新几篇摘要生成一个列表放在那。我这个插件是把首页重定向到最新一篇。这实现简单，而且用起来还不错。</p>
-<h2 id="a-hrefhttpskaiserygithubiotrpl-zh-cnrusta的学习"><a class="header" href="#a-hrefhttpskaiserygithubiotrpl-zh-cnrusta的学习"><a href="https://kaisery.github.io/trpl-zh-cn/">Rust</a>的学习</a></h2>
+<h2 id="rust的学习"><a class="header" href="#rust的学习"><a href="https://kaisery.github.io/trpl-zh-cn/">Rust</a>的学习</a></h2>
 <p>这个<a href="https://rust-lang.github.io/mdBook/">Mdbook</a>插件是我用<a href="https://kaisery.github.io/trpl-zh-cn/">Rust</a>写的第一个程序。通过这个程序的编写，我对
 <a href="https://kaisery.github.io/trpl-zh-cn/">Rust</a>的包结构，模块组织，基本语法以及错误处理有了点认识。另外着重看了下<a href="https://kaisery.github.io/trpl-zh-cn/">Rust</a>的<a href="https://doc.rust-lang.org/book/ch11-00-testing.html">自动测试</a>。</p>
 <p><a href="https://kaisery.github.io/trpl-zh-cn/">Rust</a>把自动测试分为3类:</p>
@@ -337,15 +345,17 @@ mod tests {
 <p>综合其上，三种测试统称为自动测试。一个遗留问题是代码覆盖率，不知如何做。</p>
 
                     </main>
-
+					<script src="https://utteranc.es/client.js" repo="nanjj/nanjj.github.io" issue-term="pathname" crossorigin="anonymous" async></script>
                     <nav class="nav-wrapper" aria-label="Page navigation">
                         <!-- Mobile navigation buttons -->
                             <a rel="prev" href="../2021/math-general-education.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                                 <i class="fa fa-angle-left"></i>
                             </a>
+
                             <a rel="next" href="../2021/euler.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                                 <i class="fa fa-angle-right"></i>
                             </a>
+
                         <div style="clear: both"></div>
                     </nav>
                 </div>
@@ -355,6 +365,7 @@ mod tests {
                     <a rel="prev" href="../2021/math-general-education.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                         <i class="fa fa-angle-left"></i>
                     </a>
+
                     <a rel="next" href="../2021/euler.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                         <i class="fa fa-angle-right"></i>
                     </a>
@@ -362,17 +373,24 @@ mod tests {
 
         </div>
 
+
+
+
         <script type="text/javascript">
             window.playground_copyable = true;
         </script>
+
+
         <script src="../elasticlunr.min.js" type="text/javascript" charset="utf-8"></script>
         <script src="../mark.min.js" type="text/javascript" charset="utf-8"></script>
         <script src="../searcher.js" type="text/javascript" charset="utf-8"></script>
+
         <script src="../clipboard.min.js" type="text/javascript" charset="utf-8"></script>
         <script src="../highlight.js" type="text/javascript" charset="utf-8"></script>
         <script src="../book.js" type="text/javascript" charset="utf-8"></script>
-        <script src="https://utteranc.es/client.js" repo="nanjj/nanjj.github.io" issue-term="pathname" theme="github-light" crossorigin="anonymous" async></script>
 
         <!-- Custom JS scripts -->
+
+
     </body>
 </html>
