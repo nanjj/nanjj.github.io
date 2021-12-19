@@ -243,7 +243,7 @@ fn handle(ctx: &amp;PreprocessorContext, section: &amp;mut BookItem) -&gt; Resul
             let created_at = last_modification_time(src.join(path))?;
             let timestamp = format!(&quot;{}&quot;, created_at);
             ch.content = insert_timestamp(&amp;ch.content, &amp;timestamp)?;
-            if ch.name == &quot;Home&quot; {
+            if ch.parent_names.len() == 0 {
                 let res = modified(src.join(path), src.join(&quot;index.html&quot;));
                 if let Ok(false) = res {
                     return Ok(());
