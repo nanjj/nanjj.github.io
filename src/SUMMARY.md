@@ -1,5 +1,6 @@
 # Summary
-- [活着与回忆一生](2021/recall-whole-life.md)
+- [游泳](2021/swimming.md)
+  - [活着与回忆一生](2021/recall-whole-life.md)
   - [牛吃草问题](2021/newton.md)
   - [数学通识教育](2021/math-general-education.md)
   - [Mdbook预处理插件](2021/mdbook-blog.md)
