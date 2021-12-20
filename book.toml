@@ -13,6 +13,7 @@ title = ""
 [output.html]
 no-section-label = true
 mathjax-support = true
+git-repository-url = "https://github.com/nanjj/nanjj.github.io"
 
 [output.html.fold]
 enable = true
