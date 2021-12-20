@@ -11,7 +11,7 @@ title = ""
 
 
 [output.html]
-no-section-label = true
+no-section-label = false
 mathjax-support = true
 git-repository-url = "https://github.com/nanjj/nanjj.github.io"
 
