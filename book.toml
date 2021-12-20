@@ -8,7 +8,7 @@ title = ""
 [preprocessor.blog]
 [preprocessor.fix-cjk-spacing]
 [preprocessor.mermaid]
-
+[preprocessor.toc]
 
 [output.html]
 no-section-label = false
