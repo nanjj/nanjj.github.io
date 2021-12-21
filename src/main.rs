@@ -45,7 +45,7 @@ fn insert_timestamp(content: &str, timestamp: &str) -> Result<String> {
         }
     };
     let line1 = next_line();
-    if !line1.contains("`") {
+    if !line1.contains("`") && !line1.contains("<code>") {
         s.push_str(&format!("`{}`\n\n", timestamp));
     }
     s.push_str(&format!("{}\n", line1));

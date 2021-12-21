@@ -217,7 +217,7 @@ fn insert_timestamp(content: &amp;str, timestamp: &amp;str) -&gt; Result&lt;Stri
         }
     };
     let line1 = next_line();
-    if !line1.contains(&quot;`&quot;) {
+    if !line1.contains(&quot;`&quot;) &amp;&amp; !line1.contains(&quot;&lt;code&gt;&quot;) {
         s.push_str(&amp;format!(&quot;`{}`\n\n&quot;, timestamp));
     }
     s.push_str(&amp;format!(&quot;{}\n&quot;, line1));
