@@ -147,7 +147,7 @@
 
                 <div id="content" class="content">
                     <main>
-                        <p><code>2021-12-18, Saturday, 11PM</code></p>
+                        <div style="text-align: right"><code>12/18/21 Saturday 11PM</code></div>
 <p>我学了点<a href="https://kaisery.github.io/trpl-zh-cn/">Rust</a>语言，用<a href="https://kaisery.github.io/trpl-zh-cn/">Rust</a>语言写了个<a href="https://rust-lang.github.io/mdBook/">Mdbook</a>预处理插件。</p>
 <h2 id="预处理插件"><a class="header" href="#预处理插件">预处理插件</a></h2>
 <p><a href="https://rust-lang.github.io/mdBook/">Mdbook</a>预处理插件是一个可执行程序，<a href="https://rust-lang.github.io/mdBook/">Mdbook</a>做预处理时会把markdown内容以及配置通过标准输入发给它，它做预处理，把结果输出到标准输出。</p>
@@ -200,7 +200,10 @@ fn last_modification_time&lt;P: AsRef&lt;Path&gt;&gt;(p: P) -&gt; Result&lt;Stri
                 FileTime::from_last_modification_time(&amp;metadata(p)?).seconds() as u64,
             ),
     );
-    Ok(format!(&quot;{}&quot;, dt.format(&quot;%Y-%m-%d, %A, %_I%p&quot;)))
+    Ok(format!(
+        &quot;{}&quot;,
+        dt.format(&quot;&lt;div style=\&quot;text-align: right\&quot;&gt;&lt;code&gt;%x %A %_I%p&lt;/code&gt;&lt;/div&gt;&quot;)
+    ))
 }
 
 fn insert_timestamp(content: &amp;str, timestamp: &amp;str) -&gt; Result&lt;String&gt; {
@@ -218,7 +221,7 @@ fn insert_timestamp(content: &amp;str, timestamp: &amp;str) -&gt; Result&lt;Stri
     };
     let line1 = next_line();
     if !line1.contains(&quot;`&quot;) &amp;&amp; !line1.contains(&quot;&lt;code&gt;&quot;) {
-        s.push_str(&amp;format!(&quot;`{}`\n\n&quot;, timestamp));
+        s.push_str(&amp;format!(&quot;{}\n\n&quot;, timestamp));
     }
     s.push_str(&amp;format!(&quot;{}\n&quot;, line1));
     while let Some(line) = lines.next() {
@@ -321,7 +324,7 @@ mod tests {
     fn test_insert_timestamp() {
         let text = &quot;hello\nworld!&quot;;
         let res = insert_timestamp(text, &quot;timestamp&quot;).unwrap();
-        assert_eq!(&quot;`timestamp`\n\nhello\nworld!\n&quot;, res);
+        assert_eq!(&quot;timestamp\n\nhello\nworld!\n&quot;, res);
     }
 
     #[test]

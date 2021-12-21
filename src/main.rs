@@ -28,7 +28,10 @@ fn last_modification_time<P: AsRef<Path>>(p: P) -> Result<String> {
                 FileTime::from_last_modification_time(&metadata(p)?).seconds() as u64,
             ),
     );
-    Ok(format!("{}", dt.format("%Y-%m-%d, %A, %_I%p")))
+    Ok(format!(
+        "{}",
+        dt.format("<div style=\"text-align: right\"><code>%x %A %_I%p</code></div>")
+    ))
 }
 
 fn insert_timestamp(content: &str, timestamp: &str) -> Result<String> {
@@ -46,7 +49,7 @@ fn insert_timestamp(content: &str, timestamp: &str) -> Result<String> {
     };
     let line1 = next_line();
     if !line1.contains("`") && !line1.contains("<code>") {
-        s.push_str(&format!("`{}`\n\n", timestamp));
+        s.push_str(&format!("{}\n\n", timestamp));
     }
     s.push_str(&format!("{}\n", line1));
     while let Some(line) = lines.next() {
@@ -149,7 +152,7 @@ mod tests {
     fn test_insert_timestamp() {
         let text = "hello\nworld!";
         let res = insert_timestamp(text, "timestamp").unwrap();
-        assert_eq!("`timestamp`\n\nhello\nworld!\n", res);
+        assert_eq!("timestamp\n\nhello\nworld!\n", res);
     }
 
     #[test]
