@@ -148,8 +148,8 @@
 
                 <div id="content" class="content">
                     <main>
-                        <div style="text-align: right"><code>12/25/21 Saturday  1AM</code></div>
-<p>最近<a href="https://lists.gnu.org/archive/html/emacs-devel/2021-12/msg02220.html">Emacs开发</a>少有的热闹，大家在讨论迁移[Emacs]开发到<a href="https://sourcehut.org/">sourcehut</a>的事。</p>
+                        <div style="text-align: right"><code>2021年12月25日 星期六 上午 阴</code></div>
+<p>最近<a href="https://lists.gnu.org/archive/html/emacs-devel/2021-12/msg02220.html">Emacs开发</a>少有热闹，大家在讨论迁移<a href="http://www.gnu.org/software/emacs/">Emacs</a>开发到<a href="https://sourcehut.org/">sourcehut</a>的事。</p>
 <h2 id="sourcehut"><a class="header" href="#sourcehut"><a href="https://sourcehut.org/">Sourcehut</a></a></h2>
 <p><a href="https://sourcehut.org/">Sourcehut</a>是一个开源工具集搭建软件开发平台，提供如下能力：</p>
 <ol>
@@ -161,33 +161,46 @@
 <li>Markdown和Git驱动的Wiki，</li>
 <li><a href="https://paste.sr.ht">代码分享</a>，<a href="https://srht.site">静态页面托管</a>，以及与<a href="https://dispatch.sr.ht">第三方服务集成</a></li>
 </ol>
-<p>几乎每一条都对我特有吸引力！而且这所有几乎是<a href="https://drewdevault.com/">Drew DeVault</a>一人所为。于是我就拿我的华为<a href="https://www.petalmail.com/">花瓣邮箱</a>去注册，却迟迟收不到确认信。我怀疑是[花瓣邮箱]的问题。</p>
+<p>几乎每一条都对我特有吸引力！而且竟然是<a href="https://drewdevault.com/">Drew DeVault</a>一人所为！</p>
+<p>我拿我的华为<a href="https://www.petalmail.com/">花瓣邮箱</a>注册一个账号，却迟迟收不到确认信。我怀疑是[花瓣邮箱]的问题。</p>
 <h2 id="花瓣邮箱"><a class="header" href="#花瓣邮箱"><a href="https://www.petalmail.com/">花瓣邮箱</a></a></h2>
-<p>于是去检视<a href="https://www.petalmail.com/">花瓣邮箱</a>，发现<a href="https://www.petalmail.com/">花瓣邮箱</a>目前只支持手机客户端和Web客户端收发信，并不支持POP3或IMAP以及SMTP协议。真不知道一个只支持手机客户端和
-Web客户端的邮箱有什么用。</p>
-<p>检视一下我现有的邮箱：</p>
+<p><a href="https://www.petalmail.com/">花瓣邮箱</a>是华为手机升级鸿蒙后推出的一个应用。当时我刚好没有合适的邮箱，就接受了。简单使用还是可以的，没有仔细看。</p>
+<p>如今仔细看<a href="https://www.petalmail.com/">花瓣邮箱</a>，发现其目前只支持手机客户端和Web客户端收发信，并不支持POP3或IMAP以及SMTP协议。这对一般手机用户可能也是可以的。另外[花瓣邮箱]没有帮助文档，有一个智能助手的东西，是问答式的，经常所答非所问。勉强从一个问题回答的侧面推断出<a href="https://www.petalmail.com/">花瓣邮箱</a>暂不支持第三方客户端，也就是不支持POP3, IMAP以及SMTP协议。</p>
+<p>除了<a href="https://www.petalmail.com/">花瓣邮箱</a>，我还有三个邮箱：</p>
 <ol>
-<li>Gmail，</li>
-<li>QQ Mail，</li>
-<li>139信箱。</li>
+<li><a href="https://mail.gmail.com">Gmail</a>，</li>
+<li><a href="https://mail.qq.com">QQ Mail</a>，</li>
+<li><a href="https://mail.10086.cn/">139邮箱</a>。</li>
 </ol>
-<p>Gmail在国内很难用。QQ Mail打开IMAP和SMTP协议支持需要下载QQ做一些安全的加固。我在Linux下到哪里去找QQ呢？链接指向一个Windows的QQ，要我用Wine加载吗？于是就放弃了。</p>
-<p>最终发现139信箱做的中规中矩。在Emacs配置好IMAP后给<a href="https://drewdevault.com/">Drew DeVault</a>发了信，问他确认信没收到的事。他很快回信，告诉我<code>petalmail.com</code>可能哪里配置的不对，他发到<code>petalmail.com</code>的信被退回来了。</p>
+<p><a href="https://mail.gmail.com">Gmail</a>在国内很难直接使用，可以配置在<a href="https://mail.qq.com">QQ Mail</a>间接使用，因此作为主力邮箱使用是不合适的。</p>
+<p>转到<a href="https://mail.qq.com">QQ Mail</a>。在打开IMAP和SMTP协议支持的候，<a href="https://mail.qq.com">QQ Mail</a>提示下载QQ，做一些安全方面的加固。但我在Linux下到哪里去下载QQ呢？链接指向了一个Windows
+QQ下载。难道是要我用<a href="https://www.winehq.org/">Wine</a>将其灌醉，然后加载运行吗？这种没脑子设计让人无语。</p>
+<p>最终发现<a href="https://mail.10086.cn/">139邮箱</a>做的中规中矩。<a href="https://mail.10086.cn/">139邮箱</a>提的口号是手机号就是邮箱。但手机号当邮箱使用又有手机号暴露的风险。还好有邮箱别名可用。<a href="https://mail.10086.cn/">139邮箱</a>的帮助文档很详实。各种协议支持完备。</p>
+<p>在<a href="http://www.gnu.org/software/emacs/">Emacs</a>配好IMAP后给<a href="https://drewdevault.com/">Drew DeVault</a>发信，问他确认信没收到的事。他很快回信，告诉我<code>petalmail.com</code>可能哪里配置的不对，他发到<code>petalmail.com</code>的信被退回来了。这证实了我的猜测。</p>
 <p>这里正告<a href="https://www.petalmail.com/">花瓣邮箱</a>:</p>
 <ol>
-<li>老老实实把基本功能做好：邮箱一定要能收发信，</li>
-<li>老老实实去支持基本的协议：一定要支持IMAP和SMTP协议，方便第三方客户端配置，</li>
-<li>老老实实去写帮助文档，用一个智能助手去糊弄是不行的。</li>
+<li>
+<p>老老实实把基本功能做好</p>
+<p>邮箱一定要能收发信，收不到信的邮箱叫什么鬼邮箱？！</p>
+</li>
+<li>
+<p>老老实实去支持基本的协议</p>
+<p>支持IMAP和SMTP协议，方便第三方客户端配置，而不要贸然以云之名把这些历史沉淀下来的东西扬弃。</p>
+</li>
+<li>
+<p>老老实实去写帮助文档</p>
+<p>用一个所谓<code>智能助手</code>的东西去糊弄是不行的。</p>
+</li>
 </ol>
 <h2 id="emacs的开发环境"><a class="header" href="#emacs的开发环境">Emacs的开发环境</a></h2>
-<p>回到迁移[Emacs]开发到<a href="https://sourcehut.org/">sourcehut</a>的事。这件事<a href="https://stallman.org">Richard Stallman</a>也发话了，明确不可以用<a href="https://sourcehut.org/">Sourcehut</a>提供的服务，但可以用<a href="https://sourcehut.org/">Sourcehut</a>提供的软件。</p>
+<p>回到迁移<a href="http://www.gnu.org/software/emacs/">Emacs</a>开发到<a href="https://sourcehut.org/">sourcehut</a>的事。这件事<a href="https://stallman.org">Richard Stallman</a>也发话了，明确不可以用<a href="https://sourcehut.org/">Sourcehut</a>提供的服务，但可以用<a href="https://sourcehut.org/">Sourcehut</a>提供的软件。</p>
 <p>Emacs基本没有一个现代的CI流程来保证代码质量。<a href="https://stallman.org">Richard Stallman</a>政治性强，理想主义，很多时候漫无边际，又不切实际，也没给Emacs弄个像样的CI。就算源码控制工具的选择都一波三折。直到2014年，才由<a href="http://www.catb.org/%7Eesr/">Eric S. Raymond</a>拨乱反正，花了将近一年的时间，最终把Emacs拉到了Git的正轨上来。</p>
 <p>如今<a href="https://sourcehut.org/">Sourcehut</a>横空出世，众Emacer可算盼到救星了。 <a href="https://lars.ingebrigtsen.no/">Lars Ingebrigtsen</a>
 写到：</p>
 <blockquote>
 <p>我有个梦想，当我提交一个变更，能有一个CI系统在一分钟内告诉我，在那些系统上构建不过。但我猜这梦想不会实现，除非自由软件基金会有它应有的钱。</p>
 </blockquote>
-<p>提起来让人心酸。这又算多高的梦想呢？又有多难实现呢？ [Óscar Fuentes]写到：</p>
+<p>提起来让人心酸。这又算多高的梦想呢？又有多难实现呢？ Óscar Fuentes写到：</p>
 <blockquote>
 <p>Emacs在我3.66GHz 8核构建机器上大约用时两分钟，这一半耗时是单线程所致（我对构建过程有一个长的分析）。因此降到一种似乎不难。</p>
 <p>但说服某人买一台CI服务器估计美梦永不成真。</p>
