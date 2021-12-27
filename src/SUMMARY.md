@@ -1,5 +1,6 @@
 # Summary
-- [Emacs](2021/emacs.md)
+- [滑雪](2021/ski.md)
+  - [Emacs](2021/emacs.md)
   - [游泳](2021/swimming.md)
   - [活着与回忆一生](2021/recall-whole-life.md)
   - [牛吃草问题](2021/newton.md)
