@@ -12,10 +12,16 @@ script = [
 ]
 dependencies = ["bookbuild"]
 
+[tasks.publishall]
+script = [
+	   "(cd book; tar cvfz ../site.tar.gz .)",
+	   "~/bin/publish"
+]
+
 [tasks.bookbuild]
 command = "mdbook"
 args = ["build"]
-dependencies = ["install", "bookclean"]
+dependencies = ["bookclean"]
 
 [tasks.bookclean]
 command = "mdbook"
