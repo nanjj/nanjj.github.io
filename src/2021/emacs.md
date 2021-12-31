@@ -128,39 +128,42 @@ Emacs Gnus对新闻组里中文的支持，在历次重构过程中给弄没了�
 明确不可以用[Sourcehut]提供的服务，但可以用[Sourcehut]提供的软件。
 
 Emacs基本没有一个现代的CI流程来保证代码质量。[Richard Stallman]政治性
-强，理想主义，很多时候漫无边际，又不切实际，也没给Emacs弄个像样的CI。
-就算源码控制工具的选择都一波三折。直到2014年，才由[Eric S. Raymond]拨
-乱反正，花了将近一年的时间，最终把Emacs拉到了Git的正轨上来。
+强，理想主义，很多时候不切实际，也没给Emacs弄个像样的CI。就算源码控制
+工具的选择都一波三折。直到2014年初，才由[Eric S. Raymond]拨乱反正，花
+了将近一年的时间，到2014年底，把Emacs拉到了Git的正轨上来。
 
 如今[Sourcehut]横空出世，众Emacer可算盼到救星了。 [Lars Ingebrigtsen]
 写到：
 
-> 我有个梦想，当我提交一个变更，能有一个CI系统在一分钟内告诉我，在那些
+> 我有个梦想，当我提交一个变更，能有一个CI系统在一分钟内告诉我，在哪些
 > 系统上构建不过。但我猜这梦想不会实现，除非自由软件基金会有它应有的钱。
 
 提起来让人心酸。这又算多高的梦想呢？又有多难实现呢？ Óscar Fuentes写到：
 
 > Emacs在我3.66GHz 8核构建机器上大约用时两分钟，这一半耗时是单线程所致
-> （我对构建过程有一个长的分析）。因此降到一种似乎不难。
+> （我对构建过程有一个长的分析）。因此降到一分钟似乎不难。
 >
 > 但说服某人买一台CI服务器估计美梦永不成真。
 
 [Lars Ingebrigtsen]说：
 
-> 是的，也只在梦中我有闲钱给自由软件基金会捐一台64核的服务器：）
+> 是的，也只在梦中我有闲钱，给自由软件基金会捐一台64核的服务器：）
 
-## [Sourcehut]的CI
+## [builds.sr.ht]
 
-[Sourcehut]用虚拟机跑CI。构建失败后保留虚拟机10分钟，可以`ssh`上去看到
-底出了啥事，为啥失败。
+[builds.sr.ht]用虚拟机跑CI。构建失败后保留虚拟机10分钟，可以`ssh`上去
+看到底出了啥事，为啥失败。
 
 对比其他工具，如[Travis]等基于Docker容器的，有很大易用性方面的提高。但
 基于虚机构建成本很高，而且用时较长（虚机从创建到启动到跑完CI，慢的可以
 到20分钟）。
 
+这块最合适是系统容器[LXD]。我把这个提议提给了[Drew DeVault]，但没得到
+他的回应。我在等待回应的时间里，大致看了他的实现。他任务跑在虚机里，虚
+机跑在Docker容器里，Docker容器跑在物理机上。这样他使用了Docker的镜像能
+力，也更安全。只是成本还是太高。
 
-这块最合适的工具是系统容器[LXD]。这个提议等[Drew DeVault]通过了我的申
-请，可以跟他提提。
+反复考察，我感觉[LXD]系统容器还是更适合跑任务。
 
 ## [srht.site]
 
@@ -197,7 +200,8 @@ https://nanjj.srht.site
 
 https://nanjj.github.io
 
-比较就慢多了。 这个问题我感觉[srht.site]可以优化优化。
+比较就慢多了。 这个问题我感觉[srht.site]可以优化。在第二个问题解决之前，
+我的小站继续以github为主。
 
 [Emacs开发]: https://lists.gnu.org/archive/html/emacs-devel/2021-12/msg02220.html
 [Sourcehut]: https://sourcehut.org/
@@ -219,3 +223,4 @@ https://nanjj.github.io
 [srht.site]: https://srht.site
 [mathjax]: https://mathjax.org
 [utteranc]: https://utteranc.es
+[builds.sr.ht]: https://builds.sr.ht
