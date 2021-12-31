@@ -89,7 +89,40 @@
 
 ## Gnus
 
-## Emacs的开发环境
+于是重回Gnus怀抱。配置信箱，订阅邮件列表，写信，读信。
+
+读Gnus的info文档，拉倒最后，有一首小诗：
+
+```
+     *Te Deum*
+
+
+     Not because of victories
+     I sing,
+     having none,
+     but for the common sunshine,
+     the breeze,
+     the largess of the spring.
+
+
+     Not for victory
+     but for the day’s work done
+     as well as I was able;
+     not for a seat upon the dais
+     but at the common table.
+
+```
+
+这首诗让我莫名感动。
+
+## 新闻组
+
+新闻组已死。国内只剩新帆（news.newsfan.net）一息尚存，也没啥有用信息。
+Emacs Gnus对新闻组里中文的支持，在历次重构过程中给弄没了。有人在开发邮
+件列表里提讨论，可能有很好的挽救方案。国外的新闻组感觉也没啥新内容。但
+邮件列表的确是很好的沟通方式。
+
+## Emacs开发
 
 回到迁移[Emacs]开发到[sourcehut]的事。这件事[Richard Stallman]也发话了，
 明确不可以用[Sourcehut]提供的服务，但可以用[Sourcehut]提供的软件。
@@ -129,6 +162,43 @@ Emacs基本没有一个现代的CI流程来保证代码质量。[Richard Stallma
 这块最合适的工具是系统容器[LXD]。这个提议等[Drew DeVault]通过了我的申
 请，可以跟他提提。
 
+## [srht.site]
+
+[srht.site]对标github的pages功能。对外只有一个API：
+```
+curl --oauth2-bearer secret \
+	-Fcontent=site.tar.gz https://pages.sr.ht/publish/nanjj.srht.site
+```
+｀site.tar.gz`是全量网站的打包。这命令还有一个变种：
+```
+curl --oauth2-bearer secret \
+	-Fcontent=sub.tar.gz https://pages.sr.ht/publish/nanjj.srht.site/sub
+```
+用于更新网站的一个子目录。
+
+这基本就足够了，实现好了足以对标github。
+
+我把自己的小站搬到了[srht.site]:
+
+https://nanjj.srht.site
+
+发现两个问题。
+
+第一个问题，[srht.site]不支持js跨域。
+
+我的站点有两个需要跨域的功能：
+1. [MathJax]，
+2. [Utteranc]。
+
+[MathJax]其实好办，拿过来就是。[Utteranc]就不好弄了。还好我看留言并不
+多，于是干脆去掉了。
+
+第二个问题是[srht.site]没有用浏览器的cache功能，导致每次加载都要重新下载，以至于和
+
+https://nanjj.github.io
+
+比较就慢多了。 这个问题我感觉[srht.site]可以优化优化。
+
 [Emacs开发]: https://lists.gnu.org/archive/html/emacs-devel/2021-12/msg02220.html
 [Sourcehut]: https://sourcehut.org/
 [Git]: https://git-scm.com/
@@ -146,3 +216,6 @@ Emacs基本没有一个现代的CI流程来保证代码质量。[Richard Stallma
 [Gmail]: https://mail.gmail.com
 [139邮箱]: https://mail.10086.cn/
 [Wine]: https://www.winehq.org/
+[srht.site]: https://srht.site
+[mathjax]: https://mathjax.org
+[utteranc]: https://utteranc.es

@@ -223,7 +223,31 @@
 </li>
 </ol>
 <h2 id="gnus"><a class="header" href="#gnus">Gnus</a></h2>
-<h2 id="emacs的开发环境"><a class="header" href="#emacs的开发环境">Emacs的开发环境</a></h2>
+<p>于是重回Gnus怀抱。配置信箱，订阅邮件列表，写信，读信。</p>
+<p>读Gnus的info文档，拉倒最后，有一首小诗：</p>
+<pre><code>     *Te Deum*
+
+
+     Not because of victories
+     I sing,
+     having none,
+     but for the common sunshine,
+     the breeze,
+     the largess of the spring.
+
+
+     Not for victory
+     but for the day’s work done
+     as well as I was able;
+     not for a seat upon the dais
+     but at the common table.
+
+</code></pre>
+<p>这首诗让我莫名感动。</p>
+<h2 id="新闻组"><a class="header" href="#新闻组">新闻组</a></h2>
+<p>新闻组已死。国内只剩新帆（news.newsfan.net）一息尚存，也没啥有用信息。
+Emacs Gnus对新闻组里中文的支持，在历次重构过程中给弄没了。有人在开发邮件列表里提讨论，可能有很好的挽救方案。国外的新闻组感觉也没啥新内容。但邮件列表的确是很好的沟通方式。</p>
+<h2 id="emacs开发"><a class="header" href="#emacs开发">Emacs开发</a></h2>
 <p>回到迁移<a href="http://www.gnu.org/software/emacs/">Emacs</a>开发到<a href="https://sourcehut.org/">sourcehut</a>的事。这件事<a href="https://stallman.org">Richard Stallman</a>也发话了，明确不可以用<a href="https://sourcehut.org/">Sourcehut</a>提供的服务，但可以用<a href="https://sourcehut.org/">Sourcehut</a>提供的软件。</p>
 <p>Emacs基本没有一个现代的CI流程来保证代码质量。<a href="https://stallman.org">Richard Stallman</a>政治性强，理想主义，很多时候漫无边际，又不切实际，也没给Emacs弄个像样的CI。就算源码控制工具的选择都一波三折。直到2014年，才由<a href="http://www.catb.org/%7Eesr/">Eric S. Raymond</a>拨乱反正，花了将近一年的时间，最终把Emacs拉到了Git的正轨上来。</p>
 <p>如今<a href="https://sourcehut.org/">Sourcehut</a>横空出世，众Emacer可算盼到救星了。 <a href="https://lars.ingebrigtsen.no/">Lars Ingebrigtsen</a>
@@ -244,6 +268,30 @@
 <p><a href="https://sourcehut.org/">Sourcehut</a>用虚拟机跑CI。构建失败后保留虚拟机10分钟，可以<code>ssh</code>上去看到底出了啥事，为啥失败。</p>
 <p>对比其他工具，如<a href="https://travis-ci.org">Travis</a>等基于Docker容器的，有很大易用性方面的提高。但基于虚机构建成本很高，而且用时较长（虚机从创建到启动到跑完CI，慢的可以到20分钟）。</p>
 <p>这块最合适的工具是系统容器<a href="https://github.com/lxc/lxd">LXD</a>。这个提议等<a href="https://drewdevault.com/">Drew DeVault</a>通过了我的申请，可以跟他提提。</p>
+<h2 id="srhtsite"><a class="header" href="#srhtsite"><a href="https://srht.site">srht.site</a></a></h2>
+<p><a href="https://srht.site">srht.site</a>对标github的pages功能。对外只有一个API：</p>
+<pre><code>curl --oauth2-bearer secret \
+	-Fcontent=site.tar.gz https://pages.sr.ht/publish/nanjj.srht.site
+</code></pre>
+<p>｀site.tar.gz`是全量网站的打包。这命令还有一个变种：</p>
+<pre><code>curl --oauth2-bearer secret \
+	-Fcontent=sub.tar.gz https://pages.sr.ht/publish/nanjj.srht.site/sub
+</code></pre>
+<p>用于更新网站的一个子目录。</p>
+<p>这基本就足够了，实现好了足以对标github。</p>
+<p>我把自己的小站搬到了<a href="https://srht.site">srht.site</a>:</p>
+<p>https://nanjj.srht.site</p>
+<p>发现两个问题。</p>
+<p>第一个问题，<a href="https://srht.site">srht.site</a>不支持js跨域。</p>
+<p>我的站点有两个需要跨域的功能：</p>
+<ol>
+<li><a href="https://mathjax.org">MathJax</a>，</li>
+<li><a href="https://utteranc.es">Utteranc</a>。</li>
+</ol>
+<p><a href="https://mathjax.org">MathJax</a>其实好办，拿过来就是。<a href="https://utteranc.es">Utteranc</a>就不好弄了。还好我看留言并不多，于是干脆去掉了。</p>
+<p>第二个问题是<a href="https://srht.site">srht.site</a>没有用浏览器的cache功能，导致每次加载都要重新下载，以至于和</p>
+<p>https://nanjj.github.io</p>
+<p>比较就慢多了。 这个问题我感觉<a href="https://srht.site">srht.site</a>可以优化优化。</p>
 <div style="break-before: page; page-break-before: always;"></div><div style="text-align: right"><code>2021年12月22日 星期三 上午 晴</code></div>
 <ul>
 <li><a href="2021/swimming.html#%E4%BC%9A%E6%B8%B8%E6%B3%B3">会游泳</a></li>

@@ -12,12 +12,15 @@ script = [
 ]
 dependencies = ["bookbuild"]
 
-[tasks.publishall]
+[tasks.all]
 script = [
 	   "(cd book; tar cvfz ../site.tar.gz .)",
-	   "~/bin/publish"
+	   "acurl -Fcontent=@site.tar.gz https://pages.sr.ht/publish/nanjj.srht.site"
 ]
-
+[tasks.some]
+script = [
+	   "./some.sh"
+]
 [tasks.bookbuild]
 command = "mdbook"
 args = ["build"]
