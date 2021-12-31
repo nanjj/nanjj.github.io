@@ -14,8 +14,8 @@ dependencies = ["bookbuild"]
 
 [tasks.all]
 script = [
-	   "(cd book; tar cvfz ../site.tar.gz .)",
-	   "acurl -Fcontent=@site.tar.gz https://pages.sr.ht/publish/nanjj.srht.site"
+	   "(cd book; tar cfz ../site.tar.gz .)",
+	   "time acurl -Fcontent=@site.tar.gz https://pages.sr.ht/publish/nanjj.srht.site"
 ]
 [tasks.some]
 script = [
