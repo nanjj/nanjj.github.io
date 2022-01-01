@@ -140,6 +140,14 @@ Emacs开发一直用邮件列表沟通。除此外我感兴趣的，比如：
 因此还是简单干净的邮件，把大家联系起来。通过邮件协作，通过邮件驱动学习。
 驱动开发，以至于整个开发流程，可能是一个现实的方向。
 
+邮件驱动整个开发也是Linux内核开发的主要模式。因此Git有[Git Send Email]。
+
+## [Git Send Email]
+
+为此[Sourcehut]专门写了个网站[Git Send Email]来说这件事。我按其步骤一
+步步走下来，基本是工作的，除了最后的发的信被退回。我把退信扔给Drew看，
+看发生了什么.
+
 ## Emacs开发
 
 回到迁移[Emacs]开发到[sourcehut]的事。这件事[Richard Stallman]也发话了，
@@ -245,3 +253,4 @@ https://nanjj.github.io
 [Linux Containers]: https://discuss.linuxcontainers.org/
 [Rust Lang]: https://users.rust-lang.org/
 [graphviz]: https://forum.graphviz.org/
+[Git send email]: https://git-send-email.io

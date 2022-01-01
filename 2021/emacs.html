@@ -237,6 +237,9 @@ Emacs Gnus对新闻组里中文的支持，在历次重构过程中给弄没了�
 </ol>
 <p>我觉得对程序员而言，对散布在世界各地的程序员而言，邮件仍然是最有效的沟通方式。国内常用微信群，有效的沟通很难展开，有价值的信息很快淹没在信息的洪流里。还有就是微信公众号，是一种单向沟通，离协作差得远了。</p>
 <p>因此还是简单干净的邮件，把大家联系起来。通过邮件协作，通过邮件驱动学习。驱动开发，以至于整个开发流程，可能是一个现实的方向。</p>
+<p>邮件驱动整个开发也是Linux内核开发的主要模式。因此Git有<a href="https://git-send-email.io">Git Send Email</a>。</p>
+<h2 id="git-send-email"><a class="header" href="#git-send-email"><a href="https://git-send-email.io">Git Send Email</a></a></h2>
+<p>为此<a href="https://sourcehut.org/">Sourcehut</a>专门写了个网站<a href="https://git-send-email.io">Git Send Email</a>来说这件事。我按其步骤一步步走下来，基本是工作的，除了最后的发的信被退回。我把退信扔给Drew看，看发生了什么.</p>
 <h2 id="emacs开发"><a class="header" href="#emacs开发">Emacs开发</a></h2>
 <p>回到迁移<a href="http://www.gnu.org/software/emacs/">Emacs</a>开发到<a href="https://sourcehut.org/">sourcehut</a>的事。这件事<a href="https://stallman.org">Richard Stallman</a>也发话了，明确不可以用<a href="https://sourcehut.org/">Sourcehut</a>提供的服务，但可以用<a href="https://sourcehut.org/">Sourcehut</a>提供的软件。</p>
 <p>Emacs基本没有一个现代的CI流程来保证代码质量。<a href="https://stallman.org">Richard Stallman</a>政治性强，理想主义，很多时候不切实际，也没给Emacs弄个像样的CI。就算源码控制工具的选择都一波三折。直到2014年初，才由<a href="http://www.catb.org/%7Eesr/">Eric S. Raymond</a>拨乱反正，花了将近一年的时间，到2014年底，把Emacs拉到了Git的正轨上来。</p>
