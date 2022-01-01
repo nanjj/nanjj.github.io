@@ -122,6 +122,24 @@ Emacs Gnus对新闻组里中文的支持，在历次重构过程中给弄没了�
 件列表里提讨论，可能有很好的挽救方案。国外的新闻组感觉也没啥新内容。但
 邮件列表的确是很好的沟通方式。
 
+## 邮件列表
+
+Emacs开发一直用邮件列表沟通。除此外我感兴趣的，比如：
+1. [Linux Containers],
+2. [Rust Lang],
+3. [Graphviz]
+
+等，背后都是邮件列表的运作模式：
+1. 一个Web前端， 满足习惯Web界面的用户需求，
+2. 可订阅的邮件列表，满足习惯邮件订阅的用户需求。
+
+我觉得对程序员而言，对散布在世界各地的程序员而言，邮件仍然是最有效的沟
+通方式。国内常用微信群，有效的沟通很难展开，有价值的信息很快淹没在信息
+的洪流里。还有就是微信公众号，是一种单向沟通，离协作差得远了。
+
+因此还是简单干净的邮件，把大家联系起来。通过邮件协作，通过邮件驱动学习。
+驱动开发，以至于整个开发流程，可能是一个现实的方向。
+
 ## Emacs开发
 
 回到迁移[Emacs]开发到[sourcehut]的事。这件事[Richard Stallman]也发话了，
@@ -224,3 +242,6 @@ https://nanjj.github.io
 [mathjax]: https://mathjax.org
 [utteranc]: https://utteranc.es
 [builds.sr.ht]: https://builds.sr.ht
+[Linux Containers]: https://discuss.linuxcontainers.org/
+[Rust Lang]: https://users.rust-lang.org/
+[graphviz]: https://forum.graphviz.org/
