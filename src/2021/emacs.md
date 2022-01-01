@@ -140,16 +140,128 @@ Emacs开发一直用邮件列表沟通。除此外我感兴趣的，比如：
 因此还是简单干净的邮件，把大家联系起来。通过邮件协作，通过邮件驱动学习。
 驱动开发，以至于整个开发流程，可能是一个现实的方向。
 
-邮件驱动整个开发也是Linux内核开发的主要模式。因此Git有[Git Send Email]。
+邮件驱动整个开发也是Linux内核开发的主要模式。为此[Sourcehut]专门写了个
+网站[Git Send Email]来说这件事。
 
 ## [Git Send Email]
 
-为此[Sourcehut]专门写了个网站[Git Send Email]来说这件事。我按其步骤一
-步步走下来，基本是工作的，除了最后的发的信被退回。我把退信扔给Drew看，
-看发生了什么.
+我按其步骤一步步走下来，基本是工作的，除了最后的发的信被退回。我把退信
+扔给Drew看，看发生了什么。
 
-## Emacs开发
+`git send-email`是Git内嵌命令，虽然是内嵌命令，一般的Linux发行版还是会
+分开打包，比如Ubuntu：
 
+```bash
+apt-get install git-email
+```
+
+`git send-email`可以把需要的变更以email的形式发出去，发到邮件列表或者
+某个代码仓的维护者。内容基本上是`git format-patch`的生成。因此在
+`~/.gitconfig`需要配置（也可通过`git config --edit --global`来改)：
+
+```
+[sendemail]
+	smtpserver = <smtp server>
+	smtpuser = <smtp user>
+	smtpencryption = ssl
+	smtpserverport = 465
+```
+
+在代码仓的`.git/config`（也可以用`git config --edit`修改):
+
+```
+[sendemail]
+	to = <the git repo's email list or owner's email>
+```
+
+我相信邮件驱动的开发流程是有效的。
+
+## 邮件驱动开发
+
+这里把邮件驱动的开发梳理一下。
+
+```dot process
+digraph {
+rankdir = LR
+	D [label = "开发者"]
+	C [label = "Chat"]
+	L [label = "邮件列表"]
+	G [label = "代码仓"]
+	B [label = "构建"]
+	S [label = "网站"]
+	T [label = "TODO"]
+	E [label = "EBot"]
+	D -> C [label = "聊天"]
+	E -> S [label = "发布"]
+	D -> L [label = "补丁"]
+	E -> G [label = "合入"]
+	E -> B [label = "构建"]
+	D -> L [label = "意见"]
+	E -> D [label = "检视"]
+	D -> L [label = "Bug"]
+	D -> L [label = "特性"]
+	E -> T [label = "问题跟踪"]
+	E -> T [label = "特性跟踪"]
+	L -> E[label = "侦听"]
+	C -> E [label = "记录"]
+	E -> B [label = "测试"]
+	E -> L [label = "结果"]
+	E -> B [label = "集成"]
+	E -> B [label = "部署"]
+	E -> B [label = "升级"]
+}
+```
+开发者在聊天室和邮件列表交流，沟通，提特性，发Patch，相互代码检视，并不直接操作代码仓。邮件列表和聊天室里有一个EBot，默默关注这一切。EBot负责代码检视流程的推动，负责代码合入，负责调用构建服务来测试代码，负责使用构建服务来集成代码，完成CI，负责部署，升级来完成CI。负责发布文档到网站服务，负责特性跟踪和Bug跟踪到TODO服务，负责记录邮件列表和聊天内容，并归档到网站服务。
+
+这是[Sourcehut]正在做和正要做的特性。这些特性要以100%开源的形式做出了。
+
+这些特性深深吸引了Emacs的开发者：
+
+```
+站在能分割世界的桥
+还是看不清
+在那些时刻
+遮蔽我们
+黑暗的心
+究竟是什么
+
+住在我心里孤独的
+孤独的海怪
+痛苦之王
+开始厌倦
+深海的光
+停滞的海浪
+
+站在能看到灯火的桥
+还是看不清
+在那些夜晚
+照亮我们
+黑暗的心
+究竟是什么
+
+于是他默默追逐着
+横渡海峡
+年轻的人
+看着他们
+为了彼岸
+骄傲地
+灭亡
+```
+## Emacs的开发
+
+现在你在Emacs里可以打开`sqlite`数据库文件，看到里面的表结构，展示表里
+的数据。这有什么用呢？看起来酷酷的，不过好像也没什么用。因为之前你用
+`sqlite3`也可以看，而且Emacs和`sqlite3`早有合作。
+
+现在你可以用Elisp写单元测试，单元测试的最后一个警告也已消除，单元测试
+可以生成JUnit的测试报告，方便集成到Emacs的CI/CD环境中去。这有什么用呢？
+这也没啥用，因为Emacs根本就没有CI/CD环境。
+
+我看到比较有用的是`xwidget-webkit-browse-url`，在Emacs里启动一个足够现代的浏览器窗口，配合`mdbook`(或者`hugo`之类)，做到实时显示`Markdown`的内容：
+
+![](xwidget.jpg) 
+
+## [Sourcehut]的迁移
 回到迁移[Emacs]开发到[sourcehut]的事。这件事[Richard Stallman]也发话了，
 明确不可以用[Sourcehut]提供的服务，但可以用[Sourcehut]提供的软件。
 
@@ -193,7 +305,7 @@ Emacs基本没有一个现代的CI流程来保证代码质量。[Richard Stallma
 
 ## [srht.site]
 
-[srht.site]对标github的pages功能。对外只有一个API：
+[srht.site]对标github的pages功能。对外只有一个Rest API：
 ```
 curl --oauth2-bearer secret \
 	-Fcontent=site.tar.gz https://pages.sr.ht/publish/nanjj.srht.site
@@ -205,11 +317,11 @@ curl --oauth2-bearer secret \
 ```
 用于更新网站的一个子目录。
 
-这基本就足够了，实现好了足以对标github。
+这基本就足够了，实现好了足以对标Github。
 
 我把自己的小站搬到了[srht.site]:
 
-https://nanjj.srht.site
+[https://nanjj.srht.site]
 
 发现两个问题。
 
@@ -224,7 +336,7 @@ https://nanjj.srht.site
 
 第二个问题是[srht.site]没有用浏览器的cache功能，导致每次加载都要重新下载，以至于和
 
-https://nanjj.github.io
+[https://nanjj.github.io]
 
 比较就慢多了。 这个问题我感觉[srht.site]可以优化。在第二个问题解决之前，
 我的小站继续以github为主。
@@ -254,3 +366,5 @@ https://nanjj.github.io
 [Rust Lang]: https://users.rust-lang.org/
 [graphviz]: https://forum.graphviz.org/
 [Git send email]: https://git-send-email.io
+[https://nanjj.srht.site]: https://nanjj.srht.site
+[https://nanjj.github.io]: https://nanjj.github.io

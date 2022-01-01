@@ -9,6 +9,7 @@ title = ""
 [preprocessor.fix-cjk-spacing]
 [preprocessor.mermaid]
 [preprocessor.toc]
+[preprocessor.graphviz]
 
 [output.html]
 no-section-label = false
