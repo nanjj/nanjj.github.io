@@ -85,8 +85,6 @@
 
    用一个所谓`智能助手`的东西去糊弄是不行的。
 
-
-
 ### Gnus
 
 于是重回Gnus怀抱。配置信箱，订阅邮件列表，写信，读信。
@@ -211,7 +209,13 @@ rankdir = LR
 	E -> B [label = "升级"]
 }
 ```
-开发者在聊天室和邮件列表交流，沟通，提特性，发Patch，相互代码检视，并不直接操作代码仓。邮件列表和聊天室里有一个EBot，默默关注这一切。EBot负责代码检视流程的推动，负责代码合入，负责调用构建服务来测试代码，负责使用构建服务来集成代码，完成CI，负责部署，升级来完成CI。负责发布文档到网站服务，负责特性跟踪和Bug跟踪到TODO服务，负责记录邮件列表和聊天内容，并归档到网站服务。
+
+开发者在聊天室和邮件列表交流，沟通，提特性，发Patch，相互代码检视，并
+不直接操作代码仓。邮件列表和聊天室里有一个EBot，默默关注这一切。EBot负
+责代码检视流程的推动，负责代码合入，负责调用构建服务来测试代码，负责使
+用构建服务来集成代码，完成CI，负责部署，升级来完成CI。负责发布文档到网
+站服务，负责特性跟踪和Bug跟踪到TODO服务，负责记录邮件列表和聊天内容，
+并归档到网站服务。
 
 这是[Sourcehut]正在做和正要做的特性。这些特性要以100%开源的形式做出了。
 
@@ -288,7 +292,9 @@ Github Pages也有在用， Wikis也在用，文档管理工具也在用。信�
 可以生成JUnit的测试报告，方便集成到Emacs的CI/CD环境中去。这有什么用呢？
 这也没啥用，因为Emacs根本就没有CI/CD环境。
 
-我看到比较有用的是`xwidget-webkit-browse-url`，在Emacs里启动一个足够现代的浏览器窗口，配合`mdbook`(或者`hugo`之类)，做到实时显示`Markdown`的内容：
+我看到比较有用的是`xwidget-webkit-browse-url`，在Emacs里启动一个足够现
+代的浏览器窗口，配合`mdbook`(或者`hugo`之类)，做到实时显示`Markdown`的
+内容：
 
 ![](xwidget.jpg) 
 
@@ -333,6 +339,42 @@ Emacs基本没有一个现代的CI流程来保证代码质量。[Richard Stallma
 力，也更安全。只是成本还是太高。
 
 反复考察，我感觉[LXD]系统容器还是更适合跑任务。
+
+### Qemu
+
+读[Drew DeVault]博客。 读到[Getting Started With
+Qemu](https://drewdevault.com/2018/09/10/Getting-started-with-qemu.html)
+。他介绍了他对Qemu的使用，阐明了Qemu的好处，最后他说：
+
+> There’s really no excuse to be using any other
+> hypervisor1. They’re all dogshit compared to qemu.
+>
+> 真没有借口用其他管理程序，他们和qemu相比都是狗屎。
+
+我由此打消了向他推荐LXD的想法。
+
+### Rust C++ Go C
+
+在[Rust is not a Good C
+Replacement](https://drewdevault.com/2019/03/25/Rust-is-not-a-good-C-replacement.html)
+里，[Drew DeVault]也有一些有趣观点，试摘录如下：
+
+> Go是C程序员设计的新语言，Rust是C++程序员设计的新语言。
+
+这是自然的，近乎于描述事实。但能鲜明地点出这一点，让人眼前一亮。
+
+> C++程序员的价值观与C程序员的价值观并不兼容。
+> 
+> C++和Rust语言通过增加更多的语言特性来解决问题，而C语言，通过增加更多
+> C代码解决问题。
+
+他最后预言Rust终将失败，“赶各种新潮，啥也不精”,和C++一路货色。
+
+> 智慧的预言设计者，起于小，并保持小。
+
+观点鲜明。
+
+Rust语言我也在学，不过我有些犹豫，有些怀疑，没有这么爽快否定。
 
 ## [srht.site]
 

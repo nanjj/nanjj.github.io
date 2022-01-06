@@ -340,6 +340,35 @@ Gitlab或者自研的一个Git。这会是个核心。</p>
 <p>对比其他工具，如<a href="https://travis-ci.org">Travis</a>等基于Docker容器的，有很大易用性方面的提高。但基于虚机构建成本很高，而且用时较长（虚机从创建到启动到跑完CI，慢的可以到20分钟）。</p>
 <p>这块最合适是系统容器<a href="https://github.com/lxc/lxd">LXD</a>。我把这个提议提给了<a href="https://drewdevault.com/">Drew DeVault</a>，但没得到他的回应。我在等待回应的时间里，大致看了他的实现。他任务跑在虚机里，虚机跑在Docker容器里，Docker容器跑在物理机上。这样他使用了Docker的镜像能力，也更安全。只是成本还是太高。</p>
 <p>反复考察，我感觉<a href="https://github.com/lxc/lxd">LXD</a>系统容器还是更适合跑任务。</p>
+<h3 id="qemu"><a class="header" href="#qemu">Qemu</a></h3>
+<p>读<a href="https://drewdevault.com/">Drew DeVault</a>博客。 读到<a href="https://drewdevault.com/2018/09/10/Getting-started-with-qemu.html">Getting Started With
+Qemu</a>
+。他介绍了他对Qemu的使用，阐明了Qemu的好处，最后他说：</p>
+<blockquote>
+<p>There’s really no excuse to be using any other
+hypervisor1. They’re all dogshit compared to qemu.</p>
+<p>真没有借口用其他管理程序，他们和qemu相比都是狗屎。</p>
+</blockquote>
+<p>我由此打消了向他推荐LXD的想法。</p>
+<h3 id="rust-c-go-c"><a class="header" href="#rust-c-go-c">Rust C++ Go C</a></h3>
+<p>在<a href="https://drewdevault.com/2019/03/25/Rust-is-not-a-good-C-replacement.html">Rust is not a Good C
+Replacement</a>
+里，<a href="https://drewdevault.com/">Drew DeVault</a>也有一些有趣观点，试摘录如下：</p>
+<blockquote>
+<p>Go是C程序员设计的新语言，Rust是C++程序员设计的新语言。</p>
+</blockquote>
+<p>这是自然的，近乎于描述事实。但能鲜明地点出这一点，让人眼前一亮。</p>
+<blockquote>
+<p>C++程序员的价值观与C程序员的价值观并不兼容。</p>
+<p>C++和Rust语言通过增加更多的语言特性来解决问题，而C语言，通过增加更多
+C代码解决问题。</p>
+</blockquote>
+<p>他最后预言Rust终将失败，“赶各种新潮，啥也不精”,和C++一路货色。</p>
+<blockquote>
+<p>智慧的预言设计者，起于小，并保持小。</p>
+</blockquote>
+<p>观点鲜明。</p>
+<p>Rust语言我也在学，不过我有些犹豫，有些怀疑，没有这么爽快否定。</p>
 <h2 id="srhtsite"><a class="header" href="#srhtsite"><a href="https://srht.site">srht.site</a></a></h2>
 <p><a href="https://srht.site">srht.site</a>对标github的pages功能。对外只有一个Rest API：</p>
 <pre><code>curl --oauth2-bearer secret \
