@@ -369,30 +369,39 @@ Gitlab或者自研的一个Git。这会是个核心。</p>
 Qemu</a>
 。他介绍了他对Qemu的使用，阐明了Qemu的好处，最后他说：</p>
 <blockquote>
-<p>There’s really no excuse to be using any other
-hypervisor1. They’re all dogshit compared to qemu.</p>
-<p>真没有借口用其他管理程序，他们和qemu相比都是狗屎。</p>
+<p>真没有借口用其他管理程序，和qemu相比都是狗屎。</p>
 </blockquote>
 <p>我由此打消了向他推荐LXD的想法。</p>
 <h3 id="rust-c-go-c"><a class="header" href="#rust-c-go-c">Rust C++ Go C</a></h3>
 <p>在<a href="https://drewdevault.com/2019/03/25/Rust-is-not-a-good-C-replacement.html">Rust is not a Good C
 Replacement</a>
-里，<a href="https://drewdevault.com/">Drew DeVault</a>也有一些有趣观点，试摘录如下：</p>
+里，<a href="https://drewdevault.com/">Drew DeVault</a>有一些有趣观点，试摘录如下：</p>
 <blockquote>
 <p>Go是C程序员设计的新语言，Rust是C++程序员设计的新语言。</p>
 </blockquote>
-<p>这是自然的，近乎于描述事实。但能鲜明地点出这一点，让人眼前一亮。</p>
+<p>这是自然的，近乎于描述事实。但能鲜明地点出，让人不禁眼前一亮。</p>
 <blockquote>
-<p>C++程序员的价值观与C程序员的价值观并不兼容。</p>
-<p>C++和Rust语言通过增加更多的语言特性来解决问题，而C语言，通过增加更多
-C代码解决问题。</p>
+<p>C++程序员与C程序员的价值观绝不兼容。</p>
+<p>C++和Rust语言有问题就加特性，C语言有问题去加代码。</p>
 </blockquote>
-<p>他最后预言Rust终将失败，“赶各种新潮，啥也不精”,和C++一路货色。</p>
+<p>并给出C，C++，Go，Rust语言特性年增长率：</p>
+<table><thead><tr><th>语言</th><th>语言特性年增长（个/年）</th></tr></thead><tbody>
+<tr><td>C</td><td>0.73</td></tr>
+<tr><td>C++</td><td>11.3</td></tr>
+<tr><td>Go</td><td>2</td></tr>
+<tr><td>Rust</td><td>15</td></tr>
+</tbody></table>
+<p>预言Rust终将失败：</p>
 <blockquote>
-<p>智慧的预言设计者，起于小，并保持小。</p>
+<p>玩各式花活，啥也不精，和C++一路货色。</p>
+<p>智慧的语言设计者，始于小，并保持小。</p>
 </blockquote>
-<p>观点鲜明。</p>
-<p>Rust语言我也在学，不过我有些犹豫，有些怀疑，没有这么爽快否定。</p>
+<p>得出结论：</p>
+<blockquote>
+<p>Rust是C++的接班人，而不是C的。C的接班人是Go。</p>
+</blockquote>
+<p>这结论也没啥问题，甚至有些平铺直叙。但像一般真理一样，当它在你面前袒露之前，你并不知晓，展开之后，又觉得理所当然。</p>
+<p>Rust语言我也在学，不过我有些犹豫，有些怀疑，Cargo包管理实在惊艳，因此没有这么爽快否定。</p>
 <h2 id="srhtsite"><a class="header" href="#srhtsite"><a href="https://srht.site">srht.site</a></a></h2>
 <p><a href="https://srht.site">srht.site</a>对标github的pages功能。对外只有一个Rest API：</p>
 <pre><code>curl --oauth2-bearer secret \

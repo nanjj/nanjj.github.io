@@ -346,10 +346,7 @@ Emacs基本没有一个现代的CI流程来保证代码质量。[Richard Stallma
 Qemu](https://drewdevault.com/2018/09/10/Getting-started-with-qemu.html)
 。他介绍了他对Qemu的使用，阐明了Qemu的好处，最后他说：
 
-> There’s really no excuse to be using any other
-> hypervisor1. They’re all dogshit compared to qemu.
->
-> 真没有借口用其他管理程序，他们和qemu相比都是狗屎。
+> 真没有借口用其他管理程序，和qemu相比都是狗屎。
 
 我由此打消了向他推荐LXD的想法。
 
@@ -357,24 +354,41 @@ Qemu](https://drewdevault.com/2018/09/10/Getting-started-with-qemu.html)
 
 在[Rust is not a Good C
 Replacement](https://drewdevault.com/2019/03/25/Rust-is-not-a-good-C-replacement.html)
-里，[Drew DeVault]也有一些有趣观点，试摘录如下：
+里，[Drew DeVault]有一些有趣观点，试摘录如下：
 
 > Go是C程序员设计的新语言，Rust是C++程序员设计的新语言。
 
-这是自然的，近乎于描述事实。但能鲜明地点出这一点，让人眼前一亮。
+这是自然的，近乎于描述事实。但能鲜明地点出，让人不禁眼前一亮。
 
-> C++程序员的价值观与C程序员的价值观并不兼容。
+> C++程序员与C程序员的价值观绝不兼容。
 > 
-> C++和Rust语言通过增加更多的语言特性来解决问题，而C语言，通过增加更多
-> C代码解决问题。
+> C++和Rust语言有问题就加特性，C语言有问题去加代码。
 
-他最后预言Rust终将失败，“赶各种新潮，啥也不精”,和C++一路货色。
+并给出C，C++，Go，Rust语言特性年增长率：
 
-> 智慧的预言设计者，起于小，并保持小。
+| 语言 | 语言特性年增长（个/年） |
+|------|-------------------------|
+| C    | 0.73                    |
+| C++  | 11.3                    |
+| Go   | 2                       |
+| Rust | 15                      |
 
-观点鲜明。
 
-Rust语言我也在学，不过我有些犹豫，有些怀疑，没有这么爽快否定。
+预言Rust终将失败：
+
+> 玩各式花活，啥也不精，和C++一路货色。
+>
+> 智慧的语言设计者，始于小，并保持小。
+
+得出结论：
+
+> Rust是C++的接班人，而不是C的。C的接班人是Go。
+
+这结论也没啥问题，甚至有些平铺直叙。但像一般真理一样，当它在你面前袒露
+之前，你并不知晓，展开之后，又觉得理所当然。
+
+Rust语言我也在学，不过我有些犹豫，有些怀疑，Cargo包管理实在惊艳，因此
+没有这么爽快否定。
 
 ## [srht.site]
 
