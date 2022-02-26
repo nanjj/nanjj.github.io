@@ -1,5 +1,6 @@
 # Summary
-- [几封旧信](2022/old-stories.md)
+- [NATS故事](2022/nats-stories.md)
+  - [几封旧信](2022/old-stories.md)
 - [滑雪](2021/ski.md)
   - [Emacs](2021/emacs.md)
   - [游泳](2021/swimming.md)

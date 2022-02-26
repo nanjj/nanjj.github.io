@@ -1,0 +1,330 @@
+<!DOCTYPE HTML>
+<html lang="zh_CN" class="sidebar-visible no-js light">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>NATS故事</title>
+
+
+        <!-- Custom HTML head -->
+
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff" />
+
+        <link rel="icon" href="../favicon.svg">
+        <link rel="shortcut icon" href="../favicon.png">
+        <link rel="stylesheet" href="../css/variables.css">
+        <link rel="stylesheet" href="../css/general.css">
+        <link rel="stylesheet" href="../css/chrome.css">
+        <link rel="stylesheet" href="../css/print.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="../FontAwesome/css/font-awesome.css">
+        <link rel="stylesheet" href="../fonts/fonts.css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="../highlight.css">
+        <link rel="stylesheet" href="../tomorrow-night.css">
+        <link rel="stylesheet" href="../ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+
+        <!-- MathJax -->
+        <!-- <script defer type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script> -->
+		<script id="MathJax-script" async src="../mathjax/es5/tex-mml-chtml.js"></script>
+    </head>
+    <body>
+        <!-- Provide site root to javascript -->
+        <script type="text/javascript">
+            var path_to_root = "../";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
+        </script>
+
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script type="text/javascript">
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script type="text/javascript">
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            var html = document.querySelector('html');
+            html.classList.remove('no-js')
+            html.classList.remove('light')
+            html.classList.add(theme);
+            html.classList.add('js');
+        </script>
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script type="text/javascript">
+            var html = document.querySelector('html');
+            var sidebar = 'hidden';
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'hidden';
+            }
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <div class="sidebar-scrollbox">
+                <ol class="chapter"><li class="chapter-item expanded "><a href="../2022/nats-stories.html" class="active"><strong aria-hidden="true">1.</strong> NATS故事</a><a class="toggle"><div>❱</div></a></li><li><ol class="section"><li class="chapter-item "><a href="../2022/old-stories.html"><strong aria-hidden="true">1.1.</strong> 几封旧信</a></li></ol></li><li class="chapter-item "><a href="../2021/ski.html"><strong aria-hidden="true">2.</strong> 滑雪</a><a class="toggle"><div>❱</div></a></li><li><ol class="section"><li class="chapter-item "><a href="../2021/emacs.html"><strong aria-hidden="true">2.1.</strong> Emacs</a></li><li class="chapter-item "><a href="../2021/swimming.html"><strong aria-hidden="true">2.2.</strong> 游泳</a></li><li class="chapter-item "><a href="../2021/recall-whole-life.html"><strong aria-hidden="true">2.3.</strong> 活着与回忆一生</a></li><li class="chapter-item "><a href="../2021/newton.html"><strong aria-hidden="true">2.4.</strong> 牛吃草问题</a></li><li class="chapter-item "><a href="../2021/math-general-education.html"><strong aria-hidden="true">2.5.</strong> 数学通识教育</a></li><li class="chapter-item "><a href="../2021/mdbook-blog.html"><strong aria-hidden="true">2.6.</strong> Mdbook预处理插件</a></li><li class="chapter-item "><a href="../2021/euler.html"><strong aria-hidden="true">2.7.</strong> 欧拉</a></li><li class="chapter-item "><a href="../2021/emacs-rust-mode.html"><strong aria-hidden="true">2.8.</strong> Emacs Rust Mode</a></li><li class="chapter-item "><a href="../2021/rust.html"><strong aria-hidden="true">2.9.</strong> Rust再学习</a></li></ol></li><li class="chapter-item "><a href="../2019/index.html"><strong aria-hidden="true">3.</strong> Gitlab的持续集成</a><a class="toggle"><div>❱</div></a></li><li><ol class="section"><li class="chapter-item "><a href="../2019/hdituil.html"><strong aria-hidden="true">3.1.</strong> Manipulate Mac Disk Images</a></li><li class="chapter-item "><a href="../2019/lxd.html"><strong aria-hidden="true">3.2.</strong> LXD Inside</a></li></ol></li><li class="chapter-item "><a href="../2018/index.html"><strong aria-hidden="true">4.</strong> Go Debug</a></li><li class="chapter-item "><a href="../2017/index.html"><strong aria-hidden="true">5.</strong> My Kids</a><a class="toggle"><div>❱</div></a></li><li><ol class="section"><li class="chapter-item "><a href="../2017/tips.html"><strong aria-hidden="true">5.1.</strong> Some Tips</a></li><li class="chapter-item "><a href="../2017/freebsd-cloud.html"><strong aria-hidden="true">5.2.</strong> FreeBSD Cloud Init</a></li><li class="chapter-item "><a href="../2017/arista.html"><strong aria-hidden="true">5.3.</strong> Arista on OpenStack</a></li><li class="chapter-item "><a href="../2017/dummynet.html"><strong aria-hidden="true">5.4.</strong> Dummynet</a></li><li class="chapter-item "><a href="../2017/org-publish.html"><strong aria-hidden="true">5.5.</strong> Org Publish</a></li></ol></li><li class="chapter-item "><a href="../2013/index.html"><strong aria-hidden="true">6.</strong> 青春</a></li><li class="chapter-item "><a href="../2011/index.html"><strong aria-hidden="true">7.</strong> 春游</a><a class="toggle"><div>❱</div></a></li><li><ol class="section"><li class="chapter-item "><a href="../2011/love-long-hair.html"><strong aria-hidden="true">7.1.</strong> 我爱长发飘飘</a></li></ol></li><li class="chapter-item "><a href="../2010/index.html"><strong aria-hidden="true">8.</strong> My 2010</a><a class="toggle"><div>❱</div></a></li><li><ol class="section"><li class="chapter-item "><a href="../2010/maolin.html"><strong aria-hidden="true">8.1.</strong> 毛与林集团的斗争</a></li><li class="chapter-item "><a href="../2010/moving-forward.html"><strong aria-hidden="true">8.2.</strong> 勇往直前</a></li><li class="chapter-item "><a href="../2010/iconv.html"><strong aria-hidden="true">8.3.</strong> 繁简转换</a></li><li class="chapter-item "><a href="../2010/possible.html"><strong aria-hidden="true">8.4.</strong> 侧反</a></li><li class="chapter-item "><a href="../2010/eyed3.html"><strong aria-hidden="true">8.5.</strong> eyeD3</a></li><li class="chapter-item "><a href="../2010/liaozhai.html"><strong aria-hidden="true">8.6.</strong> 聊斋</a></li><li class="chapter-item "><a href="../2010/sudden.html"><strong aria-hidden="true">8.7.</strong> 突然想起</a></li><li class="chapter-item "><a href="../2010/my-orchid.html"><strong aria-hidden="true">8.8.</strong> 兰花</a></li><li class="chapter-item "><a href="../2010/salt.html"><strong aria-hidden="true">8.9.</strong> 微薄之盐</a></li><li class="chapter-item "><a href="../2010/snowing-day.html"><strong aria-hidden="true">8.10.</strong> 最中意的雪天</a></li><li class="chapter-item "><a href="../2010/weekend.html"><strong aria-hidden="true">8.11.</strong> 周末了</a></li><li class="chapter-item "><a href="../2010/yefusword.html"><strong aria-hidden="true">8.12.</strong> 野夫的文字</a></li><li class="chapter-item "><a href="../2010/gonggong.html"><strong aria-hidden="true">8.13.</strong> 共工</a></li><li class="chapter-item "><a href="../2010/grass.html"><strong aria-hidden="true">8.14.</strong> 草在结它的种子</a></li><li class="chapter-item "><a href="../2010/old-friend.html"><strong aria-hidden="true">8.15.</strong> 故人</a></li><li class="chapter-item "><a href="../2010/pigeon.html"><strong aria-hidden="true">8.16.</strong> 鸽子</a></li><li class="chapter-item "><a href="../2010/talking-death.html"><strong aria-hidden="true">8.17.</strong> 民不聊生</a></li><li class="chapter-item "><a href="../2010/system.html"><strong aria-hidden="true">8.18.</strong> 系统程序员成长计划</a></li><li class="chapter-item "><a href="../2010/speech-script.html"><strong aria-hidden="true">8.19.</strong> 演讲稿</a></li><li class="chapter-item "><a href="../2010/hushiswords.html"><strong aria-hidden="true">8.20.</strong> 胡适三句话</a></li><li class="chapter-item "><a href="../2010/my-narcissus.html"><strong aria-hidden="true">8.21.</strong> 水仙</a></li><li class="chapter-item "><a href="../2010/my-cousin.html"><strong aria-hidden="true">8.22.</strong> 表哥</a></li><li class="chapter-item "><a href="../2010/dreaming-back-song.html"><strong aria-hidden="true">8.23.</strong> 关于梦回宋朝</a></li><li class="chapter-item "><a href="../2010/sutong.html"><strong aria-hidden="true">8.24.</strong> 苏童河岸</a></li></ol></li><li class="chapter-item "><a href="../2009/index.html"><strong aria-hidden="true">9.</strong> 单翅鸟</a><a class="toggle"><div>❱</div></a></li><li><ol class="section"><li class="chapter-item "><a href="../2009/cicada.html"><strong aria-hidden="true">9.1.</strong> 所谓蝉</a></li><li class="chapter-item "><a href="../2009/our-ancestor.html"><strong aria-hidden="true">9.2.</strong> 我们的祖先</a></li><li class="chapter-item "><a href="../2009/dostoevsky.html"><strong aria-hidden="true">9.3.</strong> 陀思妥耶夫斯基</a></li><li class="chapter-item "><a href="../2009/stories.html"><strong aria-hidden="true">9.4.</strong> 故事汇</a></li><li class="chapter-item "><a href="../2009/that-year.html"><strong aria-hidden="true">9.5.</strong> 那一年</a></li><li class="chapter-item "><a href="../2009/marriage.html"><strong aria-hidden="true">9.6.</strong> 婚姻</a></li><li class="chapter-item "><a href="../2009/lev.html"><strong aria-hidden="true">9.7.</strong> 托尔斯泰与米兰昆德拉</a></li><li class="chapter-item "><a href="../2009/sound-power.html"><strong aria-hidden="true">9.8.</strong> 声音与力量</a></li><li class="chapter-item "><a href="../2009/telling-story.html"><strong aria-hidden="true">9.9.</strong> 叙事</a></li><li class="chapter-item "><a href="../2009/xuanyuan.html"><strong aria-hidden="true">9.10.</strong> 轩辕</a></li><li class="chapter-item "><a href="../2009/cat-trust.html"><strong aria-hidden="true">9.11.</strong> 猫信</a></li><li class="chapter-item "><a href="../2009/relats.html"><strong aria-hidden="true">9.12.</strong> 范德瓦尔斯力</a></li><li class="chapter-item "><a href="../2009/who.html"><strong aria-hidden="true">9.13.</strong> 谁是谁</a></li><li class="chapter-item "><a href="../2009/my-cat.html"><strong aria-hidden="true">9.14.</strong> 我的猫</a></li><li class="chapter-item "><a href="../2009/my-group.html"><strong aria-hidden="true">9.15.</strong> 我的团长我的团</a></li><li class="chapter-item "><a href="../2009/cat-not-easy.html"><strong aria-hidden="true">9.16.</strong> 猫不易</a></li><li class="chapter-item "><a href="../2009/about-two.html"><strong aria-hidden="true">9.17.</strong> 关于二</a></li><li class="chapter-item "><a href="../2009/to-lev.html"><strong aria-hidden="true">9.18.</strong> 致列夫·托尔斯泰</a></li><li class="chapter-item "><a href="../2009/my-vine.html"><strong aria-hidden="true">9.19.</strong> 我的葡萄树</a></li></ol></li><li class="chapter-item "><a href="../2008/index.html"><strong aria-hidden="true">10.</strong> 白鲸</a><a class="toggle"><div>❱</div></a></li><li><ol class="section"><li class="chapter-item "><a href="../2008/archimedes.html"><strong aria-hidden="true">10.1.</strong> 阿基米德</a></li><li class="chapter-item "><a href="../2008/elder.html"><strong aria-hidden="true">10.2.</strong> 父辈</a></li><li class="chapter-item "><a href="../2008/meaning-of-love.html"><strong aria-hidden="true">10.3.</strong> 爱情的意义</a></li><li class="chapter-item "><a href="../2008/a-friend.html"><strong aria-hidden="true">10.4.</strong> 一个朋友</a></li><li class="chapter-item "><a href="../2008/read-zhuangzi.html"><strong aria-hidden="true">10.5.</strong> 读庄子</a></li><li class="chapter-item "><a href="../2008/villages.html"><strong aria-hidden="true">10.6.</strong> 村庄</a></li><li class="chapter-item "><a href="../2008/black-white-iron.html"><strong aria-hidden="true">10.7.</strong> 黑白铁</a></li></ol></li><li class="chapter-item "><a href="../2007/index.html"><strong aria-hidden="true">11.</strong> 测试驱动学习模式</a><a class="toggle"><div>❱</div></a></li><li><ol class="section"><li class="chapter-item "><a href="../2007/hunduns-death-faqs.html"><strong aria-hidden="true">11.1.</strong> 混沌之死问题集锦</a></li><li class="chapter-item "><a href="../2007/hunduns-death.html"><strong aria-hidden="true">11.2.</strong> 混沌之死</a></li><li class="chapter-item "><a href="../2007/emacs-ghost.html"><strong aria-hidden="true">11.3.</strong> Emacs里的有幽灵</a></li><li class="chapter-item "><a href="../2007/a-remote-friend.html"><strong aria-hidden="true">11.4.</strong> 记远方的一个朋友</a></li><li class="chapter-item "><a href="../2007/suolinnang.html"><strong aria-hidden="true">11.5.</strong> 锁麟囊</a></li><li class="chapter-item "><a href="../2007/chunguimeng.html"><strong aria-hidden="true">11.6.</strong> 春闺梦</a></li><li class="chapter-item "><a href="../2007/knocking-stone.html"><strong aria-hidden="true">11.7.</strong> 碰碑</a></li><li class="chapter-item "><a href="../2007/laozis-stories.html"><strong aria-hidden="true">11.8.</strong> 老子的故事汇</a></li><li class="chapter-item "><a href="../2007/cdrecord.html"><strong aria-hidden="true">11.9.</strong> cdrecord的故事汇</a></li><li class="chapter-item "><a href="../2007/life-too-short.html"><strong aria-hidden="true">11.10.</strong> 手工测试生命太短</a></li></ol></li></ol>
+            </div>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
+        </nav>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky bordered">
+                    <div class="left-buttons">
+                        <button id="sidebar-toggle" class="icon-button" type="button" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </button>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light (default)</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">NATS故事</h1>
+
+                    <div class="right-buttons">
+                        <a href="../print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+                        <a href="https://github.com/nanjj/nanjj.github.io" title="Git repository" aria-label="Git repository">
+                            <i id="git-repository-button" class="fa fa-github"></i>
+                        </a>
+
+                    </div>
+                </div>
+
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script type="text/javascript">
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <div style="text-align: right"><code>2022年01月15日 星期六 上午</code></div>
+<h2 id="00"><a class="header" href="#00">00</a></h2>
+<p><a href="https://nats.io">NATS</a>是<a href="https://docs.nats.io/reference/faq#what-does-the-nats-acronym-stand-for">Neural Automatic Transport System</a>的缩写，翻译成中文是<a href="https://docs.nats.io/reference/faq#what-is-nats">神经自动传输系统</a>。</p>
+<h2 id="01"><a class="header" href="#01">01</a></h2>
+<blockquote>
+<p>本节译自<a href="https://docs.nats.io/nats-concepts/core-nats/pubsub">Publish Subscribe</a>。</p>
+</blockquote>
+<p>NATS实现了一个分布式、一对多的、消息发布订阅通讯模型。发布者Publisher）发送一个消息到一个主题（Subject），任何监听在这个主题的活跃的订阅者（Subscriber）收到这个消息。订阅者也可以关注通配符匹配的主题，这有一点点像正则表达式的意思。如下图示：</p>
+<pre><code class="language-artist">                                                  +----------+
+                                     +-----msg1--&gt;|Subscriber|
+                                     |            +----------+
+                                     |
+                                     |
++---------+              +-------+   |            +----------+
+|Publisher+-----msg1----&gt;|Subject+---+-----msg1--&gt;|Subscriber|
++---------+              +-------+   |            +----------+
+                                     |
+                                     |
+                                     |            +----------+
+                                     +-----msg1--&gt;|Subscriber|
+                                                  +----------+
+
+</code></pre>
+<p>这种一对多的模式有时候也叫扇出（Fan-Out）。</p>
+<h2 id="02"><a class="header" href="#02">02</a></h2>
+<blockquote>
+<p>以下译自<a href="https://derekcollison.net">https://derekcollison.net</a>:</p>
+<p>Connect Everything</p>
+<p>连接所有</p>
+</blockquote>
+<blockquote>
+<p>以下译自<a href="https://synadia.com/#about">About Synadia</a>:</p>
+<p>在Synadia，我们相信有一个机会，创建第一个去中心化的，安全的全球公共服务，并由NATS.io所加持，来连接所有数字系统，服务和设备。</p>
+</blockquote>
+<h2 id="03"><a class="header" href="#03">03</a></h2>
+<p>上节大略勾画NATS志向，要：</p>
+<blockquote>
+<p>连接所有</p>
+</blockquote>
+<p>何谓所有（Everything）？</p>
+<ol>
+<li>所有数字系统，</li>
+<li>所有服务，</li>
+<li>所有设备。</li>
+</ol>
+<p>所有的数字系统是指：</p>
+<ol>
+<li>IaaS云，包括中心云和边缘云，</li>
+<li>PaaS云，比如一个K8S集群，或者一个LXD集群，包括中心的和边缘的，</li>
+<li>操作系统，包括虚机，物理机，系统容器，</li>
+<li>一组服务的集合。</li>
+</ol>
+<p>所有服务是指：</p>
+<ol>
+<li>云原生服务，</li>
+<li>非云原生传统服务，</li>
+<li>运行在物理机上的服务，运行在虚机上的服务，运行在容器里的服务，</li>
+<li>跑在嵌入式设备里的服务，</li>
+<li>有状态服务，无状态可以扩容的服务，</li>
+<li>http服务，grpc服务，tcp服务，udp服务。</li>
+</ol>
+<p>所有设备：</p>
+<ol>
+<li>手机，</li>
+<li>嵌入设备，</li>
+<li>PC，</li>
+<li>虚机，物理机，等。</li>
+</ol>
+<h3 id="本节大纲"><a class="header" href="#本节大纲">本节大纲</a></h3>
+<p>本节翻译，缩写自<a href="https://docs.nats.io/using-nats/developer/tutorials/jwt">In Depth JWT Guide</a>。</p>
+<blockquote>
+<p>什么是Account？ Account是NATS的隔离上下文。</p>
+</blockquote>
+<p>这个简明的论断无疑是正确的，也可能是准确的，但是不容易理解的。我们按这个思路来理解，可能会好一些。首先问，NATS的资源是什么？显然是Subject，因为NATS的一切围绕Subject展开。那Account就是NATS里Subject的名字空间（Namespace）。假设有两个Account，A和B。在A和B里，可以各自有一套
+Subject，即使彼此重名，也可以并行通信无误。如下，Account A和Account B，在Account A里，有Subject a和Subject b，在Account B里，有Subject c和
+Subject d：</p>
+<pre><code>.
+├── A
+│   ├── a
+│   └── b
+└── B
+    ├── c
+    └── d
+</code></pre>
+<p>账户A里的用户只能访问到Subject a和Subject b，账户B里的用户只能访问到
+Subject c和Subject d。那这就是隔离。那如果B账户里的用户希望访问到A账户里Subject怎么办呢？那就需要A账户把Subject Export出来，这样B账户可以
+Import进来使用。比如：</p>
+<pre><code>accounts: {
+    A: {
+        exports: [
+            {stream: a},
+            {service: b},
+        ]
+    }
+}
+</code></pre>
+<p>如上， Account A把自己的Subject a以stream的形式暴露出来，把Subject b以
+service形式暴露出来。 这样Account B可以Import：</p>
+<pre><code>accounts: {
+    B: {
+        imports: [
+            {stream: {account: A, subject: a}},
+            {service: {account: A, subject: b}},
+        ]
+    }
+}
+</code></pre>
+<p>因为在Account B里没有名为a和b的Subject，因此可以直接以Subject的原名引入。 对以Stream形式引入的Subject a，Account B里用户只可以订阅。对以
+Service形式引入的Subject b，Account B里的用户既可以订阅，也可以发布，还可以执行请求回复操作，简直和用自己Account里的Subject一样。</p>
+<h2 id="04"><a class="header" href="#04">04</a></h2>
+<!-- NATS部署 -->
+<h2 id="05"><a class="header" href="#05">05</a></h2>
+<!--  -->
+<p>译自<a href="https://docs.nats.io/nats-concepts/service_infrastructure#virtualization-and-containerization-considerations">Virtualization and containerization considerations</a>。</p>
+<blockquote>
+<p>嗯你当然可以用容器编排系统，诸如Kubernetes，Nomad或Docker Swarm来部署你的NATS服务器基础设施，的确也有非常多的人如是做，我们的推荐是，对
+NATS服务基础设施只是：基础设施。意思是它最好运行在和你的容器同等的基础设施上，而不是在容器里。</p>
+<p>因为每一层的虚拟化，容器化和重导向<sup class="footnote-reference"><a href="#1">1</a></sup>都可能是问题之源，都可能导致延迟，并且容器编排系统在那去提供服务（例如，检测进程是一直在运行还是没有，重导向相应网络流量以提供高可用的形式），这些已经更好，更快地实现在了NATS自己里。</p>
+<p>问自己这个问题，如果你想得到最优性能，最大可靠性，最快速的容错倒换，你会在容器里运行你的数据库服务吗，并且用Kubernetes/Nomad/Swarm编排？还是直接在虚拟机里，在尽可能接近裸机的环境里运行他们？</p>
+<p>NATS服务器是高效地‘消息路由器’。他们持续从网络得到数据，通过网络发送数据。如果JetStream启用的话还会持续读写文件。他们高度优化有很多，诸如内置心跳，故障转移和流控机制。在NATS服务器进程，网络和磁盘之间的层级数越小，它就工作的越快，并且这些多出的层级还有可能破坏或者放置比如一些配置错误。并且你并不依赖代理呀，端口映射呀或者DNS一些伎俩，只是为了让你的客户端应用能连上NATS服务器实例，因为你的容器编排系统把他们挪到一边去了，如果运行在虚机里，他们只需简单地重启，客户端继续用相同已知IP地址或者别名。</p>
+</blockquote>
+<div class="footnote-definition" id="1"><sup class="footnote-definition-label">1</sup>
+<p><code>iptables -t nat -A PREROUTING -p tcp -j REDIRECT ...</code></p>
+</div>
+<h2 id="05-1"><a class="header" href="#05-1">05</a></h2>
+<p>译自<a href="https://bravenewgeek.com/dissecting-message-queues/">Dissecting Message Queues</a>：</p>
+<blockquote>
+<p>现在我们看看代理消息队列。</p>
+<p><img src="brokered_throughput.png" alt="" /></p>
+<p>咋一看，代理消息队列比无代理消息队列吞吐量引人注目地减少，大部分降好几个数量级。半数代理消息队列的吞吐量在25,000消息/秒以下。Redis数字也许有点误导。尽管提供了发布订阅的功能，Redis也不是真为一个鲁棒的消息队列而设计。与ZeroMQ类似风格，Redis断连慢客户端，重要的是，它也不能可靠处理这类消息。因此，我们踢它出局。Kafka和ruby-nats性能与Redis类似，但在没有间歇失败情况下可以可靠处理消息。NATS的Go实现，gnatsd<sup class="footnote-reference"><a href="#2">2</a></sup>，作为一个代理消息队列，吞吐量表现杰出。</p>
+<p>不考虑特殊情况，我们看到代理消息队列吞吐量相当一致。不像无代理库，发送和接受有少到几乎没有的不一致，基本都差不多。</p>
+</blockquote>
+<div class="footnote-definition" id="2"><sup class="footnote-definition-label">2</sup>
+<p>如今叫回了NATS。</p>
+</div>
+
+                    </main>
+					<!-- script src="https://utteranc.es/client.js" repo="nanjj/nanjj.github.io" issue-term="pathname" crossorigin="anonymous"></script-->
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+
+                            <a rel="next" href="../2022/old-stories.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+
+                    <a rel="next" href="../2022/old-stories.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+            </nav>
+
+        </div>
+
+
+
+
+        <script type="text/javascript">
+            window.playground_copyable = true;
+        </script>
+
+
+        <script src="../elasticlunr.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../mark.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../searcher.js" type="text/javascript" charset="utf-8"></script>
+
+        <script src="../clipboard.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../highlight.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../book.js" type="text/javascript" charset="utf-8"></script>
+
+        <!-- Custom JS scripts -->
+
+
+    </body>
+</html>
