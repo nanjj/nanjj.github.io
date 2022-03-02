@@ -1,21 +1,5 @@
 [book]
-authors = ["JUN JIE NAN"]
-language = "zh_CN"
+authors = ["Nan Jun Jie"]
+language = "en"
 multilingual = false
 src = "src"
-title = ""
-
-[preprocessor.blog]
-[preprocessor.fix-cjk-spacing]
-[preprocessor.mermaid]
-[preprocessor.toc]
-[preprocessor.graphviz]
-
-[output.html]
-no-section-label = false
-mathjax-support = true
-git-repository-url = "https://github.com/nanjj/nanjj.github.io"
-
-[output.html.fold]
-enable = true
-level = 0

@@ -1,7 +1,2 @@
 book
-*.lock
-
-# Added by cargo
-
-/target
 site.tar.gz

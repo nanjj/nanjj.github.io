@@ -1,11 +1,11 @@
 <div style="text-align: right"><code>2022年01月15日 星期六 上午</code></div>
 
-## 00
+# 0
 
 [NATS]是[Neural Automatic Transport System]的缩写，翻译成中文是
 [神经自动传输系统]。
 
-## 01
+# 1
 
 > 本节译自[Publish Subscribe]。
 
@@ -33,7 +33,7 @@ NATS实现了一个分布式、一对多的、消息发布订阅通讯模型。�
 
 这种一对多的模式有时候也叫扇出（Fan-Out）。
 
-## 02
+# 2
 
 > 以下译自[https://derekcollison.net](https://derekcollison.net):
 >
@@ -46,7 +46,7 @@ NATS实现了一个分布式、一对多的、消息发布订阅通讯模型。�
 > 在Synadia，我们相信有一个机会，创建第一个去中心化的，安全的全球公共
 > 服务，并由NATS.io所加持，来连接所有数字系统，服务和设备。
 
-## 03
+# 3
 
 上节大略勾画NATS志向，要：
 
@@ -77,7 +77,7 @@ NATS实现了一个分布式、一对多的、消息发布订阅通讯模型。�
 3. PC，
 4. 虚机，物理机，等。
 
-### 本节大纲
+# 4
 
 本节翻译，缩写自[In Depth JWT Guide](https://docs.nats.io/using-nats/developer/tutorials/jwt)。
 
@@ -137,13 +137,8 @@ Service形式引入的Subject b，Account B里的用户既可以订阅，也可�
 还可以执行请求回复操作，简直和用自己Account里的Subject一样。
 
 
-## 04
+# 5
 
-<!-- NATS部署 -->
-
-## 05
-
-<!--  -->
 译自[Virtualization and containerization considerations]。
 
 > 嗯你当然可以用容器编排系统，诸如Kubernetes，Nomad或Docker Swarm来部
@@ -171,7 +166,7 @@ Service形式引入的Subject b，Account B里的用户既可以订阅，也可�
 
 [^1]: `iptables -t nat -A PREROUTING -p tcp -j REDIRECT ...`
 
-## 05
+# 6
 
 译自[Dissecting Message Queues]：
 
