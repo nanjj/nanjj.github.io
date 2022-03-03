@@ -37,9 +37,8 @@ h1 code, h2 code, h3 code, h4 code, h5 code, h6 code {
 .hide-boring .boring { display: none; }
 .hidden { display: none !important; }
 
-h1 {
+h2 {
     text-align: center;
-    font-size: 2.05rem;
     text-decoration: underline;
 }
 
