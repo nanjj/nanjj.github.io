@@ -250,6 +250,50 @@
 </ol>
 </li>
 </ol>
+<h2 id="4-1"><a class="header" href="#4-1">4</a></h2>
+<p>虚拟现实（Virtual Reality）需要：</p>
+<ol>
+<li>构建，</li>
+<li>运行。</li>
+</ol>
+<p>游戏引擎作用于虚拟现实的运行时态。虚拟现实构建以现实为模版生成现实的虚拟，这些虚拟也是游戏引擎所需要的。</p>
+<h2 id="5-1"><a class="header" href="#5-1">5</a></h2>
+<p>英伟达Omniverse解决虚拟现实的构建问题：</p>
+<ol>
+<li>基于USD框架构建多人，多工具协作的载体，</li>
+<li>构建Nucleus平台提供以数据为中心的协作，</li>
+<li>提供虚拟物交流的平台。</li>
+</ol>
+<p>总体还是在虚拟现实构建这一面，虚拟现实运行还是在各个游戏引擎里，比如：</p>
+<ol>
+<li>Unreal（虚幻），</li>
+<li>Unity，</li>
+<li>O3DE
+等。</li>
+</ol>
+<h2 id="6-1"><a class="header" href="#6-1">6</a></h2>
+<p>游戏引擎的诸般计算要在1/30秒（或1/60秒，1/120秒）内完成，对算法性能要求极高。再好的算法，如不能在1/30秒内完成，也没有用。再好的架构，如果不能突破33.3毫秒的延迟，也用不上。因此：</p>
+<ol>
+<li>虚拟现实运行时渲染只能在本地完成，</li>
+<li>云渲染可以用以构建虚拟现实，</li>
+<li>运渲染不可以用在虚拟现实的运行时。</li>
+</ol>
+<h2 id="7"><a class="header" href="#7">7</a></h2>
+<p>实时通讯（RTC，Real Time Communication）有三个重要参数：</p>
+<ol>
+<li>可达带宽，</li>
+<li>不可见时延，</li>
+<li>可忍受丢包率。</li>
+</ol>
+<p>实时通讯研究如何在可忍受丢包率，不可见时延（小于33.3毫秒）条件下达到最大带宽的问题。</p>
+<p>实时通讯的主要场景有：</p>
+<ol>
+<li>云直播，</li>
+<li>云会议，</li>
+<li>云办公，</li>
+<li>云游戏。</li>
+</ol>
+<p>这几个场景都受不可见时延（1/30秒）严格管束：说一个不能在1/30秒内送达的包，是没有意义的。</p>
 <div style="break-before: page; page-break-before: always;"></div><div style="text-align: right"><code>2022年04月17日 星期日 下午</code></div>
 <p>我的Emacs窗口管理如下：</p>
 <table><thead><tr><th>快捷键</th><th>命令</th></tr></thead><tbody>
@@ -281,12 +325,12 @@
 <p>序言感谢名单有我的名字。二十多年前，我参与过这门课的学习，但并未入门。</p>
 <h2 id="3-1"><a class="header" href="#3-1">3</a></h2>
 <p>本书在第七章，由物质分布产生引力，引力表现为时空弯曲出发，寻找能动张量（描写物质分布）和时空曲率的关系，最终得到广义相对论的基本假设——爱因斯坦方程。</p>
-<h2 id="4-1"><a class="header" href="#4-1">4</a></h2>
+<h2 id="4-2"><a class="header" href="#4-2">4</a></h2>
 <p>如何理解时空弯曲？</p>
 <p>这就需要学习前六章，理解拓扑空间，流形与张量场，黎曼曲率张量，流形间的映射，流形上的微分，流形上的积分，以及微分几何描写的狭义相对论。爱因斯坦当年就是这么一步步走过来的。</p>
-<h2 id="5-1"><a class="header" href="#5-1">5</a></h2>
+<h2 id="5-2"><a class="header" href="#5-2">5</a></h2>
 <p>爱因斯坦方程描述物质分布与时空曲率的关系。在一定约束条件下解爱因斯坦方程就是对我们所在世界的探索。史瓦西率先给出爱因斯坦方程的史瓦西解。爱因斯坦基于史瓦西解给出引力波存在的预言。后人开启黑洞的研究，宇宙的诞生，以及宇宙论。</p>
-<h2 id="6-1"><a class="header" href="#6-1">6</a></h2>
+<h2 id="6-2"><a class="header" href="#6-2">6</a></h2>
 <p>这是《微分几何入门与广义相对论》上册的脉络。这本书的中册，下册我还没有看。二十多年前我参与这门课的学习但没有入门，如今读起来也吃力，但上册的脉络总算理清楚了。</p>
 <div style="break-before: page; page-break-before: always;"></div><div style="text-align: right"><code>2022年02月28日 星期一 下午</code></div>
 <p>参加CCF元宇宙探秘，听到了一些观点。</p>
@@ -328,7 +372,7 @@
 <p>Virtual Reality是指用科学技术手段向接受的人输送视觉的，听觉的，触觉的以至于嗅觉的信息，使接受者感觉到如亲身临境。这里要特别指出：这临境感不是真地亲临其境，而是感受而已；所以是虚的。这是矛盾。</p>
 <p>而我们传统文化正好有一个表达这种情况的词：”灵境“；这比”临境”好，因为这个境是虚的，不是实的。所以用“灵境”才是实事求是的。</p>
 </blockquote>
-<h2 id="4-2"><a class="header" href="#4-2">4</a></h2>
+<h2 id="4-3"><a class="header" href="#4-3">4</a></h2>
 <p>Intel 3DAT技术助力2022北京冬奥会开幕式雪花表演：</p>
 <pre><code class="language-artist">                                            1. 原计划500+小演员跟随地屏雪花视频进行表演，
  +---------Ground Screen---------+          2. 演员束手束脚，难于排练，效果很差，
@@ -342,12 +386,12 @@
  +-------------------------------+          +----+
 
 </code></pre>
-<h2 id="5-2"><a class="header" href="#5-2">5</a></h2>
+<h2 id="5-3"><a class="header" href="#5-3">5</a></h2>
 <blockquote>
 <p>Augmented Reality is a variation of Virtual Reality.</p>
 <p>现实增强技术是虚拟现实技术的最新进展。</p>
 </blockquote>
-<h2 id="6-2"><a class="header" href="#6-2">6</a></h2>
+<h2 id="6-3"><a class="header" href="#6-3">6</a></h2>
 <p>视觉灵境：</p>
 <blockquote>
 <p>声网MetaChat元语聊解决方案目前提供Party、咖啡厅、酒吧3种虚拟场景，未来将会拓展诸如会展、自习室、迪厅等在内的多元化场景，开发者可根据业务玩法选择合适的场景，也可按需定制。以上虚拟场景基于AR-3D引擎建模，可以实现多风格建筑、物体等3D物体效果；雨水、火焰、烟雾等复杂粒子效果；以及碰撞、重力等物理效果；并支持卡通、反射、高光计算、多光源等复杂的材质系统。逼真、沉浸式的虚拟场景避免了单一的语聊场景给用户带来的视觉疲劳，还能缓解用户间沉闷、尴尬的初始沟通气氛。</p>
@@ -356,7 +400,7 @@
 <blockquote>
 <p>玩家在进入房间后会听到房间内正在播放的背景音乐，例如在咖啡厅场景中会听到轻音乐，在酒吧会有驻场乐队、DJ等不同效果。玩家走向房间的不同方位也会听到不同的BGM效果，比如随着脚步的走远BGM音量变小，声音逐渐清晰或减弱等。除此之外，玩家还可以通过前后左右的位置操控，移动到其他玩家身边开启畅聊。最让人激动的是，房间内的BGM可以与玩家的音频共存，这就意味着玩家既可以听到房间内的背景音乐，又能听到一定范围内其他玩家的声音，再辅以玩家的虚拟形象，这就完美模拟了真实的互动感。宛若众人在现实中的酒吧听着音乐、喝着酒，畅聊人生得与失，岂不快哉？</p>
 </blockquote>
-<h2 id="7"><a class="header" href="#7">7</a></h2>
+<h2 id="7-1"><a class="header" href="#7-1">7</a></h2>
 <p>元宇宙有多少个？</p>
 <p>比如Meta做了一个元宇宙，Microsoft做了一个元宇宙，这两个元宇宙如何沟通呢？ Meta元宇宙中的数字人，可否旅行到Microsoft元宇宙？元宇宙中的虚拟物品可否进行贸易？原则上，一个元宇宙中的土地，山川，河流，道路，桥梁，以及基础设施是不可移动的。宇宙间贸易如何进行？这就牵涉一系列协议制定，一系列标准制定。</p>
 <h2 id="8"><a class="header" href="#8">8</a></h2>
@@ -430,7 +474,7 @@
 <li>PC，</li>
 <li>虚机，物理机，等。</li>
 </ol>
-<h2 id="4-3"><a class="header" href="#4-3">4</a></h2>
+<h2 id="4-4"><a class="header" href="#4-4">4</a></h2>
 <p>本节翻译，缩写自<a href="https://docs.nats.io/using-nats/developer/tutorials/jwt">In Depth JWT Guide</a>。</p>
 <blockquote>
 <p>什么是Account？ Account是NATS的隔离上下文。</p>
@@ -471,7 +515,7 @@ service形式暴露出来。 这样Account B可以Import：</p>
 </code></pre>
 <p>因为在Account B里没有名为a和b的Subject，因此可以直接以Subject的原名引入。 对以Stream形式引入的Subject a，Account B里用户只可以订阅。对以
 Service形式引入的Subject b，Account B里的用户既可以订阅，也可以发布，还可以执行请求回复操作，简直和用自己Account里的Subject一样。</p>
-<h2 id="5-3"><a class="header" href="#5-3">5</a></h2>
+<h2 id="5-4"><a class="header" href="#5-4">5</a></h2>
 <p>译自<a href="https://docs.nats.io/nats-concepts/service_infrastructure#virtualization-and-containerization-considerations">Virtualization and containerization considerations</a>。</p>
 <blockquote>
 <p>嗯你当然可以用容器编排系统，诸如Kubernetes，Nomad或Docker Swarm来部署你的NATS服务器基础设施，的确也有非常多的人如是做，我们的推荐是，对
@@ -483,7 +527,7 @@ NATS服务基础设施只是：基础设施。意思是它最好运行在和你�
 <div class="footnote-definition" id="1"><sup class="footnote-definition-label">1</sup>
 <p><code>iptables -t nat -A PREROUTING -p tcp -j REDIRECT ...</code></p>
 </div>
-<h2 id="6-3"><a class="header" href="#6-3">6</a></h2>
+<h2 id="6-4"><a class="header" href="#6-4">6</a></h2>
 <p>译自<a href="https://bravenewgeek.com/dissecting-message-queues/">Dissecting Message Queues</a>：</p>
 <blockquote>
 <p>现在我们看看代理消息队列。</p>

@@ -188,6 +188,50 @@
 </ol>
 </li>
 </ol>
+<h2 id="4"><a class="header" href="#4">4</a></h2>
+<p>虚拟现实（Virtual Reality）需要：</p>
+<ol>
+<li>构建，</li>
+<li>运行。</li>
+</ol>
+<p>游戏引擎作用于虚拟现实的运行时态。虚拟现实构建以现实为模版生成现实的虚拟，这些虚拟也是游戏引擎所需要的。</p>
+<h2 id="5"><a class="header" href="#5">5</a></h2>
+<p>英伟达Omniverse解决虚拟现实的构建问题：</p>
+<ol>
+<li>基于USD框架构建多人，多工具协作的载体，</li>
+<li>构建Nucleus平台提供以数据为中心的协作，</li>
+<li>提供虚拟物交流的平台。</li>
+</ol>
+<p>总体还是在虚拟现实构建这一面，虚拟现实运行还是在各个游戏引擎里，比如：</p>
+<ol>
+<li>Unreal（虚幻），</li>
+<li>Unity，</li>
+<li>O3DE
+等。</li>
+</ol>
+<h2 id="6"><a class="header" href="#6">6</a></h2>
+<p>游戏引擎的诸般计算要在1/30秒（或1/60秒，1/120秒）内完成，对算法性能要求极高。再好的算法，如不能在1/30秒内完成，也没有用。再好的架构，如果不能突破33.3毫秒的延迟，也用不上。因此：</p>
+<ol>
+<li>虚拟现实运行时渲染只能在本地完成，</li>
+<li>云渲染可以用以构建虚拟现实，</li>
+<li>运渲染不可以用在虚拟现实的运行时。</li>
+</ol>
+<h2 id="7"><a class="header" href="#7">7</a></h2>
+<p>实时通讯（RTC，Real Time Communication）有三个重要参数：</p>
+<ol>
+<li>可达带宽，</li>
+<li>不可见时延，</li>
+<li>可忍受丢包率。</li>
+</ol>
+<p>实时通讯研究如何在可忍受丢包率，不可见时延（小于33.3毫秒）条件下达到最大带宽的问题。</p>
+<p>实时通讯的主要场景有：</p>
+<ol>
+<li>云直播，</li>
+<li>云会议，</li>
+<li>云办公，</li>
+<li>云游戏。</li>
+</ol>
+<p>这几个场景都受不可见时延（1/30秒）严格管束：说一个不能在1/30秒内送达的包，是没有意义的。</p>
 
                     </main>
 					<!-- script src="https://utteranc.es/client.js" repo="nanjj/nanjj.github.io" issue-term="pathname" crossorigin="anonymous"></script-->
