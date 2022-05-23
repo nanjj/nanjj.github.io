@@ -150,99 +150,73 @@
                     <main>
                         <div style="text-align: right"><code>2022年05月08日 星期日 下午</code></div>
 <h2 id="0"><a class="header" href="#0">0</a></h2>
-<p>游戏引擎要构建一个虚拟现实（Virtual Reality），在此虚拟现实中，人们可以像在现实世界中一样：</p>
+<p>游戏引擎要构建一个虚拟现实（Virtual Reality）世界。此世界是虚拟的，万物以数字形式存在；此世界是现实的，万物拟现实以存在。 现实的要素：</p>
 <ol>
-<li>游戏，</li>
-<li>社交，</li>
-<li>工作，</li>
-<li>生活。</li>
+<li>时间，</li>
+<li>空间，</li>
+<li>声音。</li>
 </ol>
+<p>花香，美味暂时不管。</p>
 <h2 id="1"><a class="header" href="#1">1</a></h2>
-<p>在下一刻普朗克时间（\(10^{-43}\)秒）来临之前，现实世界的所有动作要在当下的普朗克时间内完成。这些动作包括但不限于：</p>
+<p>虚拟现实以1/30秒每帧的速度滴答前行。在此1/30秒，游戏引擎要为下1/30秒准备好：</p>
 <ol>
-<li>物体的位移，</li>
-<li>声音，气味，光的发出和传播，</li>
-<li>光与物质的相互作用（折射、反射），</li>
-<li>物质分布决定时空曲率的变化，</li>
-<li>量子效应有关的人（或动物）的诸般心理变化，</li>
-<li>风中树叶摆动，草的起伏，海浪，云与月亮关系等，</li>
-<li>对芸芸众生（观察者）不同视角的渲染。</li>
+<li>万物的运动，生命值，组合与拆分，以及相互作用，</li>
+<li>万物的表面纹理，反射这是，</li>
+<li>环境渲染，</li>
+<li>万物的声音渲染。</li>
 </ol>
-<p>普朗克时间\(10^{-30}\)秒是一个极短的时间，我们的世界运动如常，可见造物主（如果存在的话）高效如斯。</p>
+<p>虚拟现实两个状态：</p>
+<ol>
+<li>构建态，</li>
+<li>运行时。</li>
+</ol>
 <h2 id="2"><a class="header" href="#2">2</a></h2>
-<p>按每秒30帧算，游戏引擎的最小时间间隔是33.3毫秒。在33.3毫秒内，游戏引擎要完成：</p>
-<ol>
-<li>游戏对象的物理，包括但不限于：
-<ol>
-<li>游戏对象的空间变化，</li>
-<li>游戏对象的生命值，</li>
-<li>游戏对象的组合与拆分，</li>
-<li>游戏对象之间的相互作用，</li>
-</ol>
-</li>
-<li>虚拟世界的渲染，包括但不限于：
-<ol>
-<li>游戏对象表面纹理，反射折射，</li>
-<li>游戏环境渲染，</li>
-<li>声音的渲染。</li>
-</ol>
-</li>
-</ol>
-<h2 id="4"><a class="header" href="#4">4</a></h2>
-<p>虚拟现实（Virtual Reality）需要：</p>
-<ol>
-<li>构建，</li>
-<li>运行。</li>
-</ol>
-<p>游戏引擎作用于虚拟现实的运行时态。虚拟现实构建以现实为模版生成现实的虚拟，这些虚拟也是游戏引擎所需要的。</p>
-<h2 id="5"><a class="header" href="#5">5</a></h2>
 <p>英伟达Omniverse解决虚拟现实的构建问题：</p>
 <ol>
 <li>基于USD框架构建多人，多工具协作的载体，</li>
 <li>构建Nucleus平台提供以数据为中心的协作，</li>
 <li>提供虚拟物交流的平台。</li>
 </ol>
-<p>总体还是在虚拟现实构建这一面，虚拟现实运行还是在各个游戏引擎里，比如：</p>
+<p>云渲染，渲染的操作发生在云端。云渲染管理云端GPU资源：</p>
 <ol>
-<li>Unreal（虚幻），</li>
-<li>Unity，</li>
-<li>O3DE
-等。</li>
+<li>多GPU协作，</li>
+<li>多渲染调度。</li>
 </ol>
-<h2 id="6"><a class="header" href="#6">6</a></h2>
-<p>游戏引擎的诸般计算要在1/30秒（或1/60秒，1/120秒）内完成，对算法性能要求极高。再好的算法，如不能在1/30秒内完成，也没有用。再好的架构，如果不能突破33.3毫秒的延迟，也用不上。因此：</p>
-<ol>
-<li>虚拟现实运行时渲染只能在本地完成，</li>
-<li>云渲染可以用以构建虚拟现实，</li>
-<li>运渲染不可以用在虚拟现实的运行时。</li>
-</ol>
-<h2 id="7"><a class="header" href="#7">7</a></h2>
-<p>实时通讯（RTC，Real Time Communication）有三个重要参数：</p>
-<ol>
-<li>可达带宽，</li>
-<li>不可见时延，</li>
-<li>可忍受丢包率。</li>
-</ol>
-<p>实时通讯研究如何在可忍受丢包率，不可见时延（小于33.3毫秒）条件下达到最大带宽的问题。</p>
-<p>实时通讯的主要场景有：</p>
-<ol>
-<li>云直播，</li>
-<li>云会议，</li>
-<li>云办公，</li>
-<li>云游戏。</li>
-</ol>
-<p>这几个场景都受不可见时延（1/30秒）严格管束：说一个不能在1/30秒内送达的包，是没有意义的。</p>
-<h2 id="8"><a class="header" href="#8">8</a></h2>
-<p>端侧，如VR眼镜，要对实时变化的输入视角进行渲染。比如一转头或一抬头，这时间很短，目光掠过的游戏对象都要重新渲染。这些游戏对象也许很大，还可能没有从远端下载下来。这么短的时间临时现下是不可能的。预下载的话体积大，时间长，而且可能永远不会入视野。这时候可以预下载缩略的游戏对象。缩略游戏对象数据是完整游戏对象数据的自己。完整游戏对象数据完全下载下来，缩略的数据会得到重用。缩略可以分层：</p>
-<ol>
-<li>远景轮廓，</li>
-<li>中景轮廓，</li>
-<li>近景轮廓，</li>
-<li>中景细节，</li>
-<li>近景细节。</li>
-</ol>
-<h2 id="9"><a class="header" href="#9">9</a></h2>
-<p>渲染原则上只有一个视角。直播或直播带货的场景可能需要多视角，可以从不同的角度来观看。这时候图像采集端需要有多个相机。原则上可以通过计算得到全息的图像。观众就可以从任意角度观看了。但不知为啥，需求不是很旺盛。</p>
+<h2 id="3"><a class="header" href="#3">3</a></h2>
+<p>BBR (Bottleneck Bandwidth and Round-trip propagation time)是一套拥塞控制算法，适合在一定丢包的弱网环境下使用。</p>
+<p>BBR进入了Linux Kernel 4.9。之前，TCP CUBIC（以及更早的拥塞控制算法），是基于丢包的拥塞控制，一有丢包发生，就减小发送窗口，拥塞控制和可靠传输是耦合的。 BBR解耦了二者：</p>
+<pre><code class="language-c">static void tcp_cong_control(struct sock *sk, u32 ack, u32 acked_sacked,
+			     int flag, const struct rate_sample *rs)
+{
+	const struct inet_connection_sock *icsk = inet_csk(sk);
+
+	if (icsk-&gt;icsk_ca_ops-&gt;cong_control) { // BBR 接手
+		icsk-&gt;icsk_ca_ops-&gt;cong_control(sk, rs);
+		return;
+	}
+
+	if (tcp_in_cwnd_reduction(sk)) {
+		/* Reduce cwnd if state mandates */
+		tcp_cwnd_reduction(sk, acked_sacked, rs-&gt;losses, flag);
+	} else if (tcp_may_raise_cwnd(sk, flag)) {
+		/* Advance cwnd if state allows */
+		tcp_cong_avoid(sk, ack, acked_sacked);
+	}
+	tcp_update_pacing_rate(sk);
+}
+</code></pre>
+<p>BBR只需在服务端启用，客户端无需改动：</p>
+<pre><code class="language-sh">cat &gt; /etc/sysctl.conf.d/bbr.conf &lt;&lt;EOF
+net.core.default_qdisc=fq
+net.ipv4.tcp_congestion_control=bbr
+EOF
+
+sysctl -p
+modprobe tcp_bbr
+</code></pre>
+<p><code>tc</code>工具可以用来模拟传输时延和丢包率：</p>
+<pre><code class="language-sh">tc qdisc add dev eth0 root netem loss 1% latency 25ms
+</code></pre>
 
                     </main>
 					<!-- script src="https://utteranc.es/client.js" repo="nanjj/nanjj.github.io" issue-term="pathname" crossorigin="anonymous"></script-->
