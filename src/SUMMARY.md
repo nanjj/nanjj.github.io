@@ -1,5 +1,6 @@
 # Summary
-- [快捷键](2022/shortcuts.md)
+- [大招](2022/dazhao.md)
+  - [快捷键](2022/shortcuts.md)
   - [游戏引擎](2022/game-engine.md)
   - [Emacs窗口管理](2022/emacs-windows.md)
   - [梁灿彬老师](2022/teacher-liang.md)
