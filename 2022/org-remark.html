@@ -148,25 +148,23 @@
 
                 <div id="content" class="content">
                     <main>
-                        <div style="text-align: right"><code>07/16/22 Saturday  6PM</code></div>
+                        <div style="text-align: right"><code>07/16/22 Saturday  7PM</code></div>
 <h2 id="0"><a class="header" href="#0">0</a></h2>
 <p><a href="https://github.com/nobiot/org-remark">Org Remark</a>是一个Emacs下用<a href="https://orgmode.org">Org Mode</a>对文本文件做标记记笔记的工具。</p>
 <p><img src="org-remark.png" alt="" /></p>
 <h2 id="1"><a class="header" href="#1">1</a></h2>
 <p>这有什么用呢？</p>
-<p>我在精读代码的时候用它来记笔记。就像读书一样，有时候迷惑不解，就先把疑惑记下来。有时候恍然大悟，就把一点心得记下来。这笔记就像读纸质书，写在书边上笔记。就如1621年费马读丢番图的《算术》，读到：</p>
+<p>我在精读代码的时候用它来记笔记。就像读书一样，有时不解，就先把疑惑记下来。有时懂了，就把一点心得记下来。这笔记和读纸质书，写在书边上笔记一样。</p>
+<p>1621年费马读丢番图的《算术》，读到：</p>
 <p>$$
 a^2 + b^2 = c^2
 $$</p>
-<p>有无数组整数解存在，由此想到费马猜想：</p>
-<p>$$
-a^n + b^n = c^n
-$$</p>
-<p>当 n &gt; 2， 整数解不存在。 继而在纸边上写下：</p>
+<p>有无数组整数解存在，由此想到费马猜想：$$a^n + b^n = c^n$$</p>
+<p>当$$n &gt; 2$$时， 整数解不存在。 于是他在纸边写下：</p>
 <blockquote>
 <p>我想到了一个绝妙的证明，但是这里太窄了，写不下。</p>
 </blockquote>
-<p><a href="https://github.com/nobiot/org-remark">Org Remark</a>给的纸边可不窄，整个<a href="https://orgmode.org">Org Mode</a>文件。<a href="https://orgmode.org">Org Mode</a>数学公式的支持也很好，费马再无借口，费马定理或能提前370多年得证。</p>
+<p><a href="https://github.com/nobiot/org-remark">Org Remark</a>给的纸边不窄，<a href="https://orgmode.org">Org Mode</a>数学公式支持也很好，费马再无借口，费马定理或能提前370多年得证。</p>
 <h2 id="2"><a class="header" href="#2">2</a></h2>
 <p><a href="https://github.com/nobiot/org-remark">Org Remark</a>安装配置简单。</p>
 <ol>
@@ -192,32 +190,38 @@ M-x customize-variable org-remark-notes-file-name ~/.emacs.d/marginalia.org
 </code></pre>
 </li>
 </ol>
-<p>笔记文件名我选的绝对路径，也就是说所有笔记都记在一个文件（<code>~/.emacs.d/marginalia.org</code>）。如果你选相对路径，比如<code>marginalia.org</code>，那每个目录都会生成一个<code>marginalia.org</code>文件。阅读源码时候一般都有版本控制Git在，稍有不便。</p>
+<p>笔记文件名我选的绝对路径，也就是说所有笔记都记在一个文件（<code>~/.emacs.d/marginalia.org</code>）。如选相对路径，比如<code>marginalia.org</code>，那每个目录都会生成一个<code>marginalia.org</code>文件。阅读源码时候一般都有版本控制Git在，多一个文件稍有不便。</p>
 <h2 id="3"><a class="header" href="#3">3</a></h2>
 <p>和读书笔记工具一样，<a href="https://github.com/nobiot/org-remark">Org Remark</a>有两个使用模式：</p>
 <ol>
 <li>记笔记，</li>
 <li>读笔记。</li>
 </ol>
+<table><thead><tr><th>功能</th><th>命令</th><th>快捷键</th></tr></thead><tbody>
+<tr><td>标记</td><td><code>M-x org-remark-mark</code></td><td><code>C-c n m</code></td></tr>
+<tr><td>开记</td><td><code>M-x org-remark-open</code></td><td><code>C-c n o</code></td></tr>
+<tr><td>上条</td><td><code>M-x org-remark-prev</code></td><td><code>C-c n [</code></td></tr>
+<tr><td>下条</td><td><code>M-x org-remark-next</code></td><td><code>C-c n ]</code></td></tr>
+<tr><td>删除</td><td><code>M-x org-remark-remove</code></td><td><code>C-c n r</code></td></tr>
+</tbody></table>
 <p>在阅读的时候随手标注：</p>
 <pre><code>    M-x org-remark-mark
 </code></pre>
-<p>快捷键：<code>C-c n m</code>，记下所思所想：</p>
+<p>记下所思所想：</p>
 <pre><code>    M-x org-remark-open
 </code></pre>
-<p>快捷键：<code>C-c n o</code>，在再次阅读的时候看到自己的标记，再次打开：</p>
+<p>再次阅读的时候看到自己的标记，打开：</p>
 <pre><code>    M-x org-remark-open
 </code></pre>
-<p>快捷键：<code>C-c n o</code>，到上一个标记：</p>
+<p>翻到上一个标记：</p>
 <pre><code>    M-x org-remark-prev
 </code></pre>
-<p>快捷键：<code>C-c n [</code>，到下一个标记：</p>
+<p>下一个标记：</p>
 <pre><code>    M-x org-remark-next
 </code></pre>
-<p>快捷键：<code>C-c n ]</code>，如果看到有些不实（比如费马看到自己的标注），可以删掉：</p>
+<p>如果看到有些不实（比如费马看到自己的标注），可以删掉：</p>
 <pre><code>    M-x org-remark-remove
 </code></pre>
-<p>快捷键：<code>C-c n r</code>。</p>
 <h2 id="4"><a class="header" href="#4">4</a></h2>
 <p>这些笔记是用文本格式的<a href="https://orgmode.org">Org Mode</a>所写，一些有价值的东西将来方便整理出来，就如本篇文档一样。</p>
 
