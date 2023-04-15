@@ -1,5 +1,6 @@
 # Summary
-- [西行漫记](2023/west-wandering.md)
+- [大模型云](2023/fabrice-bellard-text-synth.md)
+  - [西行漫记](2023/west-wandering.md)
   - [庆生](2023/happy-birthday.md)
   - [诗品](2023/poem-nature.md)
   - [还乡记](2023/backing-hometown.md)
