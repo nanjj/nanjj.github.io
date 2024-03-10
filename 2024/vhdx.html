@@ -1,0 +1,313 @@
+<!DOCTYPE HTML>
+<html lang="zh_CN" class="sidebar-visible no-js light">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>VHDX</title>
+
+
+        <!-- Custom HTML head -->
+        
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff" />
+
+        <link rel="icon" href="../favicon.svg">
+        <link rel="shortcut icon" href="../favicon.png">
+        <link rel="stylesheet" href="../css/variables.css">
+        <link rel="stylesheet" href="../css/general.css">
+        <link rel="stylesheet" href="../css/chrome.css">
+        <link rel="stylesheet" href="../css/print.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="../FontAwesome/css/font-awesome.css">
+        <link rel="stylesheet" href="../fonts/fonts.css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="../highlight.css">
+        <link rel="stylesheet" href="../tomorrow-night.css">
+        <link rel="stylesheet" href="../ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+
+        <!-- MathJax -->
+        <!-- <script defer type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script> -->
+		<script id="MathJax-script" async src="../mathjax/es5/tex-mml-chtml.js"></script>
+    </head>
+    <body>
+        <!-- Provide site root to javascript -->
+        <script type="text/javascript">
+            var path_to_root = "../";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
+        </script>
+
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script type="text/javascript">
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script type="text/javascript">
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            var html = document.querySelector('html');
+            html.classList.remove('no-js')
+            html.classList.remove('light')
+            html.classList.add(theme);
+            html.classList.add('js');
+        </script>
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script type="text/javascript">
+            var html = document.querySelector('html');
+            var sidebar = 'hidden';
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'hidden';
+            }
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <div class="sidebar-scrollbox">
+                <ol class="chapter"><li class="chapter-item expanded "><a href="../2024/vhdx.html" class="active"><strong aria-hidden="true">1.</strong> VHDX</a><a class="toggle"><div>❱</div></a></li><li><ol class="section"><li class="chapter-item "><a href="../2024/2023.html"><strong aria-hidden="true">1.1.</strong> 2023</a></li></ol></li><li class="chapter-item "><a href="../2023/tectonic.html"><strong aria-hidden="true">2.</strong> Tectonic</a><a class="toggle"><div>❱</div></a></li><li><ol class="section"><li class="chapter-item "><a href="../2023/edge.html"><strong aria-hidden="true">2.1.</strong> 边缘</a></li><li class="chapter-item "><a href="../2023/cloudnative.html"><strong aria-hidden="true">2.2.</strong> 云原生</a></li><li class="chapter-item "><a href="../2023/fabrice-bellard-text-synth.html"><strong aria-hidden="true">2.3.</strong> 大模型云</a></li><li class="chapter-item "><a href="../2023/west-wandering.html"><strong aria-hidden="true">2.4.</strong> 西行漫记</a></li><li class="chapter-item "><a href="../2023/happy-birthday.html"><strong aria-hidden="true">2.5.</strong> 庆生</a></li><li class="chapter-item "><a href="../2023/poem-nature.html"><strong aria-hidden="true">2.6.</strong> 诗品</a></li><li class="chapter-item "><a href="../2023/backing-hometown.html"><strong aria-hidden="true">2.7.</strong> 还乡记</a></li></ol></li><li class="chapter-item "><a href="../2022/cloud-init.html"><strong aria-hidden="true">3.</strong> 云始</a><a class="toggle"><div>❱</div></a></li><li><ol class="section"><li class="chapter-item "><a href="../2022/org-remark.html"><strong aria-hidden="true">3.1.</strong> Org Remark</a></li><li class="chapter-item "><a href="../2022/twin-prime.html"><strong aria-hidden="true">3.2.</strong> 孪生质数</a></li><li class="chapter-item "><a href="../2022/dazhao.html"><strong aria-hidden="true">3.3.</strong> 大招</a></li><li class="chapter-item "><a href="../2022/shortcuts.html"><strong aria-hidden="true">3.4.</strong> 快捷键</a></li><li class="chapter-item "><a href="../2022/game-engine.html"><strong aria-hidden="true">3.5.</strong> 游戏引擎</a></li><li class="chapter-item "><a href="../2022/emacs-windows.html"><strong aria-hidden="true">3.6.</strong> Emacs窗口管理</a></li><li class="chapter-item "><a href="../2022/teacher-liang.html"><strong aria-hidden="true">3.7.</strong> 梁灿彬老师</a></li><li class="chapter-item "><a href="../2022/metaverse.html"><strong aria-hidden="true">3.8.</strong> 元宇宙</a></li><li class="chapter-item "><a href="../2022/nats-stories.html"><strong aria-hidden="true">3.9.</strong> NATS故事</a></li><li class="chapter-item "><a href="../2022/old-stories.html"><strong aria-hidden="true">3.10.</strong> 几封旧信</a></li></ol></li><li class="chapter-item "><a href="../2021/ski.html"><strong aria-hidden="true">4.</strong> 滑雪</a><a class="toggle"><div>❱</div></a></li><li><ol class="section"><li class="chapter-item "><a href="../2021/emacs.html"><strong aria-hidden="true">4.1.</strong> Emacs</a></li><li class="chapter-item "><a href="../2021/swimming.html"><strong aria-hidden="true">4.2.</strong> 游泳</a></li><li class="chapter-item "><a href="../2021/recall-whole-life.html"><strong aria-hidden="true">4.3.</strong> 活着与回忆一生</a></li><li class="chapter-item "><a href="../2021/newton.html"><strong aria-hidden="true">4.4.</strong> 牛吃草问题</a></li><li class="chapter-item "><a href="../2021/math-general-education.html"><strong aria-hidden="true">4.5.</strong> 数学通识教育</a></li><li class="chapter-item "><a href="../2021/mdbook-blog.html"><strong aria-hidden="true">4.6.</strong> Mdbook预处理插件</a></li><li class="chapter-item "><a href="../2021/euler.html"><strong aria-hidden="true">4.7.</strong> 欧拉</a></li><li class="chapter-item "><a href="../2021/emacs-rust-mode.html"><strong aria-hidden="true">4.8.</strong> Emacs Rust Mode</a></li><li class="chapter-item "><a href="../2021/rust.html"><strong aria-hidden="true">4.9.</strong> Rust再学习</a></li></ol></li><li class="chapter-item "><a href="../2019/index.html"><strong aria-hidden="true">5.</strong> Gitlab的持续集成</a><a class="toggle"><div>❱</div></a></li><li><ol class="section"><li class="chapter-item "><a href="../2019/hdituil.html"><strong aria-hidden="true">5.1.</strong> Manipulate Mac Disk Images</a></li><li class="chapter-item "><a href="../2019/lxd.html"><strong aria-hidden="true">5.2.</strong> LXD Inside</a></li></ol></li><li class="chapter-item "><a href="../2018/index.html"><strong aria-hidden="true">6.</strong> Go Debug</a></li><li class="chapter-item "><a href="../2017/index.html"><strong aria-hidden="true">7.</strong> My Kids</a><a class="toggle"><div>❱</div></a></li><li><ol class="section"><li class="chapter-item "><a href="../2017/tips.html"><strong aria-hidden="true">7.1.</strong> Some Tips</a></li><li class="chapter-item "><a href="../2017/freebsd-cloud.html"><strong aria-hidden="true">7.2.</strong> FreeBSD Cloud Init</a></li><li class="chapter-item "><a href="../2017/arista.html"><strong aria-hidden="true">7.3.</strong> Arista on OpenStack</a></li><li class="chapter-item "><a href="../2017/dummynet.html"><strong aria-hidden="true">7.4.</strong> Dummynet</a></li><li class="chapter-item "><a href="../2017/org-publish.html"><strong aria-hidden="true">7.5.</strong> Org Publish</a></li></ol></li><li class="chapter-item "><a href="../2013/index.html"><strong aria-hidden="true">8.</strong> 青春</a></li><li class="chapter-item "><a href="../2011/index.html"><strong aria-hidden="true">9.</strong> 春游</a><a class="toggle"><div>❱</div></a></li><li><ol class="section"><li class="chapter-item "><a href="../2011/love-long-hair.html"><strong aria-hidden="true">9.1.</strong> 我爱长发飘飘</a></li></ol></li><li class="chapter-item "><a href="../2010/index.html"><strong aria-hidden="true">10.</strong> My 2010</a><a class="toggle"><div>❱</div></a></li><li><ol class="section"><li class="chapter-item "><a href="../2010/maolin.html"><strong aria-hidden="true">10.1.</strong> 毛与林集团的斗争</a></li><li class="chapter-item "><a href="../2010/moving-forward.html"><strong aria-hidden="true">10.2.</strong> 勇往直前</a></li><li class="chapter-item "><a href="../2010/iconv.html"><strong aria-hidden="true">10.3.</strong> 繁简转换</a></li><li class="chapter-item "><a href="../2010/possible.html"><strong aria-hidden="true">10.4.</strong> 侧反</a></li><li class="chapter-item "><a href="../2010/eyed3.html"><strong aria-hidden="true">10.5.</strong> eyeD3</a></li><li class="chapter-item "><a href="../2010/liaozhai.html"><strong aria-hidden="true">10.6.</strong> 聊斋</a></li><li class="chapter-item "><a href="../2010/sudden.html"><strong aria-hidden="true">10.7.</strong> 突然想起</a></li><li class="chapter-item "><a href="../2010/my-orchid.html"><strong aria-hidden="true">10.8.</strong> 兰花</a></li><li class="chapter-item "><a href="../2010/salt.html"><strong aria-hidden="true">10.9.</strong> 微薄之盐</a></li><li class="chapter-item "><a href="../2010/snowing-day.html"><strong aria-hidden="true">10.10.</strong> 最中意的雪天</a></li><li class="chapter-item "><a href="../2010/weekend.html"><strong aria-hidden="true">10.11.</strong> 周末了</a></li><li class="chapter-item "><a href="../2010/yefusword.html"><strong aria-hidden="true">10.12.</strong> 野夫的文字</a></li><li class="chapter-item "><a href="../2010/gonggong.html"><strong aria-hidden="true">10.13.</strong> 共工</a></li><li class="chapter-item "><a href="../2010/grass.html"><strong aria-hidden="true">10.14.</strong> 草在结它的种子</a></li><li class="chapter-item "><a href="../2010/old-friend.html"><strong aria-hidden="true">10.15.</strong> 故人</a></li><li class="chapter-item "><a href="../2010/pigeon.html"><strong aria-hidden="true">10.16.</strong> 鸽子</a></li><li class="chapter-item "><a href="../2010/talking-death.html"><strong aria-hidden="true">10.17.</strong> 民不聊生</a></li><li class="chapter-item "><a href="../2010/system.html"><strong aria-hidden="true">10.18.</strong> 系统程序员成长计划</a></li><li class="chapter-item "><a href="../2010/speech-script.html"><strong aria-hidden="true">10.19.</strong> 演讲稿</a></li><li class="chapter-item "><a href="../2010/hushiswords.html"><strong aria-hidden="true">10.20.</strong> 胡适三句话</a></li><li class="chapter-item "><a href="../2010/my-narcissus.html"><strong aria-hidden="true">10.21.</strong> 水仙</a></li><li class="chapter-item "><a href="../2010/my-cousin.html"><strong aria-hidden="true">10.22.</strong> 表哥</a></li><li class="chapter-item "><a href="../2010/dreaming-back-song.html"><strong aria-hidden="true">10.23.</strong> 关于梦回宋朝</a></li><li class="chapter-item "><a href="../2010/sutong.html"><strong aria-hidden="true">10.24.</strong> 苏童河岸</a></li></ol></li><li class="chapter-item "><a href="../2009/index.html"><strong aria-hidden="true">11.</strong> 单翅鸟</a><a class="toggle"><div>❱</div></a></li><li><ol class="section"><li class="chapter-item "><a href="../2009/cicada.html"><strong aria-hidden="true">11.1.</strong> 所谓蝉</a></li><li class="chapter-item "><a href="../2009/our-ancestor.html"><strong aria-hidden="true">11.2.</strong> 我们的祖先</a></li><li class="chapter-item "><a href="../2009/dostoevsky.html"><strong aria-hidden="true">11.3.</strong> 陀思妥耶夫斯基</a></li><li class="chapter-item "><a href="../2009/stories.html"><strong aria-hidden="true">11.4.</strong> 故事汇</a></li><li class="chapter-item "><a href="../2009/that-year.html"><strong aria-hidden="true">11.5.</strong> 那一年</a></li><li class="chapter-item "><a href="../2009/marriage.html"><strong aria-hidden="true">11.6.</strong> 婚姻</a></li><li class="chapter-item "><a href="../2009/lev.html"><strong aria-hidden="true">11.7.</strong> 托尔斯泰与米兰昆德拉</a></li><li class="chapter-item "><a href="../2009/sound-power.html"><strong aria-hidden="true">11.8.</strong> 声音与力量</a></li><li class="chapter-item "><a href="../2009/telling-story.html"><strong aria-hidden="true">11.9.</strong> 叙事</a></li><li class="chapter-item "><a href="../2009/xuanyuan.html"><strong aria-hidden="true">11.10.</strong> 轩辕</a></li><li class="chapter-item "><a href="../2009/cat-trust.html"><strong aria-hidden="true">11.11.</strong> 猫信</a></li><li class="chapter-item "><a href="../2009/relats.html"><strong aria-hidden="true">11.12.</strong> 范德瓦尔斯力</a></li><li class="chapter-item "><a href="../2009/who.html"><strong aria-hidden="true">11.13.</strong> 谁是谁</a></li><li class="chapter-item "><a href="../2009/my-cat.html"><strong aria-hidden="true">11.14.</strong> 我的猫</a></li><li class="chapter-item "><a href="../2009/my-group.html"><strong aria-hidden="true">11.15.</strong> 我的团长我的团</a></li><li class="chapter-item "><a href="../2009/cat-not-easy.html"><strong aria-hidden="true">11.16.</strong> 猫不易</a></li><li class="chapter-item "><a href="../2009/about-two.html"><strong aria-hidden="true">11.17.</strong> 关于二</a></li><li class="chapter-item "><a href="../2009/to-lev.html"><strong aria-hidden="true">11.18.</strong> 致列夫·托尔斯泰</a></li><li class="chapter-item "><a href="../2009/my-vine.html"><strong aria-hidden="true">11.19.</strong> 我的葡萄树</a></li></ol></li><li class="chapter-item "><a href="../2008/index.html"><strong aria-hidden="true">12.</strong> 白鲸</a><a class="toggle"><div>❱</div></a></li><li><ol class="section"><li class="chapter-item "><a href="../2008/archimedes.html"><strong aria-hidden="true">12.1.</strong> 阿基米德</a></li><li class="chapter-item "><a href="../2008/elder.html"><strong aria-hidden="true">12.2.</strong> 父辈</a></li><li class="chapter-item "><a href="../2008/meaning-of-love.html"><strong aria-hidden="true">12.3.</strong> 爱情的意义</a></li><li class="chapter-item "><a href="../2008/a-friend.html"><strong aria-hidden="true">12.4.</strong> 一个朋友</a></li><li class="chapter-item "><a href="../2008/read-zhuangzi.html"><strong aria-hidden="true">12.5.</strong> 读庄子</a></li><li class="chapter-item "><a href="../2008/villages.html"><strong aria-hidden="true">12.6.</strong> 村庄</a></li><li class="chapter-item "><a href="../2008/black-white-iron.html"><strong aria-hidden="true">12.7.</strong> 黑白铁</a></li></ol></li><li class="chapter-item "><a href="../2007/index.html"><strong aria-hidden="true">13.</strong> 测试驱动学习模式</a><a class="toggle"><div>❱</div></a></li><li><ol class="section"><li class="chapter-item "><a href="../2007/hunduns-death-faqs.html"><strong aria-hidden="true">13.1.</strong> 混沌之死问题集锦</a></li><li class="chapter-item "><a href="../2007/hunduns-death.html"><strong aria-hidden="true">13.2.</strong> 混沌之死</a></li><li class="chapter-item "><a href="../2007/emacs-ghost.html"><strong aria-hidden="true">13.3.</strong> Emacs里的有幽灵</a></li><li class="chapter-item "><a href="../2007/a-remote-friend.html"><strong aria-hidden="true">13.4.</strong> 记远方的一个朋友</a></li><li class="chapter-item "><a href="../2007/suolinnang.html"><strong aria-hidden="true">13.5.</strong> 锁麟囊</a></li><li class="chapter-item "><a href="../2007/chunguimeng.html"><strong aria-hidden="true">13.6.</strong> 春闺梦</a></li><li class="chapter-item "><a href="../2007/knocking-stone.html"><strong aria-hidden="true">13.7.</strong> 碰碑</a></li><li class="chapter-item "><a href="../2007/laozis-stories.html"><strong aria-hidden="true">13.8.</strong> 老子的故事汇</a></li><li class="chapter-item "><a href="../2007/cdrecord.html"><strong aria-hidden="true">13.9.</strong> cdrecord的故事汇</a></li><li class="chapter-item "><a href="../2007/life-too-short.html"><strong aria-hidden="true">13.10.</strong> 手工测试生命太短</a></li></ol></li></ol>
+            </div>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
+        </nav>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky bordered">
+                    <div class="left-buttons">
+                        <button id="sidebar-toggle" class="icon-button" type="button" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </button>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light (default)</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">VHDX</h1>
+
+                    <div class="right-buttons">
+                        <a href="../print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+                        <a href="https://github.com/nanjj/nanjj.github.io" title="Git repository" aria-label="Git repository">
+                            <i id="git-repository-button" class="fa fa-github"></i>
+                        </a>
+
+                    </div>
+                </div>
+
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script type="text/javascript">
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <div style="text-align: right"><code>03/10/24 Sunday  8PM</code></div>
+<h2 id="0"><a class="header" href="#0">0</a></h2>
+<p>VHDX微软有一个三四十页的规范。VHDX的特性：</p>
+<ol>
+<li>固定大小虚拟磁盘，</li>
+<li>动态大小虚拟磁盘，</li>
+<li>差分盘。</li>
+</ol>
+<p><img src="./vhdx001.png" alt="" /></p>
+<p><img src="./vhdx002.png" alt="" /></p>
+<h2 id="1"><a class="header" href="#1">1</a></h2>
+<p>迟子建的《额尔古纳河右岸》我有些读不进去。</p>
+<p><img src="./eerrb.jpg" alt="" /></p>
+<h2 id="2"><a class="header" href="#2">2</a></h2>
+<blockquote>
+<p>我是雨和雪的老熟人了，我有九十岁了。雨雪看老了我，我也把它们给看老了。</p>
+</blockquote>
+<p>还没怎么写就四个“了”。我很难把一场一场的雨雪和老熟人联系起来，我看不到雨雪的皱纹，白发，到底长在哪里。我也想象不出雨雪变老的样子。</p>
+<h2 id="3"><a class="header" href="#3">3</a></h2>
+<p>相较于物理磁盘，差分盘算个新概念，这里稍微展开解释一下。</p>
+<p>创建VHDX：</p>
+<pre><code>DISKPART&gt; create vdisk file=E:\disk00.vhdx type=expandable maximum=30000
+</code></pre>
+<p>创建了一个大小为30G的虚拟磁盘，由于类型是expandable的，文件disk00.vhdx
+大小为3M。</p>
+<p>做下分区（按UEFI启动的操作系统来分区）：</p>
+<pre><code>DISKPART&gt; select vdisk file=E:\disk00.vhdx
+DISKPART&gt; attach vdisk
+DISKPART&gt; gpt
+DISKPART&gt; create partition efi size=512
+DISKPART&gt; format fs=fat
+DISKPART&gt; create partition primary
+DISKPART&gt; format fs=ntfs quick
+</code></pre>
+<p>以disk00.vhdx为母盘，创建一个差分盘disk01.vhdx:</p>
+<pre><code>DISKPART&gt; create vdisk file=E:\disk01.vhdx parent=E:\disk00.vhdx
+</code></pre>
+<p>把差分盘挂上，其分区和母盘一样：</p>
+<pre><code>DISKPART&gt; select vdisk file=E:\vdisk01.vhdx
+DISKPART&gt; attach
+DISKPART&gt; list partition
+</code></pre>
+<p>把其分区挂为卷：</p>
+<pre><code>DISKPART&gt; select partition 1
+DISKPART&gt; assign letter=S
+DISKPART&gt; select partition 2
+DISKPART&gt; assign letter=M
+</code></pre>
+<p>两个盘符（S：，M：）出现，可以进行文件读写。读写产生的文件会留在差分盘。差分盘的大小也基本就是与母盘不同的差分文件的大小。</p>
+<p>一个母盘可以有多个差分盘，而差分盘内容可以各不相同。一个差分盘还可以继续有差分盘，只要指定其为母盘。母盘与其差分盘之间就是树的结构了。因此业有深度的概念。</p>
+<p>差分盘内容可以回写到母盘：</p>
+<pre><code>DISKPART&gt; select vdisk file=E:\vdisk01.vhdx
+DISKPART&gt; detach vdisk
+DISKPART&gt; merge vdisk depth=1
+</code></pre>
+<p>指定的深度为1。差分盘内容回写到母盘后，差分盘就基本是空的了。</p>
+<h2 id="4"><a class="header" href="#4">4</a></h2>
+<blockquote>
+<p>那时额尔古纳河右岸的森林，不仅有遮天蔽日的大树，而且河流遍布。所以很多小河是没有名字的。如今这些小河就像划过天际的流行一样，大部分已经消失。那么就让我在追忆它们的时候，把那条无名的小河，叫堪达罕河吧，因为我第一次见到堪达罕，就是在这条河流上。</p>
+</blockquote>
+<p>我隐隐感觉这里的逻辑，如果有的话，不一致，不严谨，感性而虚伪。遮天蔽日的森林河流遍布，堪达罕可以踏入很多条河流。就是它的粪便，也可能这条小河边落一些，那条小河边有一些。它毕竟是个活泼的动物，要到处跑的嘛。怎么说呢？就像鲁迅讲述闰土猎猹一样，怎不把海边无名沙地叫猹地呢？</p>
+<h2 id="5"><a class="header" href="#5">5</a></h2>
+<p>母盘与其差分盘之间是树的结构。那树就有宽度和高度。先说宽度。比如：</p>
+<pre><code>vdisk00 -- vdisk01
+       `-- vdisk02
+</code></pre>
+<p>vdisk01 和 vdisk02 拥有共同母盘 vdisk00 。都不回写相安无事，vdisk01 一旦回写，vdisk02 就废了，差分不上母盘了。</p>
+<p>最优的选择似乎是不回写。</p>
+<p>微软的虚拟化底座 HyperV，把虚拟机起在拥有共同母盘的子盘上。可以：</p>
+<ol>
+<li>节省些存储，据说可以节省90％存储，</li>
+<li>发放速度也有提高，因为不用重复拷贝母盘。</li>
+</ol>
+<h2 id="6"><a class="header" href="#6">6</a></h2>
+<blockquote>
+<p>妮浩说，金得很善良，他虽然想吊死，但不想害了一棵生机勃勃的树，所以才选择了一棵枯树。</p>
+</blockquote>
+<p>那就得说说什么叫善良了。宁死不害死一棵树，却以死毁了自己的新娘一生，离珍爱自己的父亲而去，留自己好强而内心阴暗的母亲抱恨一世。不知这算不算愚昧呢？</p>
+<h2 id="7"><a class="header" href="#7">7</a></h2>
+<p>FSLogix 做用户配置管理的时候，也用到这一点。但多会话回写母盘就拎不清了。想了很多办法，都不理想。</p>
+<table><thead><tr><th>ProfileType</th><th>会话</th><th>母盘</th><th>远程差分盘</th><th>本地差分盘</th></tr></thead><tbody>
+<tr><td>0</td><td>1</td><td>挂载</td><td>-</td><td>-</td></tr>
+<tr><td></td><td>2</td><td>-</td><td>-</td><td>-</td></tr>
+<tr><td>1</td><td>1</td><td>母盘</td><td>挂载</td><td>-</td></tr>
+<tr><td></td><td>2</td><td>-</td><td>-</td><td>-</td></tr>
+<tr><td>2</td><td>1</td><td>母盘</td><td>-</td><td>挂载</td></tr>
+<tr><td></td><td>2</td><td>母盘</td><td>-</td><td>挂载</td></tr>
+<tr><td>3</td><td>1</td><td>母盘</td><td>挂载</td><td>-</td></tr>
+<tr><td></td><td>2</td><td>母盘</td><td>-</td><td>挂载</td></tr>
+</tbody></table>
+<h2 id="8"><a class="header" href="#8">8</a></h2>
+<blockquote>
+<p>魂灵去了远方的人啊，</p>
+<p>你不要惧怕黑夜，</p>
+<p>这里有一团火光，</p>
+<p>为你的行程照亮。</p>
+</blockquote>
+<p>我不太明白<strong>这里</strong>的火光怎么能照亮<strong>远方</strong>黑夜里人的行程。毕竟火光不是激光。激光也不是为了照明的。 欣赏不了建立在混乱逻辑上精致的美感。</p>
+<h2 id="9"><a class="header" href="#9">9</a></h2>
+<p>微软的操作系统，比如Windows 10，可以直接从VHDX虚拟磁盘启动，当然也可以从差分盘启动。此时：</p>
+<ol>
+<li>母盘需要和差分盘在一个卷上，</li>
+<li>母盘或差分盘不能在远程，</li>
+<li>母盘不能是动态的，而只能是静态的。</li>
+</ol>
+<p>这一系列的限制把思杰逼到了PVS的道路上。</p>
+<p>iSCSI可以把VHDX虚拟磁盘暴露为一个LU（Logical Unit），从操作系统来看就是一个磁盘。使用类似iPXE的Boot Loader可以把虚拟磁盘远程加载，这是无盘工作站的模型。微软有一个Windows iSCSI Target Server，鼓励人结合VHDX差分盘，结合iPXE远程启动，鼓捣无盘工作站。国内很多网吧这么搞。但远程磁盘毕竟性能不好。</p>
+<p>微软在VHDX规范提到似乎存在一个iSCSI Parent Locator，可以把iSCSI LU当作本地差分盘的母盘来用。再考虑微软Mini Filter驱动，冥冥之中，似乎有一个比思杰PVS更优的Diskless方案存在，但还不知道具体在哪里。</p>
+<h2 id="10"><a class="header" href="#10">10</a></h2>
+<p>回到差分盘。不妨把问题更清晰的表述一下。vdisk00同为 差分盘vdisk01和差分盘vdisk02的母盘：</p>
+<pre><code>vdisk00 -- vdisk01
+   | 
+   `------ vdisk02
+</code></pre>
+<p>如果差分盘vdisk01回写母盘vdisk00，那差分盘vdisk02的母盘vdisk00就变化了。差分盘vdisk02就是一个无效虚拟磁盘了：无效磁盘无法挂载。</p>
+<h2 id="11"><a class="header" href="#11">11</a></h2>
+<p><img src="./vhdx003.png" alt="" /></p>
+<p>VHDX是双头的，不仅为了冗余。</p>
+
+                    </main>
+					<!-- script src="https://utteranc.es/client.js" repo="nanjj/nanjj.github.io" issue-term="pathname" crossorigin="anonymous"></script-->
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+
+                            <a rel="next" href="../2024/2023.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+
+                    <a rel="next" href="../2024/2023.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+            </nav>
+
+        </div>
+
+
+
+
+        <script type="text/javascript">
+            window.playground_copyable = true;
+        </script>
+
+
+        <script src="../elasticlunr.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../mark.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../searcher.js" type="text/javascript" charset="utf-8"></script>
+
+        <script src="../clipboard.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../highlight.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../book.js" type="text/javascript" charset="utf-8"></script>
+
+        <!-- Custom JS scripts -->
+
+
+    </body>
+</html>
