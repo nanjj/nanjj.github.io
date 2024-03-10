@@ -1,6 +1,7 @@
 
 ## 0
-VHDX微软有一个三四十页的规范。VHDX的特性：
+[VHDX](https://learn.microsoft.com/zh-cn/openspecs/windows_protocols/ms-vhdx/83e061f8-f6e2-4de1-91bd-5d518a43d477)
+微软有一个三四十页的规范。VHDX的特性：
 1. 固定大小虚拟磁盘，
 2. 动态大小虚拟磁盘，
 3. 差分盘。
