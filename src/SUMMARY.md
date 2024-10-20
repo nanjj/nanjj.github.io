@@ -1,5 +1,6 @@
 # Summary
-- [VHDX](2024/vhdx.md)
+- [Little Tech](2024/little-tech.md)
+  - [VHDX](2024/vhdx.md)
   - [2023](2024/2023.md)
 - [Tectonic](2023/tectonic.md)
   - [边缘](2023/edge.md)
