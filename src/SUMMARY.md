@@ -1,5 +1,6 @@
 # Summary
-- [Little Tech](2024/little-tech.md)
+- [Emacs 中文字体](2024/emacs-chinese-fonts.md)
+  - [Little Tech](2024/little-tech.md)
   - [VHDX](2024/vhdx.md)
   - [2023](2024/2023.md)
 - [Tectonic](2023/tectonic.md)
